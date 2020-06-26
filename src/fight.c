@@ -1837,43 +1837,69 @@ short ris_damage( CHAR_DATA * ch, short dam, int ris )
  */
 ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
 {
-   char log_buf[MAX_STRING_LENGTH];
+   char log_buf[MAX_STRING_LENGTH]; /* original buf -Braska */
    char filename[256];
-   short dameq;
-   short maxdam;
+   short dameq; /* This must do eq damage -Braska */
+   short maxdam; /* Set max damage you can do -Braska */
    bool npcvict;
+   bool kaiopres = FALSE;
+   bool demonpres = FALSE;
    bool loot;
-   int xp_gain;
-   OBJ_DATA *damobj;
+   /* int xp_gain; /* Commented out for pl conversion -Braska */
+   long double xp_gain = 0; /* added for xp to pl conversion -Braska */
+   long double xp_gain_post = 0; /* added for xp to pl conversion -Braska */
+   OBJ_DATA *damobj; /* not sure what object damage is yet -Braska */
    ch_ret retcode;
    short dampmod;
    CHAR_DATA *gch /*, *lch */ ;
    short anopc = 0;  /* # of (non-pkill) pc in a (ch) */
    short bnopc = 0;  /* # of (non-pkill) pc in b (victim) */
+   float xp_mod;
+   long double los = 0;
+   bool preservation = FALSE;
+   bool biopres = FALSE;
+   bool warpres = FALSE;
+   bool immortal = FALSE;
+   ROOM_INDEX_DATA *pRoomIndex;
+   double clothingPlMod = 0;
 
    retcode = rNONE;
 
-   if( !ch )
+   if ( !ch )
    {
       bug( "%s: null ch!", __func__ );
       return rERROR;
    }
 
-   if( !victim )
+   if ( !victim )
    {
       bug( "%s: null victim!", __func__ );
       return rVICT_DIED;
    }
 
-   if( victim->position == POS_DEAD )
+   /* if( victim->position == POS_DEAD ) /* removed for pl conversion -Braska */
+   if( !IS_NPC(ch) && !IS_NPC(victim) )
+      if (ch->pcdata->clan && victim->pcdata->clan )
+	warpres = TRUE;
+
+    if( !IS_NPC(victim) )
+      if( IS_SET(victim->pcdata->flags, PCFLAG_IMMORTALITY) )
+        immortal = TRUE;
+
+    if ( victim->position == POS_DEAD )
       return rVICT_DIED;
 
-   npcvict = IS_NPC( victim );
+	if( xIS_SET( victim->act, ACT_PROTOTYPE )
+	&& !IS_NPC( ch )
+	&& !IS_IMMORTAL( ch ) )
+		return rNONE;
+
+   npcvict = IS_NPC(victim);
 
    /*
     * Check damage types for RIS            -Thoric
     */
-   if( dam && dt != TYPE_UNDEFINED )
+   if ( dam && dt != TYPE_UNDEFINED )
    {
       if( IS_FIRE( dt ) )
          dam = ris_damage( victim, dam, RIS_FIRE );
@@ -1889,23 +1915,20 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
          dam = ris_damage( victim, dam, RIS_DRAIN );
       else if( dt == gsn_poison || IS_POISON( dt ) )
          dam = ris_damage( victim, dam, RIS_POISON );
-      else
-         if( dt == ( TYPE_HIT + DAM_POUND ) || dt == ( TYPE_HIT + DAM_CRUSH )
+      else if( dt == ( TYPE_HIT + DAM_POUND ) || dt == ( TYPE_HIT + DAM_CRUSH )
              || dt == ( TYPE_HIT + DAM_STONE ) || dt == ( TYPE_HIT + DAM_PEA ) )
          dam = ris_damage( victim, dam, RIS_BLUNT );
-      else
-         if( dt == ( TYPE_HIT + DAM_STAB ) || dt == ( TYPE_HIT + DAM_PIERCE )
+      else if( dt == ( TYPE_HIT + DAM_STAB ) || dt == ( TYPE_HIT + DAM_PIERCE )
              || dt == ( TYPE_HIT + DAM_BITE ) || dt == ( TYPE_HIT + DAM_BOLT )
              || dt == ( TYPE_HIT + DAM_DART ) || dt == ( TYPE_HIT + DAM_ARROW ) )
          dam = ris_damage( victim, dam, RIS_PIERCE );
-      else
-         if( dt == ( TYPE_HIT + DAM_SLICE ) || dt == ( TYPE_HIT + DAM_SLASH )
+      else if( dt == ( TYPE_HIT + DAM_SLICE ) || dt == ( TYPE_HIT + DAM_SLASH )
              || dt == ( TYPE_HIT + DAM_WHIP ) || dt == ( TYPE_HIT + DAM_CLAW ) )
          dam = ris_damage( victim, dam, RIS_SLASH );
 
       if( dam == -1 )
       {
-         if( dt >= 0 && dt < num_skills )
+         if( dt >= 0 && dt < num_skills ) /*this says top_sn in dbs -Braska */
          {
             bool found = FALSE;
             SKILLTYPE *skill = skill_table[dt];
@@ -2176,11 +2199,11 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
          if( IS_NPC( ch ) && xIS_SET( ch->attacks, ATCK_TRIP ) && ch->level > 5 && number_percent(  ) < ch->level / 2 )
             trip( ch, victim );
 
-         if( check_parry( ch, victim ) )
+         if( check_parry( ch, victim ) ) /* Not in DBS -Braska */
             return rNONE;
          if( check_dodge( ch, victim ) )
             return rNONE;
-         if( check_tumble( ch, victim ) )
+         if( check_tumble( ch, victim ) ) /* Not in DBS -Braska */
             return rNONE;
       }
 
@@ -2193,7 +2216,7 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
             dampmod = sysdata.dam_mob_vs_mob;
          else
          {
-            if( victim->level < LEVEL_AVATAR )
+            if( victim->level < LEVEL_AVATAR ) /* Not in DBS -Braska */
                dampmod = sysdata.dam_mob_vs_nonav;
             else
                dampmod = sysdata.dam_mob_vs_plr;
@@ -2203,7 +2226,7 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
       {
          if( npcvict )
          {
-            if( ch->level < LEVEL_AVATAR )
+            if( ch->level < LEVEL_AVATAR ) /* Not in DBS -Braska */
                dampmod = sysdata.dam_nonav_vs_mob;
             else
                dampmod = sysdata.dam_plr_vs_mob;
@@ -2212,33 +2235,127 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
             dampmod = sysdata.dam_plr_vs_plr;
       }
 
-      if( dampmod > 0 )
+      if( dampmod > 0 /* && dampmod != 100 */) /* !=100 is in DBS -Braska */
          dam = ( dam * dampmod ) / 100;
    }
 
    /*
     * Code to handle equipment getting damaged, and also support  -Thoric
     * bonuses/penalties for having or not having equipment where hit
+    * added the parts redone by Goku and Karma -Braska
     */
-   if( dam > 10 && dt != TYPE_UNDEFINED )
-   {
-      /*
-       * get a random body eq part 
-       */
-      dameq = number_range( WEAR_LIGHT, WEAR_ANKLE_R );
-      damobj = get_eq_char( victim, dameq );
-      if( damobj )
-      {
-         if( dam > get_obj_resistance( damobj ) && number_bits( 1 ) == 0 )
-         {
-            set_cur_obj( damobj );
-            damage_obj( damobj );
-         }
-         dam -= 5;   /* add a bonus for having something to block the blow */
-      }
-      else
-         dam += 5;   /* add penalty for bare skin! */
-   }
+
+   /* This is the SMAUG way -Braska
+   * if( dam > 10 && dt != TYPE_UNDEFINED )
+   * {
+   *   /*
+   *    * get a random body eq part 
+   *   /* 
+   *   dameq = number_range( WEAR_LIGHT, WEAR_ANKLE_R );
+   *   damobj = get_eq_char( victim, dameq );
+   *   if( damobj )
+   *  {
+   *      if( dam > get_obj_resistance( damobj ) && number_bits( 1 ) == 0 )
+   *      {
+   *         set_cur_obj( damobj );
+   *         damage_obj( damobj );
+   *      }
+   *      dam -= 5;   /* add a bonus for having something to block the blow 
+   *   }
+   *   else
+   *      dam += 5;   /* add penalty for bare skin! 
+   * }
+   * End of SMAUG way -Braska
+   */ 
+   /* This is the DBS Way -Braska */
+
+	dam = dam_armor_recalc(victim, dam);
+
+	// placeholder
+	// The actual dodge check is handled here; the message is done
+	// in dam_message. -Karma
+
+	if( !IS_NPC(victim) && ch->melee )
+	{
+	  int spd = 0;
+	  int check = 0;
+
+	  int att = ((get_attmod(victim,ch)/2) * 10);
+          int revatt = ((get_attmod(ch,victim)/2) * 5);
+          if( att > 100 )
+            att = 100;
+          if( att < 0 )
+            att = 0;
+          if( revatt > 100 )
+            revatt = 100;
+          if( revatt < 0 )
+            revatt = 0;
+
+	  // Checks to see if the ch is faster
+	  if( get_curr_dex(ch) > get_curr_dex(victim) )
+	  {
+	    if( ((float)get_curr_dex(ch) / (float)get_curr_dex(victim)) >= 1.25 )
+	      spd = -5;
+	    if( ((float)get_curr_dex(ch) / (float)get_curr_dex(victim)) >= 1.5 )
+              spd = -10;
+	    if( ((float)get_curr_dex(ch) / (float)get_curr_dex(victim)) >= 2 )
+              spd = -15;
+	    if( ((float)get_curr_dex(ch) / (float)get_curr_dex(victim)) >= 3 )
+              spd = -20;
+	  }
+	  else if( get_curr_dex(ch) < get_curr_dex(victim) )
+          {
+            if( ((float)get_curr_dex(victim) / (float)get_curr_dex(ch)) >= 1.25 )
+              spd = 10;
+            if( ((float)get_curr_dex(victim) / (float)get_curr_dex(ch)) >= 1.5 )
+              spd = 20;
+            if( ((float)get_curr_dex(victim) / (float)get_curr_dex(ch)) >= 2 )
+              spd = 30;
+	    if( ((float)get_curr_dex(victim) / (float)get_curr_dex(ch)) >= 3 )
+              spd = 50;
+          }
+	  else
+	    spd = 0;
+
+	  check = ((20 + spd) + (att - revatt));
+
+	  if( check < 1 )
+	    check = 1;
+	  if( check > 100 )
+	    check = 100;
+
+	  if( victim->pcdata->learned[gsn_dodge] > 0 &&
+	      !IS_SET( victim->pcdata->combatFlags, CMB_NO_DODGE) )
+	  {
+	    if( can_use_skill(victim, number_percent(),gsn_dodge ) )
+	    {
+	      if( number_range(1,100) <= check )
+	      {
+	        dam = 0;
+	        victim->dodge = TRUE;
+		learn_from_success( victim, gsn_dodge );
+	      }
+	      else
+		learn_from_failure( victim, gsn_dodge );
+	    }
+	  }
+	  if( victim->pcdata->learned[gsn_block] > 0 && !victim->dodge
+	      && !IS_SET( victim->pcdata->combatFlags, CMB_NO_BLOCK) )
+	  {
+	    if( can_use_skill(victim, number_percent(),gsn_block ) )
+	    {
+	      if( number_range(1,100) <= check )
+              {
+                dam = 0;
+                victim->block = TRUE;
+		learn_from_success( victim, gsn_block );
+              }
+	      else
+		learn_from_failure( victim, gsn_block );
+	    }
+	  }
+	  ch->melee = FALSE;
+	}
 
    if( ch != victim )
       dam_message( ch, victim, dam, dt );
@@ -2249,22 +2366,308 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
     */
    victim->hit -= dam;
 
+    if( !is_android_h(victim) )
+    { /* added another brace, not sure if this will work now or not -Braska */
+        victim->mana -= URANGE( 0,( ( double ) dam/100 * 0.5 * victim->mana ),victim->max_mana );
+
+        heart_calc(victim, "");
+
+
+        if ( !IS_NPC(victim) && !IS_IMMORTAL(victim))
+        {
+            if ( (victim->pcdata->learned[gsn_ssj] <= 0 && victim->exp >= 8000000)
+                || (victim->pcdata->learned[gsn_ssj] > 0 && victim->pcdata->learned[gsn_ssj2] <= 0 && victim->exp >= 50000000)
+                || (victim->pcdata->learned[gsn_ssj2] > 0 && victim->pcdata->learned[gsn_ssj3] <= 0 && victim->exp >= 500000000)
+                || (victim->pcdata->learned[gsn_ssj3] > 0 && victim->pcdata->learned[gsn_ssj4] <= 0 && victim->exp >= 2000000000)
+                )
+            {
+                if (IS_NPC(ch) || ( !IS_NPC(ch) && !xIS_SET(ch->act, PLR_SPAR) ))
+                {
+                    if ( !IS_NPC(victim) && is_saiyan(victim) )
+                    {
+                        if (dam > 40)
+                            victim->rage += 4;
+                        else if (dam > 30)
+                            victim->rage += 3;
+                        else if (dam > 20)
+                            victim->rage += 2;
+                        else if (dam > 10)
+                            victim->rage += 1;
+                        else
+                            victim->rage += 1;
+                    }
+                    if ( !IS_NPC(victim) && is_hb(victim) ) /* why isn't this an else if? -Braska */
+                    {
+                        if (dam > 40)
+                            victim->rage += 5;
+                        else if (dam > 30)
+                            victim->rage += 4;
+                        else if (dam > 20)
+                            victim->rage += 3;
+                        else if (dam > 10)
+                            victim->rage += 2;
+                        else
+                            victim->rage += 1;
+                    }
+                    if (victim->exp >= 8000000 && victim->pcdata->learned[gsn_ssj] <= 0)
+                        rage(victim, ch);
+                    else if (victim->exp >= 50000000
+                        && victim->pcdata->learned[gsn_ssj] > 0
+                        && victim->pcdata->learned[gsn_ssj2] <= 0 )
+                        rage2(victim, ch);
+                    else if (victim->exp >= 500000000
+                        && victim->pcdata->learned[gsn_ssj2] > 0
+                        && victim->pcdata->learned[gsn_ssj3] <= 0 )
+                        rage3(victim, ch);
+                    else if (victim->exp >= 2000000000
+                        && victim->pcdata->learned[gsn_ssj3] > 0
+                        && victim->pcdata->learned[gsn_ssj4] <= 0 )
+                        rage4(victim, ch);
+                }
+            }
+        }
+    } /* added another brace -Braska */
    /*
     * Get experience based on % of damage done       -Thoric
     */
-   if( dam && ch != victim && !IS_NPC( ch ) && ch->fighting && ch->fighting->xp )
-   {
-      if( ch->fighting->who == victim )
-         xp_gain = ( int )( ch->fighting->xp * dam ) / victim->max_hit;
-      else
-         xp_gain = ( int )( xp_compute( ch, victim ) * 0.85 * dam ) / victim->max_hit;
-      if( dt == gsn_backstab || dt == gsn_circle )
-         xp_gain = ( int )( xp_gain * 0.05 );
-      gain_exp( ch, xp_gain );
-   }
+   /* 
+   * Removing orignial code section here -Braska
+   *if( dam && ch != victim && !IS_NPC( ch ) && ch->fighting && ch->fighting->xp )
+   *{
+   *   if( ch->fighting->who == victim )
+   *      xp_gain = ( int )( ch->fighting->xp * dam ) / victim->max_hit;
+   *   else
+   *      xp_gain = ( int )( xp_compute( ch, victim ) * 0.85 * dam ) / victim->max_hit;
+   *   if( dt == gsn_backstab || dt == gsn_circle )
+   *      xp_gain = ( int )( xp_gain * 0.05 );
+   */ 
+  /* Adding Goku coded PL based xp -Braska */
+    if ( dam && ch != victim && !IS_NPC( ch ) && ch->fighting && ch->fighting->xp && !IS_IMMORTAL(ch) && !IS_IMMORTAL(victim) && !is_split(victim))
+    {
 
-   if( !IS_NPC( victim ) && victim->level >= LEVEL_IMMORTAL && victim->hit < 1 )
-      victim->hit = 1;
+    /*
+    * muhahaha, i make pl go lower!  me am the greetist! -Goku 09.28.04
+    */
+
+    // prevents a lot of overflow pl gains -Goku 09.28.04
+        if (dam > victim->hit + 11)
+            dam = victim->hit + 11;
+        if (dam < 1)
+            dam = 1;
+
+        // lowered all mods by 0.005  it isn't much but it adds up
+        // over time -Goku 09.28.04
+        if (ch->race != 6)
+        {
+            if ( is_saiyan(ch) ) /* Saiyan */
+                xp_mod = 0.655;
+            else if ( is_namek(ch) ) /* Namek */
+                xp_mod = 0.66;
+            else if (ch->race == 19) /* Halfbreed-HB */
+                                xp_mod = 0.685;
+            else if ( is_hb(ch) ) /* Halfbreed */
+                xp_mod = 0.675;
+            else				/* Everyone Else */
+                xp_mod = 0.665;
+        }
+        else
+        {
+            if (ch->pcdata->absorb_pl_mod == 0) /* Saiyan */
+                xp_mod = 0.655;
+            else if (ch->pcdata->absorb_pl_mod == 3) /* Namek */
+                xp_mod = 0.66;
+            else if (ch->pcdata->absorb_pl_mod == 2) /* Halfbreed */
+                xp_mod = 0.675;
+            else if (ch->pcdata->absorb_pl_mod == 6)
+                xp_mod = 0.65;
+            else  /* Everyone Else */
+                xp_mod = 0.665;
+        }
+
+        if ( !IS_NPC(victim) )
+            xp_gain = (long double) dam / 100 * pow(victim->pl, xp_mod);
+        if ( IS_NPC(victim) )
+            xp_gain = (long double) dam / 100 * pow(victim->exp, xp_mod);
+
+        /* Sparing and deadly combat pl gain's */
+        if ( !IS_NPC(ch) && !IS_NPC(victim) && !xIS_SET(ch->act, PLR_SPAR) && !xIS_SET(victim->act, PLR_SPAR))
+        {
+            if (ch->race == 6)
+                xp_mod = (float) xp_mod + 0.03;
+            else
+                xp_mod = (float) xp_mod + 0.01;
+            xp_gain = (long double) dam / 100 * pow(victim->pl, xp_mod);
+        }
+
+        if ( !IS_NPC(ch) && !IS_NPC(victim) && xIS_SET(ch->act, PLR_SPAR) && xIS_SET(victim->act, PLR_SPAR))
+        {
+//				xp_mod = (float) xp_mod - 0.01;
+            xp_mod = (float) xp_mod + 0.00;
+            xp_gain = (long double) dam / 100 * pow(victim->pl, xp_mod);
+        }
+/* PL Gains cut if player is stronger than opponant */
+
+        if ( !IS_NPC(victim)) 
+        {
+            if ((ch->pl / victim->pl) < 3)
+                xp_gain = xp_gain;
+            else if ((ch->pl / victim->pl) < 4)
+                xp_gain *= 0.7;
+            else if ((ch->pl / victim->pl) < 5)
+                xp_gain *= 0.6;
+            else if ((ch->pl / victim->pl) < 6)
+                xp_gain *= 0.5;
+            else if ((ch->pl / victim->pl) < 7)
+                xp_gain *= 0.4;
+            else if ((ch->pl / victim->pl) < 8)
+                xp_gain *= 0.3;
+            else if ((ch->pl / victim->pl) < 9)
+                xp_gain *= 0.2;
+            else if ((ch->pl / victim->pl) < 10)
+                xp_gain *= 0.1;
+            else
+                xp_gain = 0;
+        }
+        if ( IS_NPC(victim)) 
+        {
+            if ((ch->pl / victim->exp) < 3)
+                xp_gain = xp_gain;
+            else if ((ch->pl / victim->exp) < 4)
+                xp_gain *= 0.75;
+            else if ((ch->pl / victim->exp) < 5)
+                xp_gain *= 0.6;
+            else if ((ch->pl / victim->exp) < 6)
+                xp_gain *= 0.5;
+            else if ((ch->pl / victim->exp) < 7)
+                xp_gain *= 0.4;
+            else if ((ch->pl / victim->exp) < 8)
+                xp_gain *= 0.3;
+            else if ((ch->pl / victim->exp) < 9)
+                xp_gain *= 0.2;
+            else if ((ch->pl / victim->exp) < 10)
+                xp_gain *= 0.1;
+            else
+                xp_gain = 0;
+        }
+
+    /* PL Gains cut if player is weaker than opponant */
+
+        if (ch->exp != ch->pl && ch->exp < ch->pl)
+        {
+            int pl_exp = 0;
+
+            pl_exp = (ch->pl / ch->exp);
+            xp_gain = xp_gain -( (long double) pl_exp * 0.025 * xp_gain );
+        }
+
+    /* A little help to get newbies started */
+        if (ch->pl < 2500)
+            xp_gain += 1;
+        if (ch->pl < 5000)
+            xp_gain += 1;
+
+        if (xp_gain < 0)
+            xp_gain = 0;
+
+        if (xIS_SET(ch->in_room->room_flags, ROOM_TIME_CHAMBER) )
+    //			&& number_range(1, 100) < 35)
+        {
+            switch( number_range( 1, 4 ) )
+            {
+                case 1:
+                    xp_gain *= 1;
+                break;
+
+                case 2:
+                    xp_gain *= 1.5;
+                break;
+
+                case 3:
+                    xp_gain *= 2;
+                break;
+
+                case 4:
+                    xp_gain *= 3;
+                break;
+            }
+        }
+
+        if ( ch->race == 6 && !IS_NPC(ch) && !IS_NPC(victim)
+        && xIS_SET(ch->act, PLR_SPAR) && xIS_SET(victim->act, PLR_SPAR))
+        {
+            xp_gain = (long double) xp_gain * 0.75;
+        }
+        if (ch->race == 6 && !xIS_SET(ch->act, PLR_SPAR) && !xIS_SET(victim->act, PLR_SPAR))
+        {
+            ch->pcdata->absorb_pl += floorl( xp_gain ) / 2;
+            xp_gain /= 2;
+        }
+
+        if ((clothingPlMod = weightedClothingPlMod(ch)) > 0)
+            xp_gain += xp_gain * clothingPlMod;
+
+        if (xIS_SET(ch->act, PLR_3XPL_GAIN))
+        {
+            xREMOVE_BIT(ch->act, PLR_3XPL_GAIN);
+            xp_gain *= 3;
+        }
+        else if (xIS_SET(ch->act, PLR_2XPL_GAIN))
+        {
+            xREMOVE_BIT(ch->act, PLR_2XPL_GAIN);
+            xp_gain *= 2;
+        }
+        if( ch->mod == 0 )
+            ch->mod = 1;
+            xp_gain *= ch->mod;
+
+            xp_gain_post = floorl( xp_gain * (long double)( race_table[ch->race]->exp_multiplier/100.0) );
+
+            int a = 0;
+
+        if (is_android(ch) || is_superandroid(ch) )
+        {
+            if (xp_gain_post != 1)
+            {
+                //a = number_range(1,2);
+                a = 1;
+                if( !is_leet(ch) )
+                    sprintf( log_buf, "Your tl increases by %s points.", num_punct_ld(xp_gain_post) );
+                else
+                    sprintf( log_buf, "Omgawd u git %s tee el. hawt!", num_punct_ld(xp_gain_post) );
+                    act( AT_HIT, log_buf, ch, NULL, victim, TO_CHAR );
+            }
+            else
+            {
+                sprintf( log_buf, "Your tl increases by %s point.", num_punct_ld(xp_gain_post) );
+                act( AT_HIT, log_buf, ch, NULL, victim, TO_CHAR );
+            }
+        }
+        else
+        {
+            if (xp_gain_post != 1)
+            {
+                if( !is_leet(ch) )
+                    sprintf( log_buf, "Your pl increases by %s points.", num_punct_ld(xp_gain_post) );
+
+                else
+                    sprintf( log_buf, "Omgawd u git %s pee el. hawt!",num_punct_ld(xp_gain_post) );
+                    act( AT_HIT, log_buf, ch, NULL, victim, TO_CHAR );
+            }
+            else
+            {
+                sprintf( log_buf, "Your pl increases by %s point.", num_punct_ld(xp_gain_post) );
+                act( AT_HIT, log_buf, ch, NULL, victim, TO_CHAR );
+            }
+        }
+
+    gain_exp( ch, xp_gain );
+    }
+
+    if( !IS_NPC( victim ) && victim->level >= LEVEL_IMMORTAL && victim->hit < 1 )
+    {
+        victim->hit = 1;
+        stop_fighting( victim, TRUE );
+    }
 
    /*
     * Make sure newbies dont die 
@@ -2304,65 +2707,213 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
    }
 
    if( !npcvict && get_trust( victim ) >= LEVEL_IMMORTAL && get_trust( ch ) >= LEVEL_IMMORTAL && victim->hit < 1 )
+   {
       victim->hit = 1;
+      stop_fighting( victim, TRUE );
+	}
+
+    if ( !IS_NPC(ch) && !IS_NPC(victim) && xIS_SET(ch->act, PLR_SPAR)
+		&& victim->hit <= 0 )
+    {
+        victim->hit = -1;
+        if ( victim->fighting
+        &&   victim->fighting->who->hunting
+        &&   victim->fighting->who->hunting->who == victim )
+            stop_hunting( victim->fighting->who );
+
+        if ( victim->fighting
+        &&   victim->fighting->who->hating
+        &&   victim->fighting->who->hating->who == victim )
+            stop_hating( victim->fighting->who );
+
+            stop_fighting( victim, TRUE );
+
+        if ( ch->pcdata->clan )
+        {
+            if ( victim->exp < 10000 )           /* 10k */
+                ch->pcdata->clan->spar_wins[0]++;
+            else if ( victim->exp < 100000 )     /* 100k */
+                ch->pcdata->clan->spar_wins[1]++;
+            else if ( victim->exp < 1000000 )    /* 1m */
+                ch->pcdata->clan->spar_wins[2]++;
+            else if ( victim->exp < 10000000 )   /* 10m */
+                ch->pcdata->clan->spar_wins[3]++;
+            else if ( victim->exp < 100000000 )  /* 100m */
+                ch->pcdata->clan->spar_wins[4]++;
+            else if ( victim->exp < 1000000000 ) /* 1b */
+                ch->pcdata->clan->spar_wins[5]++;
+            else                                 /* +1b */
+                ch->pcdata->clan->spar_wins[6]++;
+        }
+        if ( victim->pcdata->clan )
+        {
+            if ( ch->exp < 10000 )           /* 10k */
+                victim->pcdata->clan->spar_loss[0]++;
+            else if ( ch->exp < 100000 )     /* 100k */
+                victim->pcdata->clan->spar_loss[1]++;
+            else if ( ch->exp < 1000000 )    /* 1m */
+                victim->pcdata->clan->spar_loss[2]++;
+            else if ( ch->exp < 10000000 )   /* 10m */
+                victim->pcdata->clan->spar_loss[3]++;
+            else if ( ch->exp < 100000000 )  /* 100m */
+                victim->pcdata->clan->spar_loss[4]++;
+            else if ( ch->exp < 1000000000 ) /* 1b */
+                victim->pcdata->clan->spar_loss[5]++;
+            else                                 /* +1b */
+                victim->pcdata->clan->spar_loss[6]++;
+        }
+        ch->pcdata->spar_wins += 1;
+        victim->pcdata->spar_loss += 1;
+        ch->pcdata->sparcount += 1;
+        victim->pcdata->sparcount += 1;
+        if( ch->pcdata->nextspartime <= 0 )
+        {
+            struct tm *tms;
+
+            tms = localtime(&current_time);
+            tms->tm_mday += 1;
+            ch->pcdata->nextspartime = mktime(tms);
+        }
+        if( victim->pcdata->nextspartime <= 0 )
+        {
+            struct tm *tms;
+
+            tms = localtime(&current_time);
+            tms->tm_mday += 1;
+            victim->pcdata->nextspartime = mktime(tms);
+        }
+        adjust_hiscore( "sparwins", ch, ch->pcdata->spar_wins );
+        adjust_hiscore( "sparloss", victim, victim->pcdata->spar_loss );
+
+        act( AT_WHITE, "You stop fighting and spare $N's life.", ch, NULL, victim, TO_CHAR );
+        act( AT_WHITE, "$n stops fighting and spares your life.", ch, NULL, victim, TO_VICT );
+        act( AT_WHITE, "$n stops fighting and spares $N's life.", ch, NULL, victim, TO_NOTVICT );
+        long double cspar = 0;
+        long double vspar = 0;
+        cspar = ch->exp - ch->spar_start;
+        vspar = victim->exp - victim->spar_start;
+        ch_printf(ch,"&cTotal pl gained this spar: &C%s\n\r",
+                num_punct_ld(cspar) );
+        ch_printf(victim,"&cTotal pl gained this spar: &C%s\n\r",
+                            num_punct_ld(vspar) );
+
+
+        if (!IS_NPC(ch))
+        {
+            switch (number_range(1, 4))
+            {
+                default:
+                break;
+                case 1:
+                    ch->pcdata->tStr -= number_range(0,3);
+                    ch->pcdata->tStr = URANGE(0, ch->pcdata->tStr, 99);
+                break;
+                case 2:
+                    ch->pcdata->tSpd -= number_range(0,3);
+                    ch->pcdata->tSpd = URANGE(0, ch->pcdata->tSpd, 99);
+                break;
+                case 3:
+                    ch->pcdata->tInt -= number_range(0,3);
+                    ch->pcdata->tInt = URANGE(0, ch->pcdata->tInt, 99);
+                break;
+                case 4:
+                    ch->pcdata->tCon -= number_range(0,3);
+                    ch->pcdata->tCon = URANGE(0, ch->pcdata->tCon, 99);
+                break;
+            }
+        }
+
+        if (!IS_NPC(victim))
+        {
+            switch (number_range(1, 4))
+            {
+                default:
+                break;
+                case 1:
+                    victim->pcdata->tStr -= number_range(0,3);
+                    victim->pcdata->tStr = URANGE(0, victim->pcdata->tStr, 99);
+                break;
+                case 2:
+                    victim->pcdata->tSpd -= number_range(0,3);
+                    victim->pcdata->tSpd = URANGE(0, victim->pcdata->tSpd, 99);
+                break;
+                case 3:
+                    victim->pcdata->tInt -= number_range(0,3);
+                    victim->pcdata->tInt = URANGE(0, victim->pcdata->tInt, 99);
+                break;
+                case 4:
+                    victim->pcdata->tCon -= number_range(0,3);
+                    victim->pcdata->tCon = URANGE(0, victim->pcdata->tCon, 99);
+                break;
+            }
+        }
+
+    } 
    update_pos( victim );
 
-   switch ( victim->position )
-   {
-      case POS_MORTAL:
-         act( AT_DYING, "$n is mortally wounded, and will die soon, if not aided.", victim, NULL, NULL, TO_ROOM );
-         act( AT_DANGER, "You are mortally wounded, and will die soon, if not aided.", victim, NULL, NULL, TO_CHAR );
-         break;
+    if (ch->race == 6 && victim->position <= POS_STUNNED && victim->hit < 1
+            && !xIS_SET(ch->act, PLR_SPAR))
+        bio_absorb(ch, victim);
+    else
+        switch( victim->position )
+        {
+            case POS_MORTAL:
+                act( AT_DYING, "$n is mortally wounded, and will die soon, if not aided.", victim, NULL, NULL, TO_ROOM );
+                act( AT_DANGER, "You are mortally wounded, and will die soon, if not aided.", victim, NULL, NULL, TO_CHAR );
+            break;
 
-      case POS_INCAP:
-         act( AT_DYING, "$n is incapacitated and will slowly die, if not aided.", victim, NULL, NULL, TO_ROOM );
-         act( AT_DANGER, "You are incapacitated and will slowly die, if not aided.", victim, NULL, NULL, TO_CHAR );
-         break;
+            case POS_INCAP:
+                act( AT_DYING, "$n is incapacitated and will slowly die, if not aided.", victim, NULL, NULL, TO_ROOM );
+                act( AT_DANGER, "You are incapacitated and will slowly die, if not aided.", victim, NULL, NULL, TO_CHAR );
+            break;
 
-      case POS_STUNNED:
-         if( !IS_AFFECTED( victim, AFF_PARALYSIS ) )
-         {
-            act( AT_ACTION, "$n is stunned, but will probably recover.", victim, NULL, NULL, TO_ROOM );
-            act( AT_HURT, "You are stunned, but will probably recover.", victim, NULL, NULL, TO_CHAR );
-         }
-         break;
+            case POS_STUNNED:
+                if( !IS_AFFECTED( victim, AFF_PARALYSIS ) )
+                {
+                    act( AT_ACTION, "$n is stunned, but will probably recover.", victim, NULL, NULL, TO_ROOM );
+                    act( AT_HURT, "You are stunned, but will probably recover.", victim, NULL, NULL, TO_CHAR );
+                }
+            break;
 
-      case POS_DEAD:
-         if( dt >= 0 && dt < num_skills )
-         {
-            SKILLTYPE *skill = skill_table[dt];
+            case POS_DEAD:
+                if( dt >= 0 && dt < num_skills )
+                {
+                    SKILLTYPE *skill = skill_table[dt];
 
-            if( skill->die_char && skill->die_char[0] != '\0' )
-               act( AT_DEAD, skill->die_char, ch, NULL, victim, TO_CHAR );
-            if( skill->die_vict && skill->die_vict[0] != '\0' )
-               act( AT_DEAD, skill->die_vict, ch, NULL, victim, TO_VICT );
-            if( skill->die_room && skill->die_room[0] != '\0' )
-               act( AT_DEAD, skill->die_room, ch, NULL, victim, TO_NOTVICT );
-         }
-         act( AT_DEAD, "$n is DEAD!!", victim, 0, 0, TO_ROOM );
-         act( AT_DEAD, "You have been KILLED!!\r\n", victim, 0, 0, TO_CHAR );
-         break;
+                    if( skill->die_char && skill->die_char[0] != '\0' )
+                        act( AT_DEAD, skill->die_char, ch, NULL, victim, TO_CHAR );
+                    if( skill->die_vict && skill->die_vict[0] != '\0' )
+                        act( AT_DEAD, skill->die_vict, ch, NULL, victim, TO_VICT );
+                    if( skill->die_room && skill->die_room[0] != '\0' )
+                        act( AT_DEAD, skill->die_room, ch, NULL, victim, TO_NOTVICT );
+                }
+                act( AT_DEAD, "$n is DEAD!!", victim, 0, 0, TO_ROOM );
+                act( AT_DEAD, "You have been KILLED!!\r\n", victim, 0, 0, TO_CHAR );
+            break;
 
-      default:
-         /*
-          * Victim mentalstate affected, not attacker -- oops ;)
-          * Thanks to gfinello@mail.karmanet.it for finding this bug
-          */
-         if( dam > victim->max_hit / 4 )
-         {
-            act( AT_HURT, "That really did HURT!", victim, 0, 0, TO_CHAR );
-            if( number_bits( 3 ) == 0 )
-               worsen_mental_state( victim, 1 );
-         }
-         if( victim->hit < victim->max_hit / 4 )
+            default:
+            /*
+            * Victim mentalstate affected, not attacker -- oops ;)
+            * Thanks to gfinello@mail.karmanet.it for finding this bug
+            */
+            if( dam > victim->max_hit / 4 )
+            {
+                act( AT_HURT, "That really did HURT!", victim, 0, 0, TO_CHAR );
+                if( number_bits( 3 ) == 0 )
+                    worsen_mental_state( victim, 1 );
+            }
+            if( victim->hit < victim->max_hit / 4 )
 
-         {
-            act( AT_DANGER, "You wish that your wounds would stop BLEEDING so much!", victim, 0, 0, TO_CHAR );
-            if( number_bits( 2 ) == 0 )
-               worsen_mental_state( victim, 1 );
-         }
-         break;
-   }
+            {
+                if (is_android(victim))
+	                act( AT_DANGER, "You wish that your wounds would stop leaking oil so much!", victim, 0, 0, TO_CHAR );
+	            else
+                    act( AT_DANGER, "You wish that your wounds would stop BLEEDING so much!", victim, 0, 0, TO_CHAR );
+                if( number_bits( 2 ) == 0 )
+                    worsen_mental_state( victim, 1 );
+            }
+            break;
+        }
 
    /*
     * Sleep spells and extremely wounded folks.
@@ -2391,36 +2942,331 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
 
       group_gain( ch, victim );
 
-      if( !npcvict )
-      {
-         if( !victim->desc )
+        /*
+        * Stuff for handling loss of kai and demon ranks. -Karma
+        */
+        if( !IS_NPC(ch) && !IS_NPC(victim) )
+        {
+            if( is_kaio(ch) && kairanked(victim) )
+            {
+                if( ch->kairank < victim->kairank )
+                {
+                    int lower = 0;
+                    int higher = 0;
+                    sprintf( log_buf ,"%s has stolen %s's kaioshin title %s",
+                        ch->name, victim->name, get_kai(victim) );
+                    to_channel( log_buf, CHANNEL_MONITOR, "Monitor", LEVEL_IMMORTAL );
+                    sprintf(log_buf,"%s has stolen %s's kaioshin title of %s",
+                        ch->name, victim->name, get_kai(victim) );
+                    do_info(ch,log_buf);
+                    lower = ch->kairank;
+                    higher = victim->kairank;
+                    STRFREE( kaioshin[higher-1] );
+                    kaioshin[higher-1] = STRALLOC( ch->name );
+                    ch->kairank = higher;
+                    victim->kairank = lower;
+                    if( victim->kairank == 0 )
+                    {
+                        sprintf(log_buf,"%s is no longer a kaioshin", victim->name );
+                        do_info(ch,log_buf);
+                        if( xIS_SET(victim->affected_by, AFF_SANCTUARY) )
+                            xREMOVE_BIT(victim->affected_by, AFF_SANCTUARY);
+                    }
+                    else
+                    {
+                        sprintf(log_buf,"%s has dropped to kaioshin title %s",
+                        victim->name, get_kai(victim) );
+                        STRFREE( kaioshin[lower-1] );
+                        kaioshin[lower-1] = STRALLOC( victim->name );
+
+                        do_info(ch,log_buf);
+                    }
+                    save_sysdata(sysdata);
+                    save_char_obj(ch);
+                    save_char_obj(victim);
+                }
+                kaiopres = TRUE;
+            } /* End kaiorank loss -Braska */
+
+            if( is_demon(ch) && demonranked(victim) )
+            {
+                if( ch->demonrank < victim->demonrank )
+                {
+                    int lower = 0;
+                    int higher = 0;
+                    bool cg = FALSE, vg = FALSE; // greater demon
+                    bool cw = FALSE, vw = FALSE; // demon warlord
+                    bool vk = FALSE; // demon king
+                    int c = 0;
+                    int d = 0;
+                    int e = 0;
+                    if( demonranked(ch) )
+                    {
+                        if( ch->demonrank == 1 )
+                        {
+                            for( c = 0; c < 6; c++ )
+                            {
+                                if( !str_cmp(greaterdemon[c],ch->name) )
+                                {
+                                    cg = TRUE;
+                                    d = c;
+                                    break;
+                                }
+                            }
+                        }
+                        else if( ch->demonrank == 2 )
+                        {
+                            for( c = 0; c < 3; c++ )
+                            {
+                                if( !str_cmp(demonwarlord[c],ch->name) )
+                                {
+                                    cw = TRUE;
+                                    d = c;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if( demonranked(victim) )
+                    {
+                        if( victim->demonrank == 1 )
+                        {
+                            for( c = 0; c < 6; c++ )
+                            {
+                                if( !str_cmp(greaterdemon[c],victim->name) )
+                                {
+                                    vg = TRUE;
+                                    e = c;
+                                    break;
+                                }
+                            }
+                        }
+                        else if( victim->demonrank == 2 )
+                        {
+                            for( c = 0; c < 3; c++ )
+                            {
+                                if( !str_cmp(demonwarlord[c],victim->name) )
+                                {
+                                    vw = TRUE;
+                                    e = c;
+                                    break;
+                                }
+                            }
+                        }
+                        else if( victim->demonrank == 3 )
+                        {
+                            if( !str_cmp(demonking,victim->name) )
+                            {
+                                vk = TRUE;
+                            }
+                        }
+                    }
+                    sprintf(log_buf,"%s has stolen %s's demon title %s",
+                    ch->name, victim->name, get_demon(victim) );
+                    to_channel( log_buf, CHANNEL_MONITOR, "Monitor", LEVEL_IMMORTAL );
+                    sprintf(log_buf,"%s has stolen %s's demon title of %s",
+                    ch->name, victim->name, get_demon(victim) );
+                    do_info(ch,log_buf);
+                    lower = ch->demonrank;
+                    higher = victim->demonrank;
+                    if( vg )
+                    {
+                        STRFREE( greaterdemon[e] );
+                        greaterdemon[e] = STRALLOC( ch->name );
+                    }
+                    else if( vw )
+                    {
+                        STRFREE( demonwarlord[e] );
+                        demonwarlord[e] = STRALLOC( ch->name );
+                    }
+                    else if( vk )
+                    {
+                        STRFREE( demonking );
+                        demonking = STRALLOC( ch->name );
+                        if( xIS_SET(victim->affected_by, AFF_SANCTUARY) )
+                            xREMOVE_BIT(victim->affected_by, AFF_SANCTUARY);
+                    }
+                    ch->demonrank = higher;
+                    victim->demonrank = lower;
+                    if( victim->demonrank == 0 )
+                    {
+                        sprintf(log_buf,"%s is no longer a demon", victim->name );
+                        do_info(ch,log_buf);
+                    }
+                    else
+                    {
+                        sprintf(log_buf,"%s has dropped to demon title %s",
+                        victim->name, get_demon(victim) );
+                        if( cg )
+                        {
+                            STRFREE( greaterdemon[d] );
+                            greaterdemon[d] = STRALLOC( victim->name );
+                        }
+                        else if( cw )
+                        {
+                            STRFREE( demonwarlord[d] );
+                            demonwarlord[d] = STRALLOC( victim->name );
+                        }
+                        do_info(ch,log_buf);
+                    }
+                    save_sysdata(sysdata);
+                    save_char_obj(ch);
+                    save_char_obj(victim);
+                }
+                demonpres = TRUE;
+            } /* End demonrank loss -Braska */
+        } /* End ranks -Braska */
+
+        /*
+        * Android self-destruct
+        */ 
+        if (!IS_NPC(ch) && (is_bio(ch) || is_android(ch) || is_superandroid(ch) ) && ch->pcdata->learned[gsn_self_destruct] > 0)
+        {
+            if ( ch->exp > ch->pl)
+            {
+                if ( IS_NPC(victim))
+                {
+                    if ( victim->exp >= ch->exp)
+                        ch->pcdata->sd_charge++;
+                }
+                else
+                {
+                    if (victim->pl >= ch->exp)
+                        ch->pcdata->sd_charge++;
+                }
+            }
+            else
+            {
+                if ( IS_NPC(victim))
+                {
+                    if ( victim->exp >= ch->pl)
+                        ch->pcdata->sd_charge++;
+                }
+                else
+                {
+                    if ( victim->pl >= ch->pl)
+                        ch->pcdata->sd_charge++;
+                }
+            }
+        } // end Android self-destruct -Braska
+
+        if (!IS_NPC(ch)) // stat affects during combat? -Braska
+        {
+            switch (number_range(1, 4))
+            {
+            default:
+                break;
+            case 1:
+                ch->pcdata->tStr -= number_range(0,3);
+                ch->pcdata->tStr = URANGE(0, ch->pcdata->tStr, 99);
+                break;
+            case 2:
+                ch->pcdata->tSpd -= number_range(0,3);
+                ch->pcdata->tSpd = URANGE(0, ch->pcdata->tSpd, 99);
+                break;
+            case 3:
+                ch->pcdata->tInt -= number_range(0,3);
+                ch->pcdata->tInt = URANGE(0, ch->pcdata->tInt, 99);
+                break;
+            case 4:
+                ch->pcdata->tCon -= number_range(0,3);
+                ch->pcdata->tCon = URANGE(0, ch->pcdata->tCon, 99);
+                break;
+            }
+        }
+
+        if (!IS_NPC(victim))
+        {
+            switch (number_range(1, 4))
+            {
+            default:
+                break;
+            case 1:
+                victim->pcdata->tStr -= number_range(0,3);
+                victim->pcdata->tStr = URANGE(0, victim->pcdata->tStr, 99);
+                break;
+            case 2:
+                victim->pcdata->tSpd -= number_range(0,3);
+                victim->pcdata->tSpd = URANGE(0, victim->pcdata->tSpd, 99);
+                break;
+            case 3:
+                victim->pcdata->tInt -= number_range(0,3);
+                victim->pcdata->tInt = URANGE(0, victim->pcdata->tInt, 99);
+                break;
+            case 4:
+                victim->pcdata->tCon -= number_range(0,3);
+                victim->pcdata->tCon = URANGE(0, victim->pcdata->tCon, 99);
+                break;
+            }
+        } // end stat effects during combat? -Braska
+
+        if( !npcvict )
+        {
+            /* Bounty stuff begins - Garinan */
+
+            if ( !IS_NPC( ch ) && !IS_NPC( victim ))
+            {
+                victim->pcdata->pk_timer = 0;
+                if  (!str_cmp( victim->name, ch->pcdata->hunting )
+                    && xIS_SET(victim->act, PLR_BOUNTY)
+                    && victim->pcdata->bounty > 0 )
+                {
+                    ch->pcdata->bowed += victim->pcdata->bounty;
+                    ch->pcdata->bkills++;
+                    adjust_hiscore("bounty", ch, ch->pcdata->bkills);
+                    sprintf( log_buf, "You have claimed %d zeni from the head of %s!\n\r", victim->pcdata->bounty, victim->name );
+                    send_to_char( log_buf, ch );
+                    send_to_char( "You may collect your earnings at any bounty officer.&R\n\r", ch );
+                    xREMOVE_BIT(victim->act, PLR_BOUNTY);
+                    victim->pcdata->bounty = 0;
+                    victim->pcdata->b_timeleft = 1440;
+                    DISPOSE(ch->pcdata->hunting);
+                    ch->pcdata->hunting = str_dup( "" );
+                    sprintf( log_buf, "%s has claimed the bounty from the head of %s!", ch->name, victim->name );
+                    do_info( ch, log_buf );
+                }
+                else if  (!str_cmp( ch->name, victim->pcdata->hunting )
+                    && xIS_SET(ch->act, PLR_BOUNTY)
+                    && ch->pcdata->bounty > 0 )
+                {
+                    pager_printf_color( victim, "You have lost the right to take the bounty on %s's head", ch->name );
+                    DISPOSE(victim->pcdata->hunting);
+                    victim->pcdata->hunting = str_dup( "" );
+                }
+            }
+
+            /* Bounty stuff ends - Garinan */
+    
+        if( !victim->desc )
             add_loginmsg( victim->name, 17, ( IS_NPC(ch) ? ch->short_descr : ch->name ) );
 
-         snprintf( log_buf, MAX_STRING_LENGTH, "%s (%d) killed by %s at %d",
-                   victim->name, victim->level, ( IS_NPC( ch ) ? ch->short_descr : ch->name ), victim->in_room->vnum );
-         log_string_plus( log_buf, LOG_ALL, LEVEL_SUPREME );
-         to_channel( log_buf, CHANNEL_DEATH, "Death", LEVEL_IMMORTAL );
+            snprintf( log_buf, MAX_STRING_LENGTH, "%s (%d) killed by %s at %d",
+                    victim->name, victim->level, ( IS_NPC( ch ) ? ch->short_descr : ch->name ), victim->in_room->vnum );
+            log_string_plus( log_buf, LOG_ALL, LEVEL_SUPREME );
+            to_channel( log_buf, CHANNEL_DEATH, "Death", LEVEL_IMMORTAL ); // Send to death channel log -Braska
 
-         if( !IS_NPC( ch ) && !IS_IMMORTAL( ch ) && ch->pcdata->clan
-             && ch->pcdata->clan->clan_type != CLAN_ORDER && ch->pcdata->clan->clan_type != CLAN_GUILD && victim != ch )
-         {
+            /* Did not add the leet death message here.. -Braska */
+
+        if( !IS_NPC( ch ) && !IS_IMMORTAL( ch ) && ch->pcdata->clan
+            && ch->pcdata->clan->clan_type != CLAN_ORDER && ch->pcdata->clan->clan_type != CLAN_GUILD && victim != ch )
+        {
             snprintf( filename, 256, "%s%s.record", CLAN_DIR, ch->pcdata->clan->name );
             snprintf( log_buf, MAX_STRING_LENGTH, "&P(%2d) %-12s &wvs &P(%2d) %s &P%s ... &w%s",
-                      ch->level,
-                      ch->name,
-                      victim->level,
-                      !CAN_PKILL( victim ) ? "&W<Peaceful>" :
-                      victim->pcdata->clan ? victim->pcdata->clan->badge :
-                      "&P(&WUnclanned&P)", victim->name, ch->in_room->area->name );
+                        ch->level,
+                        ch->name,
+                        victim->level,
+                        !CAN_PKILL( victim ) ? "&W<Peaceful>" :
+                        victim->pcdata->clan ? victim->pcdata->clan->badge :
+                        "&P(&WUnclanned&P)", victim->name, ch->in_room->area->name );
             if( victim->pcdata && victim->pcdata->clan && victim->pcdata->clan->name == ch->pcdata->clan->name )
-               ;
+                ;
             else
-               append_to_file( filename, log_buf );
-         }
+                append_to_file( filename, log_buf );
+        }
 
-         if( !IS_NPC( victim ) && !IS_IMMORTAL( victim ) && victim->pcdata->clan
-             && victim->pcdata->clan->clan_type != CLAN_ORDER
-             && victim->pcdata->clan->clan_type != CLAN_GUILD && ch != victim && !IS_NPC( ch ) )
+        if( !IS_NPC( victim ) && !IS_IMMORTAL( victim ) && victim->pcdata->clan
+            && victim->pcdata->clan->clan_type != CLAN_ORDER
+            && victim->pcdata->clan->clan_type != CLAN_GUILD && ch != victim && !IS_NPC( ch ) )
          {
             snprintf( filename, 256, "%s%s.defeats", CLAN_DIR, victim->pcdata->clan->name );
             snprintf( log_buf, MAX_STRING_LENGTH, "&P(%2d) %-12s &wdefeated by &P(%2d) %s &P%s ... &w%s",
@@ -2436,32 +3282,115 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
                append_to_file( filename, log_buf );
          }
 
-         /*
-          * Dying penalty:
+        /*
+          * Dying penalty: SMAUG
           * 1/2 way back to previous level.
           */
-         if( !IS_PKILL( victim ) )  /* August, 2000 */
-         {
-            if( victim->exp > exp_level( victim, victim->level ) )
-               gain_exp( victim, ( exp_level( victim, victim->level ) - victim->exp ) / 2 );
-         }
+         /*
+         *if( !IS_PKILL( victim ) )  // August, 2000
+         *{
+         *   if( victim->exp > exp_level( victim, victim->level ) )
+         *      gain_exp( victim, ( exp_level( victim, victim->level ) - victim->exp ) / 2 );
+         *}
 
          /*
           * New penalty... go back to the beginning of current level.
-          victim->exp = exp_level( victim, victim->level );
+          *victim->exp = exp_level( victim, victim->level );
           */
-      }
-      else if( !IS_NPC( ch ) && IS_NPC( victim ) ) /* keep track of mob vnum killed */
-      {
-         add_kill( ch, victim );
 
-         /*
-          * Add to kill tracker for grouped chars, as well. -Halcyon
-          */
-         for( gch = ch->in_room->first_person; gch; gch = gch->next_in_room )
-            if( is_same_group( gch, ch ) && !IS_NPC( gch ) && gch != ch )
-               add_kill( gch, victim );
-      }
+        /* newer death penality 10.5% pl loss   - Warren */
+
+		if (!IS_IMMORTAL(ch) && !IS_IMMORTAL(victim))
+		{
+            if ( can_use_skill(victim, number_percent(), gsn_preservation ) )
+            {
+                learn_from_success( victim, gsn_preservation );
+                preservation = TRUE;
+            }
+            else
+                learn_from_failure( victim, gsn_preservation );
+
+            if ( can_use_skill(victim, number_percent(),gsn_regeneration ) )
+            {
+                learn_from_success( victim, gsn_regeneration );
+                biopres = TRUE;
+            }
+            else
+                learn_from_failure( victim, gsn_regeneration );
+
+            if( IS_SET(victim->pcdata->flags, PCFLAG_IMMORTALITY) )
+                immortal = TRUE;
+
+            if (!IS_NPC(ch) && !IS_NPC(victim))
+            {
+                if (preservation || biopres )
+                {
+                    if( warpres || immortal )
+                        los = (long double)victim->exp * 0.01;
+                    else if( (kairanked(ch) && demonranked(victim)) ||
+                    (demonranked(ch) && kairanked(victim)) ||
+                    kaiopres || demonpres )
+                        los = (long double)victim->exp * 0.015;
+                    else
+                        los = (long double)victim->exp * 0.02;
+                }
+                else
+                {
+                    if( warpres || immortal )
+                        los = (long double)victim->exp * 0.01;
+                    else if( (kairanked(ch) && demonranked(victim)) ||
+                                (demonranked(ch) && kairanked(victim)) ||
+                    kaiopres || demonpres )
+                        los = (long double)victim->exp * 0.025;
+                    else
+                        los = (long double)victim->exp * 0.03;
+                }
+            }
+            else
+            {
+                if( is_split(ch) )
+                {
+                    if ( immortal )
+                        los = (long double)victim->exp * 0.01;
+                    else if (preservation || biopres )
+                        los = (long double)victim->exp * 0.02;
+                    else
+                        los = (long double)victim->exp * 0.03;
+                }
+                else
+                {
+                    if ( immortal )
+                        los = (long double)victim->exp * 0.01;
+                    else if (preservation || biopres )
+                        los = (long double)victim->exp * 0.03;
+                    else
+                        los = (long double)victim->exp * 0.085;
+                }
+            }
+            gain_exp( victim, 0 - los);
+        }
+
+        if (IS_NPC(ch) && !IS_NPC(victim))
+        {
+            if (is_hunting(ch, victim))
+                stop_hunting( ch );
+
+            if (is_hating(ch, victim))
+                stop_hating( ch );
+        }
+    } // end Payoff for killing things. -Braska
+
+    else if( !IS_NPC( ch ) && IS_NPC( victim ) ) /* keep track of mob vnum killed */
+    {
+        add_kill( ch, victim );
+
+        /*
+        * Add to kill tracker for grouped chars, as well. -Halcyon
+        */
+        for( gch = ch->in_room->first_person; gch; gch = gch->next_in_room )
+        if( is_same_group( gch, ch ) && !IS_NPC( gch ) && gch != ch )
+            add_kill( gch, victim );
+    }
 
       check_killer( ch, victim );
 
@@ -2475,39 +3404,125 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
       else
          loot = FALSE;
 
-      set_cur_char( victim );
-      new_corpse = raw_kill( ch, victim );
-      victim = NULL;
+	if ( !IS_NPC(victim) && !IS_IMMORTAL(victim))
+	{
+        if ( (victim->pcdata->learned[gsn_ssj] <= 0 && victim->exp >= 8000000)
+            || (victim->pcdata->learned[gsn_ssj] > 0 && victim->pcdata->learned[gsn_ssj2] <= 0 && victim->exp >= 50000000)
+            || (victim->pcdata->learned[gsn_ssj2] > 0 && victim->pcdata->learned[gsn_ssj3] <= 0 && victim->exp >= 500000000)
+            || (victim->pcdata->learned[gsn_ssj3] > 0 && victim->pcdata->learned[gsn_ssj4] <= 0 && victim->exp >= 2000000000)
+            )
+        {
+            if ( !IS_NPC(victim) && is_saiyan(victim))
+                victim->rage += 10;
+            if ( !IS_NPC(victim) && is_hb(victim))
+                victim->rage += 15;
+        }
+    }
 
-      if( !IS_NPC( ch ) && loot && new_corpse && new_corpse->item_type == ITEM_CORPSE_NPC
-          && new_corpse->in_room == ch->in_room && can_see_obj( ch, new_corpse ) && ch->position > POS_SLEEPING )
-      {
-         /*
-          * Autogold by Scryn 8/12 
-          */
-         if( xIS_SET( ch->act, PLR_AUTOGOLD ) && !loot_coins_from_corpse( ch, new_corpse ) )
+    if (!IS_NPC(victim) && (preservation || biopres || immortal ))
+    {
+        stop_fighting( victim, TRUE );
+        make_corpse( victim, ch );
+        victim->mana = victim->max_mana;
+        victim->hit = 100;
+        for ( ; ; )
+        {
+            pRoomIndex = get_room_index( number_range( victim->in_room->area->low_r_vnum, victim->in_room->area->hi_r_vnum ) );
+            if ( pRoomIndex )
+            {
+                if ( !xIS_SET(pRoomIndex->room_flags, ROOM_PRIVATE)
+                && !xIS_SET(pRoomIndex->room_flags, ROOM_SOLITARY)
+                && !xIS_SET(pRoomIndex->room_flags, ROOM_NO_ASTRAL)
+                && !xIS_SET(pRoomIndex->room_flags, ROOM_PROTOTYPE)
+            && has_exits(pRoomIndex) )
+                {
+                    break;
+                }
+            }
+        }
+        if ( victim->fighting )
+            stop_fighting( victim, TRUE );
+        if( preservation )
+        {
+            act( AT_RED, "With $n's final ounce of energy, $n coughs up an egg and launches it in to the air!", victim, NULL, NULL, TO_ROOM );
+            send_to_char("&RWith your final ounce of energy, you cough up an egg and launch it in to the air!", victim );
+            char_from_room( victim );
+            char_to_room( victim, pRoomIndex );
+            victim->position = POS_STANDING;
+            act( AT_MAGIC, "An egg falls from the sky creating a small crater as it hits the ground.", victim, NULL, NULL, TO_ROOM );
+            act( AT_MAGIC, "The egg begins to crack open as $n pops out!", victim, NULL, NULL, TO_ROOM );
+            act( AT_MAGIC, "Your egg lands with a THUD!  You break free of your egg and emerge reborn!", victim, NULL, NULL, TO_CHAR );
+        }
+        else if( biopres )
+        {
+            act( AT_DGREEN, "A single cell of $n survives. Within moments, $n begins to regenerate $s body. A shapeless mass of flesh sprouts new legs...new arms...new wings...and a new head. Suddenly, $n is made whole again.", victim, NULL, NULL, TO_ROOM );
+            ch_printf(victim,"&gA single one of your cells survives. Within moments, you begin to regenerate your body. Your shapeless mass of flesh sprouts new legs...new arms...new wings...and a new head. Suddenly, you are made whole again.");
+            victim->position = POS_STANDING;
+        }
+        else if( immortal )
+        {
+            act( AT_WHITE, "As $n lays dead on the floor, $s blood suddenly flows back into $s wounds. $n's wounds heal back up on their own, as $s body glows with a faint, supernatural light. $*s eyes suddenly snap back open as $e is alive again.", victim, NULL, NULL, TO_ROOM );
+            ch_printf(victim,"&WAs you lay dead on the ground, your powers of immortality suddenly\n\r"
+                "kick in. Your blood flows back into your wounds, and they heal up on\n\r"
+                "their own. You begin to feel your body again as you come back to\n\r"
+                "life. You open your eyes and look out at the land of living, rather\n\r"
+                "than the land of the dead.\n\r");
+            victim->position = POS_STANDING;
+        }
+        do_look( victim, "auto" );
+
+        if ( IS_SET( sysdata.save_flags, SV_DEATH ) )
+            save_char_obj( victim );
+    }
+    else
+    {
+        set_cur_char( victim );
+        new_corpse = raw_kill( ch, victim );
+        victim = NULL;
+    }
+
+    if( !IS_NPC( ch ) && loot && new_corpse && new_corpse->item_type == ITEM_CORPSE_NPC
+        && new_corpse->in_room == ch->in_room && can_see_obj( ch, new_corpse ) && ch->position > POS_SLEEPING )
+    {
+        /*
+        * Autogold by Scryn 8/12 
+        */
+        if( xIS_SET( ch->act, PLR_AUTOGOLD ) && !loot_coins_from_corpse( ch, new_corpse ) )
             return rBOTH_DIED;
 
-         if( new_corpse && !obj_extracted( new_corpse ) && new_corpse->in_room == ch->in_room
-             && ch->position > POS_SLEEPING && can_see_obj( ch, new_corpse ) )
-         {
+        if( new_corpse && !obj_extracted( new_corpse ) && new_corpse->in_room == ch->in_room
+            && ch->position > POS_SLEEPING && can_see_obj( ch, new_corpse ) )
+        {
             if( xIS_SET( ch->act, PLR_AUTOLOOT ) )
-               do_get( ch, "all corpse" );
+                do_get( ch, "all corpse" );
             else
-               do_look( ch, "in corpse" );
+                do_look( ch, "in corpse" );
             if( !char_died( ch ) && xIS_SET( ch->act, PLR_AUTOSAC ) && !obj_extracted( new_corpse )
                 && new_corpse->in_room == ch->in_room && ch->position > POS_SLEEPING && can_see_obj( ch, new_corpse ) )
-               do_sacrifice( ch, "corpse" );
-         }
-      }
+                do_sacrifice( ch, "corpse" );
+        }
+    }
 
-      if( IS_SET( sysdata.save_flags, SV_KILL ) )
-         save_char_obj( ch );
-      return rVICT_DIED;
-   }
+    long double cfight = 0;
+	cfight = ch->exp - ch->fight_start;
+	if( cfight == ch->exp )
+	    cfight = 0;
+	if( is_android(ch) || is_superandroid(ch) )
+	    ch_printf(ch,"&cTotal tl gained this fight: &C%s\n\r",
+                        num_punct_ld(cfight) );
+	else
+	    ch_printf(ch,"&cTotal pl gained this fight: &C%s\n\r",
+                        num_punct_ld(cfight) );
 
-   if( victim == ch )
-      return rNONE;
+        ch->fight_start = 0;
+
+    if( IS_SET( sysdata.save_flags, SV_KILL ) )
+        save_char_obj( ch );
+        return rVICT_DIED;
+    }
+
+    if( victim == ch )
+        return rNONE;
 
    /*
     * Take care of link dead people.
@@ -2526,24 +3541,24 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
     */
    if( npcvict && dam > 0 )
    {
-      if( ( xIS_SET( victim->act, ACT_WIMPY ) && number_bits( 1 ) == 0
-            && victim->hit < victim->max_hit / 2 )
-          || ( IS_AFFECTED( victim, AFF_CHARM ) && victim->master && victim->master->in_room != victim->in_room ) )
-      {
-         start_fearing( victim, ch );
-         stop_hunting( victim );
-         do_flee( victim, "" );
-      }
-   }
+        if( ( xIS_SET( victim->act, ACT_WIMPY ) && number_bits( 1 ) == 0
+                && victim->hit < victim->max_hit / 2 )
+            || ( IS_AFFECTED( victim, AFF_CHARM ) && victim->master && victim->master->in_room != victim->in_room ) )
+        {
+            start_fearing( victim, ch );
+            stop_hunting( victim );
+            do_flee( victim, "" );
+        }
+    }
 
-   if( !npcvict && victim->hit > 0 && victim->hit <= victim->wimpy && victim->wait == 0 )
-      do_flee( victim, "" );
-   else if( !npcvict && xIS_SET( victim->act, PLR_FLEE ) )
-      do_flee( victim, "" );
+    if( !npcvict && victim->hit > 0 && victim->hit <= victim->wimpy && victim->wait == 0 )
+        do_flee( victim, "" );
+    else if( !npcvict && xIS_SET( victim->act, PLR_FLEE ) )
+        do_flee( victim, "" );
 
-   tail_chain(  );
-   return rNONE;
-}
+    tail_chain(  );
+    return rNONE;
+} // end of damage, updated with pl effects 20200625 -Braska
 
 /*
  * Changed is_safe to have the show_messg boolian.  This is so if you don't
