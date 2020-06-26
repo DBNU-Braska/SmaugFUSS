@@ -1811,26 +1811,26 @@ ch_ret projectile_hit( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield, OBJ
  */
 short ris_damage( CHAR_DATA * ch, short dam, int ris )
 {
-   short modifier;
+    short modifier;
 
-   modifier = 10;
-   if( IS_SET( ch->immune, ris ) && !IS_SET( ch->no_immune, ris ) )
-      modifier -= 10;
-   if( IS_SET( ch->resistant, ris ) && !IS_SET( ch->no_resistant, ris ) )
-      modifier -= 2;
-   if( IS_SET( ch->susceptible, ris ) && !IS_SET( ch->no_susceptible, ris ) )
-   {
-      if( IS_NPC( ch ) && IS_SET( ch->immune, ris ) )
-         modifier += 0;
-      else
-         modifier += 2;
-   }
-   if( modifier <= 0 )
-      return -1;
-   if( modifier == 10 )
-      return dam;
-   return ( dam * modifier ) / 10;
-}
+    modifier = 10;
+    if( IS_SET( ch->immune, ris ) && !IS_SET( ch->no_immune, ris ) )
+        modifier -= 10;
+    if( IS_SET( ch->resistant, ris ) && !IS_SET( ch->no_resistant, ris ) )
+        modifier -= 2;
+    if( IS_SET( ch->susceptible, ris ) && !IS_SET( ch->no_susceptible, ris ) )
+    {
+        if( IS_NPC( ch ) && IS_SET( ch->immune, ris ) )
+            modifier += 0;
+        else
+            modifier += 2;
+    }
+    if( modifier <= 0 )
+        return -1;
+    if( modifier == 10 )
+        return dam;
+    return ( dam * modifier ) / 10;
+    }
 
 /*
  * Inflict damage from a hit.   This is one damn big function.
