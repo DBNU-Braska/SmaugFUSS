@@ -1037,6 +1037,7 @@ int obj_hitroll( OBJ_DATA * obj )
 
 /*
  * Offensive shield level modifier
+ * No change for DBS -Braska
  */
 short off_shld_lvl( CHAR_DATA * ch, CHAR_DATA * victim )
 {
