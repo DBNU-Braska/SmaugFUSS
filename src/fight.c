@@ -817,6 +817,17 @@ ch_ret multi_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
    int dual_bonus;
    ch_ret retcode;
 
+    if( !IS_NPC(ch) ) // DBS addon -Braska
+    {
+        if( ch->fight_start == 0 )
+          ch->fight_start = ch->exp;
+    }
+    if( !IS_NPC(victim) )  // DBS addon -Braska
+    {
+	if( victim->fight_start == 0 )
+	  victim->fight_start = victim->exp;
+    }
+
    /*
     * add timer to pkillers 
     */
@@ -884,16 +895,29 @@ ch_ret multi_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
       return retcode;
    }
 
+    schance = IS_NPC(ch) ? ch->level
+	   : (int) ((LEARNED(ch, gsn_tail_attack)+dual_bonus)/1.5);
+    if ( number_percent( ) < schance )
+    {
+	    learn_from_success( ch, gsn_tail_attack );
+	    retcode = one_hit( ch, victim, dt );
+	if ( retcode != rNONE || who_fighting( ch ) != victim )
+	    return retcode;
+    }
+    else
+	    learn_from_failure( ch, gsn_tail_attack );
+   
    schance = IS_NPC( ch ) ? ch->level : ( int )( ( LEARNED( ch, gsn_second_attack ) + dual_bonus ) / 1.5 );
    if( number_percent(  ) < schance )
    {
-      learn_from_success( ch, gsn_second_attack );
-      retcode = one_hit( ch, victim, dt );
-      if( retcode != rNONE || who_fighting( ch ) != victim )
-         return retcode;
+       
+        learn_from_success( ch, gsn_second_attack );
+        retcode = one_hit( ch, victim, dt );
+        if( retcode != rNONE || who_fighting( ch ) != victim )
+            return retcode;
    }
    else
-      learn_from_failure( ch, gsn_second_attack );
+        learn_from_failure( ch, gsn_second_attack );
 
    schance = IS_NPC( ch ) ? ch->level : ( int )( ( LEARNED( ch, gsn_third_attack ) + ( dual_bonus * 1.5 ) ) / 2 );
    if( number_percent(  ) < schance )
