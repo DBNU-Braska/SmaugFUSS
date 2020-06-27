@@ -1074,6 +1074,10 @@ ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
    int victim_ac, thac0, thac0_00, thac0_32, plusris, dam, diceroll, attacktype, cnt, prof_bonus, prof_gsn = -1;
    ch_ret retcode = rNONE;
    static bool dual_flip = FALSE;
+   double attmod = 0.000; // added from DBS -Braska
+   // int baseToHit = 0; // added from DBS but not using as left in the armor rating -Braska
+
+   attmod = get_attmod(ch, victim);  // added from DBS -Braska
 
    /*
     * Can't beat a dead char!
@@ -1082,6 +1086,7 @@ ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
    if( victim->position == POS_DEAD || ch->in_room != victim->in_room )
       return rVICT_DIED;
 
+    ch->melee = TRUE; // added from DBS -Braska
    used_weapon = NULL;
    /*
     * Figure out the weapon doing the damage         -Thoric
@@ -1103,7 +1108,7 @@ ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
    used_weapon = wield;
 
    if( wield )
-      prof_bonus = weapon_prof_bonus_check( ch, wield, &prof_gsn );
+      prof_bonus = weapon_prof_bonus_check( ch, wield, &prof_gsn ); // In DBS this = 0 -Braska
    else
       prof_bonus = 0;
 
@@ -1174,6 +1179,7 @@ ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
 
    /*
     * Calculate to-hit-armor-class-0 versus armor.
+    * DBS has a percent to hit calculation here.. I did not add it. -Braska
     */
    if( IS_NPC( ch ) )
    {
@@ -1243,13 +1249,28 @@ ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
     * Calc damage.
     */
 
-   if( !wield )   /* bare hand dice formula fixed by Thoric */
+    if( !wield )   /* bare hand dice formula fixed by Thoric */
+    {
+        if( is_android(ch) || is_superandroid(ch) ) // Added Android dmg with fix from below 20200627 -Braska
+		    dam = number_range( ch->barenumdie, (ch->baresizedie) * (ch->barenumdie+1) ) + ch->damplus;
+        else
       /*
        * Fixed again by korbillian@mud.tka.com 4000 (Cold Fusion Mud) 
        */
-      dam = number_range( ch->barenumdie, ch->baresizedie * ch->barenumdie ) + ch->damplus;
-   else
-      dam = number_range( wield->value[1], wield->value[2] );
+        dam = number_range( ch->barenumdie, ch->baresizedie * ch->barenumdie ) + ch->damplus;
+    else
+        dam = number_range( wield->value[1], wield->value[2] );
+
+    /*
+     * DBS Calculate Damage Modifiers Based on strength and con
+     */
+	dam += get_damroll(ch);
+	if (dt == TYPE_HIT)
+		dam -= get_strDef(victim);
+	dam -= get_conDef(victim);
+
+	if (dam < 0)
+		dam = 0;
 
    /*
     * Bonuses.
@@ -1259,6 +1280,14 @@ ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
    if( prof_bonus )
       dam += prof_bonus / 4;
 
+    /*
+     * DBS Max Damage Possable.
+     */
+    if ( dam * attmod > 999999999 )
+		dam = 999999999;
+	else
+		dam *= attmod ;
+
    /*
     * Calculate Damage Modifiers from Victim's Fighting Style
     */
@@ -1267,17 +1296,29 @@ ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
    else if( victim->position == POS_AGGRESSIVE )
       dam = ( int )( 1.1 * dam );
    else if( victim->position == POS_DEFENSIVE )
+   {
       dam = ( int )( .85 * dam );
+      learn_from_success( victim, gsn_style_defensive ); // DBS addon -Braska
+   }
    else if( victim->position == POS_EVASIVE )
-      dam = ( int )( .8 * dam );
+    {
+        dam = ( int )( .8 * dam );
+        learn_from_success( victim, gsn_style_evasive ); // DBS addon -Braska
+    }
 
    /*
     * Calculate Damage Modifiers from Attacker's Fighting Style
     */
    if( ch->position == POS_BERSERK )
-      dam = ( int )( 1.2 * dam );
+   {
+        dam = ( int )( 1.2 * dam );
+        learn_from_success( ch, gsn_style_berserk ); // DBS addon -Braska
+   }
    else if( ch->position == POS_AGGRESSIVE )
-      dam = ( int )( 1.1 * dam );
+    {
+        dam = ( int )( 1.1 * dam );
+        learn_from_success( ch, gsn_style_aggressive ); // DBS addon -Braska
+    }
    else if( ch->position == POS_DEFENSIVE )
       dam = ( int )( .85 * dam );
    else if( ch->position == POS_EVASIVE )
@@ -1301,8 +1342,26 @@ ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
    if( dt == gsn_circle )
       dam *= ( 2 + URANGE( 2, ch->level - ( victim->level / 4 ), 30 ) / 16 );
 
+	/*
+	 * DBS For NPC's, they can be set to automaticly take a % off dammage
+	 */
+	if (IS_NPC(victim))
+	{
+		if ((GET_AC(victim) > 0))
+		{
+			dam = (dam * (GET_AC(victim) * 0.01));
+		}
+		if (GET_AC(victim) <= 0)
+		{
+			dam = 0;
+		}
+	}
+
    if( dam <= 0 )
       dam = 1;
+
+    if ( dam  > 999999999 ) // DBS Max damage -Braska
+        dam = 999999999;
 
    plusris = 0;
 
@@ -1379,7 +1438,7 @@ ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
     */
    if( dam == -1 )
    {
-      if( dt >= 0 && dt < num_skills )
+      if( dt >= 0 && dt < num_skills ) // this is top_sn in DBS -Braska
       {
          SKILLTYPE *skill = skill_table[dt];
          bool found = FALSE;
