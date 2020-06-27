@@ -1705,7 +1705,7 @@ ch_ret projectile_hit( CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * wield, OBJ
     */
    if( dam == -1 )
    {
-      if( dt >= 0 && dt < num_skills )
+      if( dt >= 0 && dt < num_skills ) // in DBS this is top_sn -Braska
       {
          SKILLTYPE *skill = skill_table[dt];
          bool found = FALSE;
