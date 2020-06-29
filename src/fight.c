@@ -4037,6 +4037,24 @@ bool is_safe( CHAR_DATA * ch, CHAR_DATA * victim, bool show_messg )
       return TRUE;
    }
 
+	if (!IS_NPC(victim) && !IS_NPC(ch) ) // added DBS PK/Bounty if -Braska
+	{
+        if (xIS_SET(victim->act, PLR_BOUNTY) && victim->pcdata->bounty > 0
+            && !str_cmp( victim->name, ch->pcdata->hunting ))
+		{
+            if( !xIS_SET( victim->act, PLR_PK1 )
+            && !xIS_SET( victim->act, PLR_PK2 )
+            && !IS_HC( victim ) )
+            {
+                return TRUE;
+            }
+            else
+            {
+		        return FALSE;
+            }
+		}
+	}
+
    if( IS_PACIFIST( ch ) ) /* Fireblade */
    {
       if( show_messg )
@@ -4057,7 +4075,24 @@ bool is_safe( CHAR_DATA * ch, CHAR_DATA * victim, bool show_messg )
          send_to_char( buf, ch );
       }
       return TRUE;
-   }
+    }
+
+    if( !IS_NPC( ch ) && !IS_NPC( victim ) && ch != victim && !in_arena( ch ) )
+    {
+        if( show_messg ) 
+        {
+            set_char_color( AT_IMMORT, ch );
+            send_to_char( "The gods have forbidden player killing in this area.\n\r", ch );
+        }
+            return TRUE;
+    }
+
+    if( xIS_SET( ch->in_room->room_flags, ROOM_ARENA ) && ( !xIS_SET( ch->act, PLR_SPAR ) || !xIS_SET( victim->act, PLR_SPAR ) ) )
+    {
+        if ( show_messg )
+            send_to_char( "You must SPAR someone in an arena.\n\r", ch );
+        return TRUE;
+    }
 
    if( !IS_NPC( ch ) && ch->level >= LEVEL_IMMORTAL )
       return FALSE;
@@ -4105,25 +4140,28 @@ bool is_safe( CHAR_DATA * ch, CHAR_DATA * victim, bool show_messg )
       return TRUE;
    }
 
-   if( get_timer( victim, TIMER_PKILLED ) > 0 )
-   {
-      if( show_messg )
-      {
-         set_char_color( AT_GREEN, ch );
-         send_to_char( "That character has died within the last 5 minutes.\r\n", ch );
-      }
-      return TRUE;
-   }
+    if( !xIS_SET( ch->act, PLR_SPAR ) && !xIS_SET( victim->act, PLR_SPAR ) ) // added DBS Spar if -Braska
+	{
+        if( get_timer( victim, TIMER_PKILLED ) > 0 )
+        {
+            if( show_messg )
+            {
+                set_char_color( AT_GREEN, ch );
+                send_to_char( "That character has died within the last 5 minutes.\r\n", ch );
+            }
+            return TRUE;
+        }
 
-   if( get_timer( ch, TIMER_PKILLED ) > 0 )
-   {
-      if( show_messg )
-      {
-         set_char_color( AT_GREEN, ch );
-         send_to_char( "You have been killed within the last 5 minutes.\r\n", ch );
-      }
-      return TRUE;
-   }
+        if( get_timer( ch, TIMER_PKILLED ) > 0 )
+        {
+            if( show_messg )
+            {
+                set_char_color( AT_GREEN, ch );
+                send_to_char( "You have been killed within the last 30 minutes.\r\n", ch ); //changed to 30 for DBS -Braska
+            }
+            return TRUE;
+        }
+    }
 
    return FALSE;
 }
@@ -4157,6 +4195,11 @@ bool legal_loot( CHAR_DATA * ch, CHAR_DATA * victim )
  */
 void check_killer( CHAR_DATA * ch, CHAR_DATA * victim )
 {
+    bool split = FALSE; // added DBS split_form bit -Braska
+
+    if( xIS_SET( (ch)->affected_by, AFF_SPLIT_FORM ) )
+      split = TRUE;
+
    /*
     * NPC's are fair game.
     */
@@ -4178,8 +4221,11 @@ void check_killer( CHAR_DATA * ch, CHAR_DATA * victim )
             ch->pcdata->clan->mkills++;
          ch->pcdata->mkills++;
          ch->in_room->area->mkills++;
-         if( ch->pcdata->deity )
-         {
+        if( ch->race == 6 )
+		    update_absorb( ch, victim );
+	        adjust_hiscore( "mkills", ch, ch->pcdata->mkills );
+        if( ch->pcdata->deity )
+        {
             if( victim->race == ch->pcdata->deity->npcrace )
                adjust_favor( ch, 3, level_ratio );
             else if( victim->race == ch->pcdata->deity->npcfoe )
@@ -4214,125 +4260,153 @@ void check_killer( CHAR_DATA * ch, CHAR_DATA * victim )
    /*
     * So are killers and thieves.
     */
-   if( xIS_SET( victim->act, PLR_KILLER ) || xIS_SET( victim->act, PLR_THIEF ) )
-   {
-      if( !IS_NPC( ch ) )
-      {
-         if( ch->pcdata->clan )
-         {
-            if( victim->level < 10 )
-               ch->pcdata->clan->pkills[0]++;
-            else if( victim->level < 15 )
-               ch->pcdata->clan->pkills[1]++;
-            else if( victim->level < 20 )
-               ch->pcdata->clan->pkills[2]++;
-            else if( victim->level < 30 )
-               ch->pcdata->clan->pkills[3]++;
-            else if( victim->level < 40 )
-               ch->pcdata->clan->pkills[4]++;
-            else if( victim->level < 50 )
-               ch->pcdata->clan->pkills[5]++;
-            else
-               ch->pcdata->clan->pkills[6]++;
-         }
-         ch->pcdata->pkills++;
-         ch->in_room->area->pkills++;
-      }
-      return;
+    if( xIS_SET( victim->act, PLR_KILLER ) || xIS_SET( victim->act, PLR_THIEF ) )
+    {
+        if( !IS_NPC( ch ) )
+        {
+            if( ch->pcdata->clan )
+            { // this is changed from level to exp/pl for DBS -Braska
+            if( victim->exp < 10000 )           /* 10k */
+                ch->pcdata->clan->pkills[0]++;
+            else if( victim->exp < 100000 )     /* 100k */
+                ch->pcdata->clan->pkills[1]++;
+            else if( victim->exp < 1000000 )    /* 1m */
+                ch->pcdata->clan->pkills[2]++;
+            else if( victim->exp < 10000000 )   /* 10m */
+                ch->pcdata->clan->pkills[3]++;
+            else if( victim->exp < 100000000 )  /* 100m */
+                ch->pcdata->clan->pkills[4]++;
+            else if( victim->exp < 1000000000 ) /* 1b */
+                ch->pcdata->clan->pkills[5]++;
+            else                                 /* +1b */
+                ch->pcdata->clan->pkills[6]++;
+        }
+        ch->pcdata->pkills++;
+        ch->in_room->area->pkills++;
+        if( ch->race == 6 )
+            update_absorb(ch, victim);
+            adjust_hiscore( "pkill", ch, ch->pcdata->pkills ); /* cronel hiscore */
+        }
+        return;
    }
 
    /*
     * clan checks               -Thoric 
     */
-   if( !IS_NPC( ch ) && !IS_NPC( victim )
+    if( !IS_NPC( ch ) && !IS_NPC( victim )
        && IS_SET( ch->pcdata->flags, PCFLAG_DEADLY ) && IS_SET( victim->pcdata->flags, PCFLAG_DEADLY ) )
-   {
+    {
       /*
        * not of same clan? Go ahead and kill!!! 
        */
-      if( !ch->pcdata->clan
+        if( !ch->pcdata->clan
           || !victim->pcdata->clan
           || ( ch->pcdata->clan->clan_type != CLAN_NOKILL
                && victim->pcdata->clan->clan_type != CLAN_NOKILL && ch->pcdata->clan != victim->pcdata->clan ) )
-      {
-         if( ch->pcdata->clan )
-         {
-            if( victim->level < 10 )
-               ch->pcdata->clan->pkills[0]++;
-            else if( victim->level < 15 )
-               ch->pcdata->clan->pkills[1]++;
-            else if( victim->level < 20 )
-               ch->pcdata->clan->pkills[2]++;
-            else if( victim->level < 30 )
-               ch->pcdata->clan->pkills[3]++;
-            else if( victim->level < 40 )
-               ch->pcdata->clan->pkills[4]++;
-            else if( victim->level < 50 )
-               ch->pcdata->clan->pkills[5]++;
-            else
-               ch->pcdata->clan->pkills[6]++;
-         }
-         ch->pcdata->pkills++;
-         ch->hit = ch->max_hit;
-         ch->mana = ch->max_mana;
-         ch->move = ch->max_move;
-         if( ch->pcdata )
-            ch->pcdata->condition[COND_BLOODTHIRST] = ( 10 + ch->level );
-         update_pos( victim );
-         if( victim != ch )
-         {
+        {
+            if( ch->pcdata->clan )
+            { // this is changed from level to exp/pl for DBS -Braska
+                if( victim->exp < 10000 )           /* 10k */
+                    ch->pcdata->clan->pkills[0]++;
+                else if( victim->exp < 100000 )     /* 100k */
+                    ch->pcdata->clan->pkills[1]++;
+                else if( victim->exp < 1000000 )    /* 1m */
+                    ch->pcdata->clan->pkills[2]++;
+                else if( victim->exp < 10000000 )   /* 10m */
+                    ch->pcdata->clan->pkills[3]++;
+                else if( victim->exp < 100000000 )  /* 100m */
+                    ch->pcdata->clan->pkills[4]++;
+                else if( victim->exp < 1000000000 ) /* 1b */
+                    ch->pcdata->clan->pkills[5]++;
+                else                                 /* +1b */
+                    ch->pcdata->clan->pkills[6]++;
+            }
+            ch->pcdata->pkills++;
+            if (ch->race == 6) // added from DBS -Braska
+                update_absorb(ch, victim);
+                adjust_hiscore( "pkill", ch, ch->pcdata->pkills ); /* cronel hiscore */
+            ch->hit = ch->max_hit;
+            ch->mana = ch->max_mana;
+            ch->move = ch->max_move;
+            if( ch->pcdata )
+                ch->pcdata->condition[COND_BLOODTHIRST] = ( 10 + ch->level );
+                update_pos( victim );
+            if( victim != ch )
+            {
             act( AT_MAGIC, "Bolts of blue energy rise from the corpse, seeping into $n.", ch, victim->name, NULL, TO_ROOM );
             act( AT_MAGIC, "Bolts of blue energy rise from the corpse, seeping into you.", ch, victim->name, NULL, TO_CHAR );
-         }
-         if( victim->pcdata->clan )
-         {
-            if( ch->level < 10 )
-               victim->pcdata->clan->pdeaths[0]++;
-            else if( ch->level < 15 )
-               victim->pcdata->clan->pdeaths[1]++;
-            else if( ch->level < 20 )
-               victim->pcdata->clan->pdeaths[2]++;
-            else if( ch->level < 30 )
-               victim->pcdata->clan->pdeaths[3]++;
-            else if( ch->level < 40 )
-               victim->pcdata->clan->pdeaths[4]++;
-            else if( ch->level < 50 )
-               victim->pcdata->clan->pdeaths[5]++;
+            }
+            if( victim->pcdata->clan )
+            { // this is changed from level to exp/pl for DBS -Braska
+                if( victim->exp < 10000 )           /* 10k */
+                    victim->pcdata->clan->pdeaths[0]++;
+                else if( victim->exp < 100000 )     /* 100k */
+                    victim->pcdata->clan->pdeaths[1]++;
+                else if( victim->exp < 1000000 )    /* 1m */
+                    victim->pcdata->clan->pdeaths[2]++;
+                else if( victim->exp < 10000000 )   /* 10m */
+                    victim->pcdata->clan->pdeaths[3]++;
+                else if( victim->exp < 100000000 )  /* 100m */
+                    victim->pcdata->clan->pdeaths[4]++;
+                else if( victim->exp < 1000000000 ) /* 1b */
+                    victim->pcdata->clan->pdeaths[5]++;
+                else                                 /* +1b */
+                    victim->pcdata->clan->pdeaths[6]++;
+            }
+            victim->pcdata->pdeaths++;
+            adjust_hiscore( "deaths", victim, (victim->pcdata->pdeaths + victim->pcdata->mdeaths) ); // added from DBS -Braska
+            adjust_favor( victim, 11, 1 );
+            adjust_favor( ch, 2, 1 );
+            add_timer( victim, TIMER_PKILLED, 115, NULL, 0 );
+            if( victim->pcdata->pk_timer > 0 )
+	            victim->pcdata->pk_timer = 0;
+            if( !IS_HC(victim) )
+                add_timer( victim, TIMER_PKILLED, 690, NULL, 0 );
             else
-               victim->pcdata->clan->pdeaths[6]++;
-         }
-         victim->pcdata->pdeaths++;
-         adjust_favor( victim, 11, 1 );
-         adjust_favor( ch, 2, 1 );
-         add_timer( victim, TIMER_PKILLED, 115, NULL, 0 );
-         WAIT_STATE( victim, 3 * PULSE_VIOLENCE );
-         /*
-          * xSET_BIT(victim->act, PLR_PK); 
-          */
-         return;
-      }
-   }
+                add_timer( victim, TIMER_PKILLED, 345, NULL, 0 );
+            WAIT_STATE( victim, 3 * PULSE_VIOLENCE );
+            /*
+            * xSET_BIT(victim->act, PLR_PK); 
+            */
+            return;
+        }
+    }
+    else if( IS_NPC(ch) && !IS_NPC(victim) && is_split(ch) ) // DBS split form info added -Braska
+    {
+        if( ch->master )
+            ch->master->pcdata->pkills++;
+            victim->pcdata->pdeaths++;
+            adjust_hiscore( "deaths", victim, (victim->pcdata->pdeaths + victim->pcdata->mdeaths) );
+        if( !IS_HC(victim) )
+            add_timer( victim, TIMER_PKILLED, 690, NULL, 0 );
+        else
+            add_timer( victim, TIMER_PKILLED, 345, NULL, 0 );
+        if( victim->pcdata->pk_timer > 0 )
+            victim->pcdata->pk_timer = 0;
+            WAIT_STATE( victim, 3 * PULSE_VIOLENCE );
+            return;
+    }
 
    /*
     * Charm-o-rama.
     */
-   if( IS_AFFECTED( ch, AFF_CHARM ) )
-   {
-      if( !ch->master )
-      {
-         bug( "%s: %s bad AFF_CHARM", __func__, IS_NPC( ch ) ? ch->short_descr : ch->name );
-         affect_strip( ch, gsn_charm_person );
-         xREMOVE_BIT( ch->affected_by, AFF_CHARM );
-         return;
-      }
+    if( IS_AFFECTED( ch, AFF_CHARM ) )
+    {
+        if( !ch->master )
+        {
+            bug( "%s: %s bad AFF_CHARM", __func__, IS_NPC( ch ) ? ch->short_descr : ch->name );
+            affect_strip( ch, gsn_charm_person );
+            xREMOVE_BIT( ch->affected_by, AFF_CHARM );
+            return;
+        }
 
-      /*
-       * stop_follower( ch ); 
-       */
-      if( ch->master )
-         check_killer( ch->master, victim );
-      return;
-   }
+        /*
+        * stop_follower( ch ); 
+        */
+        if( ch->master )
+            check_killer( ch->master, victim );
+        return;
+    }
 
    /*
     * NPC's are cool of course (as long as not charmed).
@@ -4340,28 +4414,51 @@ void check_killer( CHAR_DATA * ch, CHAR_DATA * victim )
     * So is being immortal (Alander's idea).
     * And current killers stay as they are.
     */
-   if( IS_NPC( ch ) )
-   {
-      if( !IS_NPC( victim ) )
-      {
-         int level_ratio;
-         if( victim->pcdata->clan )
-            victim->pcdata->clan->mdeaths++;
-         victim->pcdata->mdeaths++;
-         victim->in_room->area->mdeaths++;
-         level_ratio = URANGE( 1, ch->level / victim->level, LEVEL_AVATAR );
-         if( victim->pcdata->deity )
-         {
-            if( ch->race == victim->pcdata->deity->npcrace )
-               adjust_favor( victim, 12, level_ratio );
-            else if( ch->race == victim->pcdata->deity->npcfoe )
-               adjust_favor( victim, 15, level_ratio );
+    if( IS_NPC( ch ) )
+    {
+        if( !IS_NPC( victim ) )
+        {
+            int level_ratio;
+            //if( victim->pcdata->clan ) // removed -Braska
+            if( !IS_HC(victim) ) // DBS HC PK added -Braska
+                add_timer( victim, TIMER_PKILLED, 690, NULL, 0 );
             else
-               adjust_favor( victim, 11, level_ratio );
-         }
-      }
-      return;
-   }
+                add_timer( victim, TIMER_PKILLED, 345, NULL, 0 );
+    	    if ( victim->pcdata->clan )
+	        {
+                /*if( split )
+                {
+                    victim->pcdata->clan->pdeaths++;
+                    ch->master->pcdata->clan->pkills++;
+                }
+                else*/
+                    victim->pcdata->clan->mdeaths++;
+            }
+	        if( split )
+	        {
+                victim->pcdata->pdeaths++;
+		        ch->master->pcdata->pkills++;
+	            victim->in_room->area->pdeaths++;
+	        }
+	        else
+	        {
+                victim->pcdata->mdeaths++;
+                victim->in_room->area->mdeaths++;
+            }
+            adjust_hiscore( "deaths", victim, (victim->pcdata->pdeaths + victim->pcdata->mdeaths) ); // added -Braska
+            level_ratio = URANGE( 1, ch->level / victim->level, LEVEL_AVATAR ); // was level 50 in DBS... -Braska
+            if( victim->pcdata->deity )
+            {
+                if( ch->race == victim->pcdata->deity->npcrace )
+                    adjust_favor( victim, 12, level_ratio );
+                else if( ch->race == victim->pcdata->deity->npcfoe )
+                    adjust_favor( victim, 15, level_ratio );
+                else
+                    adjust_favor( victim, 11, level_ratio );
+            }
+        }
+        return;
+    }
 
    if( !IS_NPC( ch ) )
    {
@@ -4373,29 +4470,30 @@ void check_killer( CHAR_DATA * ch, CHAR_DATA * victim )
 
    if( !IS_NPC( victim ) )
    {
-      if( victim->pcdata->clan )
-      {
-         if( ch->level < 10 )
-            victim->pcdata->clan->pdeaths[0]++;
-         else if( ch->level < 15 )
-            victim->pcdata->clan->pdeaths[1]++;
-         else if( ch->level < 20 )
-            victim->pcdata->clan->pdeaths[2]++;
-         else if( ch->level < 30 )
-            victim->pcdata->clan->pdeaths[3]++;
-         else if( ch->level < 40 )
-            victim->pcdata->clan->pdeaths[4]++;
-         else if( ch->level < 50 )
-            victim->pcdata->clan->pdeaths[5]++;
-         else
-            victim->pcdata->clan->pdeaths[6]++;
-      }
-      victim->pcdata->pdeaths++;
-      victim->in_room->area->pdeaths++;
-   }
+        if( victim->pcdata->clan )
+        { // this is changed from level to exp/pl for DBS -Braska
+            if( victim->exp < 10000 )           /* 10k */
+				victim->pcdata->clan->pdeaths[0]++;
+            else if( victim->exp < 100000 )     /* 100k */
+                victim->pcdata->clan->pdeaths[1]++;
+            else if( victim->exp < 1000000 )    /* 1m */
+                victim->pcdata->clan->pdeaths[2]++;
+            else if( victim->exp < 10000000 )   /* 10m */
+                victim->pcdata->clan->pdeaths[3]++;
+            else if( victim->exp < 100000000 )  /* 100m */
+                victim->pcdata->clan->pdeaths[4]++;
+            else if( victim->exp < 1000000000 ) /* 1b */
+                victim->pcdata->clan->pdeaths[5]++;
+            else                                 /* +1b */
+                victim->pcdata->clan->pdeaths[6]++;
+        }
+        adjust_hiscore( "deaths", victim, (victim->pcdata->pdeaths + victim->pcdata->mdeaths) );
+        victim->pcdata->pdeaths++;
+        victim->in_room->area->pdeaths++;
+    }
 
-   if( xIS_SET( ch->act, PLR_KILLER ) )
-      return;
+    if( xIS_SET( ch->act, PLR_KILLER ) )
+        return;
 
    set_char_color( AT_WHITE, ch );
    send_to_char( "A strange feeling grows deep inside you, and a tingle goes up your spine...\r\n", ch );
@@ -4623,6 +4721,16 @@ void free_fight( CHAR_DATA * ch )
    }
 
    ch->fighting = NULL;
+   /* Get rid of charged attacks hitting after the fight stops */ // -Braska
+   ch->substate = SUB_NONE;
+   ch->skillGsn = -1;
+   /* Bug with mobs retaining prefocus -Karma */
+   ch->focus = 0;
+   ch->charge = 0;
+   ch->timerDelay = 0;
+   ch->timerType = 0;
+   ch->timerDo_fun = NULL;
+   /* end added code */ // -Braska
    if( ch->mount )
       ch->position = POS_MOUNTED;
    else
@@ -4667,7 +4775,8 @@ void stop_fighting( CHAR_DATA * ch, bool fBoth )
 }
 
 /* Vnums for the various bodyparts */
-int part_vnums[] = { 12,   /* Head */
+int part_vnums[] = 
+{  12,   /* Head */
    14,   /* arms */
    15,   /* legs */
    13,   /* heart */
@@ -4697,12 +4806,14 @@ int part_vnums[] = { 12,   /* Head */
    82,   /* paws */
    81,   /* forelegs */
    80,   /* feathers */
-	79,	/* husk_shell */
-   0  /* r2 */
+   79,	 /* husk_shell */
+   0,	 /* r1 */
+   0     /* r2 */
 };
 
 /* Messages for flinging off the various bodyparts */
-const char *part_messages[] = {
+const char *part_messages[] = 
+{
    "$n's severed head plops from its neck.",
    "$n's arm is sliced from $s dead body.",
    "$n's leg is sliced from $s dead body.",
@@ -4733,7 +4844,8 @@ const char *part_messages[] = {
    "A paw is sliced from $n's dead body.",
    "$n's foreleg is sliced from $s dead body.",
    "Some feathers fall from $n's dead body.",
-	"$n's shell remains.",
+   "$n's shell remains.",
+   "r1 message.",
    "r2 message."
 };
 
