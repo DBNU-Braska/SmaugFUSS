@@ -17,6 +17,11 @@
 
 #include <stdio.h>
 #include "mud.h"
+// added the below libraries from DBS -Braska
+#include <string.h>
+#include <time.h>
+#include <math.h>
+#include <sys/types.h>
 
 extern char lastplayercmd[MAX_INPUT_LENGTH];
 
@@ -26,60 +31,299 @@ OBJ_DATA *used_weapon;  /* Used to figure out which weapon later */
  * Local functions.
  */
 void new_dam_message( CHAR_DATA * ch, CHAR_DATA * victim, int dam, unsigned int dt, OBJ_DATA * obj );
+void death_cry( CHAR_DATA *ch );
 void group_gain( CHAR_DATA * ch, CHAR_DATA * victim );
 int xp_compute( CHAR_DATA * gch, CHAR_DATA * victim );
 int align_compute( CHAR_DATA * gch, CHAR_DATA * victim );
 ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt );
 int obj_hitroll( OBJ_DATA * obj );
 void show_condition( CHAR_DATA * ch, CHAR_DATA * victim );
+bool pkill_ok( CHAR_DATA *ch, CHAR_DATA *victim )
 
 bool loot_coins_from_corpse( CHAR_DATA * ch, OBJ_DATA * corpse )
 {
-   OBJ_DATA *content, *content_next;
-   int oldgold = ch->gold;
 
-   if( !corpse )
-   {
-      bug( "%s: NULL corpse!", __func__ );
-      return FALSE;
-   }
+    /*
+    * added PK/WAR/Dball stuff from DBS -Braska
+    */
+    bool clanbypass = FALSE;
+    OBJ_DATA *o;
 
-   for( content = corpse->first_content; content; content = content_next )
-   {
-      content_next = content->next_content;
+    if (IS_NPC(ch) || IS_NPC(victim))
+	    return TRUE;
 
-      if( content->item_type != ITEM_MONEY )
-         continue;
-      if( !can_see_obj( ch, content ) )
-         continue;
-      if( !CAN_WEAR( content, ITEM_TAKE ) && ch->level < sysdata.level_getobjnotake )
-         continue;
-      if( IS_OBJ_STAT( content, ITEM_PROTOTYPE ) && !can_take_proto( ch ) )
-         continue;
+    if (ch->exp <= 100000)
+    {
+        send_to_char( "You can not fight other players until you are a 'Skilled Fighter'.\n\r", ch );
+        return FALSE;
+    }
+    if (victim->exp <= 100000)
+    {
+        send_to_char( "You can not fight other players until they are a 'Skilled Fighter'.\n\r", ch );
+        return FALSE;
+    }
 
-      act( AT_ACTION, "You get $p from $P", ch, content, corpse, TO_CHAR );
-      act( AT_ACTION, "$n gets $p from $P", ch, content, corpse, TO_ROOM );
-      obj_from_obj( content );
-      check_for_trap( ch, content, TRAP_GET );
-      if( char_died( ch ) )
-         return FALSE;
+    if( (o = carrying_dball(victim)) != NULL )
+    {
+    	return TRUE;
+    }
 
-      oprog_get_trigger( ch, content );
-      if( char_died( ch ) )
-         return FALSE;
+    if (ch->pcdata->clan && victim->pcdata->clan
+	&& !xIS_SET(victim->act, PLR_PK1)
+	&& !xIS_SET(victim->act, PLR_PK2) )
+    {
+	    if( is_kaio(ch) && kairanked(victim)
+	   && ch->kairank <=  victim->kairank )
+	        clanbypass = TRUE;
+	    else if( is_demon(ch) && demonranked(victim) )
+            clanbypass = TRUE;
+	    else if( kairanked(ch) && demonranked(victim) )
+            clanbypass = TRUE;
+        else if( demonranked(ch) && demonranked(victim) )
+            clanbypass = TRUE;
 
-      ch->gold += content->value[0] * content->count;
-      extract_obj( content );
-   }
+        if( !clanbypass )
+        {
+            if (ch->pcdata->clan == victim->pcdata->clan )
+            {
+                send_to_char( "You can't kill another member of your clan!\n\r", ch );
+                return FALSE;
+            }
+/**/		if (ch->pcdata->clan != victim->pcdata->clan)
+		    {
+                switch (allianceStatus(ch->pcdata->clan, victim->pcdata->clan))
+                {
+                    case ALLIANCE_FRIENDLY:
+                    case ALLIANCE_ALLIED:
+                        send_to_char( "Your clan is at peace with theirs!.\n\r", ch );
+                        return FALSE;
+                        break;
+                    case ALLIANCE_NEUTRAL:
+                        send_to_char( "Your clan is in a state of neutrality with theirs!\n\r", ch );
+                        return FALSE;
+                        break;
+                    case ALLIANCE_HOSTILE:
+                        if( xIS_SET(victim->act, PLR_WAR1) )
+                        {
+                            if ((float)ch->exp / victim->exp > 5 && !IS_HC(victim))
+                            {
+                                ch_printf(ch,"You are more than 5 times stronger.\n\r");
+                                return FALSE;
+                            }
+                            xSET_BIT(ch->act,PLR_WAR1);
+                            ch->pcdata->pk_timer = 60;
+                            return TRUE;
+                        }
+                        else if( xIS_SET(victim->act,PLR_WAR2) )
+                        {
+                            xSET_BIT(ch->act,PLR_WAR2);
+                            ch->pcdata->pk_timer = 60;
+                            return TRUE;
+                        }
+                        ch_printf(ch,"They have to have a war flag on when you're not at full war status with that clan!\n\r");
+                        return FALSE;
+                        break;
+                    case ALLIANCE_ATWAR:
+                        if ( !xIS_SET(ch->act, PLR_WAR2) )
+                            xSET_BIT(ch->act,PLR_WAR2);
+                        else if ( !xIS_SET(ch->act, PLR_WAR1) )
+                            xSET_BIT(ch->act,PLR_WAR1);
+                            ch->pcdata->pk_timer = 60;
+                            return TRUE;
+                            break;
+                    default:
+                    break;
+			    }
+		    } /**/
+        }
+    }
 
-   if( ch->gold - oldgold > 1 && ch->position > POS_SLEEPING )
-   {
-      char buf[MAX_INPUT_LENGTH];
+	if (!IS_HC(ch))
+	{
+		ch->pcdata->pk_timer = 60;
+	}
+		ch->pcdata->gohometimer = 30;
 
-      snprintf( buf, MAX_INPUT_LENGTH, "%d", ch->gold - oldgold );
-      do_split( ch, buf );
-   }
-   return TRUE;
+	if (IS_HC(victim) && !IS_HC(ch))
+	{
+		xREMOVE_BIT(ch->act, PLR_PK1);
+		xSET_BIT(ch->act, PLR_PK2);
+		return TRUE;
+	}
+
+	if (xIS_SET(victim->act, PLR_BOUNTY) && victim->pcdata->bounty > 0
+		&& !str_cmp( victim->name, ch->pcdata->hunting ))
+	{
+        if ( xIS_SET( victim->in_room->room_flags, ROOM_SAFE ) )
+        {
+            return FALSE;
+        }
+
+		if ( xIS_SET(victim->act, PLR_PK1) && !IS_HC(ch))
+		{
+			xREMOVE_BIT(ch->act, PLR_PK1);
+			xSET_BIT(ch->act, PLR_PK2);
+		}
+		else if ( !xIS_SET(victim->act, PLR_PK2) && !IS_HC(ch))
+        {
+			xSET_BIT(ch->act, PLR_PK2);
+        }
+        else if ( !xIS_SET(victim->act, PLR_PK1) && !xIS_SET(victim->act, PLR_PK2)
+                &&  !IS_HC( victim ) )
+        {
+            return FALSE;
+        }
+
+		    return TRUE;
+    }
+
+	if (xIS_SET(victim->act, PLR_PK1) || xIS_SET(victim->act, PLR_WAR1))
+	{
+	    if ((float)ch->exp / victim->exp > 5)
+	    {
+		    send_to_char( "They have a yellow PK flag and you are more than 5 times stronger.\n\r", ch );
+
+		    if (!xIS_SET(ch->act, PLR_PK2) && !IS_HC(ch))
+			    xSET_BIT(ch->act, PLR_PK1);
+		    return FALSE;
+		}
+	}
+
+	if (!is_atwar(ch, victim) && !IS_HC(ch))
+	{
+		if ( xIS_SET(victim->act, PLR_PK1) && !xIS_SET(ch->act, PLR_PK2))
+			xSET_BIT(ch->act, PLR_PK1);
+		else if (xIS_SET(victim->act, PLR_PK2))
+		{
+			if (xIS_SET(ch->act, PLR_PK1))
+				xREMOVE_BIT(ch->act, PLR_PK1);
+			    xSET_BIT(ch->act, PLR_PK2);
+		}
+		else
+		{
+			if (xIS_SET(ch->act, PLR_PK1))
+				xREMOVE_BIT(ch->act, PLR_PK2);
+			else if (xIS_SET(ch->act, PLR_PK2))
+				xREMOVE_BIT(ch->act, PLR_PK1);
+			else
+				xSET_BIT(ch->act, PLR_PK1);
+		}
+	}
+
+	/*
+	if (is_atwar(ch, victim))
+	{
+		if ( xIS_SET(victim->act, PLR_WAR1) && !xIS_SET(ch->act, PLR_WAR2))
+			xSET_BIT(ch->act, PLR_WAR1);
+		else if (xIS_SET(victim->act, PLR_WAR2))
+		{
+			if (xIS_SET(ch->act, PLR_WAR1))
+				xREMOVE_BIT(ch->act, PLR_WAR1);
+			xSET_BIT(ch->act, PLR_WAR2);
+		}
+		else
+		{
+			if (xIS_SET(ch->act, PLR_WAR1))
+				xREMOVE_BIT(ch->act, PLR_WAR2);
+			else if (xIS_SET(ch->act, PLR_WAR2))
+				xREMOVE_BIT(ch->act, PLR_WAR1);
+			else
+				xSET_BIT(ch->act, PLR_WAR1);
+		}
+	}
+	*/
+    if( is_kaio(ch)&& kairanked(victim)
+        && ch->kairank <= victim->kairank )
+    {
+        if ((float)ch->exp / victim->exp > 5 )
+        {
+            ch_printf(ch,"You are 5 times stronger.\n\r");
+            return FALSE;
+        }
+	        return TRUE;
+    }
+    if( is_demon(ch)&& demonranked(victim) )
+    {
+        if ((float)ch->exp / victim->exp > 5 )
+        {
+            ch_printf(ch,"You are 5 times stronger.\n\r");
+            return FALSE;
+        }
+            return TRUE;
+    }
+
+    if( kairanked(ch) && demonranked(victim) )
+    {
+        if ((float)ch->exp / victim->exp > 5 )
+        {
+            ch_printf(ch,"You are 5 times stronger.\n\r");
+            return FALSE;
+        }
+            return TRUE;
+    }
+    if( demonranked(ch) && kairanked(victim) )
+    {
+        if ((float)ch->exp / victim->exp > 5 )
+        {
+            ch_printf(ch,"You are 5 times stronger.\n\r");
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    if (!xIS_SET(victim->act, PLR_PK1) && !xIS_SET(victim->act, PLR_PK2)
+		&& !xIS_SET(victim->act, PLR_WAR1) && !xIS_SET(victim->act, PLR_WAR2)
+		&& !IS_HC(victim))
+    {
+		send_to_char( "You can't kill someone without a PK flag.\n\r", ch );
+		return FALSE;
+    }
+
+    OBJ_DATA *content, *content_next;
+    int oldgold = ch->gold;
+
+    if( !corpse )
+    {
+        bug( "%s: NULL corpse!", __func__ );
+        return FALSE;
+    }
+
+    for( content = corpse->first_content; content; content = content_next )
+    {
+        content_next = content->next_content;
+
+        if( content->item_type != ITEM_MONEY )
+            continue;
+        if( !can_see_obj( ch, content ) )
+            continue;
+        if( !CAN_WEAR( content, ITEM_TAKE ) && ch->level < sysdata.level_getobjnotake )
+            continue;
+        if( IS_OBJ_STAT( content, ITEM_PROTOTYPE ) && !can_take_proto( ch ) )
+            continue;
+
+        act( AT_ACTION, "You get $p from $P", ch, content, corpse, TO_CHAR );
+        act( AT_ACTION, "$n gets $p from $P", ch, content, corpse, TO_ROOM );
+        obj_from_obj( content );
+        check_for_trap( ch, content, TRAP_GET );
+        if( char_died( ch ) )
+            return FALSE;
+
+        oprog_get_trigger( ch, content );
+        if( char_died( ch ) )
+            return FALSE;
+
+        ch->gold += content->value[0] * content->count;
+        extract_obj( content );
+    }
+
+    if( ch->gold - oldgold > 1 && ch->position > POS_SLEEPING )
+    {
+        char buf[MAX_INPUT_LENGTH];
+
+        snprintf( buf, MAX_INPUT_LENGTH, "%d", ch->gold - oldgold );
+        do_split( ch, buf );
+    }
+    return TRUE;
 }
 
 /*
@@ -281,6 +525,10 @@ short VAMP_AC( CHAR_DATA * ch )
    return 0;
 }
 
+int max_fight( CHAR_DATA *ch ) // added from DBS -Braska
+{
+    return 8;
+}
 /*
  * Control the fights going on.
  * Called periodically by update_handler.
@@ -293,10 +541,9 @@ short VAMP_AC( CHAR_DATA * ch )
  */
 void violence_update( void )
 {
-    char buf[MAX_STRING_LENGTH]; // added for DBS -Braska
    CHAR_DATA *ch;
    CHAR_DATA *victim;
-   CHAR_DATA *rch, *rch_next; // rch_next added for DBS -Braska
+   CHAR_DATA *rch;
    TRV_WORLD *lcw;
    TRV_DATA *lcr;
    AFFECT_DATA *paf, *paf_next;
