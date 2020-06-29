@@ -39,104 +39,101 @@ ch_ret one_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt );
 int obj_hitroll( OBJ_DATA * obj );
 void show_condition( CHAR_DATA * ch, CHAR_DATA * victim );
 bool pkill_ok( CHAR_DATA *ch, CHAR_DATA *victim )
-
-bool loot_coins_from_corpse( CHAR_DATA * ch, OBJ_DATA * corpse )
 {
+   /*
+   * added PK/WAR/Dball stuff from DBS -Braska
+   */
+   bool clanbypass = FALSE;
+   OBJ_DATA *o;
 
-    /*
-    * added PK/WAR/Dball stuff from DBS -Braska
-    */
-    bool clanbypass = FALSE;
-    OBJ_DATA *o;
+   if (IS_NPC(ch) || IS_NPC(victim))
+      return TRUE;
 
-    if (IS_NPC(ch) || IS_NPC(victim))
-	    return TRUE;
+   if (ch->exp <= 100000)
+   {
+      send_to_char( "You can not fight other players until you are a 'Skilled Fighter'.\n\r", ch );
+      return FALSE;
+   }
+   if (victim->exp <= 100000)
+   {
+      send_to_char( "You can not fight other players until they are a 'Skilled Fighter'.\n\r", ch );
+      return FALSE;
+   }
 
-    if (ch->exp <= 100000)
-    {
-        send_to_char( "You can not fight other players until you are a 'Skilled Fighter'.\n\r", ch );
-        return FALSE;
-    }
-    if (victim->exp <= 100000)
-    {
-        send_to_char( "You can not fight other players until they are a 'Skilled Fighter'.\n\r", ch );
-        return FALSE;
-    }
+   if( (o = carrying_dball(victim)) != NULL )
+   {
+   return TRUE;
+   }
 
-    if( (o = carrying_dball(victim)) != NULL )
-    {
-    	return TRUE;
-    }
+   if (ch->pcdata->clan && victim->pcdata->clan
+   && !xIS_SET(victim->act, PLR_PK1)
+   && !xIS_SET(victim->act, PLR_PK2) )
+   {
+      if( is_kaio(ch) && kairanked(victim)
+      && ch->kairank <=  victim->kairank )
+         clanbypass = TRUE;
+      else if( is_demon(ch) && demonranked(victim) )
+         clanbypass = TRUE;
+      else if( kairanked(ch) && demonranked(victim) )
+         clanbypass = TRUE;
+      else if( demonranked(ch) && demonranked(victim) )
+         clanbypass = TRUE;
 
-    if (ch->pcdata->clan && victim->pcdata->clan
-	&& !xIS_SET(victim->act, PLR_PK1)
-	&& !xIS_SET(victim->act, PLR_PK2) )
-    {
-	    if( is_kaio(ch) && kairanked(victim)
-	   && ch->kairank <=  victim->kairank )
-	        clanbypass = TRUE;
-	    else if( is_demon(ch) && demonranked(victim) )
-            clanbypass = TRUE;
-	    else if( kairanked(ch) && demonranked(victim) )
-            clanbypass = TRUE;
-        else if( demonranked(ch) && demonranked(victim) )
-            clanbypass = TRUE;
-
-        if( !clanbypass )
-        {
-            if (ch->pcdata->clan == victim->pcdata->clan )
-            {
-                send_to_char( "You can't kill another member of your clan!\n\r", ch );
-                return FALSE;
-            }
+      if( !clanbypass )
+      {
+         if (ch->pcdata->clan == victim->pcdata->clan )
+         {
+               send_to_char( "You can't kill another member of your clan!\n\r", ch );
+               return FALSE;
+         }
 /**/		if (ch->pcdata->clan != victim->pcdata->clan)
-		    {
-                switch (allianceStatus(ch->pcdata->clan, victim->pcdata->clan))
-                {
-                    case ALLIANCE_FRIENDLY:
-                    case ALLIANCE_ALLIED:
-                        send_to_char( "Your clan is at peace with theirs!.\n\r", ch );
-                        return FALSE;
-                        break;
-                    case ALLIANCE_NEUTRAL:
-                        send_to_char( "Your clan is in a state of neutrality with theirs!\n\r", ch );
-                        return FALSE;
-                        break;
-                    case ALLIANCE_HOSTILE:
-                        if( xIS_SET(victim->act, PLR_WAR1) )
-                        {
-                            if ((float)ch->exp / victim->exp > 5 && !IS_HC(victim))
-                            {
-                                ch_printf(ch,"You are more than 5 times stronger.\n\r");
-                                return FALSE;
-                            }
-                            xSET_BIT(ch->act,PLR_WAR1);
-                            ch->pcdata->pk_timer = 60;
-                            return TRUE;
-                        }
-                        else if( xIS_SET(victim->act,PLR_WAR2) )
-                        {
-                            xSET_BIT(ch->act,PLR_WAR2);
-                            ch->pcdata->pk_timer = 60;
-                            return TRUE;
-                        }
-                        ch_printf(ch,"They have to have a war flag on when you're not at full war status with that clan!\n\r");
-                        return FALSE;
-                        break;
-                    case ALLIANCE_ATWAR:
-                        if ( !xIS_SET(ch->act, PLR_WAR2) )
-                            xSET_BIT(ch->act,PLR_WAR2);
-                        else if ( !xIS_SET(ch->act, PLR_WAR1) )
-                            xSET_BIT(ch->act,PLR_WAR1);
-                            ch->pcdata->pk_timer = 60;
-                            return TRUE;
-                            break;
-                    default:
-                    break;
-			    }
-		    } /**/
-        }
-    }
+         {
+               switch (allianceStatus(ch->pcdata->clan, victim->pcdata->clan))
+               {
+                  case ALLIANCE_FRIENDLY:
+                  case ALLIANCE_ALLIED:
+                     send_to_char( "Your clan is at peace with theirs!.\n\r", ch );
+                     return FALSE;
+                     break;
+                  case ALLIANCE_NEUTRAL:
+                     send_to_char( "Your clan is in a state of neutrality with theirs!\n\r", ch );
+                     return FALSE;
+                     break;
+                  case ALLIANCE_HOSTILE:
+                     if( xIS_SET(victim->act, PLR_WAR1) )
+                     {
+                           if ((float)ch->exp / victim->exp > 5 && !IS_HC(victim))
+                           {
+                              ch_printf(ch,"You are more than 5 times stronger.\n\r");
+                              return FALSE;
+                           }
+                           xSET_BIT(ch->act,PLR_WAR1);
+                           ch->pcdata->pk_timer = 60;
+                           return TRUE;
+                     }
+                     else if( xIS_SET(victim->act,PLR_WAR2) )
+                     {
+                           xSET_BIT(ch->act,PLR_WAR2);
+                           ch->pcdata->pk_timer = 60;
+                           return TRUE;
+                     }
+                     ch_printf(ch,"They have to have a war flag on when you're not at full war status with that clan!\n\r");
+                     return FALSE;
+                     break;
+                  case ALLIANCE_ATWAR:
+                     if ( !xIS_SET(ch->act, PLR_WAR2) )
+                           xSET_BIT(ch->act,PLR_WAR2);
+                     else if ( !xIS_SET(ch->act, PLR_WAR1) )
+                           xSET_BIT(ch->act,PLR_WAR1);
+                           ch->pcdata->pk_timer = 60;
+                           return TRUE;
+                           break;
+                  default:
+                  break;
+            }
+         } /**/
+      }
+   }
 
 	if (!IS_HC(ch))
 	{
@@ -278,9 +275,13 @@ bool loot_coins_from_corpse( CHAR_DATA * ch, OBJ_DATA * corpse )
 		send_to_char( "You can't kill someone without a PK flag.\n\r", ch );
 		return FALSE;
     }
+}
 
-    OBJ_DATA *content, *content_next;
-    int oldgold = ch->gold;
+bool loot_coins_from_corpse( CHAR_DATA * ch, OBJ_DATA * corpse )
+{
+
+   OBJ_DATA *content, *content_next;
+   int oldgold = ch->gold;
 
     if( !corpse )
     {
