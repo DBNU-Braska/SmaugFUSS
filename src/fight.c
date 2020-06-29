@@ -293,9 +293,10 @@ short VAMP_AC( CHAR_DATA * ch )
  */
 void violence_update( void )
 {
+    char buf[MAX_STRING_LENGTH]; // added for DBS -Braska
    CHAR_DATA *ch;
    CHAR_DATA *victim;
-   CHAR_DATA *rch;
+   CHAR_DATA *rch, *rch_next; // rch_next added for DBS -Braska
    TRV_WORLD *lcw;
    TRV_DATA *lcr;
    AFFECT_DATA *paf, *paf_next;
@@ -304,13 +305,34 @@ void violence_update( void )
    int attacktype, cnt;
    SKILLTYPE *skill;
    static int pulse = 0;
-
+   bool repeat = FALSE; // added for DBS -Braska
    pulse = ( pulse + 1 ) % 100;
-
    lcw = trworld_create( TR_CHAR_WORLD_BACK );
-   for( ch = last_char; ch; ch = trvch_wnext( lcw ) )
+
+   for( ch = last_char; ch; ch = trvch_wnext( lcw ) ) // this is diff in DBS. Not changing it though -Braska
    {
       set_cur_char( ch );
+
+    /* An if that is in DBS, just commenting out until I understand what it does -Braska
+    if ( ch == first_char && ch->prev )
+        {
+        bug( "ERROR: first_char->prev != NULL, fixing...", 0 );
+        ch->prev = NULL;
+        }
+
+        gch_prev	= ch->prev;
+
+        if ( gch_prev && gch_prev->next != ch )
+        {
+            sprintf( buf, "FATAL: violence_update: %s->prev->next doesn't point to ch.",
+            ch->name );
+            bug( buf, 0 );
+            bug( "Short-cutting here", 0 );
+            ch->prev = NULL;
+            gch_prev = NULL;
+            do_shout( ch, "Goku says, 'Prepare for the worst!'" );
+        }
+    */
 
       /*
        * See if we got a pointer to someone who recently died...
@@ -369,13 +391,38 @@ void violence_update( void )
                ( timer->do_fun ) ( ch, "" );
                if( char_died( ch ) )
                   break;
+                if( ch->substate != timer->value && ch->substate != SUB_NONE ) // added from DBS -Braska
+		    	    repeat = TRUE;
                ch->substate = tempsub;
                if( timer->count > 0 )
                   continue;
             }
-            extract_timer( ch, timer );
-         }
-      }
+            if ( timer->type == TIMER_DELAY ) // added from DBS -Braska
+		    {
+		        if (ch->delay_vict)
+		    	    rage( ch, ch->delay_vict );
+		        if ( char_died(ch) )
+			    break;
+		    }
+		    if (!repeat) // added from DBS -Braska
+                extract_timer( ch, timer );
+        }
+    }
+
+    /* Goku's timer function */ // Added from DBS -Braska
+    if (ch->timerDelay)
+    {
+        ch->timerDelay--;
+        if (ch->timerDelay <= 0)
+        {
+            ch->timerDelay = 0;
+            ch->timerType = 0;
+            if (ch->timerDo_fun)
+                (ch->timerDo_fun)( ch, "" );
+            if (ch->timerType == 0)
+                ch->timerDo_fun = NULL;
+        }
+    }
 
       if( char_died( ch ) )
          continue;
@@ -412,23 +459,68 @@ void violence_update( void )
                ch->desc = NULL;
             }
             affect_remove( ch, paf );
-         }
-      }
+        }
+    }
 
-      if( char_died( ch ) )
-         continue;
+    /* Kiaoken drain */
+	if (xIS_SET((ch)->affected_by, AFF_KAIOKEN) && !IS_NPC(ch)
+	   && ch->desc )
+	{
+		kaioken_drain(ch);
+		heart_calc(ch, "");
+	}
 
-      /*
-       * check for exits moving players around 
-       */
-      if( ( retcode = pullcheck( ch, pulse ) ) == rCHAR_DIED || char_died( ch ) )
-         continue;
+    if( char_died( ch ) )
+        continue;
 
-      /*
-       * Let the battle begin! 
-       */
-      if( ( victim = who_fighting( ch ) ) == NULL || IS_AFFECTED( ch, AFF_PARALYSIS ) )
-         continue;
+    /*
+    * check for exits moving players around 
+    */
+    if( ( retcode = pullcheck( ch, pulse ) ) == rCHAR_DIED || char_died( ch ) )
+        continue;
+
+    /*
+    * so people charging attacks stop fighting 
+    */
+	if (ch->charge > 0)
+		continue;
+
+    /*
+    * Let the battle begin! 
+    */
+    if( ( victim = who_fighting( ch ) ) == NULL || IS_AFFECTED( ch, AFF_PARALYSIS ) )
+        continue;
+
+    sysdata.outBytesFlag = LOGBOUTCOMBAT; // added DBS code -Braska
+
+	int foc = 0; // added DBS code -Braska
+	foc = URANGE(0,((number_range(1, UMAX(1,get_curr_int(ch))) / 5)), get_curr_int(ch)); // added DBS code -Braska
+	//ch->focus += URANGE(0,((number_range(1, UMAX(1, get_curr_int(ch))) / 5)), get_curr_int(ch));
+
+	if( !IS_NPC(ch) ) // added DBS code -Braska
+	{
+	    int div = 0;
+	    if( ch->pcdata->learned[gsn_dodge] > 0 && 
+            !IS_SET( ch->pcdata->combatFlags, CMB_NO_DODGE) )
+	        div += 5;
+	    if( ch->pcdata->learned[gsn_block] > 0 &&
+            !IS_SET( ch->pcdata->combatFlags, CMB_NO_BLOCK) )
+            div += 5;
+	    if( ch->pcdata->learned[gsn_dcd] > 0 &&
+            !IS_SET( ch->pcdata->combatFlags, CMB_NO_DCD) )
+            div += 40;
+
+	    if( div > 0 )
+	    {
+	        foc = (foc - ((foc/100) * div));
+	    }
+	}
+
+	if( foc < 0 ) // added DBS code -Braska
+	  foc = 0;
+
+	ch->focus += foc;
+	ch->focus = URANGE(0,ch->focus,get_curr_int(ch));
 
       retcode = rNONE;
 
@@ -737,6 +829,8 @@ void violence_update( void )
       lcr = trvch_create( ch, TR_CHAR_ROOM_FORW );
       for( rch = ch->in_room->first_person; rch; rch = trvch_next( lcr ) )
       {
+            // rch_next = rch->next_in_room; // piece from DBS not complete -Braska
+
          /*
           *   Group Fighting Styles Support:
           *   If ch is tanking
@@ -755,6 +849,17 @@ void violence_update( void )
 
          if( IS_AWAKE( rch ) && !rch->fighting )
          {
+            /*
+		    * Split forms auto-assist others in their group.
+		    */
+
+		    if ( !IS_NPC(ch) && is_splitformed(ch) )
+		    {
+			    if ( IS_NPC(rch) && is_split(rch) && is_same_group(ch, rch)	&& !is_safe(rch, victim, TRUE) )
+				    multi_hit( rch, victim, TYPE_UNDEFINED );
+			        continue;
+		    }
+
             /*
              * PC's auto-assist others in their group.
              */
@@ -805,6 +910,8 @@ void violence_update( void )
       trv_dispose( &lcr );
    }
    trworld_dispose( &lcw );
+   sysdata.outBytesFlag = LOGBOUTNORM;
+   
    return;
 }
 
