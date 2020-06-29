@@ -4943,28 +4943,34 @@ void death_cry( CHAR_DATA * ch )
       obj->description = STRALLOC( buf );
 
       obj = obj_to_room( obj, ch->in_room );
-   }
+    }
 
-   if( IS_NPC( ch ) )
-      msg = "You hear something's death cry.";
-   else
-      msg = "You hear someone's death cry.";
+    if( number_range( 1 , 4 ) == 1 ) // added death cry range from DBS -Braska
+    {
+        if( IS_NPC( ch ) )
+            msg = "You hear something's death cry.";
+        else
+            msg = "You hear someone's death cry.";
 
-   was_in_room = ch->in_room;
-   for( pexit = was_in_room->first_exit; pexit; pexit = pexit->next )
-   {
-      if( pexit->to_room && pexit->to_room != was_in_room )
-      {
-         ch->in_room = pexit->to_room;
-         act( AT_CARNAGE, msg, ch, NULL, NULL, TO_ROOM );
-      }
-   }
-   ch->in_room = was_in_room;
+        was_in_room = ch->in_room;
+        for( pexit = was_in_room->first_exit; pexit; pexit = pexit->next )
+        {
+            if( pexit->to_room && pexit->to_room != was_in_room )
+            {
+                ch->in_room = pexit->to_room;
+                act( AT_CARNAGE, msg, ch, NULL, NULL, TO_ROOM );
+            }
+        }
+        ch->in_room = was_in_room;
+    }
+    return; // added from DBS -Braska
 }
 
 OBJ_DATA *raw_kill( CHAR_DATA * ch, CHAR_DATA * victim )
 {
-   OBJ_DATA *corpse_to_return = NULL;
+    OBJ_DATA *corpse_to_return = NULL;
+    AREA_DATA *karea; // added from DBS -Braska
+    int lostZeni; // added from DBS -Braska
 
    if( !victim )
    {
@@ -4975,13 +4981,16 @@ OBJ_DATA *raw_kill( CHAR_DATA * ch, CHAR_DATA * victim )
    /*
     * backup in case hp goes below 1 
     */
-   if( NOT_AUTHED( victim ) )
-   {
-      bug( "%s: killing unauthed", __func__ );
-      return NULL;
-   }
+    if( NOT_AUTHED( victim ) )
+    {
+        bug( "%s: killing unauthed", __func__ );
+        return NULL;
+    }
 
-   stop_fighting( victim, TRUE );
+	/* so we know which economy to drop zeni into -Goku 09.28.04 */
+    karea = victim->in_room->area;
+
+    stop_fighting( victim, TRUE );
 
    /*
     * Take care of morphed characters 
@@ -5008,59 +5017,104 @@ OBJ_DATA *raw_kill( CHAR_DATA * ch, CHAR_DATA * victim )
    if( victim->in_room->sector_type == SECT_OCEANFLOOR
        || victim->in_room->sector_type == SECT_UNDERWATER
        || victim->in_room->sector_type == SECT_WATER_SWIM || victim->in_room->sector_type == SECT_WATER_NOSWIM )
-      act( AT_BLOOD, "$n's blood slowly clouds the surrounding water.", victim, NULL, NULL, TO_ROOM );
-   else if( victim->in_room->sector_type == SECT_AIR )
-      act( AT_BLOOD, "$n's blood sprays wildly through the air.", victim, NULL, NULL, TO_ROOM );
+        act( AT_BLOOD, "$n's blood slowly clouds the surrounding water.", victim, NULL, NULL, TO_ROOM );
+    else if( victim->in_room->sector_type == SECT_AIR )
+        act( AT_BLOOD, "$n's blood sprays wildly through the air.", victim, NULL, NULL, TO_ROOM );
+    else if ( victim->in_room->sector_type == SECT_SPACE ) //added space death blood from DBS -Braska
+        act( AT_BLOOD, "$n's blood forms into floating spheres.", victim, NULL, NULL, TO_ROOM );
    else
       make_blood( victim );
 
-   if( IS_NPC( victim ) )
-   {
+    if( IS_NPC( victim ) )
+    {
       victim->pIndexData->killed++;
       extract_char( victim, TRUE );
       victim = NULL;
       return corpse_to_return;
-   }
+    }
+    if (is_splitformed(victim))
+    {
+        CHAR_DATA *och;
+        CHAR_DATA *och_next;
+        for ( och = first_char; och; och = och_next )
+        {
+            och_next = och->next;
 
-   set_char_color( AT_DIEMSG, victim );
-   if( victim->pcdata->mdeaths + victim->pcdata->pdeaths < 3 )
-      do_help( victim, "new_death" );
-   else
-      do_help( victim, "_DIEMSG_" );
+            if (!IS_NPC(och))
+                continue;
 
-   extract_char( victim, FALSE );
-   if( !victim )
-   {
-      bug( "%s: oops! extract_char destroyed pc char", __func__ );
-      return NULL;
-   }
+            if( (xIS_SET(och->affected_by, AFF_SPLIT_FORM)
+                || xIS_SET(och->affected_by, AFF_TRI_FORM)
+                || xIS_SET(och->affected_by, AFF_MULTI_FORM)
+		        || xIS_SET(och->affected_by, AFF_BIOJR))
+                && och->master == victim)
+            {
+                extract_char( och, TRUE );
+            }
+        }
+        xREMOVE_BIT( (victim)->affected_by, AFF_MULTI_FORM );
+        xREMOVE_BIT( (victim)->affected_by, AFF_TRI_FORM );
+        xREMOVE_BIT( (victim)->affected_by, AFF_SPLIT_FORM );
+	    xREMOVE_BIT( (victim)->affected_by, AFF_BIOJR );
+    }
+
+    set_char_color( AT_DIEMSG, victim );
+    if( victim->pcdata->mdeaths + victim->pcdata->pdeaths < 3 )
+    {
+        do_help( victim, "new_death" );
+        if ( is_android(victim) || is_superandroid(victim) )
+        {
+            if( !is_leet(victim) )
+                do_help(victim, "_ANDROID_DIEMSG_");
+            else
+                do_help(victim, "_1337DIEMSG_");
+        }
+        else
+        {
+            if( !is_leet(victim) ) // added dbs leet -Braska
+                do_help( victim, "_DIEMSG_" );
+            else
+                do_help(victim, "_1337DIEMSG_");
+        }
+    }
+    if (victim->race == 6) // added dbs code -Braska
+		evolveCheck(victim, ch, TRUE);
+
+    extract_char( victim, FALSE );
+    if( !victim )
+    {
+        bug( "%s: oops! extract_char destroyed pc char", __func__ );
+        return NULL;
+    }
+
    while( victim->first_affect )
-      affect_remove( victim, victim->first_affect );
-   victim->affected_by = race_table[victim->race]->affected;
-   victim->resistant = 0;
-   victim->susceptible = 0;
-   victim->immune = 0;
-   victim->carry_weight = 0;
-   victim->armor = 100;
-   victim->armor += race_table[victim->race]->ac_plus;
-   victim->attacks = race_table[victim->race]->attacks;
-   victim->defenses = race_table[victim->race]->defenses;
-   victim->mod_str = 0;
-   victim->mod_dex = 0;
-   victim->mod_wis = 0;
-   victim->mod_int = 0;
-   victim->mod_con = 0;
-   victim->mod_cha = 0;
-   victim->mod_lck = 0;
-   victim->damroll = 0;
-   victim->hitroll = 0;
-   victim->mental_state = -10;
-   victim->alignment = URANGE( -1000, victim->alignment, 1000 );
+        affect_remove( victim, victim->first_affect );
+        victim->affected_by = race_table[victim->race]->affected;
+        victim->resistant = 0;
+        victim->susceptible = 0;
+        victim->immune = 0;
+        victim->carry_weight = 0;
+        victim->armor = 100;
+        victim->armor += race_table[victim->race]->ac_plus;
+        victim->attacks = race_table[victim->race]->attacks;
+        victim->defenses = race_table[victim->race]->defenses;
+        victim->mod_str = 0;
+        victim->mod_dex = 0;
+        victim->mod_wis = 0;
+        victim->mod_int = 0;
+        victim->mod_con = 0;
+        victim->mod_cha = 0;
+        victim->mod_lck = 0;
+        victim->damroll = 0;
+        victim->hitroll = 0;
+        victim->mental_state = -10;
+        victim->alignment = URANGE( -1000, victim->alignment, 1000 );
 /*  victim->alignment		= race_table[victim->race]->alignment;
 -- switched lines just for now to prevent mortals from building up
 days of bellyaching about their angelic or satanic humans becoming
 neutral when they die given the difficulting of changing align */
 
+   victim->pl = victim->exp;
    victim->saving_poison_death = race_table[victim->race]->saving_poison_death;
    victim->saving_wand = race_table[victim->race]->saving_wand;
    victim->saving_para_petri = race_table[victim->race]->saving_para_petri;
@@ -5068,6 +5122,19 @@ neutral when they die given the difficulting of changing align */
    victim->saving_spell_staff = race_table[victim->race]->saving_spell_staff;
    victim->position = POS_RESTING;
    victim->hit = UMAX( 1, victim->hit );
+    victim->focus	= 0;
+    heart_calc(victim, "");
+	victim->powerup = 0;
+	victim->pcdata->tStr = 0;
+	victim->pcdata->tSpd = 0;
+	victim->pcdata->tInt = 0;
+	victim->pcdata->tCon = 0;
+
+	if (!IS_NPC(victim) && victim->race == 6)
+	{
+		victim->pcdata->absorb_sn = -1;
+		victim->pcdata->absorb_learn = 0;
+	}
    /*
     * Shut down some of those naked spammer killers - Blodkai 
     */
@@ -5089,11 +5156,18 @@ neutral when they die given the difficulting of changing align */
    {
       xREMOVE_BIT( victim->act, PLR_THIEF );
       send_to_char( "The gods have pardoned you for your thievery.\r\n", victim );
-   }
-   victim->pcdata->condition[COND_FULL] = 12;
-   victim->pcdata->condition[COND_THIRST] = 12;
-   if( IS_VAMPIRE( victim ) )
-      victim->pcdata->condition[COND_BLOODTHIRST] = ( victim->level / 2 );
+    }
+    victim->pcdata->condition[COND_FULL] = 12;
+    victim->pcdata->condition[COND_THIRST] = 12;
+    if( IS_VAMPIRE( victim ) )
+        victim->pcdata->condition[COND_BLOODTHIRST] = ( victim->level / 2 );
+    lostZeni = victim->gold * 0.07; // DBS zeni lost calc -Braska
+    victim->gold -= lostZeni;
+    boost_economy( karea, lostZeni );
+    pager_printf(victim, "&YYou have lost %d zeni!\n\r&D",lostZeni);
+	if ( !is_android(victim) && !is_superandroid(victim)
+	     && !xIS_SET( victim->affected_by, AFF_DEAD )) // DBS android death -Braska
+		 xSET_BIT( victim->affected_by, AFF_DEAD );
 
    if( IS_SET( sysdata.save_flags, SV_DEATH ) )
       save_char_obj( victim );
@@ -5139,13 +5213,15 @@ void group_gain( CHAR_DATA * ch, CHAR_DATA * victim )
       if( !is_same_group( gch, ch ) )
          continue;
 
-      if( gch->level - lch->level > 8 )
+      // if( gch->level - lch->level > 8 )
+      if( gch->pl / lch->pl >  10 ) // DBS pl added -Braska
       {
          send_to_char( "You are too high for this group.\r\n", gch );
          continue;
       }
 
-      if( gch->level - lch->level < -8 )
+      // if( gch->level - lch->level < -8 )
+      if ( gch->pl / lch->pl < 0.1 ) // DBS pl added -Braska
       {
          send_to_char( "You are too low for this group.\r\n", gch );
          continue;
@@ -5155,8 +5231,9 @@ void group_gain( CHAR_DATA * ch, CHAR_DATA * victim )
       if( !gch->fighting )
          xp /= 2;
       gch->alignment = align_compute( gch, victim );
-      ch_printf( gch, "You receive %d experience points.\r\n", xp );
-      gain_exp( gch, xp );
+      clan_auto_kick(gch);
+      // ch_printf( gch, "You receive %d experience points.\r\n", xp );
+      // gain_exp( gch, xp );
 
       for( obj = gch->first_carrying; obj; obj = obj_next )
       {
@@ -5166,7 +5243,7 @@ void group_gain( CHAR_DATA * ch, CHAR_DATA * victim )
 
          if( ( IS_OBJ_STAT( obj, ITEM_ANTI_EVIL ) && IS_EVIL( gch ) ) ||
              ( IS_OBJ_STAT( obj, ITEM_ANTI_GOOD ) && IS_GOOD( gch ) ) ||
-             ( IS_OBJ_STAT( obj, ITEM_ANTI_NEUTRAL ) && IS_NEUTRAL( gch ) ) )
+             ( IS_OBJ_STAT( obj, ITEM_ANTI_NEUTRAL ) && IS_NEUTRAL( gch ) ) && !IS_HC( ch ) )
          {
             act( AT_MAGIC, "You are zapped by $p.", gch, obj, NULL, TO_CHAR );
             act( AT_MAGIC, "$n is zapped by $p.", gch, obj, NULL, TO_ROOM );
@@ -5196,103 +5273,163 @@ int align_compute( CHAR_DATA * gch, CHAR_DATA * victim )
     * Added divalign to keep neutral chars shifting faster -- Blodkai 
     * This is obviously gonna take a lot more thought 
     */
-   if( gch->alignment > -350 && gch->alignment < 350 )
-      divalign = 4;
-   else
-      divalign = 20;
+    if (!IS_NPC(victim) && !IS_NPC(gch)) // DBS if to reset kaio and demon align -Braska
+	{
+		/*if (IS_GOOD(gch) && IS_GOOD(victim) )
+			newalign = 0 - victim->alignment;
+		else*/
+			newalign = gch->alignment;
 
-   if( align > 500 )
-      newalign = UMIN( gch->alignment + ( align - 500 ) / divalign, 1000 );
-   else if( align < -500 )
-      newalign = UMAX( gch->alignment + ( align + 500 ) / divalign, -1000 );
-   else
-      newalign = gch->alignment - ( int )( gch->alignment / divalign );
+		if( is_kaio(gch) && newalign < 0 )
+            newalign = 0;
+        if( is_demon(gch) && newalign > 0 )
+            newalign = 0;
+		if( is_bio(gch) && newalign > 0 )
+            newalign = 0;
 
-   return newalign;
+	    return newalign;
+	}
+
+    if( gch->alignment > -350 && gch->alignment < 350 )
+        divalign = 4;
+    else
+        divalign = 20;
+
+    if( align > 500 )
+        newalign = UMIN( gch->alignment + ( align - 500 ) / divalign, 1000 );
+    else if( align < -500 )
+        newalign = UMAX( gch->alignment + ( align + 500 ) / divalign, -1000 );
+    else
+    {
+        newalign = gch->alignment - ( int )( gch->alignment / divalign );
+        if (newalign > 1000) // DBS align stuff added -Braska
+                newalign = 1000;
+        if (newalign < -1000)
+            newalign = -1000;
+
+        if( is_kaio(gch) && newalign < 0 )
+            newalign = 0;
+        if( is_demon(gch) && newalign > 0 )
+            newalign = 0;
+        if( is_bio(gch) && newalign > 0 )
+            newalign = 0;
+        return newalign;
+    }
 }
 
 /*
  * Calculate how much XP gch should gain for killing victim
  * Lots of redesigning for new exp system by Thoric
+ * 
+ * More editing by Warren to remove levels
  */
 int xp_compute( CHAR_DATA * gch, CHAR_DATA * victim )
 {
    int align;
    int xp;
-   int xp_ratio;
-   int gchlev = gch->level;
+   // int xp_ratio;
+   // int gchlev = gch->level;
 
-   xp = ( get_exp_worth( victim ) * URANGE( 0, ( victim->level - gchlev ) + 10, 13 ) ) / 10;
-   align = gch->alignment - victim->alignment;
+    if ( !IS_NPC(victim) ) {
+            if ((gch->pl / victim->pl) <= 5)
+                xp = (victim->pl * (number_range( 4, 6 ) * 0.01));
+            else if ((gch->pl / victim->pl) <= 8)
+                xp = (victim->pl * (number_range( 3, 5 ) * 0.01));
+            else if ((gch->pl / victim->pl) < 10)
+                xp = (victim->pl * (number_range( 2, 4 ) * 0.01));
+            else
+                xp = 0;
+        }
+        if ( IS_NPC(victim) ) {
+            if ((gch->pl / victim->exp) <= 5)
+                xp = (victim->exp * (number_range( 4, 6 ) * 0.01));
+            else if ((gch->pl / victim->exp) <= 8)
+                xp = (victim->exp * (number_range( 3, 5 ) * 0.01));
+            else if ((gch->pl / victim->exp) < 10)
+                xp = (victim->exp * (number_range( 2, 4 ) * 0.01));
+            else
+                xp = 0;
+        }
+        /* removing all ordinary xp compute in stead for pl. I would really like to 
+        * review this more and probably fix it so it works better-Braska
+        * xp = ( get_exp_worth( victim ) * URANGE( 0, ( victim->level - gchlev ) + 10, 13 ) ) / 10;
+        * align = gch->alignment - victim->alignment;
+        */
+        /*
+        * bonus for attacking opposite alignment 
+        */
 
-   /*
-    * bonus for attacking opposite alignment 
-    */
-   if( align > 990 || align < -990 )
-      xp = ( xp * 5 ) >> 2;
-   else
-      /*
-       * penalty for good attacking same alignment 
-       */
-   if( gch->alignment > 300 && align < 250 )
-      xp = ( xp * 3 ) >> 2;
+        /*
+        * if( align > 990 || align < -990 )
+        *    xp = ( xp * 5 ) >> 2;
+        * else */
+            /*
+            * penalty for good attacking same alignment 
+            */
+        /*
+        * if( gch->alignment > 300 && align < 250 )
+        *     xp = ( xp * 3 ) >> 2;
 
-   xp = number_range( ( xp * 3 ) >> 2, ( xp * 5 ) >> 2 );
+        * xp = number_range( ( xp * 3 ) >> 2, ( xp * 5 ) >> 2 );
+        */
+        /*
+        * get 1/4 exp for players               -Thoric 
+        */
+        /*
+        * if( !IS_NPC( victim ) )
+        *     xp /= 4;
+        * else
+        */
+        /*
+        * reduce exp for killing the same mob repeatedly    -Thoric 
+        */
+        /*
+        * if( !IS_NPC( gch ) )
+        * {
+        *     int times = times_killed( gch, victim );
 
-   /*
-    * get 1/4 exp for players               -Thoric 
-    */
-   if( !IS_NPC( victim ) )
-      xp /= 4;
-   else
-      /*
-       * reduce exp for killing the same mob repeatedly    -Thoric 
-       */
-   if( !IS_NPC( gch ) )
-   {
-      int times = times_killed( gch, victim );
-
-      if( times >= 20 )
-         xp = 0;
-      else if( times )
-      {
-         xp = ( xp * ( 20 - times ) ) / 20;
-         if( times > 15 )
-            xp /= 3;
-         else if( times > 10 )
-            xp >>= 1;
-      }
-   }
-
-   /*
-    * semi-intelligent experienced player vs. novice player xp gain
-    * "bell curve"ish xp mod by Thoric
-    * based on time played vs. level
-    */
-   if( !IS_NPC( gch ) && gchlev > 5 )
-   {
-      xp_ratio = ( int )gch->played / gchlev;
-      if( xp_ratio > 20000 )  /* 5/4 */
-         xp = ( xp * 5 ) >> 2;
-      else if( xp_ratio > 16000 )   /* 3/4 */
-         xp = ( xp * 3 ) >> 2;
-      else if( xp_ratio > 10000 )   /* 1/2 */
-         xp >>= 1;
-      else if( xp_ratio > 5000 ) /* 1/4 */
-         xp >>= 2;
-      else if( xp_ratio > 3500 ) /* 1/8 */
-         xp >>= 3;
-      else if( xp_ratio > 2000 ) /* 1/16 */
-         xp >>= 4;
-      else
-         xp >>= 5; // 1/32 - Bugfix for Issue #15 @ GitHub
-   }
-
-   /*
-    * Level based experience gain cap.  Cannot get more experience for
-    * a kill than the amount for your current experience level   -Thoric
-    */
-   return URANGE( 0, xp, exp_level( gch, gchlev + 1 ) - exp_level( gch, gchlev ) );
+        *     if( times >= 20 )
+        *         xp = 0;
+        *     else if( times )
+        *     {
+        *         xp = ( xp * ( 20 - times ) ) / 20;
+        *         if( times > 15 )
+        *             xp /= 3;
+        *         else if( times > 10 )
+        *             xp >>= 1;
+        *     }
+        * }
+        */
+        /*
+        * semi-intelligent experienced player vs. novice player xp gain
+        * "bell curve"ish xp mod by Thoric
+        * based on time played vs. level
+        */
+        /*
+        * if( !IS_NPC( gch ) && gchlev > 5 )
+        * {
+        *     xp_ratio = ( int )gch->played / gchlev;
+        *     if( xp_ratio > 20000 )  // 5/4
+        *         xp = ( xp * 5 ) >> 2;
+        *     else if( xp_ratio > 16000 )   // 3/4
+        *         xp = ( xp * 3 ) >> 2;
+        *     else if( xp_ratio > 10000 )   // 1/2
+        *         xp >>= 1;
+        *     else if( xp_ratio > 5000 ) // 1/4
+        *         xp >>= 2;
+        *     else if( xp_ratio > 3500 ) // 1/8
+        *        xp >>= 3;
+        *     else if( xp_ratio > 2000 ) // 1/16
+        *        xp >>= 4;
+        *     else
+        *        xp >>= 5; // 1/32 - Bugfix for Issue #15 @ GitHub
+        *}
+        */
+        /*
+            * Level based experience gain cap.  Cannot get more experience for
+            * a kill than the amount for your current experience level   -Thoric
+            */
+   return xp // URANGE( 0, xp, exp_level( gch, gchlev + 1 ) - exp_level( gch, gchlev ) );
 }
 
 /*
