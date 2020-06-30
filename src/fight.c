@@ -6099,7 +6099,7 @@ void do_kill( CHAR_DATA* ch, const char* argument)
 {
    char arg[MAX_INPUT_LENGTH];
    CHAR_DATA *victim;
-   OBJ_DATA *o;
+   // OBJ_DATA *o; // removed this one -Braska
 
    argument = one_argument( argument, arg );
 
