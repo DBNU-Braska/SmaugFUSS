@@ -5469,6 +5469,7 @@ void new_dam_message( CHAR_DATA * ch, CHAR_DATA * victim, int dam, unsigned int 
     * Get the weapon index 
     */
    if( dt < ( unsigned int )num_skills )
+   // if ( dt > 0 && dt < top_sn ) // This is the DBS version -Braska
    {
       w_index = 0;
    }
@@ -5494,8 +5495,72 @@ void new_dam_message( CHAR_DATA * ch, CHAR_DATA * victim, int dam, unsigned int 
       d_index = 1 + dampc / 10;
    else if( dampc <= 200 )
       d_index = 11 + ( dampc - 100 ) / 20;
-   else if( dampc <= 900 )
-      d_index = 16 + ( dampc - 200 ) / 100;
+    else if( dampc <= 900 )
+        d_index = 16 + ( dampc - 200 ) / 100;
+    // DBS damage indexes
+    /*
+    	else if( dam < 2 )
+    	d_index = 1;
+	else if(dam < 3)
+    	d_index = 2;
+	else if(dam < 4)
+    	d_index = 3;
+	else if(dam < 5)
+    	d_index = 4;
+	else if(dam < 6)
+    	d_index = 5;
+	else if(dam < 7)
+    	d_index = 6;
+	else if(dam < 8)
+    	d_index = 7;
+	else if(dam < 10)
+    	d_index = 8;
+	else if(dam < 12)
+    	d_index = 9;
+	else if(dam < 14)
+    	d_index = 10;
+	else if(dam < 18)
+    	d_index = 11;
+	else if(dam < 24)
+    	d_index = 12;
+	else if(dam < 30)
+    	d_index = 13;
+	else if(dam < 40)
+    	d_index = 14;
+	else if(dam < 50)
+    	d_index = 15;
+	else if(dam < 60)
+    	d_index = 16;
+	else if(dam < 70)
+    	d_index = 17;
+	else if(dam < 80)
+    	d_index = 18;
+	else if(dam < 90)
+    	d_index = 19;
+	else if(dam < 100)
+    	d_index = 20;
+	else if(dam < 300)
+    	d_index = 21;
+	else if(dam < 1000)
+    	d_index = 22;
+	else if(dam < 10000)
+    	d_index = 23;
+	else if(dam < 100000)
+    	d_index = 24;
+	else if(dam < 1000000)
+    	d_index = 25;
+	else if(dam < 10000000)
+    	d_index = 26;
+	else
+    	d_index = 27;
+    */ // -Braska
+
+    /* Lookup the damage message */
+    if( is_leet(ch) )
+    {
+	vs = s_1337_messages[d_index];
+	vp = p_message_table[w_index][d_index];
+    }
    else
       d_index = 23;
 
@@ -5515,101 +5580,294 @@ void new_dam_message( CHAR_DATA * ch, CHAR_DATA * victim, int dam, unsigned int 
 
    if( dt >= 0 && dt < ( unsigned int )num_skills )
       skill = skill_table[dt];
-   if( dt == TYPE_HIT )
-   {
-      snprintf( buf1, 256, "$n %s $N%c", vp, punct );
-      snprintf( buf2, 256, "You %s $N%c", vs, punct );
-      snprintf( buf3, 256, "$n %s you%c", vp, punct );
-   }
-   else if( dt > TYPE_HIT && is_wielding_poisoned( ch ) )
-   {
-      if( dt < TYPE_HIT + sizeof( attack_table ) / sizeof( attack_table[0] ) )
-         attack = attack_table[dt - TYPE_HIT];
-      else
-      {
-         bug( "%s: bad dt %d from %s in %d.", __func__, dt, ch->name, ch->in_room->vnum );
-         dt = TYPE_HIT;
-         attack = attack_table[0];
-      }
+    /*
+    * adding dodge, block, ki dodge, ki deflect, ki cancel, and leet stuff 
+    * -Braska
+    */ 
+    if( victim->dodge ) 
+    {
+        if( IS_NPC(ch) )
+        {
+            sprintf( buf1, "&B%s dodges %s's attack.", victim->name, ch->short_descr );
+            sprintf( buf2, "&B%s dodges your attack.", victim->name);
+            sprintf( buf3, "&BYou dodge %s's attack.", ch->short_descr );
+	    }
+	    else
+        {
+            sprintf( buf1, "&B%s dodges %s's attack.", victim->name, ch->name );
+            sprintf( buf2, "&B%s dodges your attack.", victim->name);
+            sprintf( buf3, "&BYou dodge %s's attack.", ch->name );
+	    }
+	    victim->dodge = FALSE;
+    }
+    else if( victim->block )
+    {
+        if( IS_NPC(ch) )
+        {
+            sprintf( buf1, "&B%s blocks %s's attack.", victim->name, ch->short_descr );
+            sprintf( buf2, "&B%s blocks your attack.", victim->name);
+            sprintf( buf3, "&BYou block %s's attack.", ch->short_descr );
+        }
+        else
+        {
+            sprintf( buf1, "&B%s blocks %s's attack.", victim->name, ch->name );
+            sprintf( buf2, "&B%s blocks your attack.", victim->name);
+            sprintf( buf3, "&BYou block %s's attack.", ch->name );
+        }
+            victim->block = FALSE;
+    }
+    else if( victim->ki_dodge )
+    {
+        if( IS_NPC(ch) )
+        {
+          sprintf( buf1, "&B%s flickers and vanishes, dodging %s's attack with super-speed.", victim->name, ch->short_descr );
+          sprintf( buf2, "&B%s flickers and vanishes, dodging your attack with super-speed.", victim->name);
+          sprintf( buf3, "&BYou flicker and vanish, dodging %s's attack with super-speed.", ch->short_descr );
+        }
+        else
+        {
+	        sprintf( buf1, "&B%s flickers and vanishes, dodging %s's attack with super-speed.", victim->name, ch->name );
+            sprintf( buf2, "&B%s flickers and vanishes, dodging your attack with super-speed.", victim->name);
+            sprintf( buf3, "&BYou flicker and vanish, dodging %s's attack with super-speed.", ch->name );
+        }
+        victim->ki_dodge = FALSE;
+    }
+    else if( victim->ki_deflect )
+    {
+        if( IS_NPC(ch) )
+        {
+            sprintf( buf1, "&B%s deflects %s's attack.", victim->name, ch->short_descr );
+            sprintf( buf2, "&B%s deflects your attack.", victim->name);
+            sprintf( buf3, "&BYou deflect %s's attack.", ch->short_descr );
+        }
+        else
+        {
+            sprintf( buf1, "&B%s deflects %s's attack.", victim->name, ch->name );
+            sprintf( buf2, "&B%s deflects your attack.", victim->name);
+            sprintf( buf3, "&BYou deflect %s's attack.", ch->name );
+        }
+        victim->ki_deflect = FALSE;
+    }
+    else if( victim->ki_cancel )
+    {
+        if( IS_NPC(ch) )
+        {
+            sprintf( buf1, "&B%s cancels out %s's attack.", victim->name, ch->short_descr );
+            sprintf( buf2, "&B%s cancels out your attack.", victim->name);
+            sprintf( buf3, "&BYou cancel out %s's attack.", ch->short_descr );
+        }
+        else
+        {
+            sprintf( buf1, "&B%s cancels out %s's attack.", victim->name, ch->name );
+            sprintf( buf2, "&B%s cancels out your attack.", victim->name);
+            sprintf( buf3, "&BYou cancel out %s's attack.", ch->name );
+        }
+        victim->ki_cancel = FALSE;
+    }
+    else if( dt == TYPE_HIT )
+    {
+        if( dam > 0 && !is_leet(ch) )
+        {
+            sprintf( buf1, "$n %s $N%c  [%s]",  vp, punct, num_punct(dam) );
+            sprintf( buf2, "You %s $N%c  [%s]", vs, punct, num_punct(dam) );
+            sprintf( buf3, "$n %s you%c  [%s]", vp, punct, num_punct(dam) );
+        }
+        if( dam > 0 && is_leet(ch) )
+        {
+            sprintf( buf1, "$n %s $N%c  [%s]",  vp, punct, num_punct(dam) );
+            sprintf( buf2, "%s  [%s]", vs, num_punct(dam) );
+            sprintf( buf3, "$n %s you%c  [%s]", vp, punct, num_punct(dam) );
+        }
+        if( dam <= 0 && !is_leet(ch) )
+        {
+            switch (number_range(1,15))
+            {
+                default:
+                sprintf( buf1, "$n hits $N. $N just laughs at $s weak power.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "You hit $N. $N just laughs at your weak power. [%s]", num_punct(dam) );
+                sprintf( buf3, "$n hits you. You laugh at $s weak power. [%s]", num_punct(dam) );
+                break;
+                case 1:
+                sprintf( buf1, "$n hits $N. $N just laughs at $s weak power.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "You hit $N. $N just laughs at your weak power. [%s]", num_punct(dam) );
+                sprintf( buf3, "$n hits you. You laugh at $s weak power. [%s]", num_punct(dam) );
+                break;
+                case 2:
+                sprintf( buf1, "$n %s $N%c  [%s]",  vp, punct, num_punct(dam) );
+                sprintf( buf2, "You %s $N%c  [%s]", vs, punct, num_punct(dam) );
+                sprintf( buf3, "$n %s you%c  [%s]", vp, punct, num_punct(dam) );
+                break;
+                case 3:
+                sprintf( buf1, "$n's hit is absorbed by the ki energy surrounding $N.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "Your hit is absorbed by the ki energy surrounding $N.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "$n's hit is absorbed by the ki energy surrounding you. [%s]", num_punct(dam) );
+                break;
+                case 4:
+                sprintf( buf1, "$N dodges $n's hit with incredible speed.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "$N dodges your hit with incredible speed.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "You dodge $n's hit with incredible speed. [%s]", num_punct(dam) );
+                break;
+                case 5:
+                sprintf( buf1, "$N crosses $S arms and blocks $n's hit.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "$N crosses $S arms and blocks your hit.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "You cross your arms and block $n's hit. [%s]", num_punct(dam) );
+                break;
+                case 6:
+                sprintf( buf1, "$n aims too low and misses $N.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "You aim too low and miss $N.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "$n aims too low and misses you. [%s]", num_punct(dam) );
+                break;
+                case 7:
+                sprintf( buf1, "$n aims too high and misses $N.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "You aim too high and miss $N.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "$n aims too high and misses you. [%s]", num_punct(dam) );
+                break;
+                case 8:
+                sprintf( buf1, "$n lands $s hit but $N just grins at $m.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "You land your hit but $N just grins at you.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "$n lands $s hit but you just grin at $m. [%s]", num_punct(dam) );
+                break;
+                case 9:
+                sprintf( buf1, "$n loses concentration for a moment and misses $N.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "You lose concentration for a moment and miss $N.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "$n loses concentration for a moment and misses you. [%s]", num_punct(dam) );
+                break;
+                case 10:
+                sprintf( buf1, "$n overextends $mself and misses $N.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "You overextend yourself and miss $N.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "$n overextends $mself and misses you. [%s]", num_punct(dam) );
+                break;
+                case 11:
+                sprintf( buf1, "$n hits $N but $E seems to shrug off the damage.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "You hit $N but $E seems to shrug off the damage.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "$n hits you, but you soak the damage. [%s]", num_punct(dam) );
+                break;
+                case 12:
+                sprintf( buf1, "$N chuckles as $n goes off-balance by missing $M.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "You get laughed at by $N for your off-balance miss.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "You chuckle as $n goes off-balance by missing you. [%s]", num_punct(dam) );
+                break;
+                case 13:
+                sprintf( buf1, "$N ducks under $n's attack.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "$N ducks under your attack.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "You duck under $n's attack. [%s]", num_punct(dam) );
+                break;
+                case 14:
+                sprintf( buf1, "$N jumps over $n's attack.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "$N jumps over your attack.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "You jump over $n's attack. [%s]", num_punct(dam) );
+                break;
+                case 15:
+                sprintf( buf1, "$n trips on something and misses $N.  [%s]",  num_punct(dam) );
+                sprintf( buf2, "You trip on something and miss $N.  [%s]",  num_punct(dam) );
+                sprintf( buf3, "$n trips on something and misses you. [%s]", num_punct(dam) );
+                break;
+            }
+        }
+	    else if( dam <= 0 && is_leet(ch) )
+        {
+            sprintf( buf1, "$n %s $N%c  [%s]",  vp, punct,num_punct(dam) );
+            sprintf( buf2, "U mised $N. omgawd u sux. ih8u. H8!!! [%s]",num_punct(dam) );
+            sprintf( buf3, "$n %s you%c  [%s]", vp, punct,num_punct(dam) );
+        }
+    }
 
-      snprintf( buf1, 256, "$n's poisoned %s %s $N%c", attack, vp, punct );
-      snprintf( buf2, 256, "Your poisoned %s %s $N%c", attack, vp, punct );
-      snprintf( buf3, 256, "$n's poisoned %s %s you%c", attack, vp, punct );
-   }
-   else
-   {
-      if( skill )
-      {
-         attack = skill->noun_damage;
-         if( dam == 0 )
-         {
-            bool found = FALSE;
-
-            if( skill->miss_char && skill->miss_char[0] != '\0' )
-            {
-               act( AT_HIT, skill->miss_char, ch, NULL, victim, TO_CHAR );
-               found = TRUE;
-            }
-            if( skill->miss_vict && skill->miss_vict[0] != '\0' )
-            {
-               act( AT_HITME, skill->miss_vict, ch, NULL, victim, TO_VICT );
-               found = TRUE;
-            }
-            if( skill->miss_room && skill->miss_room[0] != '\0' )
-            {
-               if( str_cmp( skill->miss_room, "supress" ) )
-                  act( AT_ACTION, skill->miss_room, ch, NULL, victim, TO_NOTVICT );
-               found = TRUE;
-            }
-            if( found ) /* miss message already sent */
-            {
-               if( was_in_room )
-               {
-                  char_from_room( ch );
-                  char_to_room( ch, was_in_room );
-               }
-               return;
-            }
-         }
-         else
-         {
-            if( skill->hit_char && skill->hit_char[0] != '\0' )
-               act( AT_HIT, skill->hit_char, ch, NULL, victim, TO_CHAR );
-            if( skill->hit_vict && skill->hit_vict[0] != '\0' )
-               act( AT_HITME, skill->hit_vict, ch, NULL, victim, TO_VICT );
-            if( skill->hit_room && skill->hit_room[0] != '\0' )
-               act( AT_ACTION, skill->hit_room, ch, NULL, victim, TO_NOTVICT );
-         }
-      }
-      else if( dt >= TYPE_HIT && dt < TYPE_HIT + sizeof( attack_table ) / sizeof( attack_table[0] ) )
-      {
-         if( obj )
-            attack = obj->short_descr;
-         else
+    if( dt == TYPE_HIT )
+    {
+        snprintf( buf1, 256, "$n %s $N%c", vp, punct );
+        snprintf( buf2, 256, "You %s $N%c", vs, punct );
+        snprintf( buf3, 256, "$n %s you%c", vp, punct );
+    }
+    else if( dt > TYPE_HIT && is_wielding_poisoned( ch ) )
+    {
+        if( dt < TYPE_HIT + sizeof( attack_table ) / sizeof( attack_table[0] ) )
             attack = attack_table[dt - TYPE_HIT];
-      }
-      else
-      {
-         bug( "%s: bad dt %d from %s in %d.", __func__, dt, ch->name, ch->in_room->vnum );
-         attack = attack_table[0];
-      }
+        else
+        {
+            bug( "%s: bad dt %d from %s in %d.", __func__, dt, ch->name, ch->in_room->vnum );
+            dt = TYPE_HIT;
+            attack = attack_table[0];
+        }
 
-      snprintf( buf1, 256, "$n's %s %s $N%c", attack, vp, punct );
-      snprintf( buf2, 256, "Your %s %s $N%c", attack, vp, punct );
-      snprintf( buf3, 256, "$n's %s %s you%c", attack, vp, punct );
-   }
+            snprintf( buf1, 256, "$n's poisoned %s %s $N%c", attack, vp, punct );
+            snprintf( buf2, 256, "Your poisoned %s %s $N%c", attack, vp, punct );
+            snprintf( buf3, 256, "$n's poisoned %s %s you%c", attack, vp, punct );
+    }
+    else
+    {
+        if( skill )
+        {
+            attack = skill->noun_damage;
+            if( dam == 0 )
+            {
+                bool found = FALSE;
 
-   act( AT_ACTION, buf1, ch, NULL, victim, TO_NOTVICT );
-   if( !gcflag )
-      act( AT_HIT, buf2, ch, NULL, victim, TO_CHAR );
-   if( !gvflag )
-      act( AT_HITME, buf3, ch, NULL, victim, TO_VICT );
+                if( skill->miss_char && skill->miss_char[0] != '\0' )
+                {
+                act( AT_HIT, skill->miss_char, ch, NULL, victim, TO_CHAR );
+                found = TRUE;
+                }
+                if( skill->miss_vict && skill->miss_vict[0] != '\0' )
+                {
+                    act( AT_HITME, skill->miss_vict, ch, NULL, victim, TO_VICT );
+                    found = TRUE;
+                }
+                if( skill->miss_room && skill->miss_room[0] != '\0' )
+                {
+                    if( str_cmp( skill->miss_room, "supress" ) )
+                        act( AT_ACTION, skill->miss_room, ch, NULL, victim, TO_NOTVICT );
+                        found = TRUE;
+                }
+                if( found ) /* miss message already sent */
+                {
+                    if( was_in_room )
+                    {
+                        char_from_room( ch );
+                        char_to_room( ch, was_in_room );
+                    }
+                    return;
+                }
+            }
+            else
+            {
+                if( skill->hit_char && skill->hit_char[0] != '\0' )
+                    act( AT_HIT, skill->hit_char, ch, NULL, victim, TO_CHAR );
+                if( skill->hit_vict && skill->hit_vict[0] != '\0' )
+                    act( AT_HITME, skill->hit_vict, ch, NULL, victim, TO_VICT );
+                if( skill->hit_room && skill->hit_room[0] != '\0' )
+                    act( AT_ACTION, skill->hit_room, ch, NULL, victim, TO_NOTVICT );
+            }
+        }
+        else if( dt >= TYPE_HIT && dt < TYPE_HIT + sizeof( attack_table ) / sizeof( attack_table[0] ) )
+        {
+            if( obj )
+                attack = obj->short_descr;
+            else
+                attack = attack_table[dt - TYPE_HIT];
+        }
+        else
+        {
+            bug( "%s: bad dt %d from %s in %d.", __func__, dt, ch->name, ch->in_room->vnum );
+            attack = attack_table[0];
+        }
 
-   if( was_in_room )
-   {
-      char_from_room( ch );
-      char_to_room( ch, was_in_room );
-   }
+        snprintf( buf1, 256, "$n's %s %s $N%c", attack, vp, punct );
+        snprintf( buf2, 256, "Your %s %s $N%c", attack, vp, punct );
+        snprintf( buf3, 256, "$n's %s %s you%c", attack, vp, punct );
+    }
+
+    act( AT_ACTION, buf1, ch, NULL, victim, TO_NOTVICT );
+    if( !gcflag )
+        act( AT_HIT, buf2, ch, NULL, victim, TO_CHAR );
+    if( !gvflag )
+        act( AT_HITME, buf3, ch, NULL, victim, TO_VICT );
+
+    if( was_in_room )
+    {
+        char_from_room( ch );
+        char_to_room( ch, was_in_room );
+    }
+        // return; // DBS added -Braska
 }
 
 #ifndef dam_message
