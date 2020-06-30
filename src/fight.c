@@ -6099,8 +6099,9 @@ void do_kill( CHAR_DATA* ch, const char* argument)
 {
    char arg[MAX_INPUT_LENGTH];
    CHAR_DATA *victim;
+   OBJ_DATA *o;
 
-   one_argument( argument, arg );
+   argument = one_argument( argument, arg );
 
    if( arg[0] == '\0' )
    {
@@ -6113,13 +6114,59 @@ void do_kill( CHAR_DATA* ch, const char* argument)
       send_to_char( "They aren't here.\r\n", ch );
       return;
    }
-
-   if( IS_NPC( victim ) && victim->morph )
-   {
-      send_to_char( "This creature appears strange to you.  Look upon it more closely before attempting to kill it.", ch );
-      return;
-   }
-
+    if( !IS_NPC( victim ) && !victim->desc )
+    {
+	    send_to_char( "They are link dead, it wouldn't be right.\r\n", ch );
+		return;
+    }
+    if( IS_NPC( victim ) && is_split( victim ) )
+    {
+	    ch_printf( ch, "You are not allowed to kill splitforms.\n\r" );
+	    return;
+    }
+    if( IS_NPC( victim ) && victim->morph )
+    {
+        send_to_char( "This creature appears strange to you.  Look upon it more closely before attempting to kill it.\n\r", ch );
+        return;
+    }
+    if( ( float )victim->exp / ch->exp > 5 && !IS_NPC( victim ) )
+    {
+        ch_printf( ch,"They are more than 5 times stronger than you.\n\r" );
+        return;
+    }
+    if( IS_NPC( victim ) && is_splitformed( victim ) && victim->master && victim->master == ch )
+    {
+        send_to_char( "You can't kill your own Split Form.\n\r", ch );
+        return;
+    }
+    if ( IS_NPC( ch ) && is_splitformed( ch ) && !IS_NPC( victim ) )
+    {
+		send_to_char("You can't do that.\n\r", ch);
+		return;
+    }
+    if( !IS_NPC( ch ) && IS_NPC( victim ) && is_splitformed( victim ) )
+    {
+		ch_printf( ch, "Why don't you try attacking the real %s.\n\r", victim->short_descr );
+		return;
+    }
+    if( IS_NPC( victim ) && victim->master != NULL && IS_IMMORTAL( victim->master ) && !IS_IMMORTAL( ch ) )
+    {
+        send_to_char( "Cheatz.\n\r", ch );
+        return;
+    }
+    if( IS_GOOD( ch ) && !IS_EVIL( victim ) && !IS_NPC(victim) && !IS_HC( ch ) && ( carrying_dball( victim ) ) == NULL )
+    {
+        if( ch->kairank >= victim->kairank && !is_kaio( victim ) )
+        {
+            ch_printf( ch,"Its not in your nature to kill others that are not evil.\n\r" );
+            return;
+        }
+    }
+    if( victim->position <= POS_STUNNED )
+    {
+        ch_printf( ch,"They have one foot in the grave already. That would be pointless.\n\r" );
+        return;
+    }
    if( !IS_NPC( victim ) )
    {
       if( !xIS_SET( victim->act, PLR_KILLER ) && !xIS_SET( victim->act, PLR_THIEF ) )
@@ -6145,31 +6192,121 @@ void do_kill( CHAR_DATA* ch, const char* argument)
    if( victim == ch )
    {
       send_to_char( "You hit yourself.  Ouch!\r\n", ch );
+      /* Removed to avoid abuse and "self-inflicted SSJ*/ // Left this in need to test -Braska
       multi_hit( ch, ch, TYPE_UNDEFINED );
       return;
    }
 
    if( is_safe( ch, victim, TRUE ) )
       return;
+    
+    if( !IS_IMMORTAL( ch ) && !IS_NPC( ch ) && !IS_NPC( victim ) )
+    {
+    	if( !xIS_SET( ch->act, PLR_QUESTING ) && xIS_SET( victim->act, PLR_QUESTING ) )
+    	{
+    		send_to_char( "You can't attack a player involved in a role playing event.\n\r", ch );
+    		return;
+    	}
+    	if( xIS_SET( ch->act, PLR_QUESTING ) && !xIS_SET( victim->act, PLR_QUESTING ) )
+    	{
+    		send_to_char( "You can't attack a player not involved in a role playing event.\n\r", ch );
+    		return;
+    	}
+    }
+    if ( xIS_SET( ch->in_room->room_flags, ROOM_ARENA ) )
+    {
+       	send_to_char( "You can only spar while in an arena.\n\r", ch );
+        return;
+    }
+	if ( xIS_SET( ch->act, PLR_SPAR ) )
+    {
+	    xREMOVE_BIT( ch->act, PLR_SPAR );
+    }
+	if( xIS_SET( victim->act, PLR_SPAR ) )
+    {
+	    xREMOVE_BIT( victim->act, PLR_SPAR );
+    }
 
    if( IS_AFFECTED( ch, AFF_CHARM ) && ch->master == victim )
    {
       act( AT_PLAIN, "$N is your beloved master.", ch, NULL, victim, TO_CHAR );
       return;
    }
-
-   if( ch->position == POS_FIGHTING
-       || ch->position == POS_EVASIVE
-       || ch->position == POS_DEFENSIVE || ch->position == POS_AGGRESSIVE || ch->position == POS_BERSERK )
-   {
+    if( ch->position == POS_RESTING || ch->position == POS_SLEEPING )
+    {
+        send_to_char( "How do you propose to do that in your current state?\n\r", ch );
+        return;
+    }
+    if( ch->position == POS_FIGHTING 
+        || ch->position == POS_EVASIVE 
+        || ch->position == POS_DEFENSIVE 
+        || ch->position == POS_AGGRESSIVE 
+        || ch->position == POS_BERSERK 
+        )
+    {
       send_to_char( "You do the best you can!\r\n", ch );
       return;
-   }
+    }
+	if( who_fighting( victim ) != NULL )
+    {
+        send_to_char( "It would not be honorable to interfere with some one else's battle.\n\r", ch );
+        return;
+    }
 
-   WAIT_STATE( ch, 1 * PULSE_VIOLENCE );
-   check_attacker( ch, victim );
-   multi_hit( ch, victim, TYPE_UNDEFINED );
-   return;
+	if( !IS_NPC( ch ) && !IS_NPC( victim ) && strcmp( argument, "now" ) )
+    {
+        send_to_char( "You must type 'kill <person> now' if you want to kill a player.\n\r", ch );
+        return;
+    }
+
+	if( !IS_NPC( ch ) && !IS_NPC( victim ) && !pkill_ok( ch, victim ) ) // I changed this to include the pkill in one if -Braska
+		return;
+
+    if( !IS_NPC ( victim ) )
+	{
+		sprintf( log_buf, "PLAYER COMBAT: %s[%s] vs. %s[%s].",
+			ch->name, !xIS_SET( ch->act, PLR_SPAR ) ? "DEADLY" : "SPARING",
+			victim->name, !xIS_SET( victim->act, PLR_SPAR ) ? "DEADLY" : "SPARING" );
+		log_string_plus( log_buf, LOG_NORMAL, ch->level );
+		if( !xIS_SET( ch->act, PLR_SPAR) )
+		{
+			if( !is_leet( ch ) )
+			    sprintf( buf, "Help!  I am being attacked by %s!", IS_NPC( ch ) ? ch->short_descr : ch->name );
+			else
+			    sprintf( buf, "Omigawd!  %s atakin me!! STAWP!!11shift-one1", IS_NPC( ch ) ? ch->short_descr : ch->name );
+			if( IS_PKILL( victim ) )
+				do_wartalk( victim, buf );
+			else
+			{
+				do_yell( victim, buf );
+			}
+            ch->focus     = 0;
+            victim->focus = 0;
+		}
+		check_illegal_pk( ch, victim );
+	}
+    if( !IS_NPC( ch ) && ch->race == 6 )
+	{
+		find_absorb_data( ch, victim );
+		ch->pcdata->absorb_pl = 0;
+	}
+	if( !IS_NPC( victim ) && victim->race == 6 )
+	{
+		find_absorb_data( victim, ch );
+		victim->pcdata->absorb_pl = 0;
+	}
+    /* Moved to here so that mobs no longer retain prefocus. -Karma */
+    ch->focus     = 0;
+    victim->focus = 0;
+    ch->delay = 0;
+    ch->fight_start = 0;
+    ch->fight_start = ch->exp;
+    victim->fight_start = 0;
+    victim->fight_start = victim->exp;
+    WAIT_STATE( ch, 1 * PULSE_VIOLENCE );
+    check_attacker( ch, victim );
+    multi_hit( ch, victim, TYPE_UNDEFINED );
+    return;
 }
 
 void do_murde( CHAR_DATA* ch, const char* argument)
@@ -6204,6 +6341,18 @@ void do_murder( CHAR_DATA* ch, const char* argument)
       return;
    }
 
+	if( !IS_NPC( victim ) )
+	{
+	    send_to_char( "Use KILL to kill another player.\n\r", ch );
+	    return;
+    }
+
+	if( IS_NPC( victim ) )
+	{
+	    send_to_char( "Use KILL to kill another player.\n\r", ch );
+	    return;
+    }
+
    if( is_safe( ch, victim, TRUE ) )
       return;
 
@@ -6223,7 +6372,10 @@ void do_murder( CHAR_DATA* ch, const char* argument)
 
    if( ch->position == POS_FIGHTING
        || ch->position == POS_EVASIVE
-       || ch->position == POS_DEFENSIVE || ch->position == POS_AGGRESSIVE || ch->position == POS_BERSERK )
+       || ch->position == POS_DEFENSIVE 
+       || ch->position == POS_AGGRESSIVE 
+       || ch->position == POS_BERSERK 
+       )
    {
       send_to_char( "You do the best you can!\r\n", ch );
       return;
@@ -6243,12 +6395,18 @@ void do_murder( CHAR_DATA* ch, const char* argument)
       log_printf_plus( LOG_NORMAL, ch->level, "%s: murder %s.", ch->name, victim->name );
    }
 
-   WAIT_STATE( ch, 1 * PULSE_VIOLENCE );
-   snprintf( buf, MAX_STRING_LENGTH, "Help!  I am being attacked by %s!", IS_NPC( ch ) ? ch->short_descr : ch->name );
-   if( IS_PKILL( victim ) )
+    WAIT_STATE( ch, 1 * PULSE_VIOLENCE );
+
+    if( !is_leet( ch ) )
+        snprintf( buf, MAX_STRING_LENGTH, "Help!  I am being attacked by %s!", IS_NPC( ch ) ? ch->short_descr : ch->name );
+    else
+        snprintf( buf, MAX_STRING_LENGTH, "Help!  I am being attacked by %s!", IS_NPC( ch ) ? ch->short_descr : ch->name );
+
+    if( IS_PKILL( victim ) )
       do_wartalk( victim, buf );
    else
-      do_yell( victim, buf );
+        do_yell( victim, buf );
+
    check_illegal_pk( ch, victim );
    check_attacker( ch, victim );
    multi_hit( ch, victim, TYPE_UNDEFINED );
