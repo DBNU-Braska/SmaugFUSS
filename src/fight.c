@@ -6687,6 +6687,7 @@ void do_slay( CHAR_DATA* ch, const char* argument)
    if( arg[0] == '\0' )
    {
       send_to_char( "Slay whom?\r\n", ch );
+      send_to_char( "Types: Immolate, Skin, Shatter, 9mm, Deheart, Demon, Pounce, Slit, Dog, Fslay, Cookie.\n\r", ch); // all the types -Braska
       return;
    }
 
@@ -6714,8 +6715,15 @@ void do_slay( CHAR_DATA* ch, const char* argument)
       act( AT_FIRE, "$n releases a searing fireball in your direction.", ch, NULL, victim, TO_VICT );
       act( AT_FIRE, "$n points at $N, who bursts into a flaming inferno.", ch, NULL, victim, TO_NOTVICT );
    }
-
-   else if( !str_cmp( arg2, "shatter" ) )
+    
+    else if( !str_cmp( arg2, "skin" ) )
+    {
+        act( AT_BLOOD, "You rip the flesh from $N and send his soul to the fiery depths of hell.", ch, NULL, victim, TO_CHAR );
+        act( AT_BLOOD, "Your flesh has been torn from your bones and your bodyless soul now watches your bones incenerate in the fires of hell.", ch, NULL, victim,TO_VICT );
+        act( AT_BLOOD, "$n rips the flesh off of $N, releasing his soul into the fiery depths of hell.", ch, NULL, victim, TO_NOTVICT );
+	}
+    
+    else if( !str_cmp( arg2, "shatter" ) )
    {
       act( AT_LBLUE, "You freeze $N with a glance and shatter the frozen corpse into tiny shards.", ch, NULL, victim,
            TO_CHAR );
@@ -6725,6 +6733,19 @@ void do_slay( CHAR_DATA* ch, const char* argument)
            TO_NOTVICT );
    }
 
+	else if( !str_cmp( arg2, "9mm" ) )
+	{
+	    act( AT_IMMORT, "You pull out your 9mm and bust a cap in $N's ass.", ch, NULL, victim, TO_CHAR );
+	    act( AT_IMMORT, "$n pulls out $s 9mm and busts a cap in your ass.", ch, NULL, victim, TO_VICT );
+	    act( AT_IMMORT, "$n pulls out $s 9mm and busts a cap in $N's ass.", ch, NULL, victim, TO_NOTVICT );
+	}
+
+	else if( !str_cmp( arg2, "deheart" ) )
+	{
+	    act( AT_BLOOD, "You rip through $N's chest and pull out $M beating heart in your hand.", ch, NULL, victim, TO_CHAR );
+	    act( AT_BLOOD, "You feel a sharp pain as $n rips into your chest and pulls our your beating heart in $M hand.", ch, NULL, victim, TO_VICT );
+	    act( AT_BLOOD, "Specks of blood hit your face as $n rips through $N's chest pulling out $M's beating heart.", ch, NULL, victim, TO_NOTVICT );
+	}
    else if( !str_cmp( arg2, "demon" ) )
    {
       act( AT_IMMORT, "You gesture, and a slavering demon appears.  With a horrible grin, the", ch, NULL, victim, TO_CHAR );
@@ -6741,38 +6762,187 @@ void do_slay( CHAR_DATA* ch, const char* argument)
 
    else if( !str_cmp( arg2, "pounce" ) )
    {
-      act( AT_BLOOD, "Leaping upon $N with bared fangs, you tear open $S throat and toss the corpse to the ground...", ch,
-           NULL, victim, TO_CHAR );
-      act( AT_BLOOD,
-           "In a heartbeat, $n rips $s fangs through your throat!  Your blood sprays and pours to the ground as your life ends...",
-           ch, NULL, victim, TO_VICT );
-      act( AT_BLOOD,
-           "Leaping suddenly, $n sinks $s fangs into $N's throat.  As blood sprays and gushes to the ground, $n tosses $N's dying body away.",
-           ch, NULL, victim, TO_NOTVICT );
+        act( AT_BLOOD, "Leaping upon $N with bared fangs, you tear open $S throat and toss the corpse to the ground...", ch,
+            NULL, victim, TO_CHAR );
+        act( AT_BLOOD, "In a heartbeat, $n rips $s fangs through your throat!  Your blood sprays and pours to the ground as your life ends...",
+            ch, NULL, victim, TO_VICT );
+        act( AT_BLOOD, "Leaping suddenly, $n sinks $s fangs into $N's throat.  As blood sprays and gushes to the ground, $n tosses $N's dying body away.",
+            ch, NULL, victim, TO_NOTVICT );
+    }
+
+    else if( !str_cmp( arg2, "slit" ) )
+    {
+        act( AT_BLOOD, "You calmly slit $N's throat.", ch, NULL, victim, TO_CHAR );
+        act( AT_BLOOD, "$n reaches out with a clawed finger and calmly slits your throat.", ch, NULL, victim, TO_VICT );
+        act( AT_BLOOD, "$n calmly slits $N's throat.", ch, NULL, victim, TO_NOTVICT );
+    }
+
+    else if( !str_cmp( arg2, "dog" ) )
+    {
+        act( AT_BLOOD, "You order your dogs to rip $N to shreds.", ch, NULL, victim, TO_CHAR );
+        act( AT_BLOOD, "$n orders $s dogs to rip you apart.", ch, NULL, victim, TO_VICT );
+        act( AT_BLOOD, "$n orders $s dogs to rip $N to shreds.", ch, NULL, victim, TO_NOTVICT );
+    }
+
+    else if( !str_cmp( arg2, "fslay" ) )
+    {
+        act( AT_IMMORT, "You point at $N and fall down laughing.", ch, NULL, victim, TO_CHAR );
+        act( AT_IMMORT, "$n points at you and falls down laughing. How embaressing!.", ch, NULL, victim, TO_VICT );
+        act( AT_IMMORT, "$n points at $N and falls down laughing.", ch, NULL, victim, TO_NOTVICT );
+      return;
+    }
+    else if( !str_cmp( arg2, "cookie" ) )
+    {
+        act( AT_BLOOD, "You point a finger at $N and $e turns into a cookie!", ch, NULL, victim, TO_CHAR );
+        act( AT_BLOOD, "$n points $s finger at you and you turn into a cookie!", ch, NULL, victim, TO_VICT );
+        act( AT_BLOOD, "$n points $s finger at $N and $e turns into a cookie!", ch, NULL, victim, TO_NOTVICT );
+    }
+
+    else
+    {
+        act( AT_IMMORT, "You slay $N in cold blood!", ch, NULL, victim, TO_CHAR );
+        act( AT_IMMORT, "$n slays you in cold blood!", ch, NULL, victim, TO_VICT );
+        act( AT_IMMORT, "$n slays $N in cold blood!", ch, NULL, victim, TO_NOTVICT );
+    }
+
+    set_cur_char( victim );
+    raw_kill( ch, victim );
+    return;
+}
+
+void do_fslay( CHAR_DATA* ch, const char* argument )
+{
+   CHAR_DATA *victim;
+   char arg[MAX_INPUT_LENGTH];
+   char arg2[MAX_INPUT_LENGTH];
+   /*char buf[MAX_STRING_LENGTH];*/
+
+   argument = one_argument( argument, arg );
+   one_argument( argument, arg2 );
+   if ( arg[0] == '\0' )
+   {
+      send_to_char( "Syntax: [Char] [Type]\n\r", ch );
+      send_to_char( "Types: Immolate, Lightning, Skin, 9mm, Deheart, Shatter, Demon, Pounce, Slit, Dog, Fslay, Cookie.\n\r", ch);
+      return;
    }
 
-   else if( !str_cmp( arg2, "slit" ) )
+   if ( ( victim = get_char_room( ch, arg ) ) == NULL )
+   {
+      send_to_char( "They aren't here.\n\r", ch );
+      return;
+   }
+
+   if ( ch == victim )
+   {
+      send_to_char( "Suicide is a mortal sin.\n\r", ch );
+      return;
+   }
+
+   if ( !IS_NPC( victim ) && get_trust( victim ) >= get_trust( ch ) )
+   {
+      send_to_char( "You failed.\n\r", ch );
+      return;
+   }
+
+   if ( !str_cmp( arg2, "immolate" ) )
+   {
+      act( AT_FIRE, "Your fireball turns $N into a blazing inferno.",  ch, NULL, victim, TO_CHAR    );
+      act( AT_FIRE, "$n releases a searing fireball in your direction.", ch, NULL, victim, TO_VICT    );
+      act( AT_FIRE, "$n points at $N, who bursts into a flaming inferno.",  ch, NULL, victim, TO_NOTVICT );
+   }
+
+   if ( !str_cmp( arg2, "lightning" ) )
+   {
+      act( AT_RED, "You throw a lightning bolt at $N, reducing them to cinders.", ch, NULL, victim, TO_CHAR    );
+      act( AT_RED, "A holy lightning bolt from the skies above reduces you to blasphemous cinders.", ch, NULL, victim, TO_VICT    );
+      act( AT_RED, "$N is reduced to blasphemous cinders by a lightning bolt.",  ch, NULL, victim, TO_NOTVICT );
+   }
+
+   else if ( !str_cmp( arg2, "skin" ) )
+   {
+      act( AT_BLOOD, "You rip the flesh from $N and send his soul to the fiery depths of hell.", ch, NULL, victim, TO_CHAR );
+      act( AT_BLOOD, "Your flesh has been torn from your bones and your bodyless soul now watches your bones incenerate in the fires of hell.", ch, NULL, victim,TO_VICT );
+      act( AT_BLOOD, "$n rips the flesh off of $N, releasing his soul into the fiery depths of hell.", ch, NULL, victim, TO_NOTVICT );
+   }
+
+   else if ( !str_cmp( arg2, "9mm" ) )
+   {
+      act( AT_IMMORT, "You pull out your 9mm and bust a cap in $N's ass.", ch, NULL, victim, TO_CHAR );
+      act( AT_IMMORT, "$n pulls out $s 9mm and busts a cap in your ass.", ch, NULL, victim, TO_VICT );
+      act( AT_IMMORT, "$n pulls out $s 9mm and busts a cap in $N's ass.", ch, NULL, victim, TO_NOTVICT );
+   }
+
+   else if ( !str_cmp( arg2, "deheart" ) )
+   {
+      act( AT_BLOOD, "You rip through $N's chest and pull out $M beating heart in your hand.", ch, NULL, victim, TO_CHAR );
+      act( AT_BLOOD, "You feel a sharp pain as $n rips into your chest and pulls our your beating heart in $M hand.", ch, NULL, victim, TO_VICT );
+      act( AT_BLOOD, "Specks of blood hit your face as $n rips through $N's chest pulling out $M's beating heart.", ch, NULL, victim, TO_NOTVICT );
+   }
+
+   else if ( !str_cmp( arg2, "shatter" ) )
+   {
+      act( AT_LBLUE, "You freeze $N with a glance and shatter the frozen corpse into tiny shards.",  ch, NULL, victim, TO_CHAR    );
+      act( AT_LBLUE, "$n freezes you with a glance and shatters your frozen body into tiny shards.", ch, NULL, victim, TO_VICT    );
+      act( AT_LBLUE, "$n freezes $N with a glance and shatters the frozen body into tiny shards.",  ch, NULL, victim, TO_NOTVICT );
+   }
+
+   else if ( !str_cmp( arg2, "demon" ) )
+   {
+      act( AT_IMMORT, "You gesture, and a slavering demon appears.  With a horrible grin, the",  ch, NULL, victim, TO_CHAR );
+      act( AT_IMMORT, "foul creature turns on $N, who screams in panic before being eaten alive.",  ch, NULL, victim, TO_CHAR );
+      act( AT_IMMORT, "$n gestures, and a slavering demon appears.  The foul creature turns on",  ch, NULL, victim, TO_VICT );
+      act( AT_IMMORT, "you with a horrible grin.   You scream in panic before being eaten alive.",  ch, NULL, victim, TO_VICT );
+      act( AT_IMMORT, "$n gestures, and a slavering demon appears.  With a horrible grin, the",  ch, NULL, victim, TO_NOTVICT );
+      act( AT_IMMORT, "foul creature turns on $N, who screams in panic before being eaten alive.",  ch, NULL, victim, TO_NOTVICT );
+   }
+
+   else if ( !str_cmp( arg2, "pounce" ) )
+   {
+      act( AT_BLOOD, "Leaping upon $N with bared fangs, you tear open $S throat and toss the corpse to the ground...",  ch, NULL, victim, TO_CHAR );
+      act( AT_BLOOD, "In a heartbeat, $n rips $s fangs through your throat!  Your blood sprays and pours to the ground as your life ends...", ch, NULL, victim, TO_VICT );
+      act( AT_BLOOD, "Leaping suddenly, $n sinks $s fangs into $N's throat.  As blood sprays and gushes to the ground, $n tosses $N's dying body away.",  ch, NULL, victim, TO_NOTVICT );
+   }
+
+   else if ( !str_cmp( arg2, "slit" ) )
    {
       act( AT_BLOOD, "You calmly slit $N's throat.", ch, NULL, victim, TO_CHAR );
       act( AT_BLOOD, "$n reaches out with a clawed finger and calmly slits your throat.", ch, NULL, victim, TO_VICT );
       act( AT_BLOOD, "$n calmly slits $N's throat.", ch, NULL, victim, TO_NOTVICT );
    }
 
-   else if( !str_cmp( arg2, "dog" ) )
+   else if ( !str_cmp( arg2, "dog" ) )
    {
       act( AT_BLOOD, "You order your dogs to rip $N to shreds.", ch, NULL, victim, TO_CHAR );
       act( AT_BLOOD, "$n orders $s dogs to rip you apart.", ch, NULL, victim, TO_VICT );
       act( AT_BLOOD, "$n orders $s dogs to rip $N to shreds.", ch, NULL, victim, TO_NOTVICT );
    }
 
-   else
+   else if ( !str_cmp( arg2, "fslay" ))
    {
-      act( AT_IMMORT, "You slay $N in cold blood!", ch, NULL, victim, TO_CHAR );
-      act( AT_IMMORT, "$n slays you in cold blood!", ch, NULL, victim, TO_VICT );
-      act( AT_IMMORT, "$n slays $N in cold blood!", ch, NULL, victim, TO_NOTVICT );
+      act( AT_IMMORT, "You point at $N and fall down laughing.", ch, NULL, victim, TO_CHAR );
+      act( AT_IMMORT, "$n points at you and falls down laughing. How embaressing!.", ch, NULL, victim, TO_VICT );
+      act( AT_IMMORT, "$n points at $N and falls down laughing.", ch, NULL, victim, TO_NOTVICT );
+      //return; // none of the others have a return... -Braska
+   }
+   else if ( !str_cmp( arg2, "cookie" ) )
+   {
+      act( AT_BLOOD, "You point a finger at $N and $e turns into a cookie!", ch, NULL, victim, TO_CHAR );
+      act( AT_BLOOD, "$n points $s finger at you and you turn into a cookie!", ch, NULL, victim, TO_VICT );
+      act( AT_BLOOD, "$n points $s finger at $N and $e turns into a cookie!", ch, NULL, victim, TO_NOTVICT );
    }
 
-   set_cur_char( victim );
-   raw_kill( ch, victim );
+   else
+   {
+      act( AT_IMMORT, "You slay $N in cold blood!",  ch, NULL, victim, TO_CHAR    );
+      act( AT_IMMORT, "$n slays you in cold blood!", ch, NULL, victim, TO_VICT    );
+      act( AT_IMMORT, "$n slays $N in cold blood!",  ch, NULL, victim, TO_NOTVICT );
+   }
+
+   /*victim->hit 	= victim->max_hit - victim->max_hit + 1;
+   victim->mana	= victim->mana;
+   victim->move	= victim->move;
+   sprintf( buf, "%s 1500", victim->name );
+   do_transfer(ch, buf);
+   update_pos(victim);*/
    return;
 }
