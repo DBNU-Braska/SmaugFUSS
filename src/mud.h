@@ -4654,6 +4654,70 @@ OBJ_DATA *raw_kill( CHAR_DATA * ch, CHAR_DATA * victim );
 bool in_arena args( ( CHAR_DATA * ch ) );
 bool can_astral args( ( CHAR_DATA * ch, CHAR_DATA * victim ) );
 
+/* new_fun.c */
+#define GET_DAMROLL(ch) get_damroll(ch)
+#define LUCKY		1
+#define NOTLUCKY	0
+#define UNLUCKY		-1
+bool		has_phrase( const char * searchphrase, const char * querystring );
+int		get_hidden_armor( CHAR_DATA *ch );
+char	   * get_clan_rank( CHAR_DATA *ch );
+char		*abbNumLD( long double number );
+bool		is_splitformed( CHAR_DATA *ch );
+double	weightedClothingPlMod( CHAR_DATA *ch );
+void		update_plHiscore( CHAR_DATA *ch );
+bool		can_pk( CHAR_DATA *ch );
+char		*get_pkColor( CHAR_DATA *ch );
+int		get_damroll( CHAR_DATA *ch );
+int		get_strDef( CHAR_DATA *victim );
+int		get_conDef( CHAR_DATA *victim );
+int		get_armor( CHAR_DATA *ch );
+int		get_maxarmor( CHAR_DATA *ch );
+double	get_attmod( CHAR_DATA *ch, CHAR_DATA *victim );
+long double	get_lattmod( CHAR_DATA *ch, CHAR_DATA *victim );
+OBJ_DATA	*has_scouter( CHAR_DATA *ch );
+OBJ_DATA *	has_dragonradar( CHAR_DATA *ch );
+int 		get_true_rank( CHAR_DATA *ch);
+int 		get_rank_number( CHAR_DATA *ch);
+char 		*get_rank( CHAR_DATA *ch);
+char 		*get_rank_color( CHAR_DATA *ch);
+char 		*color_align( CHAR_DATA *ch);
+char 		*color_clan( CHAR_DATA *ch);
+char 		*get_build( CHAR_DATA *ch);
+char 		*get_haircolor( CHAR_DATA *ch);
+char 		*get_eyes( CHAR_DATA *ch);
+char 		*get_complexion( CHAR_DATA *ch);
+char 		*get_secondary_color( CHAR_DATA *ch);
+int	 	get_hairlen( CHAR_DATA *ch);
+char 		*get_hairstyle( CHAR_DATA *ch);
+char 		*heshe( CHAR_DATA *ch, bool cap);
+char 		*himher( CHAR_DATA *ch, bool cap);
+char 		*hisher( CHAR_DATA *ch, bool cap);
+short		get_newage( CHAR_DATA *ch);
+bool 		is_atwar( CHAR_DATA *ch, CHAR_DATA *victim );
+void		kaioken_drain( CHAR_DATA *ch );
+void 		clan_auto_kick( CHAR_DATA *ch );
+void 		clan_auto_align( CHAR_DATA *ch, CLAN_DATA *clan );
+void 		clan_auto_align_kick( CLAN_DATA *clan );
+void		damage_armor( CHAR_DATA *ch, int dam );
+int		dam_armor_recalc( CHAR_DATA *ch, int dam );
+void 		save_censor(void);
+void 		load_censor( void );
+void 		sort_censor( CENSOR_DATA *pRes );
+bool 		is_swear( const char *word );
+void		do_info( CHAR_DATA *ch, const char *argument);
+void 		echo_to_clan( CLAN_DATA *clan, const char *argument );
+void		do_ainfo( CHAR_DATA *ch, const char *argument);
+void 		find_absorb_data( CHAR_DATA *ch, CHAR_DATA *victim);
+void 		bio_absorb(CHAR_DATA *ch, CHAR_DATA *victim);
+void 		update_absorb(CHAR_DATA *ch, CHAR_DATA *victim);
+void 		evolveCheck(CHAR_DATA *ch, CHAR_DATA *victim, bool death);
+int		chargeDamMult(CHAR_DATA *ch, int dam);
+bool 		gTrainFlee(CHAR_DATA *ch);
+bool		upgrade_player(CHAR_DATA *ch);
+int      race_lookup( const char *name );
+int      class_lookup( const char *name );
+
 /* makeobjs.c */
 OBJ_DATA *make_corpse( CHAR_DATA * ch, CHAR_DATA * killer );
 void make_blood args( ( CHAR_DATA * ch ) );
