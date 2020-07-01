@@ -6463,138 +6463,217 @@ bool check_illegal_pk( CHAR_DATA * ch, CHAR_DATA * victim )
 
 void do_flee( CHAR_DATA* ch, const char* argument)
 {
-   ROOM_INDEX_DATA *was_in;
-   ROOM_INDEX_DATA *now_in;
-   char buf[MAX_STRING_LENGTH];
-   int attempt, los;
-   short door;
-   EXIT_DATA *pexit;
+    ROOM_INDEX_DATA *was_in;
+    ROOM_INDEX_DATA *now_in;
+    char buf[MAX_STRING_LENGTH];
+    int attempt, los;
+    short door;
+    EXIT_DATA *pexit;
+    CHAR_DATA *wf = who_fighting( ch );
 
-   if( !who_fighting( ch ) )
-   {
-      if( ch->position == POS_FIGHTING
-          || ch->position == POS_EVASIVE
-          || ch->position == POS_DEFENSIVE || ch->position == POS_AGGRESSIVE || ch->position == POS_BERSERK )
-      {
-         if( ch->mount )
-            ch->position = POS_MOUNTED;
-         else
-            ch->position = POS_STANDING;
-      }
-      send_to_char( "You aren't fighting anyone.\r\n", ch );
-      return;
-   }
-
-   if( IS_AFFECTED( ch, AFF_BERSERK ) )
-   {
-      send_to_char( "Flee while berserking?  You aren't thinking very clearly...\r\n", ch );
-      return;
-   }
-
-   if( IS_AFFECTED( ch, AFF_GRAPPLE ) )
-   {
-      send_to_char( "You're too wrapped up to flee!\r\n", ch );
-      return;
-   }
-
-   if( ch->move <= 0 )
-   {
-      send_to_char( "You're too exhausted to flee from combat!\r\n", ch );
-      return;
-   }
-
-   /*
-    * No fleeing while more aggressive than standard or hurt. - Haus 
-    */
-   if( !IS_NPC( ch ) && ch->position < POS_FIGHTING )
-   {
-      send_to_char( "You can't flee in an aggressive stance...\r\n", ch );
-      return;
-   }
-
-   if( IS_NPC( ch ) && ch->position <= POS_SLEEPING )
-      return;
-
-   was_in = ch->in_room;
-   for( attempt = 0; attempt < 8; attempt++ )
-   {
-      door = number_door(  );
-      if( ( pexit = get_exit( was_in, door ) ) == NULL
-          || !pexit->to_room
-          || IS_SET( pexit->exit_info, EX_NOFLEE )
-          || ( IS_PKILL( ch )
-               && xIS_SET( pexit->to_room->room_flags, ROOM_DEATH ) )
-          || ( IS_SET( pexit->exit_info, EX_CLOSED )
-               && !IS_AFFECTED( ch, AFF_PASS_DOOR ) )
-          || ( IS_NPC( ch ) && xIS_SET( pexit->to_room->room_flags, ROOM_NO_MOB ) ) )
-         continue;
-      affect_strip( ch, gsn_sneak );
-      xREMOVE_BIT( ch->affected_by, AFF_SNEAK );
-      if( ch->mount && ch->mount->fighting )
-         stop_fighting( ch->mount, TRUE );
-      move_char( ch, pexit, 0 );
-      if( ( now_in = ch->in_room ) == was_in )
-         continue;
-      ch->in_room = was_in;
-      act( AT_FLEE, "$n flees head over heels!", ch, NULL, NULL, TO_ROOM );
-      ch->in_room = now_in;
-      act( AT_FLEE, "$n glances around for signs of pursuit.", ch, NULL, NULL, TO_ROOM );
-      if( !IS_NPC( ch ) )
-      {
-         CHAR_DATA *wf = who_fighting( ch );
-
-         act( AT_FLEE, "You flee head over heels from combat!", ch, NULL, NULL, TO_CHAR );
-         los = ( int )( ( exp_level( ch, ch->level + 1 ) - exp_level( ch, ch->level ) ) * 0.2 );
-         if( ch->level < LEVEL_AVATAR )
-         {
-            if( !IS_PKILL( ch ) )
-            {
-               if( ch->level > 1 )
-               {
-                  snprintf( buf, MAX_STRING_LENGTH, "Curse the gods, you've lost %d experience!", los );
-                  act( AT_FLEE, buf, ch, NULL, NULL, TO_CHAR );
-                  gain_exp( ch, 0 - los );
-               }
-            }
-         }
-
-         if( wf && ch->pcdata->deity )
-         {
-            int level_ratio = URANGE( 1, wf->level / ch->level, MAX_LEVEL );
-
-            if( wf && wf->race == ch->pcdata->deity->npcrace )
-               adjust_favor( ch, 1, level_ratio );
-            else if( wf && wf->race == ch->pcdata->deity->npcfoe )
-               adjust_favor( ch, 16, level_ratio );
+    if( !who_fighting( ch ) )
+    {
+        if( ch->position == POS_FIGHTING
+            || ch->position == POS_EVASIVE
+            || ch->position == POS_DEFENSIVE || ch->position == POS_AGGRESSIVE || ch->position == POS_BERSERK )
+        {
+            if( ch->mount )
+                ch->position = POS_MOUNTED;
             else
-               adjust_favor( ch, 0, level_ratio );
-         }
-      }
-      stop_fighting( ch, TRUE );
-      return;
-   }
+                ch->position = POS_STANDING;
+        }
+        send_to_char( "You aren't fighting anyone.\r\n", ch );
+        return;
+    }
 
-   los = ( int )( ( exp_level( ch, ch->level + 1 ) - exp_level( ch, ch->level ) ) * 0.1 );
-   act( AT_FLEE, "You attempt to flee from combat but can't escape!", ch, NULL, NULL, TO_CHAR );
-   if( ch->level < LEVEL_AVATAR && number_bits( 3 ) == 1 )
-   {
-      if( !IS_PKILL( ch ) )
-      {
-         if( ch->level > 1 )
-         {
-            snprintf( buf, MAX_STRING_LENGTH, "Curse the gods, you've lost %d experience!\n\r", los );
-            act( AT_FLEE, buf, ch, NULL, NULL, TO_CHAR );
-            gain_exp( ch, 0 - los );
-         }
-      }
-   }
-   return;
+    if( IS_AFFECTED( ch, AFF_BERSERK ) )
+    {
+        send_to_char( "Flee while berserking?  You aren't thinking very clearly...\r\n", ch );
+        return;
+    }
+
+    if( IS_AFFECTED( ch, AFF_GRAPPLE ) )
+    {
+        send_to_char( "You're too wrapped up to flee!\r\n", ch );
+        return;
+    }
+
+    if( ch->move <= 0 )
+    {
+        send_to_char( "You're too exhausted to flee from combat!\r\n", ch );
+        return;
+    }
+
+    /*
+        * No fleeing while more aggressive than standard or hurt. - Haus 
+        */
+    if( !IS_NPC( ch ) && ch->position < POS_FIGHTING )
+    {
+        send_to_char( "You can't flee in an aggressive stance...\r\n", ch );
+        return;
+    }
+    if( IS_NPC( ch ) && ch->position <= POS_SLEEPING )
+        return;
+    
+    if( !IS_NPC( ch ) && !IS_NPC( who_fighting( ch ) )
+		&& xIS_SET( ch->act, PLR_SPAR ) && xIS_SET( who_fighting( ch )->act, PLR_SPAR ) )
+	{
+		send_to_char( "Use 'STOPSPAR' to stop fighting.\n\r", ch );
+		return;
+    }
+
+    was_in = ch->in_room;
+
+    /* Decided to make fleeing harder to accomplish when in a pk fight.
+    * -Karma
+    */
+    bool nochance = FALSE;
+    if( !IS_NPC( ch ) && !IS_NPC( wf ) )
+    {
+        if( number_range( 1 , 2 ) == 2 ) // 50% chance
+            nochance = TRUE;
+    }
+    else
+    {
+        if( number_range( 1 , 5 ) < 2 ) // 80% chance
+            nochance = TRUE;
+    }
+    if( !nochance )
+    {
+        for( attempt = 0; attempt < 8; attempt++ )
+        {
+            door = number_door(  );
+            
+            if( ( pexit = get_exit( was_in, door ) ) == NULL
+                || !pexit->to_room
+                || IS_SET( pexit->exit_info, EX_NOFLEE )
+                || ( IS_PKILL( ch )
+                    && xIS_SET( pexit->to_room->room_flags, ROOM_DEATH ) )
+                || ( IS_SET( pexit->exit_info, EX_CLOSED )
+                    && !IS_AFFECTED( ch, AFF_PASS_DOOR ) )
+                || ( IS_NPC( ch ) && xIS_SET( pexit->to_room->room_flags, ROOM_NO_MOB ) ) )
+                continue;
+            affect_strip( ch, gsn_sneak );
+            xREMOVE_BIT( ch->affected_by, AFF_SNEAK );
+            
+            if( ch->mount && ch->mount->fighting )
+                stop_fighting( ch->mount, TRUE );
+                move_char( ch, pexit, 0 );
+            
+            if( ( now_in = ch->in_room ) == was_in )
+                continue;
+            ch->in_room = was_in;
+            act( AT_FLEE, "$n flees head over heels!", ch, NULL, NULL, TO_ROOM );
+            ch->in_room = now_in;
+            act( AT_FLEE, "$n glances around for signs of pursuit.", ch, NULL, NULL, TO_ROOM );
+            
+            if( !IS_NPC( ch ) && is_bio(ch) )
+            {
+                /* Clear out any chance to absorb something */
+                ch->pcdata->absorb_sn = 0;
+                ch->pcdata->absorb_learn = 0;
+            }
+            if( !IS_NPC( ch ) )
+            {
+                CHAR_DATA *wf = who_fighting( ch );
+                act( AT_FLEE, "You flee head over heels from combat!", ch, NULL, NULL, TO_CHAR );
+            /* original xp loss -Braska
+            los = ( int )( ( exp_level( ch, ch->level + 1 ) - exp_level( ch, ch->level ) ) * 0.2 );
+            if( ch->level < LEVEL_AVATAR )
+            {
+                if( !IS_PKILL( ch ) )
+                {
+                    if( ch->level > 1 )
+                    {
+                        snprintf( buf, MAX_STRING_LENGTH, "Curse the gods, you've lost %d experience!", los );
+            */ // original xp loss -Braska
+                if( !IS_NPC( ch ) && !IS_NPC( wf ) ) // Start of pl loss -Braska
+                {
+                    if( ch->pcdata->clan && wf->pcdata->clan )
+                    {
+                        /*		    
+                        if( allianceStatus( ch->pcdata->clan, wf->pcdata->clan ) == ALLIANCE_ATWAR )
+                        {
+                            los = ch->exp * 0.001;
+                        }
+                        else
+                        {
+                        */
+                            los = ch->exp * 0.005;
+        //		        }
+                    }
+                    else
+                    {
+                        los = ch->exp * 0.005;
+                    }
+                }
+                else
+                    los = ch->exp * 0.005;
+                    /*
+                    && ch->pcdata && wf->pcdata
+                    && ch->pcdata->clan && wf->pcdata->clan
+                    && allianceStatus(ch->pcdata->clan, wf->pcdata->clan) == ALLIANCE_ATWAR)
+                    {
+                        los = ch->exp * 0.001;
+                    }
+                else
+                    {
+                        los = ch->exp * 0.005;
+                    }
+                    */
+                if( !IS_NPC (wf ) )
+                {
+                    if( is_android( wf ) || is_superandroid( wf ) )
+                        sprintf( buf, "Shit, you've lost %d tech level!", los );
+                    else
+                        sprintf( buf, "Shit, you've lost %d power level!", los ); // end of pl loss -Braska
+                        act( AT_FLEE, buf, ch, NULL, NULL, TO_CHAR );
+                        gain_exp( ch, 0 - los );
+                }
+//            }
+//         }
+
+                if( wf && ch->pcdata->deity )
+                {
+                    int level_ratio = URANGE( 1, wf->level / ch->level, MAX_LEVEL );
+
+                    if( wf && wf->race == ch->pcdata->deity->npcrace )
+                    adjust_favor( ch, 1, level_ratio );
+                    else if( wf && wf->race == ch->pcdata->deity->npcfoe )
+                    adjust_favor( ch, 16, level_ratio );
+                    else
+                    adjust_favor( ch, 0, level_ratio );
+                }
+            }
+            stop_fighting( ch, TRUE );
+            return;
+        }
+    }
+    act( AT_FLEE, "You attempt to flee from combat but can't escape!", ch, NULL, NULL, TO_CHAR );
+    return;
 }
+            /* Last bits of xp loss -Braska
+            los = ( int )( ( exp_level( ch, ch->level + 1 ) - exp_level( ch, ch->level ) ) * 0.1 );
+            act( AT_FLEE, "You attempt to flee from combat but can't escape!", ch, NULL, NULL, TO_CHAR );
+            if( ch->level < LEVEL_AVATAR && number_bits( 3 ) == 1 )
+            {
+                if( !IS_PKILL( ch ) )
+                {
+                    if( ch->level > 1 )
+                    {
+                        snprintf( buf, MAX_STRING_LENGTH, "Curse the gods, you've lost %d experience!\n\r", los );
+                        act( AT_FLEE, buf, ch, NULL, NULL, TO_CHAR );
+                        gain_exp( ch, 0 - los );
+                    }
+                }
+            }
+            return;
+            } */ //end of xp loss -Braska
 
 void do_sla( CHAR_DATA* ch, const char* argument)
 {
-   send_to_char( "If you want to SLAY, spell it out.\r\n", ch );
-   return;
+    send_to_char( "If you want to SLAY, spell it out.\r\n", ch );
+    return;
 }
 
 void do_slay( CHAR_DATA* ch, const char* argument)
