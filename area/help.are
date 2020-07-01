@@ -15880,6 +15880,22 @@ Lists the name of the file, and room/mob/object vnum range for each
 non-prototype zone in the mud.
 ~
 
+-1 _1337DIEMSG_~
+&Rdewd u got teh fux0red. usuxkgr8thxbye.&D
+~
+
+-1 _ANDROID_DIEMSG_~
+.
+
+..Everything begins to fade to black, as your systems shutdown.
+
+**SYSTEM DATA TRANSMIT**
+
+Instantly all data you have gathered is transmitted back to the main
+computer inside Gero's lab so that it can rebuild you.
+
+~
+
 -1 _DIEMSG_~
 ...Everything begins to fade to black.
 

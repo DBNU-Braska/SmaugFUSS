@@ -298,6 +298,19 @@ const char *s_generic_messages[24] = {
    "**** SMITE ****"
 };
 
+const char * s_1337_messages[28] =
+{
+        "LOL U MISED", "tewthbrush lolz", "tyckl3", "owch d00d", "graze...lik a cow!!!11", 
+        "nick..el oh el", "mini pwn + sux", "sux2notbeu",
+        "01010101 BYNAIRY LOLZ", "d00d u hit on him. F4G!!1", 
+	"jar. lolz. jar o wut?", "lawnmower d00d", 
+	"maul...4 SHOPPING AT. LOLZ", "decimalate. math sux", "_traumaPWN_",
+        "_devastate_ wut state iz that d00d?", "_omgawd the hurt_", 
+	"_demolish_ iz dat like lycorish?", "OMG HORE", "PWNT + 2",
+        "PULVERIZE", "DERSTOYZ", "* OWNZ0R *", "* HAWT *", "* PWNT!1 *",
+         "*** ANIHATE LOLZ ***",  "**** FUKUPd00d ****", "**** OMG PWNZ0RWAK ****"
+};
+
 const char *p_generic_messages[24] = {
    "misses", "brushes", "scratches", "grazes", "nicks", "jolts", "wounds",
    "injures", "hits", "jars", "thrashes", "mauls", "decimates", "_traumatizes_",
