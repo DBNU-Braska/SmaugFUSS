@@ -2440,6 +2440,15 @@ struct pc_data
 };
 
 /*
+* DBS stuff added
+* 20200701 -Braska
+*/
+short    absorb_sn;
+short    absorb_learn;
+
+
+
+/*
  * Damage types from the attack_table[]
  */
 typedef enum
