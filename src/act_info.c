@@ -1294,48 +1294,48 @@ void show_char_to_char_0( CHAR_DATA * victim, CHAR_DATA * ch )
       mudstrlcat( buf, "(Morphed) ", MAX_STRING_LENGTH );
     if( !IS_NPC( victim ) && xIS_SET( victim->act, PLR_BOUNTY )
 	    && !str_cmp( victim->name, ch->pcdata->hunting ) )
-	    mudstrcat( buf, "(BOUNTY) ", MAX_STRING_LENGTH );
+	    mudstrlcat( buf, "(BOUNTY) ", MAX_STRING_LENGTH );
 
 	if( victim->kairank > 0 )
 	{
 		if( victim->kairank == 1 )
 		{
-			mudstrcat( buf, "South Kaioshin ", MAX_STRING_LENGTH );
+			mudstrlcat( buf, "South Kaioshin ", MAX_STRING_LENGTH );
 		}
 		else if( victim->kairank == 2 )
 		{
-			mudstrcat( buf, "East Kaioshin ", MAX_STRING_LENGTH );
+			mudstrlcat( buf, "East Kaioshin ", MAX_STRING_LENGTH );
 		}
 		else if( victim->kairank == 3 )
 		{
-			mudstrcat( buf, "West Kaioshin ", MAX_STRING_LENGTH );
+			mudstrlcat( buf, "West Kaioshin ", MAX_STRING_LENGTH );
 		}
 		else if( victim->kairank == 4 )
 		{
-			mudstrcat( buf, "North Kaioshin ", MAX_STRING_LENGTH );
+			mudstrlcat( buf, "North Kaioshin ", MAX_STRING_LENGTH );
 		}
 		else if( victim->kairank == 5 )
 		{
-			mudstrcat( buf, "Grand Kaioshin ", MAX_STRING_LENGTH );
+			mudstrlcat( buf, "Grand Kaioshin ", MAX_STRING_LENGTH );
 		}
 		else if( victim->kairank == 6 )
 		{
-			mudstrcat( buf, "Supreme Kaioshin ", MAX_STRING_LENGTH );
+			mudstrlcat( buf, "Supreme Kaioshin ", MAX_STRING_LENGTH );
 		}
 	}
 	if( victim->demonrank > 0 )
 	{
 		if( victim->demonrank == 1 )
 		{
-			mudstrcat( buf, "Greater Demon ", MAX_STRING_LENGTH );
+			mudstrlcat( buf, "Greater Demon ", MAX_STRING_LENGTH );
 		}
 		if( victim->demonrank == 2 )
 		{
-			mudstrcat( buf, "Demon Warlord ", MAX_STRING_LENGTH );
+			mudstrlcat( buf, "Demon Warlord ", MAX_STRING_LENGTH );
 		}
 		if( victim->demonrank == 3 )
 		{
-			mudstrcat( buf, "Demon King ", MAX_STRING_LENGTH );
+			mudstrlcat( buf, "Demon King ", MAX_STRING_LENGTH );
 		}
 	}
     set_char_color( AT_PERSON, ch );
@@ -2371,53 +2371,53 @@ void show_condition( CHAR_DATA * ch, CHAR_DATA * victim )
 		{
 			mudstrcpy( buf, PERS( victim, ch ), MAX_STRING_LENGTH );
 			if( percent >= 100 )
-				mudstrcat( buf, " is in perfect health.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " is in perfect health.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 90 )
-				mudstrcat( buf, " is slightly scratched.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " is slightly scratched.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 80 )
-				mudstrcat( buf, " has a few dents.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " has a few dents.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 70 )
-				mudstrcat( buf, " has some cuts.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " has some cuts.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 60 )
-				mudstrcat( buf, " has several wounds.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " has several wounds.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 50 )
-				mudstrcat( buf, " has many nasty wounds.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " has many nasty wounds.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 40 )
-				mudstrcat( buf, " is leaking oil freely.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " is leaking oil freely.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 30 )
-				mudstrcat( buf, " is covered in oil.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " is covered in oil.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 20 )
-				mudstrcat( buf, " has sparks flying every where.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " has sparks flying every where.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 10 )
-				mudstrcat( buf, " is almost dead.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " is almost dead.\n\r", MAX_STRING_LENGTH );
 			else
-				mudstrcat( buf, " is DYING.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " is DYING.\n\r", MAX_STRING_LENGTH );
 		}
 		else
 		{
 			mudstrcpy( buf, "You", MAX_STRING_LENGTH );
 			if ( percent >= 100 )
-				mudstrcat( buf, " are in perfect health.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " are in perfect health.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 90 )
-				mudstrcat( buf, " are slightly scratched.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " are slightly scratched.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 80 )
-				mudstrcat( buf, " have a few dents.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " have a few dents.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 70 )
-				mudstrcat( buf, " have some cuts.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " have some cuts.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 60 )
-				mudstrcat( buf, " have several wounds.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " have several wounds.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 50 )
-				mudstrcat( buf, " have many nasty wounds.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " have many nasty wounds.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 40 )
-				mudstrcat( buf, " are leaking oil freely.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " are leaking oil freely.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 30 )
-				mudstrcat( buf, " are covered in oil.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " are covered in oil.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 20 )
-				mudstrcat( buf, " have sparks flying every where.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " have sparks flying every where.\n\r", MAX_STRING_LENGTH );
 			else if( percent >= 10 )
-				mudstrcat( buf, " are almost dead.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " are almost dead.\n\r", MAX_STRING_LENGTH );
 			else
-				mudstrcat( buf, " are DYING.\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, " are DYING.\n\r", MAX_STRING_LENGTH );
 		}
 	}
 	else
@@ -3573,7 +3573,7 @@ void do_who( CHAR_DATA* ch, const char* argument)
 	WHO_DATA *first_omnipotent = NULL; // added from DBS -Braska
     WHO_DATA *first_demigod = NULL; // added from DBS -Braska
 
-    argument2 = mudstrcat(argument,"", MAX_INPUT_LENGTH );// added from DBS -Braska
+    argument2 = mudstrlcat(argument,"", MAX_INPUT_LENGTH );// added from DBS -Braska
    /*
     * Set default arguments.
     */
@@ -6145,15 +6145,15 @@ void do_upgrade( CHAR_DATA* ch, const char* argument)
 			{
 				mudstrcpy( buf, "You are already at your max", MAX_STRING_LENGTH );
 				if( ch->perm_str >= 100 )
-					mudstrcat( buf, " strength", MAX_STRING_LENGTH );
+					mudstrlcat( buf, " strength", MAX_STRING_LENGTH );
 				if( ch->perm_int >= 100 )
-					mudstrcat( buf, " intelligence", MAX_STRING_LENGTH );
+					mudstrlcat( buf, " intelligence", MAX_STRING_LENGTH );
 				if( ch->perm_dex >= 100 )
-					mudstrcat( buf, " speed", MAX_STRING_LENGTH );
+					mudstrlcat( buf, " speed", MAX_STRING_LENGTH );
 				if( ch->perm_con >= 100 )
-					mudstrcat( buf, " constitution", MAX_STRING_LENGTH );
+					mudstrlcat( buf, " constitution", MAX_STRING_LENGTH );
 
-				mudstrcat( buf, ".\n\r", MAX_STRING_LENGTH );
+				mudstrlcat( buf, ".\n\r", MAX_STRING_LENGTH );
 				send_to_char( buf, ch );
 				return;
 			}
