@@ -12452,7 +12452,7 @@ void do_godset( CHAR_DATA* ch, const char* argument )
 		if( value != 100 )
 		{
 			send_to_char( "Rember, lifeforce is a percent of total health.\n\r", ch );
-			snprintf( buf , 256, "Setting %s's lifeforce to %d percent health.\n\r", arg1, value );
+			snprintf( buf, MAX_STRING_LENGTH, "Setting %s's lifeforce to %d percent health.\n\r", arg1, value );
             send_to_char( buf, ch );
 		}
 		send_to_pager_color ( "&wOk.\n\r", ch );
@@ -12474,7 +12474,7 @@ void do_godset( CHAR_DATA* ch, const char* argument )
 		if( value != 100 )
 		{
 			send_to_char( "Rember, lifeforce is a percent of total health.\n\r", ch );
-			snprintf( buf, 256, "Setting %s's lifeforce to %d percent health.\n\r", arg1, value );
+			snprintf( buf, MAX_STRING_LENGTH, "Setting %s's lifeforce to %d percent health.\n\r", arg1, value );
 			
             send_to_char( buf, ch );
 		}
@@ -12910,42 +12910,42 @@ void do_godstat( CHAR_DATA* ch, const char* argument )
 	}
 
 	if(get_armor( ch ) < 0 )
-		snprintf( buf, 256, "&Wthe rags of a beggar&C" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Wthe rags of a beggar&C" );
 	else if(get_armor( ch ) == 0 )
-		snprintf( buf, 256, "&Wimproper for a battle&C" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Wimproper for a battle&C" );
 	else if(get_armor( ch ) < 500 )
-		snprintf( buf, 256, "&Wof poor quality&C" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Wof poor quality&C" );
 	else if(get_armor( ch ) < 2500 )
-		snprintf( buf, 256, "&Wmoderately crafted&C" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Wmoderately crafted&C" );
 	else if(get_armor( ch ) < 5000 )
-		snprintf( buf, 256, "&Wwell crafted&C" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Wwell crafted&C" );
 	else if(get_armor( ch ) < 7500 )
-		snprintf( buf, 256, "&Wexcellently crafted&C" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Wexcellently crafted&C" );
 	else if(get_armor( ch ) <= 10000 )
-		snprintf( buf, 256, "&Wexcellently crafted&C" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Wexcellently crafted&C" );
 	else
-		snprintf( buf, 256, "&WERROR: Please report&C" );
+		snprintf( buf, MAX_STRING_LENGTH, "&WERROR: Please report&C" );
 	pager_printf_color( ch, "WIS  : &W0&C(&w0&C)      Armor: &W%4.4d, &C%s\n\r",
 	                   get_armor( victim ), buf );
 
 	if( victim->alignment > 900 )
-		snprintf( buf, 256, "&Ydevout" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Ydevout" );
 	else if( victim->alignment > 700 )
-		snprintf( buf, 256, "&Ynoble" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Ynoble" );
 	else if( victim->alignment > 350 )
-		snprintf( buf, 256, "&Yhonorable" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Yhonorable" );
 	else if( victim->alignment > 100 )
-		snprintf( buf, 256, "&Yworthy" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Yworthy" );
 	else if( victim->alignment > -100 )
-		snprintf( buf, 256, "&Wneutral" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Wneutral" );
 	else if( victim->alignment > -350 )
-		snprintf( buf, 256, "&Rbase" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Rbase" );
 	else if( victim->alignment > -700 )
-		snprintf( buf, 256, "&Revil" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Revil" );
 	else if( victim->alignment > -900 )
-		snprintf( buf, 256, "&Rignoble" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Rignoble" );
 	else
-		snprintf( buf, 256, "&Rfiendish" );
+		snprintf( buf, MAX_STRING_LENGTH, "&Rfiendish" );
 	if( ch->level < LEVEL_AVATAR )
 		pager_printf_color( ch, "DEX  : &W%2.2d&C(&w%2.2d&C)      Align: %-20.20s&C      Items: &W%3d&C  (&wmax %3d&C)\n\r",
 		                   get_curr_dex( victim ), victim->perm_dex, buf, victim->carry_number, can_carry_n( victim ) );
@@ -12956,46 +12956,46 @@ void do_godstat( CHAR_DATA* ch, const char* argument )
 	switch ( victim->position )
 	{
 		case POS_DEAD:
-			snprintf( buf, 256, "slowly decomposing" );
+			snprintf( buf, MAX_STRING_LENGTH, "slowly decomposing" );
 			break;
 		case POS_MORTAL:
-			snprintf( buf, 256, "mortally wounded" );
+			snprintf( buf, MAX_STRING_LENGTH, "mortally wounded" );
 			break;
 		case POS_INCAP:
-			snprintf( buf, 256, "incapacitated" );
+			snprintf( buf, MAX_STRING_LENGTH, "incapacitated" );
 			break;
 		case POS_STUNNED:
-			snprintf( buf, 256, "stunned" );
+			snprintf( buf, MAX_STRING_LENGTH, "stunned" );
 			break;
 		case POS_SLEEPING:
-			snprintf( buf, 256, "sleeping" );
+			snprintf( buf, MAX_STRING_LENGTH, "sleeping" );
 			break;
 		case POS_RESTING:
-			snprintf( buf, 256, "resting" );
+			snprintf( buf, MAX_STRING_LENGTH, "resting" );
 			break;
 		case POS_STANDING:
-			snprintf( buf, 256, "standing" );
+			snprintf( buf, MAX_STRING_LENGTH, "standing" );
 			break;
 		case POS_FIGHTING:
-			snprintf( buf, 256, "fighting" );
+			snprintf( buf, MAX_STRING_LENGTH, "fighting" );
 			break;
 		case POS_EVASIVE:
-			snprintf( buf, 256, "fighting (evasive)" );   /* Fighting style support -haus */
+			snprintf( buf, MAX_STRING_LENGTH, "fighting (evasive)" );   /* Fighting style support -haus */
 			break;
 		case POS_DEFENSIVE:
-			snprintf( buf, 256, "fighting (defensive)" );
+			snprintf( buf, MAX_STRING_LENGTH, "fighting (defensive)" );
 			break;
 		case POS_AGGRESSIVE:
-			snprintf( buf, 256, "fighting (aggressive)" );
+			snprintf( buf, MAX_STRING_LENGTH, "fighting (aggressive)" );
 			break;
 		case POS_BERSERK:
-			snprintf( buf, 256, "fighting (berserk)" );
+			snprintf( buf, MAX_STRING_LENGTH, "fighting (berserk)" );
 			break;
 		case POS_MOUNTED:
-			snprintf( buf, 256, "mounted" );
+			snprintf( buf, MAX_STRING_LENGTH, "mounted" );
 			break;
 		case POS_SITTING:
-			snprintf( buf, 256, "sitting" );
+			snprintf( buf, MAX_STRING_LENGTH, "sitting" );
 			break;
 	}
 	pager_printf_color( ch, "CON  : &W%2.2d&C(&w%2.2d&C)      Pos'n: &W%-21.21s&C  Weight: &W%3d&C  (&wmax %3d&C)\n\r",
@@ -13010,19 +13010,19 @@ void do_godstat( CHAR_DATA* ch, const char* argument )
 	switch ( victim->style)
 	{
 		case STYLE_EVASIVE:
-			snprintf( buf, 256, "evasive" );
+			snprintf( buf, MAX_STRING_LENGTH, "evasive" );
 			break;
 		case STYLE_DEFENSIVE:
-			snprintf( buf, 256, "defensive" );
+			snprintf( buf, MAX_STRING_LENGTH, "defensive" );
 			break;
 		case STYLE_AGGRESSIVE:
-			snprintf( buf, 256, "aggressive" );
+			snprintf( buf, MAX_STRING_LENGTH, "aggressive" );
 			break;
 		case STYLE_BERSERK:
-			snprintf( buf, 256, "berserk" );
+			snprintf( buf, MAX_STRING_LENGTH, "berserk" );
 			break;
 		default:
-			snprintf( buf, 256, "standard" );
+			snprintf( buf, MAX_STRING_LENGTH, "standard" );
 			break;
 	}
 	pager_printf_color( ch, "Style: &W%-10.10s&C\n\r", buf );
@@ -13199,39 +13199,39 @@ void do_godstat( CHAR_DATA* ch, const char* argument )
 	{
 		send_to_pager( "----------------------------------------------------------------------------\n\r", ch );
 		if( victim->pcdata->favor > 2250 )
-			snprintf( buf, 256, "loved" );
+			snprintf( buf, MAX_STRING_LENGTH, "loved" );
 		else if( victim->pcdata->favor > 2000 )
-			snprintf( buf, 256, "cherished" );
+			snprintf( buf, MAX_STRING_LENGTH, "cherished" );
 		else if( victim->pcdata->favor > 1750 )
-			snprintf( buf, 256, "honored" );
+			snprintf( buf, MAX_STRING_LENGTH, "honored" );
 		else if( victim->pcdata->favor > 1500 )
-			snprintf( buf, 256, "praised" );
+			snprintf( buf, MAX_STRING_LENGTH, "praised" );
 		else if( victim->pcdata->favor > 1250 )
-			snprintf( buf, 256, "favored" );
+			snprintf( buf, MAX_STRING_LENGTH, "favored" );
 		else if( victim->pcdata->favor > 1000 )
-			snprintf( buf, 256, "respected" );
+			snprintf( buf, MAX_STRING_LENGTH, "respected" );
 		else if( victim->pcdata->favor > 750 )
-			snprintf( buf, 256, "liked" );
+			snprintf( buf, MAX_STRING_LENGTH, "liked" );
 		else if( victim->pcdata->favor > 250 )
-			snprintf( buf, 256, "tolerated" );
+			snprintf( buf, MAX_STRING_LENGTH, "tolerated" );
 		else if( victim->pcdata->favor > -250 )
-			snprintf( buf, 256, "ignored" );
+			snprintf( buf, MAX_STRING_LENGTH, "ignored" );
 		else if( victim->pcdata->favor > -750 )
-			snprintf( buf, 256, "shunned" );
+			snprintf( buf, MAX_STRING_LENGTH, "shunned" );
 		else if( victim->pcdata->favor > -1000 )
-			snprintf( buf, 256, "disliked" );
+			snprintf( buf, MAX_STRING_LENGTH, "disliked" );
 		else if( victim->pcdata->favor > -1250 )
-			snprintf( buf, 256, "dishonored" );
+			snprintf( buf, MAX_STRING_LENGTH, "dishonored" );
 		else if( victim->pcdata->favor > -1500 )
-			snprintf( buf, 256, "disowned" );
+			snprintf( buf, MAX_STRING_LENGTH, "disowned" );
 		else if( victim->pcdata->favor > -1750 )
-			snprintf( buf, 256, "abandoned" );
+			snprintf( buf, MAX_STRING_LENGTH, "abandoned" );
 		else if( victim->pcdata->favor > -2000 )
-			snprintf( buf, 256, "despised" );
+			snprintf( buf, MAX_STRING_LENGTH, "despised" );
 		else if( victim->pcdata->favor > -2250 )
-			snprintf( buf, 256, "hated" );
+			snprintf( buf, MAX_STRING_LENGTH, "hated" );
 		else
-			snprintf( buf, 256, "damned" );
+			snprintf( buf, MAX_STRING_LENGTH, "damned" );
 		pager_printf( ch, "Deity:  %-20s  Favor: %s\n\r", ch->pcdata->deity->name, buf );
 	}
 	if( victim->pcdata->clan && victim->pcdata->clan->clan_type == CLAN_ORDER )
@@ -13943,7 +13943,7 @@ void do_reimburse( CHAR_DATA* ch, const char* argument )
 		if( value != 100 )
 		{
 			send_to_char( "Remember, lifeforce is a percent of total health.\n\r", ch );
-			snprintf( buf, 256, "Setting %s's lifeforce to %d percent health.\n\r", arg1, value );
+			snprintf( buf, MAX_STRING_LENGTH, "Setting %s's lifeforce to %d percent health.\n\r", arg1, value );
 			send_to_char( buf, ch );
 		}
 		send_to_pager_color ( "&wOk.\n\r", ch );
@@ -13966,7 +13966,7 @@ void do_reimburse( CHAR_DATA* ch, const char* argument )
 		if( value != 100 )
 		{
 			send_to_char( "Remember, lifeforce is a percent of total health.\n\r", ch );
-			snprintf( buf, 256, "Setting %s's lifeforce to %d percent health.\n\r", arg1, value );
+			snprintf( buf, MAX_STRING_LENGTH, "Setting %s's lifeforce to %d percent health.\n\r", arg1, value );
 			send_to_char( buf, ch );
 		}
 		send_to_pager_color ( "&wOk.\n\r", ch );
@@ -14892,7 +14892,7 @@ void do_dnsusers( CHAR_DATA* ch, const char* argument )
         count   = 0;
         buf[0]  = '\0';
 
-        snprintf( buf, 256, "\n\rDesc| Con|Idle| Player      @HostDNS          " );
+        snprintf( buf, MAX_STRING_LENGTH, "\n\rDesc| Con|Idle| Player      @HostDNS          " );
         mudstrlcat( buf, "\n\r", MAX_STRING_LENGTH );
         mudstrlcat( buf, "----+----+----+-------------------------------", MAX_STRING_LENGTH );
         mudstrlcat( buf, "\n\r", MAX_STRING_LENGTH );
@@ -14906,7 +14906,7 @@ void do_dnsusers( CHAR_DATA* ch, const char* argument )
 				{
 					count++;
 
-					snprintf( buf, 256, " %3d| %3d|%4d| %-12s@%-16s ",
+					snprintf( buf, MAX_STRING_LENGTH, " %3d| %3d|%4d| %-12s@%-16s ",
 								d->descriptor,
 								d->connected,
 								d->idle / 4,
@@ -14931,7 +14931,7 @@ void do_dnsusers( CHAR_DATA* ch, const char* argument )
 									d->character ? d->character->name : "(none)", d->host2 );
 					buf[0] = '\0';
 					if(get_trust( ch ) >= LEVEL_GOD )
-						snprintf( buf, 256, "| %s", d->user );
+						snprintf( buf, MAX_STRING_LENGTH, "| %s", d->user );
 					mudstrlcat( buf, "\n\r", MAX_STRING_LENGTH );
 					send_to_pager( buf, ch );
 				}
