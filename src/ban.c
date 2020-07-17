@@ -22,10 +22,10 @@
 #include "mud.h"
 
 /* Local functions */
-void fread_ban args( ( FILE * fp, int type ) );
-bool check_expire args( ( BAN_DATA * ban ) );
-void dispose_ban args( ( BAN_DATA * ban, int type ) );
-void free_ban args( ( BAN_DATA * pban ) );
+void fread_ban ( FILE * fp, int type );
+bool check_expire ( BAN_DATA * ban );
+void dispose_ban ( BAN_DATA * ban, int type );
+void free_ban ( BAN_DATA * pban );
 
 /* Global Variables */
 
@@ -156,6 +156,7 @@ void fread_ban( FILE * fp, int type )
             temp2 = &pban->name[i + 1];
             DISPOSE( pban->name );
             pban->name = str_dup( temp2 );
+            pban->user = str_dup( temp ); // added from DBS -Braska
             DISPOSE( temp );
             break;
          }
@@ -629,7 +630,7 @@ void do_warn( CHAR_DATA* ch, const char* argument)
    char arg2[MAX_STRING_LENGTH];
    char *name;
    int count = -1, type;
-   BAN_DATA *pban;
+   BAN_DATA *pban, *start, *end;
 
    /*
     * Don't want mobs or link-deads doing this.
@@ -683,16 +684,22 @@ void do_warn( CHAR_DATA* ch, const char* argument)
    if( type == BAN_CLASS )
    {
       pban = first_ban_class;
+      start = first_ban_class;
+		end = last_ban_class;
       arg2[0] = toupper( arg2[0] );
    }
    else if( type == BAN_RACE )
    {
       pban = first_ban_race;
+      start = first_ban_race;
+		end = last_ban_race;
       arg2[0] = toupper( arg2[0] );
    }
    else if( type == BAN_SITE )
    {
       pban = first_ban;
+      start = first_ban;
+		end = last_ban;
    }
    else
       goto syntax_message;
