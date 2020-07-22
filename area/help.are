@@ -4957,26 +4957,32 @@ resides in a chamber which prevents the usage of magic...
 ~
 
 -1 GREETING~
-.
-         /     _      _            _      _    _____
-        /      |\    /|     /\     |      |   /     \     ***************
-       /       | \  / |    /  \    |      |  |            *   \\._.//   *
-      /        |  \/  |   /    \   |      |  |            *   (0...0)   *
-     /_______  |      |  |______|  |      |  |            *    ).:.(    *
-            /  |      |  |      |  |      |  |            *    {o o}    *
-           /   |      |  |      |  |      |  |     __     *   / ' ' \   *
-          /    |      |  |      |  |      |  |       |    *-'^^.VxvxV.^^'-*
-         /     |      |  |      |   \____/    \_____/     ***************
-        / 
+Welcome to
+    ____                                     ____          __ __   
+   / __ \ _____ ____ _ ____ _ ____   ____   / __ ) ____ _ / // /   
+  / / / // ___// __ `// __ `// __ \ / __ \ / __  |/ __ `// // /    
+ / /_/ // /   / /_/ // /_/ // /_/ // / / // /_/ // /_/ // // /     
+/_____//_/    \__,_/ \__, / \____//_/ /_//_____/ \__,_//_//_/      
+             __  __ /____/ _                                  __   
+            / / / /____   (_)_   __ ___   _____ _____ ____ _ / /   
+           / / / // __ \ / /| | / // _ \ / ___// ___// __ `// /    
+          / /_/ // / / // / | |/ //  __// /   (__  )/ /_/ // /     
+          \____//_/ /_//_/  |___/ \___//_/   /____/ \__,_//_/            
+                                                                
 
+--------------------------------------------------------------------------------
 SmaugFUSS 1.9 changes by Samson. Other bugfixes and changes provided by
 various members of the SMAUG community. Their contributions are greatly
 appreciated.
+Original DBSaga Code by Warren, Steven, Saiyr, Ubuu, Melora, Islvin. 
+Area credits see the area command.
 SMAUG 1.4 written by Thoric (Derek Snider) with Altrag, Blodkai, Haus, Narn,
-Scryn, Swordbearer, Tricops, Gorog, Rennard, Grishnakh, Fireblade and Nivek.
+Scryn, Swordbearer, Tricops, Gorog, Rennard, Grishnakh, Fireblade, Nivek, 
+Edmond, Conran.
 Original MERC 2.1 code by Hatchet, Furey, and Kahn.
-Original DikuMUD code by:
-Hans Staerfeldt, Katja Nyboe, Tom Madsen, Michael Seifert && Sebastian Hammer
+Original DikuMUD code by Hans Staerfeldt, Katja Nyboe, Tom Madsen, Michael 
+Seifert & Sebastian Hammer
+--------------------------------------------------------------------------------
 
 Enter your character's name, or type new: ~
 
