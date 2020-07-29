@@ -93,6 +93,14 @@ const unsigned char echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
 const unsigned char echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
 const unsigned char go_ahead_str[] = { IAC, GA, '\0' };
 
+/*
+ * MXP
+ */
+const unsigned char will_mxp_str  [] = { IAC, WILL, TELOPT_MXP, '\0' };
+const unsigned char start_mxp_str [] = { IAC, SB, TELOPT_MXP, IAC, SE, '\0' };
+const unsigned char do_mxp_str    [] = { IAC, DO, TELOPT_MXP, '\0' };
+const unsigned char dont_mxp_str  [] = { IAC, DONT, TELOPT_MXP, '\0' };
+
 void save_sysdata( SYSTEM_DATA sys );
 
 /*
@@ -394,9 +402,9 @@ int main( int argc, char **argv )
 {
    struct timeval now_time;
    bool fCopyOver = FALSE;
-#ifdef IMC
+   #ifdef IMC
    int imcsocket = -1;
-#endif
+   #endif
 
    DONT_UPPER = FALSE;
    num_descriptors = 0;
@@ -469,9 +477,9 @@ int main( int argc, char **argv )
       {
          fCopyOver = TRUE;
          control = atoi( argv[3] );
-#ifdef IMC
+         #ifdef IMC
          imcsocket = atoi( argv[4] );
-#endif
+         #endif
       }
       else
          fCopyOver = FALSE;
@@ -480,7 +488,7 @@ int main( int argc, char **argv )
    /*
     * Run the game.
     */
-#ifdef WIN32
+   #ifdef WIN32
    {
       /*
        * Initialise Windows sockets library 
@@ -506,7 +514,7 @@ int main( int argc, char **argv )
       signal( SIGINT, ( void * )bailout );
       signal( SIGTERM, ( void * )bailout );
    }
-#endif /* WIN32 */
+   #endif /* WIN32 */
 
    log_string( "Booting Database" );
    boot_db( fCopyOver );
@@ -514,12 +522,12 @@ int main( int argc, char **argv )
    if( !fCopyOver )  /* We have already the port if copyover'ed */
       control = init_socket( port );
 
-#ifdef IMC
+   #ifdef IMC
    /*
     * Initialize and connect to IMC2 
     */
    imc_startup( FALSE, imcsocket, fCopyOver );
-#endif
+   #endif
 
    log_printf( "%s ready on port %d.", sysdata.mud_name, port );
 
@@ -533,18 +541,18 @@ int main( int argc, char **argv )
 
    close( control );
 
-#ifdef IMC
+   #ifdef IMC
    imc_shutdown( FALSE );
-#endif
+   #endif
 
-#ifdef WIN32
+   #ifdef WIN32
    /*
     * Shut down Windows sockets 
     */
 
    WSACleanup(  );   /* clean up */
    kill_timer(  );   /* stop timer thread */
-#endif
+   #endif
 
 
    /*
@@ -577,7 +585,7 @@ int init_socket( int mudport )
       exit( 1 );
    }
 
-#if defined(SO_DONTLINGER) && !defined(SYSV)
+   #if defined(SO_DONTLINGER) && !defined(SYSV)
    {
       struct linger ld;
 
@@ -591,7 +599,7 @@ int init_socket( int mudport )
          exit( 1 );
       }
    }
-#endif
+   #endif
 
    memset( &sa, '\0', sizeof( sa ) );
    sa.sin_family = AF_INET;
@@ -613,6 +621,177 @@ int init_socket( int mudport )
 
    return fd;
 }
+
+/*
+* Count number of mxp tags need converting
+*    ie. < becomes &lt;
+*        > becomes &gt;
+*        & becomes &amp;
+*/
+
+int count_mxp_tags (const int bMXP, const char *txt, int length)
+  {
+  char c;
+  const char * p;
+  int count;
+  int bInTag = false;
+  int bInEntity = false;
+
+  for (p = txt, count = 0;
+       length > 0;
+       p++, length--)
+    {
+    c = *p;
+
+    if (bInTag)  /* in a tag, eg. <send> */
+      {
+      if (!bMXP)
+        count--;     /* not output if not MXP */
+      if (c == MXP_ENDc)
+        bInTag = false;
+      } /* end of being inside a tag */
+    else if (bInEntity)  /* in a tag, eg. <send> */
+      {
+      if (!bMXP)
+        count--;     /* not output if not MXP */
+      if (c == ';')
+        bInEntity = false;
+      } /* end of being inside a tag */
+    else switch (c)
+      {
+
+      case MXP_BEGc:
+        bInTag = true;
+        if (!bMXP)
+          count--;     /* not output if not MXP */
+        break;
+
+      case MXP_ENDc:   /* shouldn't get this case */
+        if (!bMXP)
+          count--;     /* not output if not MXP */
+        break;
+
+      case MXP_AMPc:
+        bInEntity = true;
+        if (!bMXP)
+          count--;     /* not output if not MXP */
+        break;
+
+      default:
+        if (bMXP)
+          {
+          switch (c)
+            {
+            case '<':       /* < becomes &lt; */
+            case '>':       /* > becomes &gt; */
+              count += 3;
+              break;
+
+            case '&':
+              count += 4;    /* & becomes &amp; */
+              break;
+
+            case '"':        /* " becomes &quot; */
+              count += 5;
+              break;
+
+            } /* end of inner switch */
+          }   /* end of MXP enabled */
+      } /* end of switch on character */
+
+     }   /* end of counting special characters */
+
+  return count;
+  } /* end of count_mxp_tags */
+
+void convert_mxp_tags ( const int bMXP, char * dest, const char *src, int length )
+{
+   char c;
+   const char * ps;
+   char * pd;
+   int bInTag = false;
+   int bInEntity = false;
+
+   for( ps = src, pd = dest; length > 0; ps++, length-- )
+   {
+      c = *ps;
+      if( bInTag )  /* in a tag, eg. <send> */
+      {
+         if( c == MXP_ENDc )
+         {
+            bInTag = false;
+            if( bMXP )
+               *pd++ = '>';
+         }
+         else if( bMXP )
+            *pd++ = c;  /* copy tag only in MXP mode */
+      } /* end of being inside a tag */
+      else if( bInEntity )  /* in a tag, eg. <send> */
+      {
+         if( bMXP )
+            *pd++ = c;  /* copy tag only in MXP mode */
+         if( c == ';' )
+            bInEntity = false;
+      } /* end of being inside a tag */
+      else switch ( c )
+      {
+         case MXP_BEGc:
+            bInTag = true;
+            if( bMXP )
+               *pd++ = '<';
+         break;
+
+         case MXP_ENDc:    /* shouldn't get this case */
+            if( bMXP )
+               *pd++ = '>';
+         break;
+
+         case MXP_AMPc:
+            bInEntity = true;
+            if( bMXP )
+               *pd++ = '&';
+         break;
+
+         default:
+            if( bMXP )
+            {
+               switch ( c )
+               {
+                  case '<':
+                     memcpy( pd, "&lt;", 4 );
+                     pd += 4;
+                  break;
+
+                  case '>':
+                     memcpy( pd, "&gt;", 4 );
+                     pd += 4;
+                  break;
+
+                  case '&':
+                     memcpy( pd, "&amp;", 5 );
+                     pd += 5;
+                  break;
+
+                  case '"':
+                     memcpy( pd, "&quot;", 6 );
+                     pd += 6;
+                  break;
+
+                  default:
+                     *pd++ = c;
+                  break;  /* end of default */
+
+               } /* end of inner switch */
+            }
+            else
+               *pd++ = c;  /* not MXP - just copy character */
+         break;
+
+      } /* end of switch on character */
+
+   }   /* end of converting special characters */
+} /* end of convert_mxp_tags */
+
 
 /*
 static void SegVio()
@@ -755,11 +934,11 @@ void game_loop( void )
    char cmdline[MAX_INPUT_LENGTH];
    DESCRIPTOR_DATA *d;
 
-#ifndef WIN32
+   #ifndef WIN32
    signal( SIGPIPE, SIG_IGN );
    signal( SIGALRM, caught_alarm );
    signal( SIGCHLD, clean_up_child_process );
-#endif
+   #endif
 
    /*
     * signal( SIGSEGV, SegVio ); 
@@ -872,9 +1051,9 @@ void game_loop( void )
             break;
       }
 
-#ifdef IMC
+      #ifdef IMC
       imc_loop(  );
-#endif
+      #endif
 
       /*
        * Autonomous game motion.
@@ -943,15 +1122,15 @@ void game_loop( void )
 
             stall_time.tv_usec = usecDelta;
             stall_time.tv_sec = secDelta;
-#ifdef WIN32
+            #ifdef WIN32
             Sleep( ( stall_time.tv_sec * 1000L ) + ( stall_time.tv_usec / 1000L ) );
-#else
+            #else
             if( select( 0, NULL, NULL, NULL, &stall_time ) < 0 && errno != EINTR )
             {
                perror( "game_loop: select: stall" );
                exit( 1 );
             }
-#endif
+            #endif
          }
       }
 
