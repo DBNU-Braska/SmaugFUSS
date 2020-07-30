@@ -2108,7 +2108,7 @@ void do_exits( CHAR_DATA* ch, const char* argument)
    		      /*sprintf( buf + strlen( buf ), "%s%s%s%*s - %s\n\r", MXPTAG ("Ex"),     %s%s MXPTAG ("Ex"),      %d%s MXPTAG ("/Ex"), spaces, "",
                capitalize( dir_name[pexit->vdir] ), MXPTAG ("/Ex"), spaces, "", room_is_dark( pexit->to_room ) ?  "Too dark to tell" : pexit->to_room->name );*/
             
-            snprintf( buf + strlen( buf ), ( MAX_STRING_LENGTH - strlen( buf ) ), "%-5s - %s\r\n", capitalize( dir_name[pexit->vdir] ), room_is_dark( pexit->to_room ) ? "Too dark to tell" : pexit->to_room->name );
+            snprintf( buf + strlen( buf ), ( MAX_STRING_LENGTH - strlen( buf ) ), " %s%s%-5s - %d%s%s\r\n", MXPTAG ("Ex"), capitalize( dir_name[pexit->vdir] ), MXPTAG ("/Ex"), spaces, "", room_is_dark( pexit->to_room ) ? "Too dark to tell" : pexit->to_room->name );
          }
       }
    }

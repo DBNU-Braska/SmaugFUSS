@@ -138,6 +138,10 @@ const char *const valid_color[] = {
    "dgrey", "red", "green", "yellow", "blue", "pink", "lblue", "white", "\0"
 };
 
+void convert_mxp_tags (const int bMXP, char * dest, const char *src, int length);
+int count_mxp_tags( const int bMXP, const char *txt, int length );
+
+
 void show_colorthemes( CHAR_DATA * ch )
 {
    DIR *dp;
@@ -1379,6 +1383,7 @@ void set_char_color( short AType, CHAR_DATA * ch )
 void write_to_pager( DESCRIPTOR_DATA * d, const char *txt, size_t length )
 {
    int pageroffset;  /* Pager fix by thoric */
+   int origlength;   /* for MXP */
 
    if( length <= 0 )
       length = strlen( txt );
@@ -1386,6 +1391,11 @@ void write_to_pager( DESCRIPTOR_DATA * d, const char *txt, size_t length )
    if( length == 0 )
       return;
 
+   origlength = length;
+
+   /* work out how much we need to expand/contract it */
+   length += count_mxp_tags( d->mxp, txt, length );
+   
    if( !d->pagebuf )
    {
       d->pagesize = MAX_STRING_LENGTH;
@@ -1429,6 +1439,7 @@ void write_to_pager( DESCRIPTOR_DATA * d, const char *txt, size_t length )
 
    d->pagepoint = d->pagebuf + pageroffset;  /* pager fix (goofup fixed 08/21/97) */
    strncpy( d->pagebuf + d->pagetop, txt, length );   /* Leave this one alone! BAD THINGS(TM) will happen if you don't! */
+   convert_mxp_tags( d->mxp, d->outbuf + d->outtop, txt, origlength );
    d->pagetop += length;
    d->pagebuf[d->pagetop] = '\0';
 }

@@ -629,7 +629,7 @@ int init_socket( int mudport )
 void turn_on_mxp (DESCRIPTOR_DATA *d)
 {
    d->mxp = TRUE;  /* turn it on now */
- 	write_to_buffer( d, ( const char * ) start_mxp_str, 0 );
+ 	write_to_buffer( d, ( const char * )start_mxp_str, 0 );
 	write_to_buffer( d, MXPMODE( 6 ), 0 );   /* permanent secure mode */
    write_to_buffer( d, MXPTAG( "!-- Set up MXP elements --" ), 0);
    /* Exit tag */
@@ -1482,7 +1482,7 @@ void read_from_buffer( DESCRIPTOR_DATA * d )
    {
       if( *p == ( signed char )IAC )
       {
-         if( memcmp( p, do_mxp_str, strlen( (const char *)do_mxp_str ) ) == 0 )
+         if( memcmp( p, (const char *)do_mxp_str, strlen( (const char *)do_mxp_str ) ) == 0 )
          {
             turn_on_mxp( d );
             /* remove string from input buffer */
@@ -1666,8 +1666,8 @@ int count_mxp_tags( const int bMXP, const char *txt, int length )
    char c;
    const char * p;
    int count;
-   int bInTag = false;
-   int bInEntity = false;
+   int bInTag = FALSE;
+   int bInEntity = FALSE;
 
    for ( p = txt, count = 0; length > 0; p++, length-- )
    {
@@ -1678,19 +1678,19 @@ int count_mxp_tags( const int bMXP, const char *txt, int length )
          if( !bMXP )
             count--;     /* not output if not MXP */
          if( c == MXP_ENDc )
-            bInTag = false;
+            bInTag = FALSE;
       } /* end of being inside a tag */
       else if( bInEntity )  /* in a tag, eg. <send> */
       {
          if( !bMXP )
             count--;     /* not output if not MXP */
          if( c == ';' )
-            bInEntity = false;
+            bInEntity = FALSE;
       } /* end of being inside a tag */
       else switch ( c )
       {
          case MXP_BEGc:
-            bInTag = true;
+            bInTag = TRUE;
             if (!bMXP)
                count--;     /* not output if not MXP */
          break;
@@ -1701,7 +1701,7 @@ int count_mxp_tags( const int bMXP, const char *txt, int length )
          break;
 
          case MXP_AMPc:
-            bInEntity = true;
+            bInEntity = TRUE;
             if (!bMXP)
                count--;     /* not output if not MXP */
          break;
@@ -1737,8 +1737,8 @@ void convert_mxp_tags ( const int bMXP, char * dest, const char *src, int length
    char c;
    const char * ps;
    char * pd;
-   int bInTag = false;
-   int bInEntity = false;
+   int bInTag = FALSE;
+   int bInEntity = FALSE;
 
    for( ps = src, pd = dest; length > 0; ps++, length-- )
    {
@@ -1747,7 +1747,7 @@ void convert_mxp_tags ( const int bMXP, char * dest, const char *src, int length
       {
          if( c == MXP_ENDc )
          {
-            bInTag = false;
+            bInTag = FALSE;
             if( bMXP )
                *pd++ = '>';
          }
@@ -1759,12 +1759,12 @@ void convert_mxp_tags ( const int bMXP, char * dest, const char *src, int length
          if( bMXP )
             *pd++ = c;  /* copy tag only in MXP mode */
          if( c == ';' )
-            bInEntity = false;
+            bInEntity = FALSE;
       } /* end of being inside a tag */
       else switch ( c )
       {
          case MXP_BEGc:
-            bInTag = true;
+            bInTag = TRUE;
             if( bMXP )
                *pd++ = '<';
          break;
@@ -1775,7 +1775,7 @@ void convert_mxp_tags ( const int bMXP, char * dest, const char *src, int length
          break;
 
          case MXP_AMPc:
-            bInEntity = true;
+            bInEntity = TRUE;
             if( bMXP )
                *pd++ = '&';
          break;
@@ -1896,8 +1896,9 @@ void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
    /*
     * Copy.
     */
-   convert_mxp_tags (d->mxp, d->outbuf + d->outtop, txt, origlength ); // MXP Bits
+   
    strncpy( d->outbuf + d->outtop, txt, length );
+   convert_mxp_tags(d->mxp, d->outbuf + d->outtop, txt, origlength ); // MXP Bits
    d->outtop += length;
    d->outbuf[d->outtop] = '\0';
    return;
@@ -3255,20 +3256,20 @@ char *act_string( const char *format, CHAR_DATA * to, CHAR_DATA * ch, const void
    char temp[MSL];
    const char *str = format;
    const char *i;
-   bool should_upper = false;
+   bool should_upper = FALSE;
    CHAR_DATA *vch = ( CHAR_DATA * ) arg2;
    OBJ_DATA *obj1 = ( OBJ_DATA * ) arg1;
    OBJ_DATA *obj2 = ( OBJ_DATA * ) arg2;
 
    if( str[0] == '$' )
-      DONT_UPPER = false;
+      DONT_UPPER = FALSE;
 
    while( *str != '\0' )
    {
       if( *str == '.' || *str == '?' || *str == '!' )
          should_upper = true;
       else if( should_upper == true && !isspace( *str ) && *str != '$' )
-         should_upper = false;
+         should_upper = FALSE;
 
       if( *str != '$' )
       {
@@ -3481,7 +3482,7 @@ char *act_string( const char *format, CHAR_DATA * to, CHAR_DATA * ch, const void
           else if( bUppercase && isalpha( c ) )
           {
                *astr = toupper(c);
-               bUppercase = false;
+               bUppercase = FALSE;
           }
      }
    }
@@ -3849,7 +3850,7 @@ void display_prompt( DESCRIPTOR_DATA * d )
    /* reset MXP to default operation */
    if( d->mxp )
    {
-      mudstrlcpy (pbuf, ESC "[3z", MAX_STRING_LENGTH );
+      mudstrlcpy( pbuf, ESC "[3z", MAX_STRING_LENGTH );
       pbuf += 4;
    }
    

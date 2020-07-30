@@ -356,7 +356,7 @@ struct rel_data
 
 /* constructs an MXP tag with < and > around it */
 
-#define MXPTAG( arg ) MXP_BEG #arg MXP_END
+#define MXPTAG( arg ) MXP_BEG arg MXP_END
 
 #define ESC "\x1B"  /* esc character */
 
