@@ -46,6 +46,7 @@
 
 #define  TELOPT_ECHO        '\x01'
 #define  GA                 '\xF9'
+#define  SE                 '\xF0'
 #define  SB                 '\xFA'
 #define  WILL               '\xFB'
 #define  WONT               '\xFC'
@@ -96,6 +97,8 @@ const unsigned char go_ahead_str[] = { IAC, GA, '\0' };
 /*
  * MXP
  */
+#define  TELOPT_MXP        '\x5B'
+
 const unsigned char will_mxp_str  [] = { IAC, WILL, TELOPT_MXP, '\0' };
 const unsigned char start_mxp_str [] = { IAC, SB, TELOPT_MXP, IAC, SE, '\0' };
 const unsigned char do_mxp_str    [] = { IAC, DO, TELOPT_MXP, '\0' };
@@ -622,176 +625,58 @@ int init_socket( int mudport )
    return fd;
 }
 
-/*
-* Count number of mxp tags need converting
-*    ie. < becomes &lt;
-*        > becomes &gt;
-*        & becomes &amp;
-*/
-
-int count_mxp_tags (const int bMXP, const char *txt, int length)
-  {
-  char c;
-  const char * p;
-  int count;
-  int bInTag = false;
-  int bInEntity = false;
-
-  for (p = txt, count = 0;
-       length > 0;
-       p++, length--)
-    {
-    c = *p;
-
-    if (bInTag)  /* in a tag, eg. <send> */
-      {
-      if (!bMXP)
-        count--;     /* not output if not MXP */
-      if (c == MXP_ENDc)
-        bInTag = false;
-      } /* end of being inside a tag */
-    else if (bInEntity)  /* in a tag, eg. <send> */
-      {
-      if (!bMXP)
-        count--;     /* not output if not MXP */
-      if (c == ';')
-        bInEntity = false;
-      } /* end of being inside a tag */
-    else switch (c)
-      {
-
-      case MXP_BEGc:
-        bInTag = true;
-        if (!bMXP)
-          count--;     /* not output if not MXP */
-        break;
-
-      case MXP_ENDc:   /* shouldn't get this case */
-        if (!bMXP)
-          count--;     /* not output if not MXP */
-        break;
-
-      case MXP_AMPc:
-        bInEntity = true;
-        if (!bMXP)
-          count--;     /* not output if not MXP */
-        break;
-
-      default:
-        if (bMXP)
-          {
-          switch (c)
-            {
-            case '<':       /* < becomes &lt; */
-            case '>':       /* > becomes &gt; */
-              count += 3;
-              break;
-
-            case '&':
-              count += 4;    /* & becomes &amp; */
-              break;
-
-            case '"':        /* " becomes &quot; */
-              count += 5;
-              break;
-
-            } /* end of inner switch */
-          }   /* end of MXP enabled */
-      } /* end of switch on character */
-
-     }   /* end of counting special characters */
-
-  return count;
-  } /* end of count_mxp_tags */
-
-void convert_mxp_tags ( const int bMXP, char * dest, const char *src, int length )
+/* set up MXP */
+void turn_on_mxp (DESCRIPTOR_DATA *d)
 {
-   char c;
-   const char * ps;
-   char * pd;
-   int bInTag = false;
-   int bInEntity = false;
-
-   for( ps = src, pd = dest; length > 0; ps++, length-- )
-   {
-      c = *ps;
-      if( bInTag )  /* in a tag, eg. <send> */
-      {
-         if( c == MXP_ENDc )
-         {
-            bInTag = false;
-            if( bMXP )
-               *pd++ = '>';
-         }
-         else if( bMXP )
-            *pd++ = c;  /* copy tag only in MXP mode */
-      } /* end of being inside a tag */
-      else if( bInEntity )  /* in a tag, eg. <send> */
-      {
-         if( bMXP )
-            *pd++ = c;  /* copy tag only in MXP mode */
-         if( c == ';' )
-            bInEntity = false;
-      } /* end of being inside a tag */
-      else switch ( c )
-      {
-         case MXP_BEGc:
-            bInTag = true;
-            if( bMXP )
-               *pd++ = '<';
-         break;
-
-         case MXP_ENDc:    /* shouldn't get this case */
-            if( bMXP )
-               *pd++ = '>';
-         break;
-
-         case MXP_AMPc:
-            bInEntity = true;
-            if( bMXP )
-               *pd++ = '&';
-         break;
-
-         default:
-            if( bMXP )
-            {
-               switch ( c )
-               {
-                  case '<':
-                     memcpy( pd, "&lt;", 4 );
-                     pd += 4;
-                  break;
-
-                  case '>':
-                     memcpy( pd, "&gt;", 4 );
-                     pd += 4;
-                  break;
-
-                  case '&':
-                     memcpy( pd, "&amp;", 5 );
-                     pd += 5;
-                  break;
-
-                  case '"':
-                     memcpy( pd, "&quot;", 6 );
-                     pd += 6;
-                  break;
-
-                  default:
-                     *pd++ = c;
-                  break;  /* end of default */
-
-               } /* end of inner switch */
-            }
-            else
-               *pd++ = c;  /* not MXP - just copy character */
-         break;
-
-      } /* end of switch on character */
-
-   }   /* end of converting special characters */
-} /* end of convert_mxp_tags */
-
+   d->mxp = TRUE;  /* turn it on now */
+ 	write_to_buffer( d, ( const char * ) start_mxp_str, 0 );
+	write_to_buffer( d, MXPMODE( 6 ), 0 );   /* permanent secure mode */
+   write_to_buffer( d, MXPTAG( "!-- Set up MXP elements --" ), 0);
+   /* Exit tag */
+   write_to_buffer( d, MXPTAG( "!ELEMENT Ex '<send>' FLAG=RoomExit" ), 0 );
+   /* Room description tag */
+  /* write_to_buffer( d, MXPTAG( "!ELEMENT rdesc '<p>' FLAG=RoomDesc" ), 0 ); */
+   /* Get an item tag (for things on the ground) */
+  /* write_to_buffer( d, MXPTAG( "!ELEMENT Get \"<send href='"
+           "get &#39;&name;&#39;|"
+           "examine &#39;&name;&#39;|"
+           "drink &#39;&name;&#39;"
+       "' "
+       "hint='RH mouse click to use this object|"
+           "Get &desc;|"
+           "Examine &desc;|"
+           "Drink from &desc;"
+       "'>\" ATT='name desc'" ), 0 ); */
+  /* Drop an item tag (for things in the inventory) */
+ /* write_to_buffer( d, MXPTAG( "!ELEMENT Drop \"<send href='"
+           "drop &#39;&name;&#39;|"
+           "examine &#39;&name;&#39;|"
+           "look in &#39;&name;&#39;|"
+           "wear &#39;&name;&#39;|"
+           "eat &#39;&name;&#39;|"
+           "drink &#39;&name;&#39;"
+       "' "
+       "hint='RH mouse click to use this object|"
+           "Drop &desc;|"
+           "Examine &desc;|"
+           "Look inside &desc;|"
+           "Wear &desc;|"
+           "Eat &desc;|"
+           "Drink &desc;"
+       "'>\" ATT='name desc'" ), 0 ); */
+  /* Bid an item tag (for things in the auction) */
+ /* write_to_buffer( d, MXPTAG( "!ELEMENT Bid \"<send href='bid &#39;&name;&#39;' "
+       "hint='Bid for &desc;'>\" "
+       "ATT='name desc'" ), 0 ); */
+  /* List an item tag (for things in a shop) */
+ /* write_to_buffer( d, MXPTAG( "!ELEMENT List \"<send href='buy &#39;&name;&#39;' "
+       "hint='Buy &desc;'>\" "
+       "ATT='name desc'"), 0 ); */
+  /* Player tag (for who lists, tells etc.) */
+ /* write_to_buffer( d, MXPTAG( "!ELEMENT Player \"<send href='tell &#39;&name;&#39; ' "
+       "hint='Send a message to &name;' prompt>\" "
+       "ATT='name'"), 0 ); */
+  } /* end of turn_on_mxp */
 
 /*
 static void SegVio()
@@ -1204,6 +1089,7 @@ void new_descriptor( int new_desc )
    CREATE( dnew, DESCRIPTOR_DATA, 1 );
    dnew->next = NULL;
    dnew->descriptor = desc;
+   dnew->mxp = FALSE;   /* Initially MXP is off */
    dnew->connected = CON_GET_NAME;
    dnew->outsize = 2000;
    dnew->idle = 0;
@@ -1263,6 +1149,11 @@ void new_descriptor( int new_desc )
     */
    write_to_buffer( dnew, (const char *)will_compress2_str, 0 );
 
+   /* 
+    * telnet negotiation to see if they support MXP 
+   */
+   write_to_buffer( dnew, (const char *)will_mxp_str, 0 );   
+   
    /*
     * Send the greeting.
     */
@@ -1521,13 +1412,13 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
 void read_from_buffer( DESCRIPTOR_DATA * d )
 {
    int i, j, k, iac = 0;
-
+   char * p;
    /*
     * Hold horses if pending command already.
     */
    if( d->incomm[0] != '\0' )
       return;
-
+   
    /*
     * Look for at least one new line.
     */
@@ -1584,6 +1475,30 @@ void read_from_buffer( DESCRIPTOR_DATA * d )
          d->incomm[k++] = d->inbuf[i];
    }
 
+   /* 
+   * MXP Look for incoming telnet negotiation
+   */
+   for ( p = d->inbuf; *p; p++ )
+   {
+      if( *p == ( signed char )IAC )
+      {
+         if( memcmp( p, do_mxp_str, strlen( (const char *)do_mxp_str ) ) == 0 )
+         {
+            turn_on_mxp( d );
+            /* remove string from input buffer */
+            memmove( p, &p [strlen( (const char *)do_mxp_str )], strlen( &p [strlen( (const char *)do_mxp_str )] ) + 1 );
+            p--; /* adjust to allow for discarded bytes */
+         } /* end of turning on MXP */
+         else if( memcmp( p, (const char *)dont_mxp_str, strlen( (const char *)dont_mxp_str ) ) == 0 )
+         {
+            d->mxp = FALSE;
+            /* remove string from input buffer */
+            memmove( p, &p [strlen( (const char *)dont_mxp_str )], strlen( &p [strlen( (const char *)dont_mxp_str )] ) + 1 );
+            p--; /* adjust to allow for discarded bytes */
+         } /* end of turning off MXP */
+      } /* end of finding an IAC */
+   }
+
    /*
     * Finish off the line.
     */
@@ -1604,8 +1519,8 @@ void read_from_buffer( DESCRIPTOR_DATA * d )
       {
          if( ++d->repeat >= 20 )
          {
-/*		log_printf( "%s input spamming!", d->host );
-*/
+            /*		log_printf( "%s input spamming!", d->host );
+            */
             write_to_descriptor( d, "\r\n*** PUT A LID ON IT!!! ***\r\nYou cannot enter the same command more than 20 consecutive times!\r\n", 0 );
             mudstrlcpy( d->incomm, "quit", MAX_INPUT_LENGTH );
          }
@@ -1740,10 +1655,178 @@ bool flush_buffer( DESCRIPTOR_DATA * d, bool fPrompt )
 }
 
 /*
+* Count number of mxp tags need converting
+*    ie. < becomes &lt;
+*        > becomes &gt;
+*        & becomes &amp;
+*/
+
+int count_mxp_tags( const int bMXP, const char *txt, int length )
+{
+   char c;
+   const char * p;
+   int count;
+   int bInTag = false;
+   int bInEntity = false;
+
+   for ( p = txt, count = 0; length > 0; p++, length-- )
+   {
+      c = *p;
+
+      if( bInTag )  /* in a tag, eg. <send> */
+      {
+         if( !bMXP )
+            count--;     /* not output if not MXP */
+         if( c == MXP_ENDc )
+            bInTag = false;
+      } /* end of being inside a tag */
+      else if( bInEntity )  /* in a tag, eg. <send> */
+      {
+         if( !bMXP )
+            count--;     /* not output if not MXP */
+         if( c == ';' )
+            bInEntity = false;
+      } /* end of being inside a tag */
+      else switch ( c )
+      {
+         case MXP_BEGc:
+            bInTag = true;
+            if (!bMXP)
+               count--;     /* not output if not MXP */
+         break;
+
+         case MXP_ENDc:   /* shouldn't get this case */
+            if (!bMXP)
+               count--;     /* not output if not MXP */
+         break;
+
+         case MXP_AMPc:
+            bInEntity = true;
+            if (!bMXP)
+               count--;     /* not output if not MXP */
+         break;
+
+         default:
+            if (bMXP)
+            {
+               switch (c)
+               {
+                  case '<':       /* < becomes &lt; */
+                  case '>':       /* > becomes &gt; */
+                     count += 3;
+                  break;
+
+                  case '&':
+                     count += 4;    /* & becomes &amp; */
+                  break;
+
+                  case '"':        /* " becomes &quot; */
+                     count += 5;
+                  break;
+
+               } /* end of inner switch */
+            }   /* end of MXP enabled */
+         break;
+      } /* end of switch on character */
+   }   /* end of counting special characters */
+   return count;
+} /* end of count_mxp_tags */
+
+void convert_mxp_tags ( const int bMXP, char * dest, const char *src, int length )
+{
+   char c;
+   const char * ps;
+   char * pd;
+   int bInTag = false;
+   int bInEntity = false;
+
+   for( ps = src, pd = dest; length > 0; ps++, length-- )
+   {
+      c = *ps;
+      if( bInTag )  /* in a tag, eg. <send> */
+      {
+         if( c == MXP_ENDc )
+         {
+            bInTag = false;
+            if( bMXP )
+               *pd++ = '>';
+         }
+         else if( bMXP )
+            *pd++ = c;  /* copy tag only in MXP mode */
+      } /* end of being inside a tag */
+      else if( bInEntity )  /* in a tag, eg. <send> */
+      {
+         if( bMXP )
+            *pd++ = c;  /* copy tag only in MXP mode */
+         if( c == ';' )
+            bInEntity = false;
+      } /* end of being inside a tag */
+      else switch ( c )
+      {
+         case MXP_BEGc:
+            bInTag = true;
+            if( bMXP )
+               *pd++ = '<';
+         break;
+
+         case MXP_ENDc:    /* shouldn't get this case */
+            if( bMXP )
+               *pd++ = '>';
+         break;
+
+         case MXP_AMPc:
+            bInEntity = true;
+            if( bMXP )
+               *pd++ = '&';
+         break;
+
+         default:
+            if( bMXP )
+            {
+               switch ( c )
+               {
+                  case '<':
+                     memcpy( pd, "&lt;", 4 );
+                     pd += 4;
+                  break;
+
+                  case '>':
+                     memcpy( pd, "&gt;", 4 );
+                     pd += 4;
+                  break;
+
+                  case '&':
+                     memcpy( pd, "&amp;", 5 );
+                     pd += 5;
+                  break;
+
+                  case '"':
+                     memcpy( pd, "&quot;", 6 );
+                     pd += 6;
+                  break;
+
+                  default:
+                     *pd++ = c;
+                  break;  /* end of default */
+
+               } /* end of inner switch */
+            }
+            else
+               *pd++ = c;  /* not MXP - just copy character */
+         break;
+
+      } /* end of switch on character */
+
+   }   /* end of converting special characters */
+} /* end of convert_mxp_tags */
+
+/*
  * Append onto an output buffer.
  */
 void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
 {
+   int origlength;
+
    if( !d )
    {
       bug( "%s: NULL descriptor", __func__ );
@@ -1765,13 +1848,18 @@ void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
    if( length <= 0 )
       length = strlen( txt );
 
-/* Uncomment if debugging or something
+   /* Uncomment if debugging or something
     if ( length != strlen(txt) )
     {
 	bug( "%s: length(%d) != strlen(txt)!", __func__, length );
 	length = strlen(txt);
     }
-*/
+   */
+
+  // MXP Bits
+  origlength = length;
+  /* work out how much we need to expand/contract it */
+  length += count_mxp_tags (d->mxp, txt, length);
 
    /*
     * Initial \r\n if needed.
@@ -1808,6 +1896,7 @@ void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
    /*
     * Copy.
     */
+   convert_mxp_tags (d->mxp, d->outbuf + d->outtop, txt, origlength ); // MXP Bits
    strncpy( d->outbuf + d->outtop, txt, length );
    d->outtop += length;
    d->outbuf[d->outtop] = '\0';
@@ -3757,6 +3846,13 @@ void display_prompt( DESCRIPTOR_DATA * d )
    else
       prompt = ch->pcdata->prompt;
 
+   /* reset MXP to default operation */
+   if( d->mxp )
+   {
+      mudstrlcpy (pbuf, ESC "[3z", MAX_STRING_LENGTH );
+      pbuf += 4;
+   }
+   
    if( ansi )
    {
       mudstrlcpy( pbuf, ANSI_RESET, MAX_STRING_LENGTH );

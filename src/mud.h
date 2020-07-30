@@ -342,6 +342,44 @@ struct rel_data
    relation_type Type;
 };
 
+/* MXP strings */
+
+#define MXP_BEG "\x03"    /* becomes < */
+#define MXP_END "\x04"    /* becomes > */
+#define MXP_AMP "\x05"    /* becomes & */
+
+/* MXP characters */
+
+#define MXP_BEGc '\x03'    /* becomes < */
+#define MXP_ENDc '\x04'    /* becomes > */
+#define MXP_AMPc '\x05'    /* becomes & */
+
+/* constructs an MXP tag with < and > around it */
+
+#define MXPTAG( arg ) MXP_BEG #arg MXP_END
+
+#define ESC "\x1B"  /* esc character */
+
+#define MXPMODE( arg ) ESC "[" #arg "z"
+
+/* MXP flags for show_list_to_char */
+
+enum {
+  eItemNothing,   /* item is not readily accessible */
+  eItemGet,     /* item on ground */
+  eItemDrop,    /* item in inventory */
+  eItemBid     /* auction item */
+};
+
+#define MXP_open 0   /* only MXP commands in the "open" category are allowed.  */
+#define MXP_secure 1 /* all tags and commands in MXP are allowed within the line.  */
+#define MXP_locked 2 /* no MXP or HTML commands are allowed in the line.  The line is not parsed for any tags at all.   */
+#define MXP_reset 3  /* close all open tags */
+#define MXP_secure_once 4  /* next tag is secure only */
+#define MXP_perm_open 5   /* open mode until mode change  */
+#define MXP_perm_secure 6 /* secure mode until mode change */
+#define MXP_perm_locked 7 /* locked mode until mode change */
+
 /*
  * Return types for move_char, damage, greet_trigger, etc, etc
  * Added by Thoric to get rid of bugs
@@ -811,6 +849,7 @@ struct descriptor_data
    unsigned char prevcolor;
    int ifd;
    pid_t ipid;
+   short mxp;   /* player using MXP flag */ 
 };
 
 /*

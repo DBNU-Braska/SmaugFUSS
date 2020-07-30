@@ -2057,6 +2057,7 @@ void do_exits( CHAR_DATA* ch, const char* argument)
    EXIT_DATA *pexit;
    bool found;
    bool fAuto;
+   int spaces;
 
    buf[0] = '\0';
    fAuto = !str_cmp( argument, "auto" );
@@ -2092,14 +2093,22 @@ void do_exits( CHAR_DATA* ch, const char* argument)
             }
             else
             {
+               mudstrlcat( buf, MXPTAG( "Ex" ) , MAX_STRING_LENGTH );
                mudstrlcat( buf, dir_name[pexit->vdir], MAX_STRING_LENGTH );
+               mudstrlcat( buf, MXPTAG( "/Ex" ) , MAX_STRING_LENGTH );
                mudstrlcat( buf, " ", MAX_STRING_LENGTH );
             }
          }
          else
          {
-            snprintf( buf + strlen( buf ), ( MAX_STRING_LENGTH - strlen( buf ) ), "%-5s - %s\r\n",
-               capitalize( dir_name[pexit->vdir] ), room_is_dark( pexit->to_room ) ? "Too dark to tell" : pexit->to_room->name );
+            /* I don't want to underline spaces, so I'll calculate the number we need */
+            spaces = 5 - strlen (dir_name[pexit->vdir]);
+            if (spaces < 0)
+               spaces = 0;
+   		      /*sprintf( buf + strlen( buf ), "%s%s%s%*s - %s\n\r", MXPTAG ("Ex"),     %s%s MXPTAG ("Ex"),      %d%s MXPTAG ("/Ex"), spaces, "",
+               capitalize( dir_name[pexit->vdir] ), MXPTAG ("/Ex"), spaces, "", room_is_dark( pexit->to_room ) ?  "Too dark to tell" : pexit->to_room->name );*/
+            
+            snprintf( buf + strlen( buf ), ( MAX_STRING_LENGTH - strlen( buf ) ), "%-5s - %s\r\n", capitalize( dir_name[pexit->vdir] ), room_is_dark( pexit->to_room ) ? "Too dark to tell" : pexit->to_room->name );
          }
       }
    }
