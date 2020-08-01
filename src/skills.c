@@ -5409,7 +5409,7 @@ void do_scan( CHAR_DATA* ch, const char* argument)
       set_char_color( AT_RMNAME, ch );
       send_to_char( ch->in_room->name, ch );
       send_to_char( "\r\n", ch );
-      show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE );
+      show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE, eItemNothing );
       show_char_to_char( ch->in_room->first_person, ch );
 
       switch ( ch->in_room->sector_type )

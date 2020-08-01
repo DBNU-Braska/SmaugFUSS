@@ -456,7 +456,7 @@ char *num_punct( int foo )
  * Show a list to a character.
  * Can coalesce duplicated items.
  */
-void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShowNothing )
+void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShowNothing, const int iDefaultAction )
 {
    char **prgpstrShow;
    int *prgnShow;
@@ -467,6 +467,11 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
    int iShow;
    int count, offcount, tmp, ms, cnt;
    bool fCombine;
+   char const *pAction = NULL;		/* for MXP */
+	char const *pstrName;            /* for MXP */
+   char const *pstrShortName;       /* for MXP */
+	char **prgpstrName;        /* for MXP */
+   char **prgpstrShortName;   /* for MXP */
 
    if( !ch->desc )
       return;
@@ -485,6 +490,24 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
       }
       return;
    }
+
+   /* work out which MXP tag to use */
+
+   switch ( iDefaultAction )
+   {
+      case eItemGet:  
+         pAction = "Get"; 
+      break;   /* item on ground */
+      
+      case eItemDrop: 
+         pAction = "Drop"; 
+      break;   /* item in inventory */
+      
+      case eItemBid:  
+         pAction = "Bid"; 
+      break;   /* auction item */
+
+   } /* end of switch on action */
 
    /*
     * Alloc space for output lines.
@@ -523,6 +546,8 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
    }
 
    CREATE( prgpstrShow, char *, count + ( ( offcount > 0 ) ? offcount : 0 ) );
+   CREATE( prgpstrName,	char *, count + ( ( offcount > 0 ) ? offcount : 0 ) );   /* for MXP */
+   CREATE( prgpstrShortName, char *, count + ( ( offcount > 0 ) ? offcount : 0 ) );   /* for MXP */
    CREATE( prgnShow, int, count + ( ( offcount > 0 ) ? offcount : 0 ) );
    CREATE( pitShow, int, count + ( ( offcount > 0 ) ? offcount : 0 ) );
    nShow = 0;
@@ -539,6 +564,8 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
       if( tmp > 0 && number_bits( 1 ) == 0 )
       {
          prgpstrShow[nShow] = str_dup( hallucinated_object( ms, fShort ) );
+         prgpstrName[nShow] = str_dup( hallucinated_object( ms, TRUE ) );  /* for MXP */
+	      prgpstrShortName[nShow] = str_dup( hallucinated_object (ms, TRUE ) );   /* for MXP */
          prgnShow[nShow] = 1;
          pitShow[nShow] = number_range( ITEM_LIGHT, ITEM_BOOK );
          nShow++;
@@ -548,6 +575,8 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
           && can_see_obj( ch, obj ) && ( obj->item_type != ITEM_TRAP || IS_AFFECTED( ch, AFF_DETECTTRAPS ) ) )
       {
          pstrShow = format_obj_to_char( obj, ch, fShort );
+         pstrName = obj->name;   /* for MXP */
+         pstrShortName = obj->short_descr;   /* for MXP */
          fCombine = FALSE;
 
          if( IS_NPC( ch ) || xIS_SET( ch->act, PLR_COMBINE ) )
@@ -574,6 +603,8 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
          if( !fCombine )
          {
             prgpstrShow[nShow] = str_dup( pstrShow );
+            prgpstrName[nShow] = str_dup( pstrName );   /* for MXP */
+		   prgpstrShortName[nShow] = str_dup( pstrShortName );  /* for MXP */
             prgnShow[nShow] = obj->count;
             nShow++;
          }
@@ -585,6 +616,8 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
       for( x = 0; x < tmp; x++ )
       {
          prgpstrShow[nShow] = str_dup( hallucinated_object( ms, fShort ) );
+         prgpstrName[nShow] = str_dup( hallucinated_object( ms, TRUE ) );  /* for MXP */
+	      prgpstrShortName[nShow] = str_dup( hallucinated_object( ms, TRUE ) );   /* for MXP */
          prgnShow[nShow] = 1;
          pitShow[nShow] = number_range( ITEM_LIGHT, ITEM_BOOK );
          nShow++;
@@ -632,7 +665,14 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
       }
       if( fShowNothing )
          send_to_char( "     ", ch );
-      send_to_char( prgpstrShow[iShow], ch );
+      
+      if(pAction)
+      {
+         ch_printf( ch, MXPTAG( "%s '%s' '%s'" ), pAction, prgpstrName[iShow], prgpstrShortName[iShow] );   /* for MXP */
+         send_to_char( prgpstrShow[iShow], ch );
+      }
+      if(pAction)
+         ch_printf( ch, MXPTAG( "/%s" ), pAction );  /* for MXP */
 /*	if ( IS_NPC(ch) || xIS_SET(ch->act, PLR_COMBINE) ) */
       {
          if( prgnShow[iShow] != 1 )
@@ -641,6 +681,8 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
 
       send_to_char( "\r\n", ch );
       DISPOSE( prgpstrShow[iShow] );
+      DISPOSE( prgpstrName[iShow] );   /* for MXP */
+	   DISPOSE( prgpstrShortName[iShow] ); /* for MXP */
    }
 
    if( fShowNothing && nShow == 0 )
@@ -655,6 +697,8 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
     * Clean up.
     */
    DISPOSE( prgpstrShow );
+   DISPOSE( prgpstrName ); /* for MXP */
+   DISPOSE( prgpstrShortName );  /* for MXP */
    DISPOSE( prgnShow );
    DISPOSE( pitShow );
    return;
@@ -1065,7 +1109,7 @@ void show_char_to_char_1( CHAR_DATA * victim, CHAR_DATA * ch )
    if( number_percent(  ) < LEARNED( ch, gsn_peek ) )
    {
       ch_printf( ch, "\r\nYou peek at %s inventory:\r\n", victim->sex == 1 ? "his" : victim->sex == 2 ? "her" : "its" );
-      show_list_to_char( victim->first_carrying, ch, TRUE, TRUE );
+      show_list_to_char( victim->first_carrying, ch, TRUE, TRUE, eItemNothing  );
       learn_from_success( ch, gsn_peek );
    }
    else if( ch->pcdata->learned[gsn_peek] > 0 )
@@ -1196,7 +1240,9 @@ char *roomdesc( CHAR_DATA * ch )
    if( !xIS_SET( ch->act, PLR_BRIEF ) )
    {
       if( ch->in_room->description && ch->in_room->description[0] != '\0' )
+      {
          mudstrlcat( rdesc, ch->in_room->description, MAX_STRING_LENGTH );
+      }
    }
    if( rdesc[0] == '\0' )
       mudstrlcpy( rdesc, "(Not set)", MAX_STRING_LENGTH );
@@ -1256,6 +1302,7 @@ void do_look( CHAR_DATA * ch, const char *argument )
       else
       {
          set_char_color( AT_RMNAME, ch );
+         send_to_char( "\r\n", ch );
          send_to_char( ch->in_room->name, ch );
          send_to_char( "\r\n", ch );
       }
@@ -1266,16 +1313,20 @@ void do_look( CHAR_DATA * ch, const char *argument )
          if( xIS_SET( ch->act, PLR_AUTOMAP ) )
             draw_room_map( ch, roomdesc( ch ) );
          else
+         {
+            send_to_char( MXPTAG( "rdesc" ), ch);
             send_to_char( roomdesc( ch ), ch );
+            send_to_char( MXPTAG( "/rdesc" ), ch);
+         }
       }
 
       /*
        * Added AUTOMAP check because it shows them next to the map now if its active 
        */
-      if( !IS_NPC( ch ) && ( xIS_SET( ch->act, PLR_AUTOEXIT ) && !xIS_SET( ch->act, PLR_AUTOMAP ) ) )
+      if( !IS_NPC( ch ) && ( xIS_SET( ch->act, PLR_AUTOEXIT ) ) ) // && !xIS_SET( ch->act, PLR_AUTOMAP )
          do_exits( ch, "auto" );
 
-      show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE );
+      show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE, eItemGet );
       show_char_to_char( ch->in_room->first_person, ch );
       return;
    }
@@ -1327,7 +1378,7 @@ void do_look( CHAR_DATA * ch, const char *argument )
       act( AT_PLAIN, "$n lifts $p and looks beneath it:", ch, obj, NULL, TO_ROOM );
       obj->count = count;
       if( IS_OBJ_STAT( obj, ITEM_COVERING ) )
-         show_list_to_char( obj->first_content, ch, TRUE, TRUE );
+         show_list_to_char( obj->first_content, ch, TRUE, TRUE, eItemNothing );
       else
          send_to_char( "Nothing.\r\n", ch );
       if( EXA_prog_trigger )
@@ -1421,7 +1472,7 @@ void do_look( CHAR_DATA * ch, const char *argument )
             else
                act( AT_PLAIN, "$p holds:", ch, obj, NULL, TO_CHAR );
             obj->count = count;
-            show_list_to_char( obj->first_content, ch, TRUE, TRUE );
+            show_list_to_char( obj->first_content, ch, TRUE, TRUE, eItemNothing );
             if( EXA_prog_trigger )
                oprog_examine_trigger( ch, obj );
             break;
@@ -2075,7 +2126,7 @@ void do_exits( CHAR_DATA* ch, const char* argument)
    }
 
    set_char_color( AT_EXITS, ch );
-   mudstrlcpy( buf, fAuto ? "Exits:" : "Obvious exits:\r\n", MAX_STRING_LENGTH );
+   mudstrlcpy( buf, fAuto ? "\r\nExits: " : "\r\nObvious exits: \r\n", MAX_STRING_LENGTH );
 
    found = FALSE;
    for( pexit = ch->in_room->first_exit; pexit; pexit = pexit->next )
@@ -3129,16 +3180,15 @@ void do_who( CHAR_DATA* ch, const char* argument)
          snprintf( invis_str, MAX_INPUT_LENGTH, "(%d) ", wch->pcdata->wizinvis );
       else
          invis_str[0] = '\0';
-      int bc = snprintf( buf, MAX_STRING_LENGTH, "%*s%-15s %s%s%s%s%s%s%s%s.%s%s%s\r\n",
-                ( fGroup ? whogr->indent : 0 ), "",
-                Class,
-                invis_str,
-                ( wch->desc && wch->desc->connected ) ? "[WRITING] " : "",
-                xIS_SET( wch->act, PLR_AFK ) ? "[AFK] " : "",
-                xIS_SET( wch->act, PLR_ATTACKER ) ? "(ATTACKER) " : "",
-                xIS_SET( wch->act, PLR_KILLER ) ? "(KILLER) " : "",
-                xIS_SET( wch->act, PLR_THIEF ) ? "(THIEF) " : "",
-                char_name, wch->pcdata->title, extra_title, clan_name, council_name );
+      int bc = snprintf( buf, MAX_STRING_LENGTH, "%*s%-15s %s%s%s%s%s%s" 
+               MXPTAG( "player '%s'" ) "%s" MXPTAG( "/player" ) "%s.%s%s%s\r\n",
+               ( fGroup ? whogr->indent : 0 ), "", Class, invis_str,
+               ( wch->desc && wch->desc->connected ) ? "[WRITING] " : "",
+               xIS_SET( wch->act, PLR_AFK ) ? "[AFK] " : "",
+               xIS_SET( wch->act, PLR_ATTACKER ) ? "(ATTACKER) " : "",
+               xIS_SET( wch->act, PLR_KILLER ) ? "(KILLER) " : "",
+               xIS_SET( wch->act, PLR_THIEF ) ? "(THIEF) " : "",
+               wch->name, char_name, wch->pcdata->title, extra_title, clan_name, council_name );
       if( bc < 0 )
          bug( "%s: Output buffer error!:", __func__ ); // Shut up GCC 8.
 

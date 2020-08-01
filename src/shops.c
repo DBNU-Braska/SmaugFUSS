@@ -755,7 +755,7 @@ void do_list( CHAR_DATA* ch, const char* argument)
                lower = -1;
             }
 
-            pager_printf( ch, "[%2d %5d] %s.\r\n", obj->level, cost, capitalize( obj->short_descr ) );
+            pager_printf( ch, "[%2d %5d] " MXPTAG( "list '%s' '%s'" ) "%s" MXPTAG( "/list" ) ".\r\n", obj->level, cost, obj->name, obj->short_descr, capitalize( obj->short_descr ) ); // added MXP bits
          }
       }
 

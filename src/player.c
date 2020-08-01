@@ -941,7 +941,7 @@ void do_inventory( CHAR_DATA* ch, const char* argument)
    else
       send_to_char( "&RYou are carrying:\r\n", ch );
 
-   show_list_to_char( victim->first_carrying, ch, TRUE, TRUE );
+   show_list_to_char( victim->first_carrying, ch, TRUE, TRUE, eItemDrop );
    return;
 }
 

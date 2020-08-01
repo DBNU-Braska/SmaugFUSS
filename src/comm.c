@@ -635,9 +635,9 @@ void turn_on_mxp (DESCRIPTOR_DATA *d)
    /* Exit tag */
    write_to_buffer( d, MXPTAG( "!ELEMENT Ex '<send>' FLAG=RoomExit" ), 0 );
    /* Room description tag */
-  /* write_to_buffer( d, MXPTAG( "!ELEMENT rdesc '<p>' FLAG=RoomDesc" ), 0 ); */
+   write_to_buffer( d, MXPTAG( "!ELEMENT rdesc FLAG=RoomDesc" ), 0 ); 
    /* Get an item tag (for things on the ground) */
-  /* write_to_buffer( d, MXPTAG( "!ELEMENT Get \"<send href='"
+   write_to_buffer( d, MXPTAG( "!ELEMENT Get \"<send href='"
            "get &#39;&name;&#39;|"
            "examine &#39;&name;&#39;|"
            "drink &#39;&name;&#39;"
@@ -646,9 +646,9 @@ void turn_on_mxp (DESCRIPTOR_DATA *d)
            "Get &desc;|"
            "Examine &desc;|"
            "Drink from &desc;"
-       "'>\" ATT='name desc'" ), 0 ); */
+       "'>\" ATT='name desc'" ), 0 ); 
   /* Drop an item tag (for things in the inventory) */
- /* write_to_buffer( d, MXPTAG( "!ELEMENT Drop \"<send href='"
+  write_to_buffer( d, MXPTAG( "!ELEMENT Drop \"<send href='"
            "drop &#39;&name;&#39;|"
            "examine &#39;&name;&#39;|"
            "look in &#39;&name;&#39;|"
@@ -663,20 +663,20 @@ void turn_on_mxp (DESCRIPTOR_DATA *d)
            "Wear &desc;|"
            "Eat &desc;|"
            "Drink &desc;"
-       "'>\" ATT='name desc'" ), 0 ); */
+       "'>\" ATT='name desc'" ), 0 ); 
   /* Bid an item tag (for things in the auction) */
- /* write_to_buffer( d, MXPTAG( "!ELEMENT Bid \"<send href='bid &#39;&name;&#39;' "
+  write_to_buffer( d, MXPTAG( "!ELEMENT Bid \"<send href='bid &#39;&name;&#39;' "
        "hint='Bid for &desc;'>\" "
-       "ATT='name desc'" ), 0 ); */
+       "ATT='name desc'" ), 0 ); 
   /* List an item tag (for things in a shop) */
- /* write_to_buffer( d, MXPTAG( "!ELEMENT List \"<send href='buy &#39;&name;&#39;' "
+  write_to_buffer( d, MXPTAG( "!ELEMENT List \"<send href='buy &#39;&name;&#39;' "
        "hint='Buy &desc;'>\" "
-       "ATT='name desc'"), 0 ); */
+       "ATT='name desc'"), 0 ); 
   /* Player tag (for who lists, tells etc.) */
- /* write_to_buffer( d, MXPTAG( "!ELEMENT Player \"<send href='tell &#39;&name;&#39; ' "
+  write_to_buffer( d, MXPTAG( "!ELEMENT Player \"<send href='tell &#39;&name;&#39; ' "
        "hint='Send a message to &name;' prompt>\" "
-       "ATT='name'"), 0 ); */
-  } /* end of turn_on_mxp */
+       "ATT='name'"), 0 ); 
+} /* end of turn_on_mxp */
 
 /*
 static void SegVio()

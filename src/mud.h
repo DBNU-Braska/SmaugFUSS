@@ -4439,7 +4439,7 @@ const char *obj_short( OBJ_DATA * obj );
 int get_door( const char *arg );
 char *num_punct( int foo );
 char *format_obj_to_char( OBJ_DATA * obj, CHAR_DATA * ch, bool fShort );
-void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShowNothing );
+void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShowNothing, const int iDefaultAction );
 bool is_ignoring( CHAR_DATA * ch, CHAR_DATA * ign_ch );
 void show_race_line( CHAR_DATA * ch, CHAR_DATA * victim );
 
