@@ -1211,7 +1211,7 @@ void print_compass( CHAR_DATA * ch )
          exit_info[pexit->vdir] = 1;
    }
    set_char_color( AT_RMNAME, ch );
-   ch_printf_color( ch, "\r\n%-50s         %s%s    %s%s    %s%s\r\n",
+   ch_printf_color( ch, "\r\n\r\n%-50s         %s%s    %s%s    %s%s\r\n",
                     ch->in_room->name,
                     exit_colors[exit_info[DIR_NORTHWEST]], exit_info[DIR_NORTHWEST] ? "NW" : "- ",
                     exit_colors[exit_info[DIR_NORTH]], exit_info[DIR_NORTH] ? "N" : "-",
@@ -1302,7 +1302,7 @@ void do_look( CHAR_DATA * ch, const char *argument )
       else
       {
          set_char_color( AT_RMNAME, ch );
-         send_to_char( "\r\n", ch );
+         send_to_char( "\r\n\r\n", ch );
          send_to_char( ch->in_room->name, ch );
          send_to_char( "\r\n", ch );
       }
@@ -1323,7 +1323,7 @@ void do_look( CHAR_DATA * ch, const char *argument )
       /*
        * Added AUTOMAP check because it shows them next to the map now if its active 
        */
-      if( !IS_NPC( ch ) && ( xIS_SET( ch->act, PLR_AUTOEXIT ) ) ) // && !xIS_SET( ch->act, PLR_AUTOMAP )
+      if( !IS_NPC( ch ) && xIS_SET( ch->act, PLR_AUTOEXIT ) ) //  && !xIS_SET( ch->act, PLR_AUTOMAP ) ) //removed this so that the directions show up all the time and removed it from automap function -Braska
          do_exits( ch, "auto" );
 
       show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE, eItemGet );
@@ -5252,4 +5252,98 @@ void do_version( CHAR_DATA* ch, const char* argument)
       ch_printf( ch, "Compiled on %s at %s.\r\n", __DATE__, __TIME__ );
 
    return;
+}
+
+/*
+ * Analyse Function
+ */
+void do_analyze( CHAR_DATA *ch, const char *argument )
+{
+    OBJ_DATA *obj;
+    AFFECT_DATA *paf;
+    // long double range = 0; // used for PL -Braska
+    char buf[MAX_STRING_LENGTH];
+
+    if( (obj = get_obj_carry( ch, argument ) ) == NULL )
+    {
+		ch_printf( ch, "You aren't carrying anything like that.\n\r" );
+		return;
+    }
+    ch_printf( ch, "\n\rObject: %s\n\r", obj->short_descr );
+    ch_printf( ch, "Level Req: %s\n\r", num_punct( obj->level ) );
+    ch_printf( ch, "\n\r" );
+
+    ch_printf( ch, "Special properties: %s\n\r", extra_bit_name( &obj->extra_flags ) );
+
+    if( obj->item_type != ITEM_LIGHT && obj->wear_flags - 1 > 0 )
+       	ch_printf( ch, "Item's wear location: %s\n\r", flag_string( obj->wear_flags -1, w_flags ) );
+
+    ch_printf( ch, "\n\r" );
+
+    switch ( obj->item_type )
+    {
+		case ITEM_CONTAINER:
+		case ITEM_KEYRING:
+		case ITEM_QUIVER:
+			ch_printf( ch, "%s appears to %s.\n\r",capitalize(obj->short_descr),
+					obj->value[0] < 76 ? "have a small capacity" :
+					obj->value[0] < 150 ? "have a small to medium capacity" :
+					obj->value[0] < 300 ? "have a medium capacity" :
+					obj->value[0] < 500 ? "have a medium to large capacity" :
+					obj->value[0] < 751 ? "have a large capacity" :
+					"have a giant capacity" );
+		break;
+		case ITEM_PILL:
+		case ITEM_SCROLL:
+		case ITEM_POTION:
+			send_to_char( ".\n\r", ch );
+		break;
+		case ITEM_WAND:
+		case ITEM_STAFF:
+			sprintf( buf, "Has %d(%d) charges of level %d", obj->value[1], obj->value[2], obj->value[0] );
+			send_to_char( buf, ch );
+
+			if( obj->value[3] >= 0 && obj->value[3] < num_skills )
+			{
+				send_to_char( " '", ch );
+				send_to_char( skill_table[obj->value[3]]->name, ch );
+				send_to_char( "'", ch );
+			}
+			send_to_char( ".\n\r", ch );
+		break;
+		case ITEM_MISSILE_WEAPON:
+		case ITEM_WEAPON:
+			sprintf( buf, "Damage is %d to %d (average %d).%s\n\r",
+					obj->value[1], obj->value[2],
+					( obj->value[1] + obj->value[2] ) / 2,
+					IS_OBJ_STAT( obj, ITEM_POISONED) ?
+					"\n\rThis weapon is poisoned." : "" );
+			send_to_char( buf, ch );
+		break;
+		case ITEM_ARMOR:
+			sprintf( buf, "Armor rating is %d/%d.\n\r", obj->value[4], obj->value[5] );
+			send_to_char( buf, ch );
+		break;
+		/*
+		case ITEM_SCOUTER:
+			range = obj->value[2];
+			range *= 100;
+			sprintf( buf,"Scouter pl range is 1 to %s.\n\r", num_punct_ld( range ) );
+			send_to_char( buf, ch );
+		break;
+		case ITEM_DRAGONBALL:
+			sprintf( buf, "This is a real dragonball.\n\r" );
+			send_to_char( buf, ch );
+		break;
+		*/
+		default:
+		break;
+    }
+    ch_printf( ch, "\n\r" );
+
+    for( paf = obj->pIndexData->first_affect; paf; paf = paf->next )
+		showaffect( ch, paf );
+
+    for( paf = obj->first_affect; paf; paf = paf->next )
+        showaffect( ch, paf );
 }
