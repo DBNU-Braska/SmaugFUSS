@@ -484,6 +484,30 @@ Log         0
 End
 
 #COMMAND
+Name        balance~
+Code        do_balance
+Position    100
+Level       1
+Log         0
+End
+
+#COMMAND
+Name        deposit~
+Code        do_deposit
+Position    100
+Level       1
+Log         0
+End
+
+#COMMAND
+Name        withdraw~
+Code        do_withdraw
+Position    100
+Level       1
+Log         0
+End
+
+#COMMAND
 Name        channels~
 Code        do_channels
 Position    100

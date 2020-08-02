@@ -29,7 +29,9 @@ const char *tiny_affect_loc_name( int location );
 void do_gold( CHAR_DATA* ch, const char* argument)
 {
    set_char_color( AT_GOLD, ch );
-   ch_printf( ch, "You have %s gold pieces.\r\n", num_punct( ch->gold ) );
+   ch_printf( ch, "\r\n" );
+   ch_printf( ch, "You have %s gold pieces on you.\r\n", num_punct( ch->gold ) );
+   ch_printf( ch, "You have %s gold pieces in the bank.\r\n", num_punct( ch->pcdata->balance ) );
    return;
 }
 
