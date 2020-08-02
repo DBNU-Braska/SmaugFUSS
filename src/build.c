@@ -152,7 +152,7 @@ const char *const act_flags[] = {
    "wimpy", "pet", "train", "practice", "immortal", "deadly", "polyself",
    "meta_aggr", "guardian", "running", "nowander", "mountable", "mounted",
    "scholar", "secretive", "hardhat", "mobinvis", "noassist", "autonomous",
-   "pacifist", "noattack", "annoying", "statshield", "prototype"
+   "pacifist", "noattack", "annoying", "statshield", "prototype", "undertaker"
 };
 
 const char *const pc_flags[] = {

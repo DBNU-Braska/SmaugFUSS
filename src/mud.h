@@ -1408,7 +1408,8 @@ struct smaug_affect
 #define ACT_ANNOYING       28 /* Other mobs will attack */
 #define ACT_STATSHIELD     29 /* prevent statting */
 #define ACT_PROTOTYPE      30 /* A prototype mob   */
-/* 31 acts */
+#define ACT_UNDERTAKER     31 /* Undertaker mob */
+/* 32 acts */
 
 /*
  * Bits for 'affected_by'.
@@ -3796,6 +3797,7 @@ DECLARE_DO_FUN( do_council_induct );
 DECLARE_DO_FUN( do_council_outcast );
 DECLARE_DO_FUN( do_councils );
 DECLARE_DO_FUN( do_counciltalk );
+DECLARE_DO_FUN( do_corpse );
 DECLARE_DO_FUN( do_credits );
 DECLARE_DO_FUN( do_cset );
 DECLARE_DO_FUN( do_defeats );
