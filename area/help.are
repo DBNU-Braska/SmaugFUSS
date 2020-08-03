@@ -5067,6 +5067,28 @@ have on hand, and how much is in the bank.
 Code for banks courtesy of Minas Ravenblood of The Apocalypse Theatre.
 ~
 
+51 NOHELPS~
+.
+  &GSyntax:  &Cnohelps <all|areas|commands|skills>
+ 
+&WThe nohelps command will search through the commands, skills, or areas on 
+the mud (or all three at once) and test to see if there is an attendant help
+file which exists for them. If no help file exists, it is added to a list,
+which is displayed. Helpful in finding help files that need to be created.
+ 
+Note that if the keyword of the helpfile doesn't match the name of the,
+command (or name of area, or name of spell/skill) then it is returned as
+not existing. For example, the skill 'standard style' will show as having
+no help file, even though there IS a 'styles' help file, in the stock SMAUG
+release.  I only had about an hour, to code this, and it's not too smart. I
+may try to make it more intelligent later.
+ 
+If no argument is given, nohelps will default to "all".
+ 
+&w
+~
+
+
 63 'GROUP DISPLAYER'~
 ~
 

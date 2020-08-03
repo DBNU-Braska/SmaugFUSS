@@ -508,6 +508,14 @@ Log         0
 End
 
 #COMMAND
+Name        nohelps~
+Code        do_nohelps
+Position    100
+Level       51
+Log         0
+End
+
+#COMMAND
 Name        channels~
 Code        do_channels
 Position    100
