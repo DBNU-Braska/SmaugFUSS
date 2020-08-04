@@ -467,7 +467,6 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
    int iShow;
    int count, offcount, tmp, ms, cnt;
    bool fCombine;
-   
 
    if( !ch->desc )
       return;
@@ -633,8 +632,7 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
       }
       if( fShowNothing )
          send_to_char( "     ", ch );
-      
-      
+      send_to_char( prgpstrShow[iShow], ch );
 /*	if ( IS_NPC(ch) || xIS_SET(ch->act, PLR_COMBINE) ) */
       {
          if( prgnShow[iShow] != 1 )
@@ -643,7 +641,6 @@ void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShow
 
       send_to_char( "\r\n", ch );
       DISPOSE( prgpstrShow[iShow] );
-      
    }
 
    if( fShowNothing && nShow == 0 )
@@ -1170,7 +1167,7 @@ void print_compass( CHAR_DATA * ch )
          exit_info[pexit->vdir] = 1;
    }
    set_char_color( AT_RMNAME, ch );
-   ch_printf_color( ch, "\r\n\r\n%-50s         %s%s    %s%s    %s%s\r\n",
+   ch_printf_color( ch, "\r\n%-50s         %s%s    %s%s    %s%s\r\n",
                     ch->in_room->name,
                     exit_colors[exit_info[DIR_NORTHWEST]], exit_info[DIR_NORTHWEST] ? "NW" : "- ",
                     exit_colors[exit_info[DIR_NORTH]], exit_info[DIR_NORTH] ? "N" : "-",
@@ -1199,9 +1196,7 @@ char *roomdesc( CHAR_DATA * ch )
    if( !xIS_SET( ch->act, PLR_BRIEF ) )
    {
       if( ch->in_room->description && ch->in_room->description[0] != '\0' )
-      {
          mudstrlcat( rdesc, ch->in_room->description, MAX_STRING_LENGTH );
-      }
    }
    if( rdesc[0] == '\0' )
       mudstrlcpy( rdesc, "(Not set)", MAX_STRING_LENGTH );
@@ -1261,7 +1256,6 @@ void do_look( CHAR_DATA * ch, const char *argument )
       else
       {
          set_char_color( AT_RMNAME, ch );
-         send_to_char( "\r\n\r\n", ch );
          send_to_char( ch->in_room->name, ch );
          send_to_char( "\r\n", ch );
       }
@@ -1272,17 +1266,13 @@ void do_look( CHAR_DATA * ch, const char *argument )
          if( xIS_SET( ch->act, PLR_AUTOMAP ) )
             draw_room_map( ch, roomdesc( ch ) );
          else
-         {
-            //send_to_char( MXPSendTag( d, "<rdesc>" ), ch);
             send_to_char( roomdesc( ch ), ch );
-            //send_to_char( MXPSendTag( d, "</rdesc>" ), ch);
-         }
       }
 
       /*
        * Added AUTOMAP check because it shows them next to the map now if its active 
        */
-      if( !IS_NPC( ch ) && xIS_SET( ch->act, PLR_AUTOEXIT ) ) //  && !xIS_SET( ch->act, PLR_AUTOMAP ) ) //removed this so that the directions show up all the time and removed it from automap function -Braska
+      if( !IS_NPC( ch ) && ( xIS_SET( ch->act, PLR_AUTOEXIT ) && !xIS_SET( ch->act, PLR_AUTOMAP ) ) )
          do_exits( ch, "auto" );
 
       show_list_to_char( ch->in_room->first_content, ch, FALSE, FALSE );
@@ -2084,7 +2074,7 @@ void do_exits( CHAR_DATA* ch, const char* argument)
    }
 
    set_char_color( AT_EXITS, ch );
-   mudstrlcpy( buf, fAuto ? "\r\nExits: " : "\r\nObvious exits: \r\n", MAX_STRING_LENGTH );
+   mudstrlcpy( buf, fAuto ? "Exits:" : "Obvious exits:\r\n", MAX_STRING_LENGTH );
 
    found = FALSE;
    for( pexit = ch->in_room->first_exit; pexit; pexit = pexit->next )
@@ -2108,11 +2098,8 @@ void do_exits( CHAR_DATA* ch, const char* argument)
          }
          else
          {
-            
-   		      /*sprintf( buf + strlen( buf ), "%s%s%s%*s - %s\n\r", MXPTAG ("Ex"),     %s%s MXPTAG ("Ex"),      %d%s MXPTAG ("/Ex"), spaces, "",
-               capitalize( dir_name[pexit->vdir] ), MXPTAG ("/Ex"), spaces, "", room_is_dark( pexit->to_room ) ?  "Too dark to tell" : pexit->to_room->name );*/
-            
-            snprintf( buf + strlen( buf ), ( MAX_STRING_LENGTH - strlen( buf ) ), " %-5s - %s\r\n", capitalize( dir_name[pexit->vdir] ), room_is_dark( pexit->to_room ) ? "Too dark to tell" : pexit->to_room->name );
+            snprintf( buf + strlen( buf ), ( MAX_STRING_LENGTH - strlen( buf ) ), "%-5s - %s\r\n",
+               capitalize( dir_name[pexit->vdir] ), room_is_dark( pexit->to_room ) ? "Too dark to tell" : pexit->to_room->name );
          }
       }
    }
@@ -3134,13 +3121,15 @@ void do_who( CHAR_DATA* ch, const char* argument)
       else
          invis_str[0] = '\0';
       int bc = snprintf( buf, MAX_STRING_LENGTH, "%*s%-15s %s%s%s%s%s%s%s%s.%s%s%s\r\n",
-               ( fGroup ? whogr->indent : 0 ), "", Class, invis_str,
-               ( wch->desc && wch->desc->connected ) ? "[WRITING] " : "",
-               xIS_SET( wch->act, PLR_AFK ) ? "[AFK] " : "",
-               xIS_SET( wch->act, PLR_ATTACKER ) ? "(ATTACKER) " : "",
-               xIS_SET( wch->act, PLR_KILLER ) ? "(KILLER) " : "",
-               xIS_SET( wch->act, PLR_THIEF ) ? "(THIEF) " : "",
-               char_name, wch->pcdata->title, extra_title, clan_name, council_name );
+                ( fGroup ? whogr->indent : 0 ), "",
+                Class,
+                invis_str,
+                ( wch->desc && wch->desc->connected ) ? "[WRITING] " : "",
+                xIS_SET( wch->act, PLR_AFK ) ? "[AFK] " : "",
+                xIS_SET( wch->act, PLR_ATTACKER ) ? "(ATTACKER) " : "",
+                xIS_SET( wch->act, PLR_KILLER ) ? "(KILLER) " : "",
+                xIS_SET( wch->act, PLR_THIEF ) ? "(THIEF) " : "",
+                char_name, wch->pcdata->title, extra_title, clan_name, council_name );
       if( bc < 0 )
          bug( "%s: Output buffer error!:", __func__ ); // Shut up GCC 8.
 
@@ -5204,98 +5193,4 @@ void do_version( CHAR_DATA* ch, const char* argument)
       ch_printf( ch, "Compiled on %s at %s.\r\n", __DATE__, __TIME__ );
 
    return;
-}
-
-/*
- * Analyse Function
- */
-void do_analyze( CHAR_DATA *ch, const char *argument )
-{
-    OBJ_DATA *obj;
-    AFFECT_DATA *paf;
-    // long double range = 0; // used for PL -Braska
-    char buf[MAX_STRING_LENGTH];
-
-    if( (obj = get_obj_carry( ch, argument ) ) == NULL )
-    {
-		ch_printf( ch, "You aren't carrying anything like that.\n\r" );
-		return;
-    }
-    ch_printf( ch, "\n\rObject: %s\n\r", obj->short_descr );
-    ch_printf( ch, "Level Req: %s\n\r", num_punct( obj->level ) );
-    ch_printf( ch, "\n\r" );
-
-    ch_printf( ch, "Special properties: %s\n\r", extra_bit_name( &obj->extra_flags ) );
-
-    if( obj->item_type != ITEM_LIGHT && obj->wear_flags - 1 > 0 )
-       	ch_printf( ch, "Item's wear location: %s\n\r", flag_string( obj->wear_flags -1, w_flags ) );
-
-    ch_printf( ch, "\n\r" );
-
-    switch ( obj->item_type )
-    {
-		case ITEM_CONTAINER:
-		case ITEM_KEYRING:
-		case ITEM_QUIVER:
-			ch_printf( ch, "%s appears to %s.\n\r",capitalize(obj->short_descr),
-					obj->value[0] < 76 ? "have a small capacity" :
-					obj->value[0] < 150 ? "have a small to medium capacity" :
-					obj->value[0] < 300 ? "have a medium capacity" :
-					obj->value[0] < 500 ? "have a medium to large capacity" :
-					obj->value[0] < 751 ? "have a large capacity" :
-					"have a giant capacity" );
-		break;
-		case ITEM_PILL:
-		case ITEM_SCROLL:
-		case ITEM_POTION:
-			send_to_char( ".\n\r", ch );
-		break;
-		case ITEM_WAND:
-		case ITEM_STAFF:
-			sprintf( buf, "Has %d(%d) charges of level %d", obj->value[1], obj->value[2], obj->value[0] );
-			send_to_char( buf, ch );
-
-			if( obj->value[3] >= 0 && obj->value[3] < num_skills )
-			{
-				send_to_char( " '", ch );
-				send_to_char( skill_table[obj->value[3]]->name, ch );
-				send_to_char( "'", ch );
-			}
-			send_to_char( ".\n\r", ch );
-		break;
-		case ITEM_MISSILE_WEAPON:
-		case ITEM_WEAPON:
-			sprintf( buf, "Damage is %d to %d (average %d).%s\n\r",
-					obj->value[1], obj->value[2],
-					( obj->value[1] + obj->value[2] ) / 2,
-					IS_OBJ_STAT( obj, ITEM_POISONED) ?
-					"\n\rThis weapon is poisoned." : "" );
-			send_to_char( buf, ch );
-		break;
-		case ITEM_ARMOR:
-			sprintf( buf, "Armor rating is %d/%d.\n\r", obj->value[4], obj->value[5] );
-			send_to_char( buf, ch );
-		break;
-		/*
-		case ITEM_SCOUTER:
-			range = obj->value[2];
-			range *= 100;
-			sprintf( buf,"Scouter pl range is 1 to %s.\n\r", num_punct_ld( range ) );
-			send_to_char( buf, ch );
-		break;
-		case ITEM_DRAGONBALL:
-			sprintf( buf, "This is a real dragonball.\n\r" );
-			send_to_char( buf, ch );
-		break;
-		*/
-		default:
-		break;
-    }
-    ch_printf( ch, "\n\r" );
-
-    for( paf = obj->pIndexData->first_affect; paf; paf = paf->next )
-		showaffect( ch, paf );
-
-    for( paf = obj->first_affect; paf; paf = paf->next )
-        showaffect( ch, paf );
 }

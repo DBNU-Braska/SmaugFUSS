@@ -46,7 +46,6 @@
 
 #define  TELOPT_ECHO        '\x01'
 #define  GA                 '\xF9'
-#define  SE                 '\xF0'
 #define  SB                 '\xFA'
 #define  WILL               '\xFB'
 #define  WONT               '\xFC'
@@ -93,7 +92,6 @@ void free_all_reserved( void );
 const unsigned char echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
 const unsigned char echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
 const unsigned char go_ahead_str[] = { IAC, GA, '\0' };
-
 
 void save_sysdata( SYSTEM_DATA sys );
 
@@ -396,9 +394,9 @@ int main( int argc, char **argv )
 {
    struct timeval now_time;
    bool fCopyOver = FALSE;
-   #ifdef IMC
+#ifdef IMC
    int imcsocket = -1;
-   #endif
+#endif
 
    DONT_UPPER = FALSE;
    num_descriptors = 0;
@@ -471,9 +469,9 @@ int main( int argc, char **argv )
       {
          fCopyOver = TRUE;
          control = atoi( argv[3] );
-         #ifdef IMC
+#ifdef IMC
          imcsocket = atoi( argv[4] );
-         #endif
+#endif
       }
       else
          fCopyOver = FALSE;
@@ -482,7 +480,7 @@ int main( int argc, char **argv )
    /*
     * Run the game.
     */
-   #ifdef WIN32
+#ifdef WIN32
    {
       /*
        * Initialise Windows sockets library 
@@ -508,7 +506,7 @@ int main( int argc, char **argv )
       signal( SIGINT, ( void * )bailout );
       signal( SIGTERM, ( void * )bailout );
    }
-   #endif /* WIN32 */
+#endif /* WIN32 */
 
    log_string( "Booting Database" );
    boot_db( fCopyOver );
@@ -516,12 +514,12 @@ int main( int argc, char **argv )
    if( !fCopyOver )  /* We have already the port if copyover'ed */
       control = init_socket( port );
 
-   #ifdef IMC
+#ifdef IMC
    /*
     * Initialize and connect to IMC2 
     */
    imc_startup( FALSE, imcsocket, fCopyOver );
-   #endif
+#endif
 
    log_printf( "%s ready on port %d.", sysdata.mud_name, port );
 
@@ -535,18 +533,18 @@ int main( int argc, char **argv )
 
    close( control );
 
-   #ifdef IMC
+#ifdef IMC
    imc_shutdown( FALSE );
-   #endif
+#endif
 
-   #ifdef WIN32
+#ifdef WIN32
    /*
     * Shut down Windows sockets 
     */
 
    WSACleanup(  );   /* clean up */
    kill_timer(  );   /* stop timer thread */
-   #endif
+#endif
 
 
    /*
@@ -579,7 +577,7 @@ int init_socket( int mudport )
       exit( 1 );
    }
 
-   #if defined(SO_DONTLINGER) && !defined(SYSV)
+#if defined(SO_DONTLINGER) && !defined(SYSV)
    {
       struct linger ld;
 
@@ -593,7 +591,7 @@ int init_socket( int mudport )
          exit( 1 );
       }
    }
-   #endif
+#endif
 
    memset( &sa, '\0', sizeof( sa ) );
    sa.sin_family = AF_INET;
@@ -757,11 +755,11 @@ void game_loop( void )
    char cmdline[MAX_INPUT_LENGTH];
    DESCRIPTOR_DATA *d;
 
-   #ifndef WIN32
+#ifndef WIN32
    signal( SIGPIPE, SIG_IGN );
    signal( SIGALRM, caught_alarm );
    signal( SIGCHLD, clean_up_child_process );
-   #endif
+#endif
 
    /*
     * signal( SIGSEGV, SegVio ); 
@@ -845,8 +843,6 @@ void game_loop( void )
             if( d->incomm[0] != '\0' )
             {
                d->fcommand = TRUE;
-               if( d->pProtocol != NULL )      /* MSDP */
-                  d->pProtocol->WriteOOB = 0;  /* MSDP */
                stop_idling( d->character );
 
                mudstrlcpy( cmdline, d->incomm, MAX_INPUT_LENGTH );
@@ -876,9 +872,9 @@ void game_loop( void )
             break;
       }
 
-      #ifdef IMC
+#ifdef IMC
       imc_loop(  );
-      #endif
+#endif
 
       /*
        * Autonomous game motion.
@@ -947,15 +943,15 @@ void game_loop( void )
 
             stall_time.tv_usec = usecDelta;
             stall_time.tv_sec = secDelta;
-            #ifdef WIN32
+#ifdef WIN32
             Sleep( ( stall_time.tv_sec * 1000L ) + ( stall_time.tv_usec / 1000L ) );
-            #else
+#else
             if( select( 0, NULL, NULL, NULL, &stall_time ) < 0 && errno != EINTR )
             {
                perror( "game_loop: select: stall" );
                exit( 1 );
             }
-            #endif
+#endif
          }
       }
 
@@ -1037,7 +1033,6 @@ void new_descriptor( int new_desc )
    dnew->port = ntohs( sock.sin_port );
    dnew->newstate = 0;
    dnew->prevcolor = 0x07;
-   dnew->pProtocol = ProtocolCreate(); /* MSDP */
    dnew->ifd = -1;   /* Descriptor pipes, used for DNS resolution and such */
    dnew->ipid = -1;
    dnew->can_compress = FALSE;
@@ -1088,11 +1083,6 @@ void new_descriptor( int new_desc )
     * MCCP Compression 
     */
    write_to_buffer( dnew, (const char *)will_compress2_str, 0 );
-
-      /* 
-    * telnet negotiation to see if they support MSDP 
-   */
-   ProtocolNegotiate(dnew);
 
    /*
     * Send the greeting.
@@ -1285,7 +1275,6 @@ void close_socket( DESCRIPTOR_DATA * dclose, bool force )
    if( dclose->descriptor == maxdesc )
       --maxdesc;
 
-   ProtocolDestroy( dclose->pProtocol ); /* MSDP */
    free_desc( dclose );
    --num_descriptors;
    return;
@@ -1295,9 +1284,6 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
 {
    unsigned int iStart;
    int iErr;
-   static char read_buf[MAX_PROTOCOL_BUFFER]; /* MSDP */
-   read_buf[0] = '\0';                        /* MSDP */
-
 
    /*
     * Hold horses if pending command already. 
@@ -1308,8 +1294,8 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
    /*
     * Check for overflow. 
     */
-   iStart = strlen( read_buf );
-   if( iStart >= sizeof( read_buf ) - 10 )
+   iStart = strlen( d->inbuf );
+   if( iStart >= sizeof( d->inbuf ) - 10 )
    {
       log_printf( "%s input overflow!", d->host );
       write_to_descriptor( d, "\r\n*** PUT A LID ON IT!!! ***\r\nYou cannot enter the same command more than 20 consecutive times!\r\n", 0 );
@@ -1320,7 +1306,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
    {
       int nRead;
 
-      nRead = recv( d->descriptor, read_buf + iStart, sizeof( read_buf ) - 10 - iStart, 0 );
+      nRead = recv( d->descriptor, d->inbuf + iStart, sizeof( d->inbuf ) - 10 - iStart, 0 );
 #ifdef WIN32
       iErr = WSAGetLastError(  );
 #else
@@ -1329,7 +1315,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
       if( nRead > 0 )
       {
          iStart += nRead;
-         if( read_buf[iStart - 1] == '\n' || read_buf[iStart - 1] == '\r' )
+         if( d->inbuf[iStart - 1] == '\n' || d->inbuf[iStart - 1] == '\r' )
             break;
       }
       else if( nRead == 0 )
@@ -1346,8 +1332,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
       }
    }
 
-   read_buf[iStart] = '\0';
-   ProtocolInput( d, read_buf, iStart, d->inbuf ); /* MSDP */
+   d->inbuf[iStart] = '\0';
    return TRUE;
 }
 
@@ -1357,13 +1342,13 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
 void read_from_buffer( DESCRIPTOR_DATA * d )
 {
    int i, j, k, iac = 0;
-   //char * p;
+
    /*
     * Hold horses if pending command already.
     */
    if( d->incomm[0] != '\0' )
       return;
-   
+
    /*
     * Look for at least one new line.
     */
@@ -1440,8 +1425,8 @@ void read_from_buffer( DESCRIPTOR_DATA * d )
       {
          if( ++d->repeat >= 20 )
          {
-            /*		log_printf( "%s input spamming!", d->host );
-            */
+/*		log_printf( "%s input spamming!", d->host );
+*/
             write_to_descriptor( d, "\r\n*** PUT A LID ON IT!!! ***\r\nYou cannot enter the same command more than 20 consecutive times!\r\n", 0 );
             mudstrlcpy( d->incomm, "quit", MAX_INPUT_LENGTH );
          }
@@ -1510,7 +1495,7 @@ bool flush_buffer( DESCRIPTOR_DATA * d, bool fPrompt )
    /*
     * Bust a prompt.
     */
-   if( !d->pProtocol->WriteOOB && fPrompt && !mud_down && d->connected == CON_PLAYING ) /* MSDP */
+   if( fPrompt && !mud_down && d->connected == CON_PLAYING )
    {
       CHAR_DATA *ch;
 
@@ -1595,29 +1580,24 @@ void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
    if( !d->outbuf )
       return;
 
-   txt = ProtocolOutput( d, txt, (int *) &length );  /* MSDP */
-   if ( d->pProtocol->WriteOOB > 0 )         /* MSDP */
-      --d->pProtocol->WriteOOB;             /* MSDP */
    /*
     * Find length in case caller didn't.
     */
    if( length <= 0 )
       length = strlen( txt );
 
-   /* Uncomment if debugging or something
+/* Uncomment if debugging or something
     if ( length != strlen(txt) )
     {
 	bug( "%s: length(%d) != strlen(txt)!", __func__, length );
 	length = strlen(txt);
     }
-   */
-
-  
+*/
 
    /*
     * Initial \r\n if needed.
     */
-   if( d->outtop == 0 && !d->fcommand && !d->pProtocol->WriteOOB )
+   if( d->outtop == 0 && !d->fcommand )
    {
       d->outbuf[0] = '\r';
       d->outbuf[1] = '\n';
@@ -1649,7 +1629,6 @@ void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
    /*
     * Copy.
     */
-   
    strncpy( d->outbuf + d->outtop, txt, length );
    d->outtop += length;
    d->outbuf[d->outtop] = '\0';
@@ -2024,8 +2003,7 @@ void nanny_get_name( DESCRIPTOR_DATA * d, char *argument )
        * Old player
        */
       write_to_buffer( d, "Password: ", 0 );
-      ProtocolNoEcho( d, true ); /* MSDP */
-      /* write_to_buffer( d, (const char *)echo_off_str, 0 ); MSDP removed */
+      write_to_buffer( d, (const char *)echo_off_str, 0 );
       d->connected = CON_GET_OLD_PASSWORD;
       return;
    }
@@ -2078,8 +2056,7 @@ void nanny_get_old_password( DESCRIPTOR_DATA * d, char *argument )
       return;
    }
 
-   ProtocolNoEcho( d, false ); /* MSDP */
-   /* write_to_buffer( d, (const char *)echo_on_str, 0 ); replaced for MSDP */
+   write_to_buffer( d, (const char *)echo_on_str, 0 );
 
    if( check_playing( d, ch->pcdata->filename, TRUE ) )
       return;
@@ -2131,10 +2108,9 @@ void nanny_confirm_new_name( DESCRIPTOR_DATA * d, char *argument )
    {
       case 'y':
       case 'Y':
-         ProtocolNoEcho( d, true ); /* MSDP */
          buffer_printf( d,
                    "\r\nMake sure to use a password that won't be easily guessed by someone else."
-                   "\r\nPick a good password for %s: ", ch->name); // took out echo_off_str, MSDP -Braska
+                   "\r\nPick a good password for %s: %s", ch->name, echo_off_str );
          d->connected = CON_GET_NEW_PASSWORD;
          break;
 
@@ -2196,8 +2172,7 @@ void nanny_confirm_new_password( DESCRIPTOR_DATA * d, char *argument )
       return;
    }
 
-   ProtocolNoEcho( d, false ); /* MSDP */
-   /* write_to_buffer( d, (const char *)echo_on_str, 0 ); replaced for MSDP */
+   write_to_buffer( d, (const char *)echo_on_str, 0 );
    write_to_buffer( d, "\r\nWhat is your sex (M/F/N)? ", 0 );
    d->connected = CON_GET_NEW_SEX;
 }
@@ -2642,7 +2617,6 @@ void nanny_read_motd( DESCRIPTOR_DATA * d, const char *argument )
    mprog_login_trigger( ch );
 
    act( AT_ACTION, "$n has entered the game.", ch, NULL, NULL, TO_CANSEE );
-   MXPSendTag( d, "<VERSION>" );  /* MSDP */
    if( ch->pcdata->pet )
    {
       act( AT_ACTION, "$n returns to $s master from the Void.", ch->pcdata->pet, NULL, ch, TO_NOTVICT );
@@ -2676,8 +2650,7 @@ void nanny_delete_char( DESCRIPTOR_DATA * d, const char *argument )
    if( str_cmp( sha256_crypt( argument ), ch->pcdata->pwd ) )
    {
       write_to_buffer( d, "Wrong password entered, deletion cancelled.\r\n", 0 );
-      ProtocolNoEcho( d, false ); /* MSDP */
-      /* write_to_buffer( d, (const char *)echo_on_str, 0 ); replaced for MSDP */
+      write_to_buffer( d, (const char *)echo_on_str, 0 );
       d->connected = CON_PLAYING;
       return;
    }
@@ -2870,7 +2843,6 @@ short check_reconnect( DESCRIPTOR_DATA * d, const char *name, bool fConn )
             act( AT_ACTION, "$n has reconnected.", ch, NULL, NULL, TO_CANSEE );
             log_printf_plus( LOG_COMM, UMAX( sysdata.log_level, ch->level ), "%s (%s) reconnected.", ch->name, d->host );
             d->connected = CON_PLAYING;
-            MXPSendTag( d, "<VERSION>" );  /* MSDP */
             do_look( ch, "auto" );
             check_loginmsg( ch );
          }
@@ -3015,20 +2987,20 @@ char *act_string( const char *format, CHAR_DATA * to, CHAR_DATA * ch, const void
    char temp[MSL];
    const char *str = format;
    const char *i;
-   bool should_upper = FALSE;
+   bool should_upper = false;
    CHAR_DATA *vch = ( CHAR_DATA * ) arg2;
    OBJ_DATA *obj1 = ( OBJ_DATA * ) arg1;
    OBJ_DATA *obj2 = ( OBJ_DATA * ) arg2;
 
    if( str[0] == '$' )
-      DONT_UPPER = FALSE;
+      DONT_UPPER = false;
 
    while( *str != '\0' )
    {
       if( *str == '.' || *str == '?' || *str == '!' )
          should_upper = true;
       else if( should_upper == true && !isspace( *str ) && *str != '$' )
-         should_upper = FALSE;
+         should_upper = false;
 
       if( *str != '$' )
       {
@@ -3241,7 +3213,7 @@ char *act_string( const char *format, CHAR_DATA * to, CHAR_DATA * ch, const void
           else if( bUppercase && isalpha( c ) )
           {
                *astr = toupper(c);
-               bUppercase = FALSE;
+               bUppercase = false;
           }
      }
    }

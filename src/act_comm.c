@@ -469,8 +469,8 @@ void talk_channel( CHAR_DATA * ch, const char *argument, int channel, const char
    {
       default:
          set_char_color( AT_GOSSIP, ch );
-         ch_printf( ch, "\r\n<%s> [%s] (%s) You '%s'\r\n", capitalize(verb), get_race( ch ), get_class( ch ), argument );
-         snprintf( buf, MAX_STRING_LENGTH, "<%s> [%s] (%s) $n '$t'\r\n", capitalize( verb ), get_race( ch ), get_class( ch ) );
+         ch_printf( ch, "You %s '%s'\r\n", verb, argument );
+         snprintf( buf, MAX_STRING_LENGTH, "$n %ss '$t'", verb );
          break;
 
       case CHANNEL_MUSIC:

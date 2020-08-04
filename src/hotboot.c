@@ -789,7 +789,6 @@ void hotboot_recover( void )
       d->can_compress = dcompress;
       if( d->can_compress )
          compressStart( d );
-      
       LINK( d, first_descriptor, last_descriptor, next, prev );
       d->connected = CON_COPYOVER_RECOVER;   /* negative so close_socket will cut them off */
 
