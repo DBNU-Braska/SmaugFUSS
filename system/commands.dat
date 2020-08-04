@@ -476,14 +476,6 @@ Log         0
 End
 
 #COMMAND
-Name        corpse~
-Code        do_corpse
-Position    100
-Level       1
-Log         0
-End
-
-#COMMAND
 Name        channels~
 Code        do_channels
 Position    100
