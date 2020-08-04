@@ -1256,6 +1256,7 @@ void do_look( CHAR_DATA * ch, const char *argument )
       else
       {
          set_char_color( AT_RMNAME, ch );
+         send_to_char( "\r\n", ch );
          send_to_char( ch->in_room->name, ch );
          send_to_char( "\r\n", ch );
       }

@@ -279,14 +279,6 @@ Log         0
 End
 
 #COMMAND
-Name        analyze~
-Code        do_analyze
-Position    100
-Level       1
-Log         0
-End
-
-#COMMAND
 Name        buy~
 Code        do_buy
 Position    106
