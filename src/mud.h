@@ -3922,7 +3922,6 @@ DECLARE_DO_FUN( do_nobeckon );
 DECLARE_DO_FUN( do_nobio );
 DECLARE_DO_FUN( do_nodesc );
 DECLARE_DO_FUN( do_noemote );
-DECLARE_DO_FUN( do_nohelps );
 DECLARE_DO_FUN( do_nohomepage );
 DECLARE_DO_FUN( do_noresolve );
 DECLARE_DO_FUN( do_north );

@@ -5237,7 +5237,7 @@ void do_analyze( CHAR_DATA *ch, const char *argument )
 		case ITEM_CONTAINER:
 		case ITEM_KEYRING:
 		case ITEM_QUIVER:
-			ch_printf( ch, "%s appears to %s.\n\r", capitalize( obj->short_descr ),
+			ch_printf( ch, "%s appears to %s.\n\r",capitalize(obj->short_descr),
 					obj->value[0] < 76 ? "have a small capacity" :
 					obj->value[0] < 150 ? "have a small to medium capacity" :
 					obj->value[0] < 300 ? "have a medium capacity" :
@@ -5298,98 +5298,4 @@ void do_analyze( CHAR_DATA *ch, const char *argument )
 
     for( paf = obj->first_affect; paf; paf = paf->next )
         showaffect( ch, paf );
-}
-
-/* Find non-existant help files. -Sadiq */
-void do_nohelps( CHAR_DATA *ch, const char *argument)
-{
-   CMDTYPE *command;
-   AREA_DATA *tArea;
-   char arg[MAX_STRING_LENGTH];
-   int hash, col=0, sn=0;
-  
-   argument = one_argument( argument, arg );
-
-   if( !IS_IMMORTAL( ch ) || IS_NPC( ch ) )
-   {
-      send_to_char( "Huh?\n\r", ch );
-      return;
-   }
-
-   if( arg[0] == '\0' || !str_cmp( arg, "all" ) )
-   {
-      do_nohelps( ch, "commands" );
-      send_to_char( "\n\r", ch );
-      do_nohelps( ch, "skills" );
-      send_to_char( "\n\r", ch );
-      do_nohelps( ch, "areas" );
-      send_to_char( "\n\r", ch );
-      return;
-   }
-  
-  if( !str_cmp( arg, "commands" ) )
-  {
-      send_to_char( "&C&YCommands for which there are no help files:\n\r\n\r", ch );
-
-      for( hash = 0; hash < 126; hash++ )
-      {
-         for( command = command_hash[hash]; command; command = command->next )
-	      {
-	         if( !get_help( ch, command->name ) )
-	      	{
-	   	      ch_printf_color( ch, "&W%-15s", command->name );
-	   	      if( ++col % 5 == 0 )
-	   	      {
-			         send_to_char( "\n\r", ch );
-		         }
-	      	}
-	      }
-      }
-
-      send_to_char( "\n\r", ch );
-      return;
-   }
-
-   if( !str_cmp( arg, "skills" ) || !str_cmp( arg, "spells" ) )
-   {
-      send_to_char( "&CSkills/Spells for which there are no help files:\n\r\n\r", ch );
-   
-      for( sn = 0; sn < num_skills && skill_table[sn] && skill_table[sn]->name; sn++ )
-      {
-   	   if( !get_help( ch, skill_table[sn]->name ) )
-   	   {
-            ch_printf_color( ch, "&W%-20s", skill_table[sn]->name );
-            if( ++col % 4 == 0 )
-   	      {
-   	     	   send_to_char( "\n\r", ch );
-   	      }
-   	   }
-      }
-       
-	   send_to_char( "\n\r", ch );	
-	   return;
-   }
-
-   if( !str_cmp( arg, "areas" ) )
-   {
-      send_to_char_color( "&GAreas for which there are no help files:\n\r\n\r", ch );
-   
-      for( tArea = first_area; tArea;tArea = tArea->next )
-      {
-    	   if( !get_help( ch, tArea->name ) )
-    	   {
-    	      ch_printf_color( ch, "&W%-35s", tArea->name );
-    	      if( ++col % 2 == 0 )
-    	      {
-    	     	   send_to_char( "\n\r", ch );
-            }
-    	   }
-      }
-
-	   send_to_char( "\n\r", ch );
-	   return;
-   }
-
-	send_to_char( "Syntax:  nohelps <all|areas|commands|skills>\n\r", ch );
-	return;
 }
