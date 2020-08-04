@@ -37,6 +37,7 @@ void char_check( void );
 void drunk_randoms( CHAR_DATA * ch );
 void hallucinations( CHAR_DATA * ch );
 void subtract_times( struct timeval *etime, struct timeval *sttime );
+void msdp_update( void ); /* MSDP */
 
 /* From interp.c */
 bool check_social( CHAR_DATA * ch, const char *command, const char *argument );
@@ -877,6 +878,161 @@ void char_calendar_update( void )
    }
    trworld_dispose( &lc );
 }
+
+void msdp_update( void )
+{
+   DESCRIPTOR_DATA *d;
+   int PlayerCount = 0;
+
+   for( d = first_descriptor; d; d = d->next )
+   {
+      CHAR_DATA *ch = d->character;
+	   if( ch && d->connected == CON_PLAYING && !IS_NPC( ch ) )
+      {
+         char buf[MAX_STRING_LENGTH];
+         CHAR_DATA *pOpponent = ch->fighting ? ch->fighting->who : NULL;
+         ROOM_INDEX_DATA *pRoom = ch->in_room;
+         AFFECT_DATA *paf;
+         SKILLTYPE *skill;
+         int this_level = exp_level(ch,ch->level);
+         int next_level = exp_level(ch,ch->level+1);
+         int exp_tnl = (ch->exp - this_level) * 100 / next_level;
+
+         ++PlayerCount;
+
+         MSDPSetString( d, eMSDP_CHARACTER_NAME, ch->name );
+         MSDPSetNumber( d, eMSDP_ALIGNMENT, ch->alignment );
+         MSDPSetNumber( d, eMSDP_EXPERIENCE, ch->exp );
+         MSDPSetNumber( d, eMSDP_EXPERIENCE_MAX, next_level );
+         MSDPSetNumber( d, eMSDP_EXPERIENCE_TNL, exp_tnl );
+         MSDPSetNumber( d, eMSDP_HEALTH, ch->hit );
+         MSDPSetNumber( d, eMSDP_HEALTH_MAX, ch->max_hit );
+         MSDPSetNumber( d, eMSDP_LEVEL, ch->level );
+         MSDPSetString( d, eMSDP_RACE, capitalize(get_race(ch)) );
+         MSDPSetString( d, eMSDP_CLASS, capitalize(get_class(ch)) );
+         MSDPSetNumber( d, eMSDP_MANA, ch->mana );
+         MSDPSetNumber( d, eMSDP_MANA_MAX, ch->max_mana );
+         MSDPSetNumber( d, eMSDP_WIMPY, ch->wimpy );
+         MSDPSetNumber( d, eMSDP_PRACTICE, ch->practice );
+         MSDPSetNumber( d, eMSDP_MONEY, ch->gold );
+         MSDPSetNumber( d, eMSDP_MOVEMENT, ch->move );
+         MSDPSetNumber( d, eMSDP_MOVEMENT_MAX, ch->max_move );
+         /* You'll need to add this one yourself - see the README.TXT
+         MSDPSetNumber( d, eMSDP_BLOOD, ch->pcdata->condition[COND_BLOODTHIRST] );
+         */
+         MSDPSetNumber( d, eMSDP_HITROLL, GET_HITROLL(ch) );
+         MSDPSetNumber( d, eMSDP_DAMROLL, GET_DAMROLL(ch) );
+         MSDPSetNumber( d, eMSDP_AC, GET_AC(ch) );
+         MSDPSetNumber( d, eMSDP_STR, get_curr_str(ch) );
+         MSDPSetNumber( d, eMSDP_INT, get_curr_int(ch) );
+         MSDPSetNumber( d, eMSDP_WIS, get_curr_wis(ch) );
+         MSDPSetNumber( d, eMSDP_DEX, get_curr_dex(ch) );
+         MSDPSetNumber( d, eMSDP_CON, get_curr_con(ch) );
+         /* You'll need to add these yourself - see the README.TXT
+         MSDPSetNumber( d, eMSDP_CHA, get_curr_cha(ch) );
+         MSDPSetNumber( d, eMSDP_LCK, get_curr_lck(ch) );
+         */
+         MSDPSetNumber( d, eMSDP_STR_PERM, ch->perm_str );
+         MSDPSetNumber( d, eMSDP_INT_PERM, ch->perm_int );
+         MSDPSetNumber( d, eMSDP_WIS_PERM, ch->perm_wis );
+         MSDPSetNumber( d, eMSDP_DEX_PERM, ch->perm_dex );
+         MSDPSetNumber( d, eMSDP_CON_PERM, ch->perm_con );
+         /* You'll need to add these yourself - see the README.TXT
+         MSDPSetNumber( d, eMSDP_CHA_PERM, ch->perm_cha );
+         MSDPSetNumber( d, eMSDP_LCK_PERM, ch->perm_lck );
+         */
+         /* This would be better moved elsewhere */
+         if( pOpponent != NULL )
+         {
+            int hit_points = ( pOpponent->hit * 100 ) / pOpponent->max_hit;
+            MSDPSetNumber( d, eMSDP_OPPONENT_HEALTH, hit_points );
+            MSDPSetNumber( d, eMSDP_OPPONENT_HEALTH_MAX, 100 );
+            MSDPSetNumber( d, eMSDP_OPPONENT_LEVEL, pOpponent->level );
+            MSDPSetString( d, eMSDP_OPPONENT_NAME, pOpponent->name );
+         }
+         else /* Clear the values */
+         {
+            MSDPSetNumber( d, eMSDP_OPPONENT_HEALTH, 0 );
+            MSDPSetNumber( d, eMSDP_OPPONENT_LEVEL, 0 );
+            MSDPSetString( d, eMSDP_OPPONENT_NAME, "" );
+         }
+
+         /* Only update room stuff if they've changed room */
+         if( pRoom && pRoom->vnum != d->pProtocol->pVariables[eMSDP_ROOM_VNUM]->ValueInt )
+         {
+            EXIT_DATA *pexit;
+            buf[0] = '\0';
+            for( pexit = ch->in_room->first_exit; pexit; pexit = pexit->next )
+            {
+               if( pexit->to_room
+                  && ( !IS_SET( pexit->exit_info, EX_WINDOW )
+                  ||   IS_SET( pexit->exit_info, EX_ISDOOR ) )
+                  &&  !IS_SET( pexit->exit_info, EX_SECRET )
+                  &&  !IS_SET( pexit->exit_info, EX_HIDDEN )
+                  &&  !IS_SET( pexit->exit_info, EX_DIG ) )
+               {
+                  const char MsdpVar[] = { ( char ) MSDP_VAR, '\0' };
+                  const char MsdpVal[] = { ( char ) MSDP_VAL, '\0' };
+
+                  if( IS_SET( pexit->exit_info, EX_CLOSED ) )
+                  {
+                     if( pexit->keyword
+                        && ( !str_cmp( "door", pexit->keyword )
+                        ||   !str_cmp( "gate", pexit->keyword )
+                        ||    pexit->keyword[0] == '\0' ) )
+                     {
+                        mudstrlcat( buf, MsdpVar, MAX_STRING_LENGTH );
+                        mudstrlcat( buf, dir_name[pexit->vdir], MAX_STRING_LENGTH );
+                        mudstrlcat( buf, MsdpVal, MAX_STRING_LENGTH );
+                        mudstrlcat( buf, "C", MAX_STRING_LENGTH );
+                     }
+                  }
+                  else
+                  {
+                     mudstrlcat( buf, MsdpVar, MAX_STRING_LENGTH );
+                     mudstrlcat( buf, dir_name[pexit->vdir], MAX_STRING_LENGTH );
+                     mudstrlcat( buf, MsdpVal, MAX_STRING_LENGTH );
+                     mudstrlcat( buf, "O", MAX_STRING_LENGTH );
+                  }
+               }
+            }
+
+            if( pRoom->area != NULL )
+               MSDPSetString( d, eMSDP_AREA_NAME, pRoom->area->name );
+
+            MSDPSetString( d, eMSDP_ROOM_NAME, pRoom->name );
+            MSDPSetTable( d, eMSDP_ROOM_EXITS, buf );
+            MSDPSetNumber( d, eMSDP_ROOM_VNUM, pRoom->vnum );
+         }
+         /*
+         MSDPSetNumber( d, eMSDP_WORLD_TIME,  );
+         */
+
+         buf[0] = '\0';
+         for ( paf = ch->first_affect; paf; paf = paf->next )
+         {
+            if( (skill=get_skilltype(paf->type)) != NULL )
+            {
+               char skill_buf[MAX_STRING_LENGTH];
+               sprintf( skill_buf, "%c%s%c%d", 
+                  ( char ) MSDP_VAR, skill->name, 
+                  ( char ) MSDP_VAL, paf->duration );
+               mudstrlcat( buf, skill_buf, MAX_STRING_LENGTH );
+            }
+         }
+         MSDPSetTable( d, eMSDP_AFFECTS, buf );
+
+         MSDPUpdate( d );
+      }
+   }
+
+   /* Ideally this should be called once at startup, and again whenever 
+   * someone leaves or joins the mud.  But this works, and it keeps the 
+   * snippet simple.  Optimise as you see fit.
+   */
+   MSSPSetPlayers( PlayerCount );
+}
+
 
 /*
  * Update all chars, including mobs.
@@ -2083,6 +2239,7 @@ void update_handler( void )
    {
       pulse_second = PULSE_PER_SECOND;
       char_check(  );
+      msdp_update( ); /* MSDP */
       check_dns(  );
       reboot_check( 0 );
    }

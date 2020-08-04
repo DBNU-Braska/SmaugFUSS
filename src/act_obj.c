@@ -2724,7 +2724,7 @@ void do_auction( CHAR_DATA* ch, const char* argument)
          {
             set_char_color( AT_OBJECT, ch );
             send_to_char( "Contents:\r\n", ch );
-            show_list_to_char( obj->first_content, ch, TRUE, FALSE, eItemBid );
+            show_list_to_char( obj->first_content, ch, TRUE, FALSE );
          }
 
          if( IS_IMMORTAL( ch ) )

@@ -1704,12 +1704,12 @@ void do_tell( CHAR_DATA* ch, const char* argument)
                              knows_language( ch, ch->speaking, victim ) );
 
       if( speakswell < 85 )
-         act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, translate( speakswell, argument, lang_names[speaking] ), victim, TO_VICT );
+         act( AT_TELL, "$n tells you '$t'", ch, translate( speakswell, argument, lang_names[speaking] ), victim, TO_VICT );
       else
-         act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, argument, victim, TO_VICT );
+         act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
    }
    else
-      act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, argument, victim, TO_VICT );
+      act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
 
    MOBtrigger = TRUE;
 
@@ -1848,17 +1848,17 @@ void do_reply( CHAR_DATA* ch, const char* argument)
                              knows_language( ch, ch->speaking, victim ) );
 
       if( speakswell < 85 )
-         act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, translate( speakswell, argument, lang_names[speaking] ), victim, TO_VICT );
+         act( AT_TELL, "$n tells you '$t'", ch, translate( speakswell, argument, lang_names[speaking] ), victim, TO_VICT );
       else
-         act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, argument, victim, TO_VICT );
+         act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
    }
    else
-      act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, argument, victim, TO_VICT );
+      act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
 #else
    if( knows_language( victim, ch->speaking, ch ) || ( IS_NPC( ch ) && !ch->speaking ) )
-      act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, argument, victim, TO_VICT );
+      act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
    else
-      act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, scramble( argument, ch->speaking ), victim, TO_VICT );
+      act( AT_TELL, "$n tells you '$t'", ch, scramble( argument, ch->speaking ), victim, TO_VICT );
 #endif
    victim->position = position;
    victim->reply = ch;
@@ -2067,20 +2067,20 @@ void do_retell( CHAR_DATA* ch, const char* argument)
                              knows_language( ch, ch->speaking, victim ) );
 
       if( speakswell < 85 )
-         act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, translate( speakswell, argument, lang_names[speaking] ), victim, TO_VICT );
+         act( AT_TELL, "$n tells you '$t'", ch, translate( speakswell, argument, lang_names[speaking] ), victim, TO_VICT );
       else
-         act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, argument, victim, TO_VICT );
+         act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
    }
    else
-      act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, argument, victim, TO_VICT );
+      act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
 #else
    if( knows_language( victim, ch->speaking, ch ) || ( IS_NPC( ch ) && !ch->speaking ) )
    {
-      act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, argument, victim, TO_VICT );
+      act( AT_TELL, "$n tells you '$t'", ch, argument, victim, TO_VICT );
    }
    else
    {
-      act( AT_TELL, MXPTAG( "player $n" ) "$n" MXPTAG( "/player" ) " tells you '$t'", ch, scramble( argument, ch->speaking ), victim, TO_VICT );
+      act( AT_TELL, "$n tells you '$t'", ch, scramble( argument, ch->speaking ), victim, TO_VICT );
    }
 #endif
    victim->position = position;

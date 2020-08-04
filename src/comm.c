@@ -94,15 +94,6 @@ const unsigned char echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
 const unsigned char echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
 const unsigned char go_ahead_str[] = { IAC, GA, '\0' };
 
-/*
- * MXP
- */
-#define  TELOPT_MXP        '\x5B'
-
-const unsigned char will_mxp_str  [] = { IAC, WILL, TELOPT_MXP, '\0' };
-const unsigned char start_mxp_str [] = { IAC, SB, TELOPT_MXP, IAC, SE, '\0' };
-const unsigned char do_mxp_str    [] = { IAC, DO, TELOPT_MXP, '\0' };
-const unsigned char dont_mxp_str  [] = { IAC, DONT, TELOPT_MXP, '\0' };
 
 void save_sysdata( SYSTEM_DATA sys );
 
@@ -463,7 +454,7 @@ int main( int argc, char **argv )
    /*
     * Get the port number.
     */
-   port = 4000;
+   port = 7000;
    if( argc > 1 )
    {
       if( !is_number( argv[1] ) )
@@ -624,59 +615,6 @@ int init_socket( int mudport )
 
    return fd;
 }
-
-/* set up MXP */
-void turn_on_mxp (DESCRIPTOR_DATA *d)
-{
-   d->mxp = TRUE;  /* turn it on now */
- 	write_to_buffer( d, ( const char * )start_mxp_str, 0 );
-	write_to_buffer( d, MXPMODE( 6 ), 0 );   /* permanent secure mode */
-   write_to_buffer( d, MXPTAG( "!-- Set up MXP elements --" ), 0);
-   /* Exit tag */
-   write_to_buffer( d, MXPTAG( "!ELEMENT Ex '<send>' FLAG=RoomExit" ), 0 );
-   /* Room description tag */
-   write_to_buffer( d, MXPTAG( "!ELEMENT rdesc FLAG=RoomDesc" ), 0 ); 
-   /* Get an item tag (for things on the ground) */
-   write_to_buffer( d, MXPTAG( "!ELEMENT Get \"<send href='"
-           "get &#39;&name;&#39;|"
-           "examine &#39;&name;&#39;|"
-           "drink &#39;&name;&#39;"
-       "' "
-       "hint='RH mouse click to use this object|"
-           "Get &desc;|"
-           "Examine &desc;|"
-           "Drink from &desc;"
-       "'>\" ATT='name desc'" ), 0 ); 
-  /* Drop an item tag (for things in the inventory) */
-  write_to_buffer( d, MXPTAG( "!ELEMENT Drop \"<send href='"
-           "drop &#39;&name;&#39;|"
-           "examine &#39;&name;&#39;|"
-           "look in &#39;&name;&#39;|"
-           "wear &#39;&name;&#39;|"
-           "eat &#39;&name;&#39;|"
-           "drink &#39;&name;&#39;"
-       "' "
-       "hint='RH mouse click to use this object|"
-           "Drop &desc;|"
-           "Examine &desc;|"
-           "Look inside &desc;|"
-           "Wear &desc;|"
-           "Eat &desc;|"
-           "Drink &desc;"
-       "'>\" ATT='name desc'" ), 0 ); 
-  /* Bid an item tag (for things in the auction) */
-  write_to_buffer( d, MXPTAG( "!ELEMENT Bid \"<send href='bid &#39;&name;&#39;' "
-       "hint='Bid for &desc;'>\" "
-       "ATT='name desc'" ), 0 ); 
-  /* List an item tag (for things in a shop) */
-  write_to_buffer( d, MXPTAG( "!ELEMENT List \"<send href='buy &#39;&name;&#39;' "
-       "hint='Buy &desc;'>\" "
-       "ATT='name desc'"), 0 ); 
-  /* Player tag (for who lists, tells etc.) */
-  write_to_buffer( d, MXPTAG( "!ELEMENT Player \"<send href='tell &#39;&name;&#39; ' "
-       "hint='Send a message to &name;' prompt>\" "
-       "ATT='name'"), 0 ); 
-} /* end of turn_on_mxp */
 
 /*
 static void SegVio()
@@ -907,6 +845,8 @@ void game_loop( void )
             if( d->incomm[0] != '\0' )
             {
                d->fcommand = TRUE;
+               if( d->pProtocol != NULL )      /* MSDP */
+                  d->pProtocol->WriteOOB = 0;  /* MSDP */
                stop_idling( d->character );
 
                mudstrlcpy( cmdline, d->incomm, MAX_INPUT_LENGTH );
@@ -1089,7 +1029,6 @@ void new_descriptor( int new_desc )
    CREATE( dnew, DESCRIPTOR_DATA, 1 );
    dnew->next = NULL;
    dnew->descriptor = desc;
-   dnew->mxp = FALSE;   /* Initially MXP is off */
    dnew->connected = CON_GET_NAME;
    dnew->outsize = 2000;
    dnew->idle = 0;
@@ -1098,6 +1037,7 @@ void new_descriptor( int new_desc )
    dnew->port = ntohs( sock.sin_port );
    dnew->newstate = 0;
    dnew->prevcolor = 0x07;
+   dnew->pProtocol = ProtocolCreate(); /* MSDP */
    dnew->ifd = -1;   /* Descriptor pipes, used for DNS resolution and such */
    dnew->ipid = -1;
    dnew->can_compress = FALSE;
@@ -1149,11 +1089,11 @@ void new_descriptor( int new_desc )
     */
    write_to_buffer( dnew, (const char *)will_compress2_str, 0 );
 
-   /* 
-    * telnet negotiation to see if they support MXP 
+      /* 
+    * telnet negotiation to see if they support MSDP 
    */
-   write_to_buffer( dnew, (const char *)will_mxp_str, 0 );   
-   
+   ProtocolNegotiate(dnew);
+
    /*
     * Send the greeting.
     */
@@ -1345,6 +1285,7 @@ void close_socket( DESCRIPTOR_DATA * dclose, bool force )
    if( dclose->descriptor == maxdesc )
       --maxdesc;
 
+   ProtocolDestroy( dclose->pProtocol ); /* MSDP */
    free_desc( dclose );
    --num_descriptors;
    return;
@@ -1354,6 +1295,9 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
 {
    unsigned int iStart;
    int iErr;
+   static char read_buf[MAX_PROTOCOL_BUFFER]; /* MSDP */
+   read_buf[0] = '\0';                        /* MSDP */
+
 
    /*
     * Hold horses if pending command already. 
@@ -1364,8 +1308,8 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
    /*
     * Check for overflow. 
     */
-   iStart = strlen( d->inbuf );
-   if( iStart >= sizeof( d->inbuf ) - 10 )
+   iStart = strlen( read_buf );
+   if( iStart >= sizeof( read_buf ) - 10 )
    {
       log_printf( "%s input overflow!", d->host );
       write_to_descriptor( d, "\r\n*** PUT A LID ON IT!!! ***\r\nYou cannot enter the same command more than 20 consecutive times!\r\n", 0 );
@@ -1376,7 +1320,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
    {
       int nRead;
 
-      nRead = recv( d->descriptor, d->inbuf + iStart, sizeof( d->inbuf ) - 10 - iStart, 0 );
+      nRead = recv( d->descriptor, read_buf + iStart, sizeof( read_buf ) - 10 - iStart, 0 );
 #ifdef WIN32
       iErr = WSAGetLastError(  );
 #else
@@ -1385,7 +1329,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
       if( nRead > 0 )
       {
          iStart += nRead;
-         if( d->inbuf[iStart - 1] == '\n' || d->inbuf[iStart - 1] == '\r' )
+         if( read_buf[iStart - 1] == '\n' || read_buf[iStart - 1] == '\r' )
             break;
       }
       else if( nRead == 0 )
@@ -1402,7 +1346,8 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
       }
    }
 
-   d->inbuf[iStart] = '\0';
+   read_buf[iStart] = '\0';
+   ProtocolInput( d, read_buf, iStart, d->inbuf ); /* MSDP */
    return TRUE;
 }
 
@@ -1412,7 +1357,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
 void read_from_buffer( DESCRIPTOR_DATA * d )
 {
    int i, j, k, iac = 0;
-   char * p;
+   //char * p;
    /*
     * Hold horses if pending command already.
     */
@@ -1473,30 +1418,6 @@ void read_from_buffer( DESCRIPTOR_DATA * d )
          --k;
       else if( isascii( d->inbuf[i] ) && isprint( d->inbuf[i] ) )
          d->incomm[k++] = d->inbuf[i];
-   }
-
-   /* 
-   * MXP Look for incoming telnet negotiation
-   */
-   for ( p = d->inbuf; *p; p++ )
-   {
-      if( *p == ( signed char )IAC )
-      {
-         if( memcmp( p, (const char *)do_mxp_str, strlen( (const char *)do_mxp_str ) ) == 0 )
-         {
-            turn_on_mxp( d );
-            /* remove string from input buffer */
-            memmove( p, &p [strlen( (const char *)do_mxp_str )], strlen( &p [strlen( (const char *)do_mxp_str )] ) + 1 );
-            p--; /* adjust to allow for discarded bytes */
-         } /* end of turning on MXP */
-         else if( memcmp( p, (const char *)dont_mxp_str, strlen( (const char *)dont_mxp_str ) ) == 0 )
-         {
-            d->mxp = FALSE;
-            /* remove string from input buffer */
-            memmove( p, &p [strlen( (const char *)dont_mxp_str )], strlen( &p [strlen( (const char *)dont_mxp_str )] ) + 1 );
-            p--; /* adjust to allow for discarded bytes */
-         } /* end of turning off MXP */
-      } /* end of finding an IAC */
    }
 
    /*
@@ -1589,7 +1510,7 @@ bool flush_buffer( DESCRIPTOR_DATA * d, bool fPrompt )
    /*
     * Bust a prompt.
     */
-   if( fPrompt && !mud_down && d->connected == CON_PLAYING )
+   if( !d->pProtocol->WriteOOB && fPrompt && !mud_down && d->connected == CON_PLAYING ) /* MSDP */
    {
       CHAR_DATA *ch;
 
@@ -1655,178 +1576,10 @@ bool flush_buffer( DESCRIPTOR_DATA * d, bool fPrompt )
 }
 
 /*
-* Count number of mxp tags need converting
-*    ie. < becomes &lt;
-*        > becomes &gt;
-*        & becomes &amp;
-*/
-
-int count_mxp_tags( const int bMXP, const char *txt, int length )
-{
-   char c;
-   const char * p;
-   int count;
-   int bInTag = FALSE;
-   int bInEntity = FALSE;
-
-   for ( p = txt, count = 0; length > 0; p++, length-- )
-   {
-      c = *p;
-
-      if( bInTag )  /* in a tag, eg. <send> */
-      {
-         if( !bMXP )
-            count--;     /* not output if not MXP */
-         if( c == MXP_ENDc )
-            bInTag = FALSE;
-      } /* end of being inside a tag */
-      else if( bInEntity )  /* in a tag, eg. <send> */
-      {
-         if( !bMXP )
-            count--;     /* not output if not MXP */
-         if( c == ';' )
-            bInEntity = FALSE;
-      } /* end of being inside a tag */
-      else switch ( c )
-      {
-         case MXP_BEGc:
-            bInTag = TRUE;
-            if (!bMXP)
-               count--;     /* not output if not MXP */
-         break;
-
-         case MXP_ENDc:   /* shouldn't get this case */
-            if (!bMXP)
-               count--;     /* not output if not MXP */
-         break;
-
-         case MXP_AMPc:
-            bInEntity = TRUE;
-            if (!bMXP)
-               count--;     /* not output if not MXP */
-         break;
-
-         default:
-            if (bMXP)
-            {
-               switch (c)
-               {
-                  case '<':       /* < becomes &lt; */
-                  case '>':       /* > becomes &gt; */
-                     count += 3;
-                  break;
-
-                  case '&':
-                     count += 4;    /* & becomes &amp; */
-                  break;
-
-                  case '"':        /* " becomes &quot; */
-                     count += 5;
-                  break;
-
-               } /* end of inner switch */
-            }   /* end of MXP enabled */
-         break;
-      } /* end of switch on character */
-   }   /* end of counting special characters */
-   return count;
-} /* end of count_mxp_tags */
-
-void convert_mxp_tags ( const int bMXP, char * dest, const char *src, int length )
-{
-   char c;
-   const char * ps;
-   char * pd;
-   int bInTag = FALSE;
-   int bInEntity = FALSE;
-
-   for( ps = src, pd = dest; length > 0; ps++, length-- )
-   {
-      c = *ps;
-      if( bInTag )  /* in a tag, eg. <send> */
-      {
-         if( c == MXP_ENDc )
-         {
-            bInTag = FALSE;
-            if( bMXP )
-               *pd++ = '>';
-         }
-         else if( bMXP )
-            *pd++ = c;  /* copy tag only in MXP mode */
-      } /* end of being inside a tag */
-      else if( bInEntity )  /* in a tag, eg. <send> */
-      {
-         if( bMXP )
-            *pd++ = c;  /* copy tag only in MXP mode */
-         if( c == ';' )
-            bInEntity = FALSE;
-      } /* end of being inside a tag */
-      else switch ( c )
-      {
-         case MXP_BEGc:
-            bInTag = TRUE;
-            if( bMXP )
-               *pd++ = '<';
-         break;
-
-         case MXP_ENDc:    /* shouldn't get this case */
-            if( bMXP )
-               *pd++ = '>';
-         break;
-
-         case MXP_AMPc:
-            bInEntity = TRUE;
-            if( bMXP )
-               *pd++ = '&';
-         break;
-
-         default:
-            if( bMXP )
-            {
-               switch ( c )
-               {
-                  case '<':
-                     memcpy( pd, "&lt;", 4 );
-                     pd += 4;
-                  break;
-
-                  case '>':
-                     memcpy( pd, "&gt;", 4 );
-                     pd += 4;
-                  break;
-
-                  case '&':
-                     memcpy( pd, "&amp;", 5 );
-                     pd += 5;
-                  break;
-
-                  case '"':
-                     memcpy( pd, "&quot;", 6 );
-                     pd += 6;
-                  break;
-
-                  default:
-                     *pd++ = c;
-                  break;  /* end of default */
-
-               } /* end of inner switch */
-            }
-            else
-               *pd++ = c;  /* not MXP - just copy character */
-         break;
-
-      } /* end of switch on character */
-
-   }   /* end of converting special characters */
-} /* end of convert_mxp_tags */
-
-/*
  * Append onto an output buffer.
  */
 void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
 {
-   int origlength;
-
    if( !d )
    {
       bug( "%s: NULL descriptor", __func__ );
@@ -1842,6 +1595,9 @@ void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
    if( !d->outbuf )
       return;
 
+   txt = ProtocolOutput( d, txt, (int *) &length );  /* MSDP */
+   if ( d->pProtocol->WriteOOB > 0 )         /* MSDP */
+      --d->pProtocol->WriteOOB;             /* MSDP */
    /*
     * Find length in case caller didn't.
     */
@@ -1856,15 +1612,12 @@ void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
     }
    */
 
-  // MXP Bits
-  origlength = length;
-  /* work out how much we need to expand/contract it */
-  length += count_mxp_tags (d->mxp, txt, length);
+  
 
    /*
     * Initial \r\n if needed.
     */
-   if( d->outtop == 0 && !d->fcommand )
+   if( d->outtop == 0 && !d->fcommand && !d->pProtocol->WriteOOB )
    {
       d->outbuf[0] = '\r';
       d->outbuf[1] = '\n';
@@ -1898,7 +1651,6 @@ void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
     */
    
    strncpy( d->outbuf + d->outtop, txt, length );
-   convert_mxp_tags(d->mxp, d->outbuf + d->outtop, txt, origlength ); // MXP Bits
    d->outtop += length;
    d->outbuf[d->outtop] = '\0';
    return;
@@ -2272,7 +2024,8 @@ void nanny_get_name( DESCRIPTOR_DATA * d, char *argument )
        * Old player
        */
       write_to_buffer( d, "Password: ", 0 );
-      write_to_buffer( d, (const char *)echo_off_str, 0 );
+      ProtocolNoEcho( d, true ); /* MSDP */
+      /* write_to_buffer( d, (const char *)echo_off_str, 0 ); MSDP removed */
       d->connected = CON_GET_OLD_PASSWORD;
       return;
    }
@@ -2325,7 +2078,8 @@ void nanny_get_old_password( DESCRIPTOR_DATA * d, char *argument )
       return;
    }
 
-   write_to_buffer( d, (const char *)echo_on_str, 0 );
+   ProtocolNoEcho( d, false ); /* MSDP */
+   /* write_to_buffer( d, (const char *)echo_on_str, 0 ); replaced for MSDP */
 
    if( check_playing( d, ch->pcdata->filename, TRUE ) )
       return;
@@ -2377,9 +2131,10 @@ void nanny_confirm_new_name( DESCRIPTOR_DATA * d, char *argument )
    {
       case 'y':
       case 'Y':
+         ProtocolNoEcho( d, true ); /* MSDP */
          buffer_printf( d,
                    "\r\nMake sure to use a password that won't be easily guessed by someone else."
-                   "\r\nPick a good password for %s: %s", ch->name, echo_off_str );
+                   "\r\nPick a good password for %s: ", ch->name); // took out echo_off_str, MSDP -Braska
          d->connected = CON_GET_NEW_PASSWORD;
          break;
 
@@ -2441,7 +2196,8 @@ void nanny_confirm_new_password( DESCRIPTOR_DATA * d, char *argument )
       return;
    }
 
-   write_to_buffer( d, (const char *)echo_on_str, 0 );
+   ProtocolNoEcho( d, false ); /* MSDP */
+   /* write_to_buffer( d, (const char *)echo_on_str, 0 ); replaced for MSDP */
    write_to_buffer( d, "\r\nWhat is your sex (M/F/N)? ", 0 );
    d->connected = CON_GET_NEW_SEX;
 }
@@ -2886,6 +2642,7 @@ void nanny_read_motd( DESCRIPTOR_DATA * d, const char *argument )
    mprog_login_trigger( ch );
 
    act( AT_ACTION, "$n has entered the game.", ch, NULL, NULL, TO_CANSEE );
+   MXPSendTag( d, "<VERSION>" );  /* MSDP */
    if( ch->pcdata->pet )
    {
       act( AT_ACTION, "$n returns to $s master from the Void.", ch->pcdata->pet, NULL, ch, TO_NOTVICT );
@@ -2919,7 +2676,8 @@ void nanny_delete_char( DESCRIPTOR_DATA * d, const char *argument )
    if( str_cmp( sha256_crypt( argument ), ch->pcdata->pwd ) )
    {
       write_to_buffer( d, "Wrong password entered, deletion cancelled.\r\n", 0 );
-      write_to_buffer( d, (const char *)echo_on_str, 0 );
+      ProtocolNoEcho( d, false ); /* MSDP */
+      /* write_to_buffer( d, (const char *)echo_on_str, 0 ); replaced for MSDP */
       d->connected = CON_PLAYING;
       return;
    }
@@ -3112,6 +2870,7 @@ short check_reconnect( DESCRIPTOR_DATA * d, const char *name, bool fConn )
             act( AT_ACTION, "$n has reconnected.", ch, NULL, NULL, TO_CANSEE );
             log_printf_plus( LOG_COMM, UMAX( sysdata.log_level, ch->level ), "%s (%s) reconnected.", ch->name, d->host );
             d->connected = CON_PLAYING;
+            MXPSendTag( d, "<VERSION>" );  /* MSDP */
             do_look( ch, "auto" );
             check_loginmsg( ch );
          }
@@ -3847,13 +3606,6 @@ void display_prompt( DESCRIPTOR_DATA * d )
    else
       prompt = ch->pcdata->prompt;
 
-   /* reset MXP to default operation */
-   if( d->mxp )
-   {
-      mudstrlcpy( pbuf, ESC "[3z", MAX_STRING_LENGTH );
-      pbuf += 4;
-   }
-   
    if( ansi )
    {
       mudstrlcpy( pbuf, ANSI_RESET, MAX_STRING_LENGTH );
