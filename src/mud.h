@@ -397,7 +397,6 @@ struct extended_bitvector
 #include "calendar.h" /* AFKMud Calendar Replacement - Samson */
 #include "weather.h"  /* Weather System Replacement - Kayle */
 #include "liquids.h"  /* SMAUG Liquidtable Replacement - Nopey */
-#include "bank.h"     /* Banking system added -Braska */
 #ifdef IMC
 #include "imc.h"
 #endif
@@ -1375,8 +1374,7 @@ struct smaug_affect
 #define ACT_STATSHIELD     29 /* prevent statting */
 #define ACT_PROTOTYPE      30 /* A prototype mob   */
 #define ACT_UNDERTAKER     31 /* Undertaker mob */
-#define ACT_BANKER         32 /* Banker mob  */
-/* 33 acts */
+/* 32 acts */
 
 /*
  * Bits for 'affected_by'.
@@ -2399,7 +2397,6 @@ struct pc_data
    const char *prev_site;     /* site a player last quit from */
    long int outcast_time;  /* The time at which the char was outcast */
    long int restore_time;  /* The last time the char did a restore all */
-   int balance; /* part of the banking system */
    int flags;  /* Whether the player is deadly and whatever else we add.      */
    int pkills; /* Number of pkills on behalf of clan */
    int pdeaths;   /* Number of times pkilled (legally)  */

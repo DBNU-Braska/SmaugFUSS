@@ -8318,7 +8318,6 @@ void show_vnums( CHAR_DATA * ch, int low, int high, bool proto, bool shownl, con
    count = 0;
    loaded = 0;
    set_pager_color( AT_PLAIN, ch );
-   send_to_char( "\r\n", ch );
    if( proto )
       first_sort = first_bsort;
    else
