@@ -339,7 +339,6 @@ protocol_t *ProtocolCreate( void )
          pProtocol->pVariables[i]->ValueInt = VariableNameTable[i].Default;
       }
    }
-
    return pProtocol;
 }
 
@@ -2160,7 +2159,6 @@ static void PerformSubnegotiation( descriptor_t *apDescriptor, char aCmd, char *
             ParseATCP( apDescriptor, apData );
          }
          break;
-
       default: /* Unknown subnegotiation, so we simply ignore it. */
          break;
    }
@@ -2227,9 +2225,9 @@ static bool ConfirmNegotiation( descriptor_t *apDescriptor, negotiated_t aProtoc
                   SendNegotiationSequence( apDescriptor, abWillDo ? WILL : WONT, TELOPT_MXP );
                   break;
                case eNEGOTIATED_MCCP:
-#ifdef USING_MCCP
+                  #ifdef USING_MCCP
                   SendNegotiationSequence( apDescriptor, abWillDo ? WILL : WONT, TELOPT_MCCP );
-#endif /* USING_MCCP */
+                  #endif /* USING_MCCP */
                   break;
                default:
                   bResult = false;

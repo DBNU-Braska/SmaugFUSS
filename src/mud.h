@@ -18,6 +18,9 @@
 
 #include <stdlib.h>
 #include <limits.h>
+
+#include "protocol.h" // Kavir's -Braska
+
 #if defined(__CYGWIN__) || defined(__FreeBSD__)
 #include <sys/time.h>
 #endif
@@ -811,6 +814,7 @@ struct descriptor_data
    unsigned char prevcolor;
    int ifd;
    pid_t ipid;
+   protocol_t *        pProtocol; // Kavir's -Braska
 };
 
 /*
