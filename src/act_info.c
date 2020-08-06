@@ -4003,6 +4003,7 @@ void do_channels( CHAR_DATA* ch, const char* argument)
       ch_printf_color( ch, "%s", !IS_SET( ch->deaf, CHANNEL_ASK ) ? " &G+ASK" : " &g-ask" );
       ch_printf_color( ch, "%s", !IS_SET( ch->deaf, CHANNEL_SHOUT ) ? " &G+SHOUT" : " &g-shout" );
       ch_printf_color( ch, "%s", !IS_SET( ch->deaf, CHANNEL_YELL ) ? " &G+YELL" : " &g-yell" );
+      ch_printf_color( ch, "%s", !IS_SET( ch->deaf, CHANNEL_ROLEPLAY ) ? " &G+RP" : " &g-rp" );
 
       /*
        * For organization channels (orders, clans, guilds, councils) 
@@ -4131,6 +4132,8 @@ void do_channels( CHAR_DATA* ch, const char* argument)
          bit = CHANNEL_SHOUT;
       else if( !str_cmp( arg + 1, "yell" ) )
          bit = CHANNEL_YELL;
+      else if( !str_cmp( arg + 1, "rp" ) )
+         bit = CHANNEL_ROLEPLAY;
       else if( !str_cmp( arg + 1, "comm" ) && get_trust( ch ) >= sysdata.log_level )
          bit = CHANNEL_COMM;
       else if( !str_cmp( arg + 1, "warn" ) && get_trust( ch ) >= sysdata.log_level )
@@ -4169,6 +4172,7 @@ void do_channels( CHAR_DATA* ch, const char* argument)
          REMOVE_BIT( ch->deaf, CHANNEL_ASK );
          REMOVE_BIT( ch->deaf, CHANNEL_SHOUT );
          REMOVE_BIT( ch->deaf, CHANNEL_YELL );
+         REMOVE_BIT( ch->deaf, CHANNEL_ROLEPLAY );
 
          /*
           * if (ch->pcdata->clan)
@@ -4202,6 +4206,7 @@ void do_channels( CHAR_DATA* ch, const char* argument)
          SET_BIT( ch->deaf, CHANNEL_SHOUT );
          SET_BIT( ch->deaf, CHANNEL_WARTALK );
          SET_BIT( ch->deaf, CHANNEL_YELL );
+         SET_BIT( ch->deaf, CHANNEL_ROLEPLAY );
 
          /*
           * if (ch->pcdata->clan)

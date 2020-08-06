@@ -3609,6 +3609,14 @@ Log         0
 End
 
 #COMMAND
+Name        roleplay~
+Code        do_roleplay
+Position    100
+Level       0
+Log         0
+End
+
+#COMMAND
 Name        trust~
 Code        do_trust
 Position    100

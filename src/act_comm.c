@@ -90,6 +90,68 @@ char *translate( CHAR_DATA *ch, CHAR_DATA *victim, const char *argument )
 }
 */
 
+bool long_str_prefix( const char *astr, char *bstr )
+{
+    int length = 0;
+    int x = 0;
+
+    if( !astr )
+    {
+	bug( "long_str_prefix: null astr." );
+	return TRUE;
+    }
+
+    if( !bstr )
+    {
+	bug( "long_str_prefix: null bstr." );
+	return TRUE;
+    }
+
+	length = strlen( bstr );
+
+	for( x = 0; x < length; x++ )
+	{
+		if( LOWER( astr[x] ) != LOWER( bstr[x] ) )
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+char *strip_char_prefix( char *aString, int count )
+{
+	static char bString[MAX_STRING_LENGTH];
+	int length = 0;
+	int x = 0;
+	int i = 0;
+
+	if( !aString || count == 0 )
+		return aString;
+
+	bString[0] = '\0';
+
+	length = strlen( aString );
+
+	if( length > MAX_STRING_LENGTH )
+		length = MAX_STRING_LENGTH;
+	if( count > MAX_STRING_LENGTH )
+		count = MAX_STRING_LENGTH;
+
+	for( x = count; x <= length; x++ )
+	{
+		bString[i] = aString[x];
+		i++;
+	}
+
+	length = strlen( bString );
+	if( bString[length] != '\0' )
+		bString[length+1] = '\0';
+
+	return( bString );
+}
+
+
+
 LANG_DATA *get_lang( const char *name )
 {
    LANG_DATA *lng;
@@ -372,6 +434,12 @@ void talk_channel( CHAR_DATA * ch, const char *argument, int channel, const char
       return;
    }
 
+   if( IS_NPC( ch ) && channel == CHANNEL_ROLEPLAY )
+   {
+      send_to_char( "Mobs can't do RP.\r\n", ch );
+      return;
+   }
+
    if( !IS_PKILL( ch ) && channel == CHANNEL_WARTALK )
    {
       send_to_char( "Peacefuls have no need to use wartalk.\r\n", ch );
@@ -417,7 +485,7 @@ void talk_channel( CHAR_DATA * ch, const char *argument, int channel, const char
       return;
    }
 
-   if( IS_SET( ch->deaf, channel ) && channel != CHANNEL_WARTALK && channel != CHANNEL_YELL )
+   if( IS_SET( ch->deaf, channel ) && channel != CHANNEL_WARTALK && channel != CHANNEL_YELL && channel != CHANNEL_ROLEPLAY )
    {
       ch_printf( ch, "You don't have the %s channel turned on. To turn it on, use the Channels command.\r\n", verb );
       return;
@@ -522,6 +590,52 @@ void talk_channel( CHAR_DATA * ch, const char *argument, int channel, const char
          set_char_color( AT_YELL, ch );
          ch_printf( ch, "You %s '%s'\r\n", verb, argument );
          snprintf( buf, MAX_STRING_LENGTH, "$n %ss '$t'", verb );
+         break;
+      
+      case CHANNEL_ROLEPLAY:
+         if( !long_str_prefix( argument, (char * ) "*a" ) )
+			{
+				argument = strip_char_prefix( ( char * ) argument, 3 );
+
+            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W] {&rACTION&w} &c'%s'&D\r\n", argument );
+            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W] {&rACTION&w} &c'$t'&D" );
+         }
+         else if( !long_str_prefix( argument, (char * ) "*w" ) )
+			{
+				argument = strip_char_prefix( ( char * ) argument, 3 );
+
+            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W] {&CWHISPER&w} &c'%s'&D\r\n", argument );
+            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W] {&CWHISPER&w} '$t'&D" );
+         }
+         else if( !long_str_prefix( argument, (char * ) "*t" ) )
+			{
+				argument = strip_char_prefix( ( char * ) argument, 3 );
+
+            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W] {&pTHOUGHTS&w} &c'%s'&D\r\n", argument );
+            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W] {&pTHOUGHTS&w} &c'$t'&D" );
+         }
+         else if( !long_str_prefix( argument, (char * ) "*s" ) )
+			{
+				argument = strip_char_prefix( ( char * ) argument, 3 );
+
+            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W] {&cSPEECH&w} '&c%s&D'\r\n", argument );
+            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W] {&cSPEECH&w} &c'$t'&D" );
+         }
+         else if( IS_IMMORTAL( ch ) && !long_str_prefix( argument, (char * ) "*" ) )
+			{
+				argument = strip_char_prefix( ( char * ) argument, 2 );
+
+            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W] {&wSTORY&W} &W'%s'&D\r\n", argument );
+            snprintf( buf, MAX_STRING_LENGTH, "[ROLEPLAY] {STORY} &W'$t'&D" );
+         }
+         else
+         {
+            set_char_color( AT_HELP, ch );
+            ch_printf( ch, "You must supply a prefix to speak on this channel.\r\n" );
+            ch_printf( ch, "\r\nValid prefixes are: \r\n" );
+            ch_printf( ch, " *a : For Roleplay Actions;\r\n *w : For Roleplay Whispers;\r\n *t : For Roleplay Thoughts; and\r\n *s : For Roleplay Speech\r\n" );
+            ch_printf( ch, "See 'help roleplay' for more information.\r\n" );
+         }
          break;
 
       case CHANNEL_QUEST:
@@ -680,6 +794,8 @@ void talk_channel( CHAR_DATA * ch, const char *argument, int channel, const char
             act( AT_MUSE, lbuf, ch, sbuf, vch, TO_VICT );
          else if( channel == CHANNEL_YELL )
             act( AT_YELL, lbuf, ch, sbuf, vch, TO_VICT );
+         else if( channel == CHANNEL_ROLEPLAY )
+            act( AT_MUSE, lbuf, ch, sbuf, vch, TO_VICT );
          else if( channel == CHANNEL_QUEST )
             act( AT_QUEST, lbuf, ch, sbuf, vch, TO_VICT );
          else if( channel == CHANNEL_ASK )
@@ -893,6 +1009,17 @@ void do_yell( CHAR_DATA* ch, const char* argument)
       return;
    }
    talk_channel( ch, drunk_speech( argument, ch ), CHANNEL_YELL, "yell" );
+   return;
+}
+
+void do_roleplay( CHAR_DATA* ch, const char* argument)
+{
+   if( NOT_AUTHED( ch ) )
+   {
+      send_to_char( "Huh?\r\n", ch );
+      return;
+   }
+   talk_channel( ch, drunk_speech( argument, ch ), CHANNEL_ROLEPLAY, "roleplay" );
    return;
 }
 

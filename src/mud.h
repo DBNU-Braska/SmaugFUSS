@@ -2089,6 +2089,7 @@ struct timer_data
 #define CHANNEL_RETIRED    BV28
 #define CHANNEL_BUG        BV29
 #define CHANNEL_DEATH      BV30
+#define CHANNEL_ROLEPLAY   BV31
 
 /* Area defines - Scryn 8/11
  *
@@ -4004,6 +4005,7 @@ DECLARE_DO_FUN( do_rip );
 DECLARE_DO_FUN( do_rlist );
 DECLARE_DO_FUN( do_rloop );
 DECLARE_DO_FUN( do_rolldie );
+DECLARE_DO_FUN( do_roleplay );
 DECLARE_DO_FUN( do_roster );
 DECLARE_DO_FUN( do_rstat );
 DECLARE_DO_FUN( do_sacrifice );
