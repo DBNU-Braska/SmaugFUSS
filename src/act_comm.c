@@ -597,40 +597,49 @@ void talk_channel( CHAR_DATA * ch, const char *argument, int channel, const char
 			{
 				argument = strip_char_prefix( ( char * ) argument, 3 );
 
-            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W] {&rACTION&w} &c'%s'&D\r\n", argument );
-            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W] {&rACTION&w} &c'$t'&D" );
+            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W]{&rACTION&w} &c'%s'&D\r\n", argument );
+            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W]{&rACTION&w} &c'$t'&D" );
          }
          else if( !long_str_prefix( argument, (char * ) "*w" ) )
 			{
 				argument = strip_char_prefix( ( char * ) argument, 3 );
 
-            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W] {&CWHISPER&w} &c'%s'&D\r\n", argument );
-            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W] {&CWHISPER&w} '$t'&D" );
+            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W]{&CWHISPER&w} &c'%s'&D\r\n", argument );
+            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W]{&CWHISPER&w} '$t'&D" );
          }
          else if( !long_str_prefix( argument, (char * ) "*t" ) )
 			{
 				argument = strip_char_prefix( ( char * ) argument, 3 );
 
-            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W] {&pTHOUGHTS&w} &c'%s'&D\r\n", argument );
-            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W] {&pTHOUGHTS&w} &c'$t'&D" );
+            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W]{&pTHOUGHTS&w} &c'%s'&D\r\n", argument );
+            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W]{&pTHOUGHTS&w} &c'$t'&D" );
          }
          else if( !long_str_prefix( argument, (char * ) "*s" ) )
 			{
 				argument = strip_char_prefix( ( char * ) argument, 3 );
 
-            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W] {&cSPEECH&w} '&c%s&D'\r\n", argument );
-            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W] {&cSPEECH&w} &c'$t'&D" );
+            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W]{&cSPEECH&w} '&c%s&D'\r\n", argument );
+            snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W]{&cSPEECH&w} &c'$t'&D" );
          }
-         else if( IS_IMMORTAL( ch ) && !long_str_prefix( argument, (char * ) "*" ) )
+         else if( !long_str_prefix( argument, (char * ) "*" ) )
 			{
-				argument = strip_char_prefix( ( char * ) argument, 2 );
+				if( !IS_IMMORTAL( ch ) )
+            {
+            ch_printf( ch, "You must supply a prefix to speak on this channel.\r\n" );
+            ch_printf( ch, "\r\nValid prefixes are: \r\n" );
+            ch_printf( ch, " *a : For Roleplay Actions;\r\n *w : For Roleplay Whispers;\r\n *t : For Roleplay Thoughts; and\r\n *s : For Roleplay Speech\r\n" );
+            ch_printf( ch, "See 'help roleplay' for more information.\r\n" );
+            }
+            else
+            {
+               argument = strip_char_prefix( ( char * ) argument, 2 );
 
-            ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W] {&wSTORY&W} &W'%s'&D\r\n", argument );
-            snprintf( buf, MAX_STRING_LENGTH, "[ROLEPLAY] {STORY} &W'$t'&D" );
+               ch_printf( ch, "&W[&RR&wOLE&RP&wLAY&W]{&wSTORY&W} &W'%s'&D\r\n", argument );
+               snprintf( buf, MAX_STRING_LENGTH, "&W[&RR&wOLE&RP&wLAY&W]{&wSTORY&W} $n &W'$t'&D");
+            }
          }
          else
          {
-            set_char_color( AT_HELP, ch );
             ch_printf( ch, "You must supply a prefix to speak on this channel.\r\n" );
             ch_printf( ch, "\r\nValid prefixes are: \r\n" );
             ch_printf( ch, " *a : For Roleplay Actions;\r\n *w : For Roleplay Whispers;\r\n *t : For Roleplay Thoughts; and\r\n *s : For Roleplay Speech\r\n" );
@@ -1019,7 +1028,7 @@ void do_roleplay( CHAR_DATA* ch, const char* argument)
       send_to_char( "Huh?\r\n", ch );
       return;
    }
-   talk_channel( ch, drunk_speech( argument, ch ), CHANNEL_ROLEPLAY, "roleplay" );
+   talk_channel( ch, argument, CHANNEL_ROLEPLAY, "roleplay" );
    return;
 }
 

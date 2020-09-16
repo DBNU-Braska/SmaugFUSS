@@ -4132,7 +4132,7 @@ void do_channels( CHAR_DATA* ch, const char* argument)
          bit = CHANNEL_SHOUT;
       else if( !str_cmp( arg + 1, "yell" ) )
          bit = CHANNEL_YELL;
-      else if( !str_cmp( arg + 1, "rp" ) )
+      else if( !str_cmp( arg + 1, "roleplay" ) )
          bit = CHANNEL_ROLEPLAY;
       else if( !str_cmp( arg + 1, "comm" ) && get_trust( ch ) >= sysdata.log_level )
          bit = CHANNEL_COMM;
