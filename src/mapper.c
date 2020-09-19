@@ -529,12 +529,10 @@ void show_map( CHAR_DATA * ch, char *text )
    /*
     * Show exits 
     */
-   /*
    if( xIS_SET( ch->act, PLR_AUTOEXIT ) )
       snprintf( buf, MAX_STRING_LENGTH * 2, "%s%s", color_str( AT_EXITS, ch ), get_exits( ch ) );
    else
       mudstrlcpy( buf, "", MAX_STRING_LENGTH * 2 );
-    */
 
    /*
     * Top of map frame 
@@ -623,7 +621,7 @@ void show_map( CHAR_DATA * ch, char *text )
          pos = get_line( p, 63 );
          char col[10], c[2];
 
-         strcpy( c, whatColor( text, p ) );
+         mudstrlcpy( c, whatColor( text, p ), 2 );
          if( c[0] == '\0' )
             mudstrlcpy( col, color_str( AT_RMDESC, ch ), 10 );
          else
@@ -632,7 +630,7 @@ void show_map( CHAR_DATA * ch, char *text )
          if( pos > 0 )
          {
             mudstrlcat( buf, col, MAX_STRING_LENGTH * 2 );
-            strncat( buf, p, pos );
+            mudstrlcat( buf, p, pos );
             p += pos;
          }
          else
@@ -649,13 +647,12 @@ void show_map( CHAR_DATA * ch, char *text )
     * Finish off map area 
     */
    mudstrlcat( buf, "&z+-----------+&D ", MAX_STRING_LENGTH * 2 );
-
    if( !alldesc )
    {
       char col[10], c[2];
       pos = get_line( p, 63 );
 
-      strcpy( c, whatColor( text, p ) );
+      mudstrlcpy( c, whatColor( text, p ), 2 );
       if( c[0] == '\0' )
          mudstrlcpy( col, color_str( AT_RMDESC, ch ), 10 );
       else
@@ -664,7 +661,7 @@ void show_map( CHAR_DATA * ch, char *text )
       if( pos > 0 )
       {
          mudstrlcat( buf, col, MAX_STRING_LENGTH * 2 );
-         strncat( buf, p, pos );
+         mudstrlcat( buf, p, pos );
          p += pos;
          mudstrlcat( buf, "\r\n", MAX_STRING_LENGTH * 2 );
       }
@@ -690,7 +687,7 @@ void show_map( CHAR_DATA * ch, char *text )
           */
          pos = get_line( p, 78 );
 
-         strcpy( c, whatColor( text, p ) );
+         mudstrlcpy( c, whatColor( text, p ), 2 );
          if( c[0] == '\0' )
             mudstrlcpy( col, color_str( AT_RMDESC, ch ), 10 );
          else
@@ -699,7 +696,7 @@ void show_map( CHAR_DATA * ch, char *text )
          if( pos > 0 )
          {
             mudstrlcat( buf, col, MAX_STRING_LENGTH * 2 );
-            strncat( buf, p, pos );
+            mudstrlcat( buf, p, pos );
             p += pos;
             mudstrlcat( buf, "\r\n", MAX_STRING_LENGTH * 2 );
          }
