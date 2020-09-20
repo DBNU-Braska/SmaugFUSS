@@ -7,14 +7,14 @@ Race         1
 Age          0 23 9 605
 Languages    -1 1
 Level        65
-Played       75092
-Room         1200
+Played       163571
+Room         7901
 HpManaMove   49 24 145 145 110 110
 Gold         15420
 Exp          2000
 Height          24
 Weight          42
-Act          1644189256d
+Act          1644188232d
 AffectedBy   524288d
 Position     112
 Style     2
@@ -31,7 +31,7 @@ Susceptible  16
 Password     8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918~
 Title         the Attendant~
 WizInvis     65
-Flags        33280
+Flags        32768
 PKills       0
 PDeaths      0
 MKills       19
@@ -41,7 +41,7 @@ Timezone     0
 AttrPerm     10 14 16 16 11 16 12
 AttrMod      0 0 0 0 0 0 0
 Condition    0 48 40 75
-Site         127.0.0.1
+Site         142.119.95.91
 Spell        100 'acetum primus'
 Spell        100 'acid blast'
 Spell        100 'acid breath'
