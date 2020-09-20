@@ -529,12 +529,10 @@ void show_map( CHAR_DATA * ch, char *text )
    /*
     * Show exits 
     */
-   /*
    if( xIS_SET( ch->act, PLR_AUTOEXIT ) )
       snprintf( buf, MAX_STRING_LENGTH * 2, "%s%s", color_str( AT_EXITS, ch ), get_exits( ch ) );
    else
       mudstrlcpy( buf, "", MAX_STRING_LENGTH * 2 );
-    */
 
    /*
     * Top of map frame 
@@ -649,7 +647,6 @@ void show_map( CHAR_DATA * ch, char *text )
     * Finish off map area 
     */
    mudstrlcat( buf, "&z+-----------+&D ", MAX_STRING_LENGTH * 2 );
-
    if( !alldesc )
    {
       char col[10], c[2];
