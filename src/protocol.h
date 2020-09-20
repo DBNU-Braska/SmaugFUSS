@@ -14,7 +14,7 @@
  Set your MUD_NAME, and change descriptor_t if necessary.
  ******************************************************************************/
 
-#define MUD_NAME "DragonBall Universal"
+#define MUD_NAME "Dragonball Universal"
 
 typedef struct descriptor_data descriptor_t;
 
@@ -150,7 +150,8 @@ typedef enum
    eMSDP_PRACTICE, 
    eMSDP_MONEY, 
    eMSDP_MOVEMENT, 
-   eMSDP_MOVEMENT_MAX, 
+   eMSDP_MOVEMENT_MAX,
+   eMSDP_BLOOD, 
    eMSDP_HITROLL, 
    eMSDP_DAMROLL, 
    eMSDP_AC, 
@@ -368,7 +369,7 @@ void ProtocolInput( descriptor_t *apDescriptor, char *apData, int aSize, char *a
  * Note that the MXP tags will automatically be removed if the user doesn't 
  * support MXP, but it's very important you remember to close the tags.
  */
-const char *ProtocolOutput( descriptor_t *apDescriptor, const char *apData, int *apLength );
+const char *ProtocolOutput( descriptor_t *apDescriptor, const char *apData, size_t *apLength );
 
 /******************************************************************************
  Copyover save/load functions.

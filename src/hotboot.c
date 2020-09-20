@@ -777,6 +777,7 @@ void hotboot_recover( void )
       d->scrlen = 24;
       d->newstate = 0;
       d->prevcolor = 0x08;
+      d->pProtocol = ProtocolCreate();
       d->ifd = -1;
       d->ipid = -1;
 

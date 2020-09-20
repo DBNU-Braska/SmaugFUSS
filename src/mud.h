@@ -16,6 +16,7 @@
  *                           Main mud header file                           *
  ****************************************************************************/
 
+#include "protocol.h"
 #include <stdlib.h>
 #include <limits.h>
 #if defined(__CYGWIN__) || defined(__FreeBSD__)
@@ -809,6 +810,7 @@ struct descriptor_data
    char pagecolor;
    int newstate;
    unsigned char prevcolor;
+   protocol_t *pProtocol; /* Kavir's Protocol Snippet */
    int ifd;
    pid_t ipid;
 };

@@ -143,7 +143,8 @@ static variable_name_t VariableNameTable[eMSDP_MAX+1] =
    { eMSDP_PRACTICE,         "PRACTICE",         NUMBER_READ_ONLY }, 
    { eMSDP_MONEY,            "MONEY",            NUMBER_READ_ONLY }, 
    { eMSDP_MOVEMENT,         "MOVEMENT",         NUMBER_READ_ONLY }, 
-   { eMSDP_MOVEMENT_MAX,     "MOVEMENT_MAX",     NUMBER_READ_ONLY }, 
+   { eMSDP_MOVEMENT_MAX,     "MOVEMENT_MAX",     NUMBER_READ_ONLY },
+   { eMSDP_BLOOD,            "BLOOD",            NUMBER_READ_ONLY }, 
    { eMSDP_HITROLL,          "HITROLL",          NUMBER_READ_ONLY }, 
    { eMSDP_DAMROLL,          "DAMROLL",          NUMBER_READ_ONLY }, 
    { eMSDP_AC,               "AC",               NUMBER_READ_ONLY }, 
@@ -291,7 +292,7 @@ protocol_t *ProtocolCreate( void )
       }
    }
 
-   pProtocol = (protocol_t *) malloc(sizeof(protocol_t));
+   pProtocol = ( protocol_t* ) malloc( sizeof( protocol_t ) );
    pProtocol->WriteOOB = 0;
    for ( i = eNEGOTIATED_TTYPE; i < eNEGOTIATED_MAX; ++i )
       pProtocol->Negotiated[i] = false;
@@ -313,13 +314,13 @@ protocol_t *ProtocolCreate( void )
    pProtocol->b256Support = eUNKNOWN;
    pProtocol->ScreenWidth = 0;
    pProtocol->ScreenHeight = 0;
-   pProtocol->pMXPVersion = AllocString("Unknown");
+   pProtocol->pMXPVersion = AllocString( "Unknown" );
    pProtocol->pLastTTYPE = NULL;
-   pProtocol->pVariables = ( MSDP_t ** ) malloc(sizeof(MSDP_t*)*eMSDP_MAX);
+   pProtocol->pVariables = ( MSDP_t** ) malloc( sizeof( MSDP_t* ) *eMSDP_MAX );
 
    for ( i = eMSDP_NONE+1; i < eMSDP_MAX; ++i )
    {
-      pProtocol->pVariables[i] = ( MSDP_t * ) malloc(sizeof(MSDP_t));
+      pProtocol->pVariables[i] = ( MSDP_t* ) malloc( sizeof( MSDP_t ) );
       pProtocol->pVariables[i]->bReport = false;
       pProtocol->pVariables[i]->bDirty = false;
       pProtocol->pVariables[i]->ValueInt = 0;
@@ -521,7 +522,7 @@ void ProtocolInput( descriptor_t *apDescriptor, char *apData, int aSize, char *a
    strcat( apOut, CmdBuf );
 }
 
-const char *ProtocolOutput( descriptor_t *apDescriptor, const char *apData, int *apLength )
+const char *ProtocolOutput( descriptor_t *apDescriptor, const char *apData, size_t *apLength )
 {
    static char Result[MAX_OUTPUT_BUFFER+1];
    const char Tab[] = "\t";
@@ -534,7 +535,7 @@ const char *ProtocolOutput( descriptor_t *apDescriptor, const char *apData, int 
 #ifdef COLOUR_CHAR
    bool bColourOn = COLOUR_ON_BY_DEFAULT;
 #endif /* COLOUR_CHAR */
-   int i = 0, j = 0; /* Index values */
+   size_t i = 0, j = 0; /* Index values */
 
    protocol_t *pProtocol = apDescriptor ? apDescriptor->pProtocol : NULL;
    if ( pProtocol == NULL || apData == NULL )
@@ -1415,7 +1416,7 @@ void MSDPSetTable( descriptor_t *apDescriptor, variable_t aMSDP, const char *apV
          const char MsdpTableStart[] = { (char)MSDP_TABLE_OPEN, '\0' };
          const char MsdpTableStop[]  = { (char)MSDP_TABLE_CLOSE, '\0' };
 
-         char *pTable = ( char * ) malloc(strlen(apValue) + 3); /* 3: START, STOP, NUL */
+         char *pTable = ( char* ) malloc( strlen( apValue ) + 3 ); /* 3: START, STOP, NUL */
 
          strcpy(pTable, MsdpTableStart);
          strcat(pTable, apValue);
@@ -1451,7 +1452,7 @@ void MSDPSetArray( descriptor_t *apDescriptor, variable_t aMSDP, const char *apV
          const char MsdpArrayStart[] = { (char)MSDP_ARRAY_OPEN, '\0' };
          const char MsdpArrayStop[]  = { (char)MSDP_ARRAY_CLOSE, '\0' };
 
-         char *pArray = ( char * ) malloc(strlen(apValue) + 3); /* 3: START, STOP, NUL */
+         char *pArray = ( char* ) malloc( strlen( apValue ) + 3); /* 3: START, STOP, NUL */
 
          strcpy(pArray, MsdpArrayStart);
          strcat(pArray, apValue);
@@ -1559,7 +1560,7 @@ void SoundSend( descriptor_t *apDescriptor, const char *apTrigger )
          else if ( strlen(apTrigger) <= MaxTriggerLength )
          {
             /* Use an old MSP-style trigger */
-            char *pBuffer = ( char * ) alloca(MaxTriggerLength+10);
+            char *pBuffer = ( char* ) alloca( MaxTriggerLength + 10 );
             sprintf( pBuffer, "\t!SOUND(%s)", apTrigger );
             Write(apDescriptor, pBuffer);
          }
@@ -1986,7 +1987,7 @@ static void PerformSubnegotiation( descriptor_t *apDescriptor, char aCmd, char *
          {
             /* Store the client name. */
             const int MaxClientLength = 64;
-            char *pClientName = ( char * ) alloca(MaxClientLength+1);
+            char *pClientName = ( char* ) alloca( MaxClientLength + 1 );
             int i = 0, j = 1;
             bool bStopCyclicTTYPE = false;
 
@@ -2452,7 +2453,7 @@ static void ExecuteMSDPPair( descriptor_t *apDescriptor, const char *apVariable,
                         !strcmp(apDescriptor->pProtocol->pVariables[i]->pValueString, "Unknown") )
                      {
                         /* Store the new value if it's valid */
-                        char *pBuffer = ( char * ) alloca(VariableNameTable[i].Max+1);
+                        char *pBuffer = ( char* ) alloca(VariableNameTable[i].Max+1);
                         int j; /* Loop counter */
 
                         for ( j = 0; j < VariableNameTable[i].Max && *apValue != '\0'; ++apValue )
@@ -2879,7 +2880,7 @@ static char *AllocString( const char *apString )
    if ( apString != NULL )
    {
       int Size = strlen(apString);
-      pResult = ( char * ) malloc(Size+1);
+      pResult = ( char* ) malloc(Size+1);
       if ( pResult != NULL )
          strcpy( pResult, apString );
    }

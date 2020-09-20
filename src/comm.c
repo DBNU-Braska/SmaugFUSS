@@ -844,6 +844,8 @@ void game_loop( void )
             {
                d->fcommand = TRUE;
                stop_idling( d->character );
+               if( d->pProtocol != NULL )      /* Kavir's Protocol Snippet */
+                  d->pProtocol->WriteOOB = 0;  /* Kavir's Protocol Snippet */
 
                mudstrlcpy( cmdline, d->incomm, MAX_INPUT_LENGTH );
                d->incomm[0] = '\0';
@@ -1033,6 +1035,7 @@ void new_descriptor( int new_desc )
    dnew->port = ntohs( sock.sin_port );
    dnew->newstate = 0;
    dnew->prevcolor = 0x07;
+   dnew->pProtocol = ProtocolCreate( ); /* Kavir's Protocol Snippet */
    dnew->ifd = -1;   /* Descriptor pipes, used for DNS resolution and such */
    dnew->ipid = -1;
    dnew->can_compress = FALSE;
@@ -1083,6 +1086,11 @@ void new_descriptor( int new_desc )
     * MCCP Compression 
     */
    write_to_buffer( dnew, (const char *)will_compress2_str, 0 );
+
+   /*
+    * Kavir's Protocol Snippet
+    */
+   ProtocolNegotiate(dnew);
 
    /*
     * Send the greeting.
@@ -1275,6 +1283,8 @@ void close_socket( DESCRIPTOR_DATA * dclose, bool force )
    if( dclose->descriptor == maxdesc )
       --maxdesc;
 
+   ProtocolDestroy( dclose->pProtocol ); /* Kavir's Protocol Snippet */
+
    free_desc( dclose );
    --num_descriptors;
    return;
@@ -1285,6 +1295,15 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
    unsigned int iStart;
    int iErr;
 
+   static char read_buf[MAX_PROTOCOL_BUFFER]; /* Kavir's Protocol Snippet */
+   read_buf[0] = '\0';                        /* Kavir's Protocol Snippet */
+
+   /*
+    * Kavir's Protocol Snippet
+    * Replaced all instance of "d->inbuf" with "read_buf"
+    * Braska
+    */
+
    /*
     * Hold horses if pending command already. 
     */
@@ -1294,8 +1313,8 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
    /*
     * Check for overflow. 
     */
-   iStart = strlen( d->inbuf );
-   if( iStart >= sizeof( d->inbuf ) - 10 )
+   iStart = strlen( read_buf );
+   if( iStart >= sizeof( read_buf ) - 10 )
    {
       log_printf( "%s input overflow!", d->host );
       write_to_descriptor( d, "\r\n*** PUT A LID ON IT!!! ***\r\nYou cannot enter the same command more than 20 consecutive times!\r\n", 0 );
@@ -1306,7 +1325,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
    {
       int nRead;
 
-      nRead = recv( d->descriptor, d->inbuf + iStart, sizeof( d->inbuf ) - 10 - iStart, 0 );
+      nRead = recv( d->descriptor, read_buf + iStart, sizeof( read_buf ) - 10 - iStart, 0 );
 #ifdef WIN32
       iErr = WSAGetLastError(  );
 #else
@@ -1315,7 +1334,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
       if( nRead > 0 )
       {
          iStart += nRead;
-         if( d->inbuf[iStart - 1] == '\n' || d->inbuf[iStart - 1] == '\r' )
+         if( read_buf[iStart - 1] == '\n' || read_buf[iStart - 1] == '\r' )
             break;
       }
       else if( nRead == 0 )
@@ -1332,7 +1351,8 @@ bool read_from_descriptor( DESCRIPTOR_DATA * d )
       }
    }
 
-   d->inbuf[iStart] = '\0';
+   read_buf[iStart] = '\0';
+   ProtocolInput( d, read_buf, iStart, d->inbuf ); /* Kavir's Protocol Snippet */
    return TRUE;
 }
 
@@ -1495,7 +1515,7 @@ bool flush_buffer( DESCRIPTOR_DATA * d, bool fPrompt )
    /*
     * Bust a prompt.
     */
-   if( fPrompt && !mud_down && d->connected == CON_PLAYING )
+   if( !d->pProtocol->WriteOOB && fPrompt && !mud_down && d->connected == CON_PLAYING ) /* Kavir's Protocol Snippet - added !d->pProtocol->WriteOOB && */
    {
       CHAR_DATA *ch;
 
@@ -1579,6 +1599,10 @@ void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
     */
    if( !d->outbuf )
       return;
+   
+   txt = ProtocolOutput( d, txt, &length );  /* Kavir's Protocol Snippet */
+   if( d->pProtocol->WriteOOB > 0 )         /* Kavir's Protocol Snippet */
+      --d->pProtocol->WriteOOB;             /* Kavir's Protocol Snippet */
 
    /*
     * Find length in case caller didn't.
@@ -1597,7 +1621,7 @@ void write_to_buffer( DESCRIPTOR_DATA * d, const char *txt, size_t length )
    /*
     * Initial \r\n if needed.
     */
-   if( d->outtop == 0 && !d->fcommand )
+   if( d->outtop == 0 && !d->fcommand && !d->pProtocol->WriteOOB ) /* Kavir's Protocol Snippet - Added  && !d->pProtocol->WriteOOB */
    {
       d->outbuf[0] = '\r';
       d->outbuf[1] = '\n';
@@ -2003,7 +2027,8 @@ void nanny_get_name( DESCRIPTOR_DATA * d, char *argument )
        * Old player
        */
       write_to_buffer( d, "Password: ", 0 );
-      write_to_buffer( d, (const char *)echo_off_str, 0 );
+      /* write_to_buffer( d, (const char *)echo_off_str, 0 ); */ /* Kavir's Protocol Snippet */
+      ProtocolNoEcho( d, true ); /* Kavir's Protocol Snippet */
       d->connected = CON_GET_OLD_PASSWORD;
       return;
    }
@@ -2056,7 +2081,8 @@ void nanny_get_old_password( DESCRIPTOR_DATA * d, char *argument )
       return;
    }
 
-   write_to_buffer( d, (const char *)echo_on_str, 0 );
+   /* write_to_buffer( d, (const char *)echo_on_str, 0 ); */ /* Kavir's Protocol Snippet */
+   ProtocolNoEcho( d, false ); /* Kavir's Protocol Snippet */
 
    if( check_playing( d, ch->pcdata->filename, TRUE ) )
       return;
@@ -2108,9 +2134,10 @@ void nanny_confirm_new_name( DESCRIPTOR_DATA * d, char *argument )
    {
       case 'y':
       case 'Y':
+         ProtocolNoEcho( d, true );
          buffer_printf( d,
                    "\r\nMake sure to use a password that won't be easily guessed by someone else."
-                   "\r\nPick a good password for %s: %s", ch->name, echo_off_str );
+                   "\r\nPick a good password for %s: ", ch->name );
          d->connected = CON_GET_NEW_PASSWORD;
          break;
 
@@ -2172,7 +2199,8 @@ void nanny_confirm_new_password( DESCRIPTOR_DATA * d, char *argument )
       return;
    }
 
-   write_to_buffer( d, (const char *)echo_on_str, 0 );
+   /* write_to_buffer( d, (const char *)echo_on_str, 0 ); */ /* Kavir's Protocol Snippet */
+   ProtocolNoEcho( d, false ); /* Kavir's Protocol Snippet */
    write_to_buffer( d, "\r\nWhat is your sex (M/F/N)? ", 0 );
    d->connected = CON_GET_NEW_SEX;
 }
@@ -2617,6 +2645,7 @@ void nanny_read_motd( DESCRIPTOR_DATA * d, const char *argument )
    mprog_login_trigger( ch );
 
    act( AT_ACTION, "$n has entered the game.", ch, NULL, NULL, TO_CANSEE );
+   MXPSendTag( d, "<VERSION>" );  /* Kavir's Protocol Snippet */
    if( ch->pcdata->pet )
    {
       act( AT_ACTION, "$n returns to $s master from the Void.", ch->pcdata->pet, NULL, ch, TO_NOTVICT );
@@ -2650,7 +2679,8 @@ void nanny_delete_char( DESCRIPTOR_DATA * d, const char *argument )
    if( str_cmp( sha256_crypt( argument ), ch->pcdata->pwd ) )
    {
       write_to_buffer( d, "Wrong password entered, deletion cancelled.\r\n", 0 );
-      write_to_buffer( d, (const char *)echo_on_str, 0 );
+      /* write_to_buffer( d, (const char *)echo_on_str, 0 ); */ /* Kavir's Protocol Snippet */
+      ProtocolNoEcho( d, false ); /* Kavir's Protocol Snippet */
       d->connected = CON_PLAYING;
       return;
    }
@@ -2843,6 +2873,7 @@ short check_reconnect( DESCRIPTOR_DATA * d, const char *name, bool fConn )
             act( AT_ACTION, "$n has reconnected.", ch, NULL, NULL, TO_CANSEE );
             log_printf_plus( LOG_COMM, UMAX( sysdata.log_level, ch->level ), "%s (%s) reconnected.", ch->name, d->host );
             d->connected = CON_PLAYING;
+            MXPSendTag( d, "<VERSION>" );  /* Kavir's Protocol Snippet */
             do_look( ch, "auto" );
             check_loginmsg( ch );
          }
