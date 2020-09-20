@@ -31,9 +31,9 @@ typedef struct descriptor_data descriptor_t;
 #define COLOUR_ON_BY_DEFAULT true
 
 /* Uncomment this if players can also use RGB colour codes such as "^[F135]" */
-/*
+
 #define EXTENDED_COLOUR
-*/
+
 
 /* Uncomment this if invalid colours are displayed rather than being eaten. */
 /*
@@ -44,9 +44,9 @@ typedef struct descriptor_data descriptor_t;
  If your mud supports MCCP (compression), uncomment the next line.
  ******************************************************************************/
 
-/*
+
 #define USING_MCCP
-*/
+
 
 /******************************************************************************
  If your offer a Mudlet GUI for autoinstallation, put the path/filename here.
