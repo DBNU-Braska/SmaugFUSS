@@ -158,11 +158,15 @@ static variable_name_t VariableNameTable[eMSDP_MAX+1] =
    { eMSDP_WIS,              "WIS",              NUMBER_READ_ONLY }, 
    { eMSDP_DEX,              "DEX",              NUMBER_READ_ONLY }, 
    { eMSDP_CON,              "CON",              NUMBER_READ_ONLY }, 
+   { eMSDP_CHA,              "CHA",              NUMBER_READ_ONLY }, 
+   { eMSDP_LCK,              "LCK",              NUMBER_READ_ONLY }, 
    { eMSDP_STR_PERM,         "STR_PERM",         NUMBER_READ_ONLY }, 
    { eMSDP_INT_PERM,         "INT_PERM",         NUMBER_READ_ONLY }, 
    { eMSDP_WIS_PERM,         "WIS_PERM",         NUMBER_READ_ONLY }, 
    { eMSDP_DEX_PERM,         "DEX_PERM",         NUMBER_READ_ONLY }, 
-   { eMSDP_CON_PERM,         "CON_PERM",         NUMBER_READ_ONLY }, 
+   { eMSDP_CON_PERM,         "CON_PERM",         NUMBER_READ_ONLY },
+   { eMSDP_CHA_PERM,         "CHA_PERM",         NUMBER_READ_ONLY }, 
+   { eMSDP_LCK_PERM,         "LCK_PERM",         NUMBER_READ_ONLY }, 
 
    /* Combat */
    { eMSDP_OPPONENT_HEALTH,  "OPPONENT_HEALTH",  NUMBER_READ_ONLY }, 

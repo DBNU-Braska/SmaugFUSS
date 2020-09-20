@@ -159,12 +159,16 @@ typedef enum
    eMSDP_INT, 
    eMSDP_WIS, 
    eMSDP_DEX, 
-   eMSDP_CON, 
+   eMSDP_CON,
+   eMSDP_CHA, 
+   eMSDP_LCK, 
    eMSDP_STR_PERM, 
    eMSDP_INT_PERM, 
    eMSDP_WIS_PERM, 
    eMSDP_DEX_PERM, 
-   eMSDP_CON_PERM, 
+   eMSDP_CON_PERM,
+   eMSDP_CHA_PERM, 
+   eMSDP_LCK_PERM, 
 
    /* Combat */
    eMSDP_OPPONENT_HEALTH, 

@@ -111,19 +111,16 @@ void msdp_update( void )
          MSDPSetNumber( d, eMSDP_WIS, get_curr_wis(ch) );
          MSDPSetNumber( d, eMSDP_DEX, get_curr_dex(ch) );
          MSDPSetNumber( d, eMSDP_CON, get_curr_con(ch) );
-         /* You'll need to add these yourself - see the README.TXT
          MSDPSetNumber( d, eMSDP_CHA, get_curr_cha(ch) );
          MSDPSetNumber( d, eMSDP_LCK, get_curr_lck(ch) );
-         */
          MSDPSetNumber( d, eMSDP_STR_PERM, ch->perm_str );
          MSDPSetNumber( d, eMSDP_INT_PERM, ch->perm_int );
          MSDPSetNumber( d, eMSDP_WIS_PERM, ch->perm_wis );
          MSDPSetNumber( d, eMSDP_DEX_PERM, ch->perm_dex );
          MSDPSetNumber( d, eMSDP_CON_PERM, ch->perm_con );
-         /* You'll need to add these yourself - see the README.TXT
          MSDPSetNumber( d, eMSDP_CHA_PERM, ch->perm_cha );
          MSDPSetNumber( d, eMSDP_LCK_PERM, ch->perm_lck );
-         */
+         
          /* This would be better moved elsewhere */
          if ( pOpponent != NULL )
          {
