@@ -18,12 +18,12 @@ EXPORT_SYMBOLS = -export-dynamic
 #IMC2 - Comment out to disable IMC2 support
 #IMC = 1
 
-W_FLAGS = -std=c++1z -Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align -Wredundant-decls -fsanitize=address
+W_FLAGS = -std=c++1z -Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align -Wredundant-decls
 
 C_FLAGS = -g2 $(W_FLAGS) $(SOLARIS_FLAG) $(PROF) $(EXPORT_SYMBOLS)
-L_FLAGS = -fsanitize=address $(PROF) $(SOLARIS_LINK) -lz $(NEED_DL)
+L_FLAGS = $(PROF) $(SOLARIS_LINK) -lz $(NEED_DL)
 #D_FLAGS : For the DNS Slave process. No need in linking all the extra libs for this.
-D_FLAGS = -g2 -O -fsanitize=address $(PROF) $(SOLARIS_LINK)
+D_FLAGS = -g2 -O $(PROF) $(SOLARIS_LINK)
 
 C_FILES = act_comm.c act_info.c act_move.c act_obj.c act_wiz.c ban.c boards.c \
           build.c calendar.c chess.c clans.c color.c comm.c comments.c const.c db.c deity.c \
@@ -43,45 +43,45 @@ O_FILES := $(patsubst %.c,o/%.o,$(C_FILES))
 H_FILES = $(wildcard *.h) 
 
 all:
-	$(MAKE) -s sagas
+	$(MAKE) -s universal
 	$(MAKE) -s dns
 
 # pull in dependency info for *existing* .o files
 -include dependencies.d
 
 ifdef CYGWIN
-sagas: $(O_FILES)
-	rm -f sagas.exe
-	dlltool --export-all --output-def sagas.def $(O_FILES)
-	dlltool --dllname sagas.exe --output-exp sagas.exp --def sagas.def
-	$(CC) -o sagas.exe $(O_FILES) sagas.exp $(L_FLAGS)
+universal: $(O_FILES)
+	rm -f universal.exe
+	dlltool --export-all --output-def universal.def $(O_FILES)
+	dlltool --dllname universal.exe --output-exp universal.exp --def universal.def
+	$(CC) -o universal.exe $(O_FILES) universal.exp $(L_FLAGS)
 	@echo "Generating dependency file ...";
 	@$(CC) -MM $(C_FLAGS) $(C_FILES) > dependencies.d
 	@perl -pi -e 's.^([a-z]).o/$$1.g' dependencies.d
 	@echo "Done compiling mud.";
-	chmod g+w sagas.exe
-	chmod a+x sagas.exe
+	chmod g+w universal.exe
+	chmod a+x universal.exe
 	chmod g+w $(O_FILES)
 
 clean:
-	@rm -f o/*.o sagas.exe dependencies.d resolver.exe resolver.o *~
+	@rm -f o/*.o universal.exe dependencies.d resolver.exe resolver.o *~
 
 else
-sagas: $(O_FILES)
-	rm -f sagas
-	$(CC) -export-dynamic -o sagas $(O_FILES) $(L_FLAGS)
+universal: $(O_FILES)
+	rm -f universal
+	$(CC) -export-dynamic -o universal $(O_FILES) $(L_FLAGS)
 	@echo "Generating dependency file ...";
 	@$(CC) -MM $(C_FLAGS) $(C_FILES) > dependencies.d
 	@perl -pi -e 's.^([a-z]).o/$$1.g' dependencies.d
 	@echo "Done compiling mud.";
-	chmod g+w sagas
-	chmod a+x sagas
+	chmod g+w universal
+	chmod a+x universal
 	chmod g+w $(O_FILES)
 	chmod 755 startup
 	chmod g+w startup
 
 clean:
-	@rm -f o/*.o sagas dependencies.d resolver resolver.o *~
+	@rm -f o/*.o universal dependencies.d resolver resolver.o *~
 endif
 
 dns: resolver.o

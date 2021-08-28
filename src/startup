@@ -1,7 +1,7 @@
 #! /bin/csh -f
 
 # Set the port number.
-set port = 7001
+set port = 7010
 if ( "$1" != "" ) set port="$1"
 
 # Change to area directory.
@@ -34,7 +34,7 @@ while ( 1 )
         echo Port $port is already in use.
         exit 0
     endif
-    ../src/sagas $port >&! $logfile
+    ../src/universal $port >&! $logfile
 
     # Restart, giving old connections a chance to die.
     if ( -e shutdown.txt ) then

@@ -164,3 +164,39 @@ Sat Aug 28 18:30:19 2021 :: (Name Not Set) ready on port 7001.
 Sat Aug 28 18:30:26 2021 :: Preloading player data for: Admin (9K)
 Sat Aug 28 18:30:27 2021 :: Loading player data for: Admin (9K)
 Sat Aug 28 18:30:27 2021 :: Admin (142.118.223.121) has connected.
+Sat Aug 28 18:54:24 2021 :: Log Admin: shutdown mud now
+Sat Aug 28 18:54:24 2021 :: Normal termination of game.
+Sat Aug 28 18:54:24 2021 :: Cleaning up Memory.
+Project Data.
+Reserved Names.
+Ban Data.
+Morph Data.
+Commands.
+Deities.
+Clans.
+Councils.
+Socials.
+Watches.
+Helps.
+Languages.
+Boards.
+Whacking supermob.
+Objects.
+Characters.
+Descriptors.
+Liquid Table.
+Races.
+Classes.
+Teleport Data.
+Area Data Tables.
+Planes.
+Auction.
+MSSP Info.
+System data.
+Title table.
+Skills and Herbs.
+Mudprog act lists.
+Specfun lists.
+Globals.
+Checking string hash for leftovers.
+Cleanup complete, exiting.

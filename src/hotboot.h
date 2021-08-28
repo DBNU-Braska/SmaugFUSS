@@ -31,7 +31,7 @@
 #endif
 
 #define HOTBOOT_FILE SYSTEM_DIR "copyover.dat"  /* for hotboots */
-#define EXE_FILE "../src/sagas"
+#define EXE_FILE "../src/universal"
 #define HOTBOOT_DIR "../hotboot/"   /* For storing objects across hotboots */
 #define MOB_FILE	"mobs.dat"  /* For storing mobs across hotboots */
 

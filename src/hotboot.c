@@ -704,7 +704,7 @@ void do_hotboot( CHAR_DATA* ch, const char* argument)
 
    set_alarm( 0 );
    dlclose( sysdata.dlHandle );
-   execl( EXE_FILE, "sagas", buf, "hotboot", buf2, buf3, ( char * )NULL );
+   execl( EXE_FILE, "universal", buf, "hotboot", buf2, buf3, ( char * )NULL );
 
    /*
     * Failed - sucessful exec will not return 

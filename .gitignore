@@ -3,3 +3,12 @@ src/o/
 src/log/
 system/time.dat
 system/weathermap.dat
+src/o/act_info.o
+src/o/clans.o
+src/o/comm.o
+src/o/handler.o
+src/o/hotboot.o
+src/o/mapout.o
+src/o/misc.o
+src/o/player.o
+src/o/update.o
