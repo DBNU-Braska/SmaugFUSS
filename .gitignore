@@ -1,3 +1,5 @@
 src/resolver.o
 src/o/
 src/log/
+system/time.dat
+system/weathermap.dat
