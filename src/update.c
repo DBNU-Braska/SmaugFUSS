@@ -58,8 +58,6 @@ const char *corpse_descs[] = {
    "The corpse of %s lies here."
 };
 
-extern int top_exit;
-
 /*
  * Kavir's Protocol Snippet
  * Added by Braska
