@@ -16,7 +16,7 @@ EXPORT_SYMBOLS = -export-dynamic
 #SOLARIS_LINK = -lnsl -lsocket
 
 #IMC2 - Comment out to disable IMC2 support
-IMC = 1
+#IMC = 1
 
 W_FLAGS = -std=c++1z -Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align -Wredundant-decls
 
@@ -43,43 +43,45 @@ O_FILES := $(patsubst %.c,o/%.o,$(C_FILES))
 H_FILES = $(wildcard *.h) 
 
 all:
-	$(MAKE) -s smaug
+	$(MAKE) -s sagas
 	$(MAKE) -s dns
 
 # pull in dependency info for *existing* .o files
 -include dependencies.d
 
 ifdef CYGWIN
-smaug: $(O_FILES)
-	rm -f smaug.exe
-	dlltool --export-all --output-def smaug.def $(O_FILES)
-	dlltool --dllname smaug.exe --output-exp smaug.exp --def smaug.def
-	$(CC) -o smaug.exe $(O_FILES) smaug.exp $(L_FLAGS)
+sagas: $(O_FILES)
+	rm -f sagas.exe
+	dlltool --export-all --output-def sagas.def $(O_FILES)
+	dlltool --dllname sagas.exe --output-exp sagas.exp --def sagas.def
+	$(CC) -o sagas.exe $(O_FILES) sagas.exp $(L_FLAGS)
 	@echo "Generating dependency file ...";
 	@$(CC) -MM $(C_FLAGS) $(C_FILES) > dependencies.d
 	@perl -pi -e 's.^([a-z]).o/$$1.g' dependencies.d
 	@echo "Done compiling mud.";
-	chmod g+w smaug.exe
-	chmod a+x smaug.exe
+	chmod g+w sagas.exe
+	chmod a+x sagas.exe
 	chmod g+w $(O_FILES)
 
 clean:
-	@rm -f o/*.o smaug.exe dependencies.d resolver.exe resolver.o *~
+	@rm -f o/*.o sagas.exe dependencies.d resolver.exe resolver.o *~
 
 else
-smaug: $(O_FILES)
-	rm -f smaug
-	$(CC) -export-dynamic -o smaug $(O_FILES) $(L_FLAGS)
+sagas: $(O_FILES)
+	rm -f sagas
+	$(CC) -export-dynamic -o sagas $(O_FILES) $(L_FLAGS)
 	@echo "Generating dependency file ...";
 	@$(CC) -MM $(C_FLAGS) $(C_FILES) > dependencies.d
 	@perl -pi -e 's.^([a-z]).o/$$1.g' dependencies.d
 	@echo "Done compiling mud.";
-	chmod g+w smaug
-	chmod a+x smaug
+	chmod g+w sagas
+	chmod a+x sagas
 	chmod g+w $(O_FILES)
+	chmod 755 startup
+	chmod g+w startup
 
 clean:
-	@rm -f o/*.o smaug dependencies.d resolver resolver.o *~
+	@rm -f o/*.o sagas dependencies.d resolver resolver.o *~
 endif
 
 dns: resolver.o
