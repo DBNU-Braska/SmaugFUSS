@@ -17,8 +17,8 @@
 
 #include <stdio.h>
 #include <ctype.h>
-#include "mud.h"
-#include "hint.h"
+#include "h/mud.h"
+#include "h/hint.h"
 
 HINT_DATA *first_hint;
 HINT_DATA *last_hint;

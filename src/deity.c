@@ -18,7 +18,7 @@
 /*Put together by Rennard for Realms of Despair.  Brap on...*/
 
 #include <stdio.h>
-#include "mud.h"
+#include "h/mud.h"
 
 DEITY_DATA *first_deity;
 DEITY_DATA *last_deity;

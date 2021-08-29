@@ -17,8 +17,8 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "mud.h"
-#include "bet.h"
+#include "h/mud.h"
+#include "h/bet.h"
 
 /*
  * External functions

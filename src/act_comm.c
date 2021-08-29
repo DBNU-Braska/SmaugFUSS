@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include "mud.h"
+#include "h/mud.h"
 
 bool in_same_house( CHAR_DATA * ch, CHAR_DATA * vch );
 

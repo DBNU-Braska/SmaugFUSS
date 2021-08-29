@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "mud.h"
+#include "h/mud.h"
 
 VARIABLE_DATA *make_variable( char type, int vnum, char *tag )
 {

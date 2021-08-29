@@ -19,7 +19,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
-#include "mud.h"
+#include "h/mud.h"
 
 /*
  *  Locals

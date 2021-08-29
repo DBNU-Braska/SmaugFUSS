@@ -34,7 +34,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <unistd.h>
-#include "mud.h"
+#include "h/mud.h"
 
 HOLIDAY_DATA *first_holiday;
 HOLIDAY_DATA *last_holiday;

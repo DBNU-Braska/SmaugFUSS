@@ -20,9 +20,9 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
-#include "mud.h"
-#include "mapper.h"
-#include "sha256.h"
+#include "h/mud.h"
+#include "h/mapper.h"
+#include "h/sha256.h"
 
 bool in_same_house( CHAR_DATA * ch, CHAR_DATA * vch );
 

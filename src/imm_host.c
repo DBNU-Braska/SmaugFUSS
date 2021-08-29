@@ -19,7 +19,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
-#include "mud.h"
+#include "h/mud.h"
 
 /*
  * This loads the Immortal host data structure to keep certain immortals

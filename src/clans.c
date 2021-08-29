@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 #include <time.h>
-#include "mud.h"
+#include "h/mud.h"
 
 static OBJ_DATA *rgObjNest[MAX_NEST];
 

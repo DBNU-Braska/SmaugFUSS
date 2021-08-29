@@ -51,8 +51,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
-#include "mud.h"
-#include "mssp.h"
+#include "h/mud.h"
+#include "h/mssp.h"
 
 struct mssp_info *mssp_info;
 void fread_mssp_info( FILE * fp );

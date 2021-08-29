@@ -18,9 +18,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "mud.h"
-#include "chess.h"
-#include "imc.h"
+#include "h/mud.h"
+#include "h/chess.h"
+#include "h/imc.h"
 
 #define WHITE_BACKGROUND ""
 #define BLACK_BACKGROUND ""

@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "mud.h"
+#include "h/mud.h"
 #include <windows.h> /* for service and thread routines */
 
 static char rcsid[] = "$Id: services.c,v 1.5 1998/09/11 04:34:10 shaddai Exp $"; /* RCS revision id */

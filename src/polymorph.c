@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "mud.h"
+#include "h/mud.h"
 
 #define MKEY( literal, field, value ) \
 	if( !str_cmp( word, literal ) ) \

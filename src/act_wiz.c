@@ -22,9 +22,9 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <unistd.h>
-#include "mud.h"
-#include "house.h"
-#include "sha256.h"
+#include "h/mud.h"
+#include "h/house.h"
+#include "h/sha256.h"
 
 #define RESTORE_INTERVAL 21600
 

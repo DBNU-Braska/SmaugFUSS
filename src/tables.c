@@ -24,7 +24,7 @@
 #define dlsym( handle, name ) ( (void*)GetProcAddress( (HINSTANCE) (handle), (name) ) )
 #define dlerror() GetLastError()
 #endif
-#include "mud.h"
+#include "h/mud.h"
 
 bool load_race_file( const char *fname );
 

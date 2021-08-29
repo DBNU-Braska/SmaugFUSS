@@ -52,8 +52,8 @@
  */
 #include <stdio.h>
 #include <string.h>
-#include "mud.h"
-#include "mapper.h"
+#include "h/mud.h"
+#include "h/mapper.h"
 
 bool check_blind( CHAR_DATA * ch );
 

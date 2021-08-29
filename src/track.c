@@ -16,7 +16,7 @@
  ****************************************************************************/
 
 #include <stdio.h>
-#include "mud.h"
+#include "h/mud.h"
 
 #define BFS_ERROR	   -1
 #define BFS_ALREADY_THERE  -2

@@ -20,8 +20,8 @@
 #include <string.h>
 #include <time.h>
 #include <sys/time.h>
-#include "mud.h"
-#include "news.h"
+#include "h/mud.h"
+#include "h/news.h"
 
 /*
  * Externals

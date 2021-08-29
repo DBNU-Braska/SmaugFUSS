@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "mud.h"
+#include "h/mud.h"
 
 void uphold_supermob( int *curr_serial, int serial, ROOM_INDEX_DATA ** supermob_room, OBJ_DATA * true_supermob_obj )
 {

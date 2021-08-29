@@ -30,9 +30,9 @@
 #include <windows.h>
 #define dlopen( libname, flags ) LoadLibrary( (libname) )
 #endif
-#include "mud.h"
-#include "mssp.h"
-#include "news.h"
+#include "h/mud.h"
+#include "h/mssp.h"
+#include "h/news.h"
 
 void init_supermob( void );
 

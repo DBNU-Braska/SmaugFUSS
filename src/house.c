@@ -27,8 +27,8 @@
 #include <time.h>
 #include <errno.h>
 #include <sys/stat.h>
-#include "mud.h"
-#include "house.h"
+#include "h/mud.h"
+#include "h/house.h"
 
 bool check_parse_name( const char *name, bool newchar );
 void wipe_resets( ROOM_INDEX_DATA * room );

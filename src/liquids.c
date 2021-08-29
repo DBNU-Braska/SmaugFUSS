@@ -44,7 +44,7 @@
  */
 
 #include <stdio.h>
-#include "mud.h"
+#include "h/mud.h"
 
 #ifndef NULLSTR
 #define NULLSTR(str)         (!str || str[0] == '\0')

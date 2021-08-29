@@ -17,8 +17,8 @@
 
 #include <stdio.h>
 #include <sys/time.h>
-#include "mud.h"
-#include "hint.h"
+#include "h/mud.h"
+#include "h/hint.h"
 
 /*
  * Local functions.

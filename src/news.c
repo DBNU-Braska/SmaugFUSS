@@ -35,8 +35,8 @@
 
 #include <stdio.h>
 #include <time.h>
-#include "mud.h"
-#include "news.h"
+#include "h/mud.h"
+#include "h/news.h"
 
 NEWS_TYPE *first_news_type;
 NEWS_TYPE *last_news_type;

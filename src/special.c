@@ -23,7 +23,7 @@
 #define dlsym( handle, name ) ( (void*)GetProcAddress( (HINSTANCE) (handle), (name) ) )
 #define dlerror() GetLastError()
 #endif
-#include "mud.h"
+#include "h/mud.h"
 
 void wear_obj( CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace, short wear_bit );
 

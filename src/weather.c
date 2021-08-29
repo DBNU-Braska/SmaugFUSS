@@ -28,7 +28,7 @@
 
 #include <string.h>
 #include <stdio.h>
-#include "mud.h"
+#include "h/mud.h"
 
 const char *const hemisphere_name[] = {
    "northern", "southern"

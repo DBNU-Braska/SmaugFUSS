@@ -16,7 +16,7 @@
  ****************************************************************************/
 
 #include <stdio.h>
-#include "mud.h"
+#include "h/mud.h"
 
 extern char lastplayercmd[MAX_INPUT_LENGTH];
 

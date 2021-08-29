@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include "mud.h"
+#include "h/mud.h"
 
 void note_attach( CHAR_DATA * ch );
 

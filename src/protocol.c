@@ -26,13 +26,13 @@
 #include <alloca.h>
 #include <ctype.h>
 
-#include "protocol.h"
+#include "h/protocol.h"
 
 /******************************************************************************
  The following section is for Diku/Merc derivatives.  Replace as needed.
  ******************************************************************************/
 
-#include "mud.h"
+#include "h/mud.h"
 
 bool compressStart( DESCRIPTOR_DATA *d );
 bool compressEnd( DESCRIPTOR_DATA *d );

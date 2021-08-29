@@ -26,10 +26,10 @@
 #include <signal.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include "mud.h"
-#include "mccp.h"
-#include "mssp.h"
-#include "sha256.h"
+#include "h/mud.h"
+#include "h/mccp.h"
+#include "h/mssp.h"
+#include "h/sha256.h"
 
 /*
  * Socket and TCP/IP stuff.

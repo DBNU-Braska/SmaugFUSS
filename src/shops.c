@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "mud.h"
+#include "h/mud.h"
 
 /*
  * Shopping commands.

@@ -18,7 +18,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "mud.h"
+#include "h/mud.h"
 
 /* Externals */
 extern int top_reset;

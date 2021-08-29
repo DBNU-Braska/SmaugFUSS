@@ -44,8 +44,8 @@
 #define  IAC                '\xFF'
 #define ENOSR 63
 #endif
-#include "mud.h"
-#include "mccp.h"
+#include "h/mud.h"
+#include "h/mccp.h"
 
 #if defined(__OpenBSD__) || defined(__FreeBSD__)
 #define ENOSR 63

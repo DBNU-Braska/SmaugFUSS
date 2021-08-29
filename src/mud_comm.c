@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include "mud.h"
+#include "h/mud.h"
 
 ch_ret simple_damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt );
 void transfer_char( CHAR_DATA * ch, CHAR_DATA * victim, ROOM_INDEX_DATA * location );

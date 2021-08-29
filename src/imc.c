@@ -1,9 +1,9 @@
 /* IMC2 Freedom Client - Developed by Mud Domain.
  *
- * Copyright ©2004-2008 by Roger Libiez ( Samson )
- * Contributions by Johnathan Walker ( Xorith ), Copyright ©2004
- * Additional contributions by Jesse Defer ( Garil ), Copyright ©2004
- * Additional contributions by Rogel, Copyright ©2004
+ * Copyright ï¿½2004-2008 by Roger Libiez ( Samson )
+ * Contributions by Johnathan Walker ( Xorith ), Copyright ï¿½2004
+ * Additional contributions by Jesse Defer ( Garil ), Copyright ï¿½2004
+ * Additional contributions by Rogel, Copyright ï¿½2004
  * Comments and suggestions welcome: http://www.mudbytes.net/imc2-support-forum
  * License terms are available in the imc2freedom.license file.
  */
@@ -39,9 +39,9 @@
 #include <sys/types.h>
 #endif
 #ifdef IMCSTANDALONE
-#include "imc.h"
+#include "h/imc.h"
 #endif
-#include "sha256.h"
+#include "h/sha256.h"
 
 #if defined(IMCCIRCLE)
 #include "conf.h"
@@ -56,7 +56,7 @@
 #endif
 
 #if defined(IMCSMAUG) || defined(IMCCHRONICLES)
-#include "mud.h"
+#include "h/mud.h"
 #if defined(IMCCHRONICLES)
 #include "factions.h"
 #include "files.h"
@@ -4152,7 +4152,7 @@ void imc_savehelps( void )
       fprintf( fp, "%s", "#HELP\n" );
       fprintf( fp, "Name %s\n", help->name );
       fprintf( fp, "Perm %s\n", imcperm_names[help->level] );
-      fprintf( fp, "Text %s¢\n", help->text );
+      fprintf( fp, "Text %sï¿½\n", help->text );
       fprintf( fp, "%s", "End\n\n" );
    }
    fprintf( fp, "%s", "#END\n" );
@@ -7634,7 +7634,7 @@ const char *imc_find_social( CHAR_DATA * ch, const char *sname, const char *pers
    return socname;
 }
 
-/* Revised 10/10/03 by Xorith: Recognize the need to capitalize for a new sentence. */
+/* Revised 10/10/03 by Xorith: Recognize the need to capitalize for a newï¿½sentence. */
 char *imc_act_string( const char *format, CHAR_DATA * ch, CHAR_DATA * vic )
 {
    static const char *const he_she[] = { "it", "he", "she" };

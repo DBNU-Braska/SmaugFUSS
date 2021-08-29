@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "mud.h"
+#include "h/mud.h"
 
 #define NOT_FOUND (-1)
 enum

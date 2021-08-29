@@ -38,8 +38,8 @@
 #define dlopen( libname, flags ) LoadLibrary( (libname) )
 #define dlclose( libname ) FreeLibrary( (HINSTANCE) (libname) )
 #endif
-#include "mud.h"
-#include "mccp.h"
+#include "h/mud.h"
+#include "h/mccp.h"
 
 #define MAX_NEST	100
 static OBJ_DATA *rgObjNest[MAX_NEST];

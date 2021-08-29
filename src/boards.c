@@ -20,7 +20,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
-#include "mud.h"
+#include "h/mud.h"
 
 /* Defines for voting on notes. -- Edmond - update for ballot */
 #define VOTE_NONE 0

@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
-#include "mud.h"
+#include "h/mud.h"
 
 void do_eat( CHAR_DATA* ch, const char* argument )
 {

@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "mud.h"
+#include "h/mud.h"
 
 bool validate_spec_fun( const char *name );
 void remove_bexit_flag( EXIT_DATA * pexit, int flag );

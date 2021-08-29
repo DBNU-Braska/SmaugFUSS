@@ -16,7 +16,7 @@
  ****************************************************************************/
 
 #include <stdio.h>
-#include "mud.h"
+#include "h/mud.h"
 
 PLANE_DATA *first_plane, *last_plane;
 

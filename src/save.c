@@ -22,8 +22,8 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <unistd.h>
-#include "mud.h"
-#include "house.h"
+#include "h/mud.h"
+#include "h/house.h"
 
 /*
  * Increment with every major format change.

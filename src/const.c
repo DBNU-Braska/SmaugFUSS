@@ -16,7 +16,7 @@
  ****************************************************************************/
 
 #include <stdio.h>
-#include "mud.h"
+#include "h/mud.h"
 
 const char *const npc_race[MAX_NPC_RACE] = {
    // Playable races - MAX_RACE in mud.h must be raised before more can be added after r9.

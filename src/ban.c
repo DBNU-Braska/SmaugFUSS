@@ -19,7 +19,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <time.h>
-#include "mud.h"
+#include "h/mud.h"
 
 /* Local functions */
 void fread_ban args( ( FILE * fp, int type ) );

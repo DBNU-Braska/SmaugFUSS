@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "mud.h"
+#include "h/mud.h"
 
 extern int top_affect;
 

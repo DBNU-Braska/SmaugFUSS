@@ -15,7 +15,7 @@
  ****************************************************************************/
 
 #include <stdio.h>
-#include "mud.h"
+#include "h/mud.h"
 
 struct map_data   /* contains per-room data */
 {

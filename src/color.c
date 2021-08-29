@@ -65,7 +65,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <dirent.h>
-#include "mud.h"
+#include "h/mud.h"
 
 const char *const pc_displays[MAX_COLORS] = {
    "black", "dred", "dgreen", "orange",        // 3

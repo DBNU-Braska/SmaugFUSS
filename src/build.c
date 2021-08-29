@@ -18,8 +18,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include "mud.h"
-#include "sha256.h"
+#include "h/mud.h"
+#include "h/sha256.h"
 
 extern int top_affect;
 extern int top_reset;

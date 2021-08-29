@@ -40,7 +40,7 @@ endif
 
 O_FILES := $(patsubst %.c,o/%.o,$(C_FILES))
 
-H_FILES = $(wildcard *.h) 
+H_FILES = $(wildcard h/*.h) 
 
 all:
 	$(MAKE) -s universal
@@ -61,6 +61,8 @@ universal: $(O_FILES)
 	@echo "Done compiling mud.";
 	chmod g+w universal.exe
 	chmod a+x universal.exe
+	chmod 755 universal.exe
+	chmod g+w universal.exe
 	chmod g+w $(O_FILES)
 
 clean:
@@ -103,5 +105,5 @@ o/%.o: %.c
 	echo "  Compiling $@....";
 	$(CC) -c $(C_FLAGS) $< -o $@
 
-.c.o: mud.h
+.c.o: h/mud.h
 	$(CC) -c $(C_FLAGS) $<

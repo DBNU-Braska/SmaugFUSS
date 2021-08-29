@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "mud.h"
+#include "h/mud.h"
 
 ROOM_INDEX_DATA *vroom_hash[64];
 
