@@ -5212,7 +5212,7 @@ void do_nohelps( CHAR_DATA * ch, const char* argument )
    }
    if( arg[0] == '\0' || !str_cmp(arg, "all") )
    {
-      send_to_char_color( "&C&YCommands for which there are no help files:\n\r\n\r", ch );
+      send_to_char_color( "\n\r&C&YCommands for which there are no help files:\n\r\n\r", ch );
 
       for( hash = 0; hash < 126; hash++ )
       {
@@ -5230,7 +5230,7 @@ void do_nohelps( CHAR_DATA * ch, const char* argument )
 	      }
       }
       send_to_char( "\n\r", ch);
-      send_to_char_color( "&CSkills/Spells for which there are no help files:\n\r\n\r", ch );
+      send_to_char_color( "\n\r&CSkills/Spells for which there are no help files:\n\r\n\r", ch );
    
       for( sn = 0; sn < num_skills && skill_table[sn] && skill_table[sn]->name; sn++ )
       {
@@ -5245,7 +5245,7 @@ void do_nohelps( CHAR_DATA * ch, const char* argument )
    	   }  
       }
       send_to_char( "\n\r", ch);
-      send_to_char_color( "&GAreas for which there are no help files:\n\r\n\r", ch );
+      send_to_char_color( "\n\r&GAreas for which there are no help files:\n\r\n\r", ch );
       
       for( tArea = first_area; tArea;tArea = tArea->next )
       {

@@ -4420,7 +4420,6 @@ char *format_obj_to_char( OBJ_DATA * obj, CHAR_DATA * ch, bool fShort );
 void show_list_to_char( OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShowNothing );
 bool is_ignoring( CHAR_DATA * ch, CHAR_DATA * ign_ch );
 void show_race_line( CHAR_DATA * ch, CHAR_DATA * victim );
-//void do_nohelps( CHAR_DATA * ch, const char * argument );
 
 /* act_move.c */
 void clear_vrooms args( ( void ) );
