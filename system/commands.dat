@@ -41,7 +41,6 @@ Log         0
 Flags       1
 End
 
-
 #COMMAND
 Name        ;~
 Code        do_gtell
@@ -63,50 +62,6 @@ Name        accessories~
 Code        do_accessories
 Position    104
 Level       5
-Log         0
-End
-
-#COMMAND
-Name        gohome~
-Code        do_gohome
-Position    104
-Level       5
-Log         0
-Flags       1
-End
-
-#COMMAND
-Name        homebuy~
-Code        do_homebuy
-Position    104
-Level       5
-Log         0
-Flags       1
-End
-
-#COMMAND
-Name        house~
-Code        do_house
-Position    104
-Level       5
-Log         0
-Flags       1
-End
-
-#COMMAND
-Name        residence~
-Code        do_residence
-Position    104
-Level       53
-Log         0
-Flags       1
-End
-
-#COMMAND
-Name        retiredtalk~
-Code        do_retiredtalk
-Position    100
-Level       50
 Log         0
 End
 
@@ -660,7 +615,6 @@ Code        do_delet
 Position    100
 Level       0
 Log         0
-Flags       0
 End
 
 #COMMAND
@@ -669,7 +623,6 @@ Code        do_delete
 Position    100
 Level       0
 Log         1
-Flags       0
 End
 
 #COMMAND
@@ -1022,6 +975,15 @@ Log         0
 End
 
 #COMMAND
+Name        gohome~
+Code        do_gohome
+Position    104
+Level       5
+Log         0
+Flags       1
+End
+
+#COMMAND
 Name        get~
 Code        do_get
 Position    106
@@ -1112,6 +1074,24 @@ Code        do_gwhere
 Position    100
 Level       63
 Log         0
+End
+
+#COMMAND
+Name        homebuy~
+Code        do_homebuy
+Position    104
+Level       5
+Log         0
+Flags       1
+End
+
+#COMMAND
+Name        house~
+Code        do_house
+Position    104
+Level       5
+Log         0
+Flags       1
 End
 
 #COMMAND
@@ -2356,6 +2336,14 @@ Log         1
 End
 
 #COMMAND
+Name        nohelps~
+Code        do_nohelps
+Position    100
+Level       65
+Log         0
+End
+
+#COMMAND
 Name        oowner~
 Code        do_oowner
 Position    100
@@ -2649,6 +2637,23 @@ Name        qpstat~
 Code        do_qpstat
 Position    100
 Level       54
+Log         0
+End
+
+#COMMAND
+Name        residence~
+Code        do_residence
+Position    104
+Level       53
+Log         0
+Flags       1
+End
+
+#COMMAND
+Name        retiredtalk~
+Code        do_retiredtalk
+Position    100
+Level       50
 Log         0
 End
 

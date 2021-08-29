@@ -5194,3 +5194,134 @@ void do_version( CHAR_DATA* ch, const char* argument)
 
    return;
 }
+
+/* Find non-existant help files. -Sadiq */
+void do_nohelps( CHAR_DATA * ch, const char* argument )
+{
+   CMDTYPE *command;
+   AREA_DATA *tArea;
+   char arg[MAX_STRING_LENGTH];
+   int hash, col = 0, sn = 0;
+  
+   argument = one_argument( argument, arg );
+
+   if(!IS_IMMORTAL( ch ) || IS_NPC( ch ) )
+   {
+	   send_to_char( "Huh?\n\r", ch );
+	   return;
+   }
+   if( arg[0] == '\0' || !str_cmp(arg, "all") )
+   {
+      send_to_char_color( "&C&YCommands for which there are no help files:\n\r\n\r", ch );
+
+      for( hash = 0; hash < 126; hash++ )
+      {
+         for( command = command_hash[hash]; command; command = command->next )
+	      {
+	         if( !get_help( ch, command->name ) )
+	      	{
+	   	      ch_printf_color( ch, "&W%-15s", command->name );
+	   	      
+               if( ++col % 5 == 0 )
+	   	      {
+			         send_to_char( "\n\r", ch );
+		         }
+	      	}
+	      }
+      }
+      send_to_char( "\n\r", ch);
+      send_to_char_color( "&CSkills/Spells for which there are no help files:\n\r\n\r", ch );
+   
+      for( sn = 0; sn < num_skills && skill_table[sn] && skill_table[sn]->name; sn++ )
+      {
+   	   if( !get_help( ch, skill_table[sn]->name ) )
+   	   {
+   	      ch_printf_color( ch, "&W%-20s", skill_table[sn]->name );
+   	      
+            if( ++col % 4 == 0 )
+   	      {
+   	     	   send_to_char( "\n\r", ch );
+   	      }
+   	   }  
+      }
+      send_to_char( "\n\r", ch);
+      send_to_char_color( "&GAreas for which there are no help files:\n\r\n\r", ch );
+      
+      for( tArea = first_area; tArea;tArea = tArea->next )
+      {
+    	   if( !get_help( ch, tArea->name ) )
+    	   {
+    	      ch_printf_color( ch, "&W%-35s", tArea->name );
+    	      
+            if( ++col % 2 == 0 )
+    	      {
+    	     	   send_to_char( "\n\r", ch );
+    	      }
+    	   }
+      }
+      send_to_char( "\n\r", ch);
+      return;
+   }
+   if(!str_cmp(arg, "commands" ) )
+   {
+      send_to_char_color( "&C&YCommands for which there are no help files:\n\r\n\r", ch );
+
+      for( hash = 0; hash < 126; hash++ )
+      {
+         for( command = command_hash[hash]; command; command = command->next )
+	      {
+	         if( !get_help( ch, command->name ) )
+	      	{
+	   	      ch_printf_color( ch, "&W%-15s", command->name );
+	   	      
+               if( ++col % 5 == 0 )
+	   	      {
+			         send_to_char( "\n\r", ch );
+		         }
+	      	}
+	      }
+      }
+	   send_to_char("\n\r", ch);
+	   return;
+   }
+   if( !str_cmp( arg, "skills" ) || !str_cmp( arg, "spells" ) )
+   {
+      send_to_char_color( "&CSkills/Spells for which there are no help files:\n\r\n\r", ch );
+   
+      for( sn = 0; sn < num_skills && skill_table[sn] && skill_table[sn]->name; sn++ )
+      {
+   	   if( !get_help( ch, skill_table[sn]->name ) )
+   	   {
+   	      ch_printf_color( ch, "&W%-20s", skill_table[sn]->name );
+   	      
+            if( ++col % 4 == 0 )
+   	      {
+   	     	   send_to_char( "\n\r", ch );
+   	      }
+   	   }  
+      }  	
+      send_to_char( "\n\r", ch );	
+	   return;
+   }
+   if( !str_cmp( arg, "areas" ) )
+   {
+      send_to_char_color( "&GAreas for which there are no help files:\n\r\n\r", ch );
+      
+      for( tArea = first_area; tArea;tArea = tArea->next )
+      {
+    	   if( !get_help( ch, tArea->name ) )
+    	   {
+    	      ch_printf_color( ch, "&W%-35s", tArea->name );
+    	      
+            if( ++col % 2 == 0 )
+    	      {
+    	     	   send_to_char( "\n\r", ch );
+    	      }
+    	   }
+      }
+	   send_to_char( "\n\r", ch );
+	   return;
+   }
+	send_to_char( "Syntax:  nohelps <all|areas|commands|skills>\n\r", ch );
+	return;
+}
