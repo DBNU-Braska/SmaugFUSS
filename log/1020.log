@@ -1070,3 +1070,54 @@ Sun Aug 29 18:24:19 2021 :: (Name Not Set) ready on port 7010.
 Sun Aug 29 18:24:19 2021 :: Initiating hotboot recovery.
 Sun Aug 29 18:24:19 2021 :: Loading player data for: Admin (9K)
 Sun Aug 29 18:24:19 2021 :: Hotboot recovery complete.
+Sun Aug 29 21:27:58 2021 :: Closing link to Admin. (INRoom 21001)
+Mon Aug 30 06:03:09 2021 :: Preloading player data for: Admin (9K)
+Mon Aug 30 06:03:10 2021 :: Admin (142.118.223.121) reconnected.
+Mon Aug 30 06:03:25 2021 :: Admin has quit (Room 21001).
+Mon Aug 30 17:59:00 2021 :: Braska@142.118.223.121 new Human Warrior.
+Mon Aug 30 17:59:06 2021 :: Log hvak1 advancer: mpadvance 0.Braska 2
+Mon Aug 30 18:30:53 2021 :: Preloading player data for: Admin (9K)
+Mon Aug 30 18:30:54 2021 :: Loading player data for: Admin (9K)
+Mon Aug 30 18:30:54 2021 :: Admin (142.118.223.121) has connected.
+Mon Aug 30 19:00:58 2021 :: Braska has quit (Room 2).
+Mon Aug 30 20:31:05 2021 :: Closing link to Admin. (INRoom 21001)
+Tue Aug 31 06:00:00 2021 :: Automatic Reboot
+Tue Aug 31 06:00:00 2021 :: Normal termination of game.
+Tue Aug 31 06:00:00 2021 :: Cleaning up Memory.
+Len:  15 Lnks:    1 Str: 142.118.223.121
+Total strings in hash 15: 1
+Len:  34 Lnks:    4 Str: A pool of spilled blood lies here.
+Total strings in hash 34: 1
+Project Data.
+Reserved Names.
+Ban Data.
+Morph Data.
+Commands.
+Deities.
+Clans.
+Councils.
+Socials.
+Watches.
+Helps.
+Languages.
+Boards.
+Whacking supermob.
+Objects.
+Characters.
+Descriptors.
+Liquid Table.
+Races.
+Classes.
+Teleport Data.
+Area Data Tables.
+Planes.
+Auction.
+MSSP Info.
+System data.
+Title table.
+Skills and Herbs.
+Mudprog act lists.
+Specfun lists.
+Globals.
+Checking string hash for leftovers.
+Cleanup complete, exiting.
