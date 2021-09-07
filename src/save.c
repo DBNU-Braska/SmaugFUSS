@@ -391,6 +391,8 @@ void fwrite_char( CHAR_DATA * ch, FILE * fp )
               && ch->was_in_room ) ? ch->was_in_room->vnum : ch->in_room->vnum );
 
    fprintf( fp, "HpManaMove   %d %d %d %d %d %d\n", ch->hit, ch->max_hit, ch->mana, ch->max_mana, ch->move, ch->max_move );
+   fprintf( fp, "Lifeforce    %.0f\n", ch->lifeforce );
+   fprintf( fp, "Lifeforce_max   %.0f\n", ch->max_lifeforce );
    fprintf( fp, "Gold         %d\n", ch->gold );
    fprintf( fp, "Exp          %d\n", ch->exp );
    fprintf( fp, "Height          %d\n", ch->height );
@@ -1490,6 +1492,8 @@ void fread_char( CHAR_DATA * ch, FILE * fp, bool preload, bool copyover )
 
          case 'L':
             KEY( "Level", ch->level, fread_number( fp ) );
+            KEY( "Lifeforce", ch->lifeforce, fread_number( fp ) );
+            KEY( "Lifeforce_max", ch->max_lifeforce, fread_number( fp ) );
             KEY( "LongDescr", ch->long_descr, fread_string( fp ) );
             if( !strcmp( word, "Languages" ) )
             {

@@ -2573,6 +2573,8 @@ void nanny_read_motd( DESCRIPTOR_DATA * d, const char *argument )
       ch->hit = UMAX( 1, ch->max_hit );
       ch->mana = UMAX( 1, ch->max_mana );
       ch->move = ch->max_move;
+      ch->lifeforce = 100; // Adding Lifeforce to Creation - Braska 2021
+      ch->max_lifeforce = 100; // Adding Lifeforce to Creation - Braska 2021
       ch->gold = 0;
       /*
        * Set player birthday to current mud day, -17 years - Samson 10-25-99
@@ -3752,6 +3754,14 @@ void display_prompt( DESCRIPTOR_DATA * d )
                   pstat = ch->max_hit;
                   break;
 
+               case 'l':
+                  pstat = ch->lifeforce;
+                  break;
+
+               case 'L':
+                  pstat = ch->max_lifeforce;
+                  break;
+                  
                case 'm':
                   if( IS_VAMPIRE( ch ) )
                      pstat = 0;

@@ -2146,7 +2146,7 @@ void do_mpscatter( CHAR_DATA* ch, const char* argument)
    CHAR_DATA *victim;
    ROOM_INDEX_DATA *pRoomIndex;
    int low_vnum, high_vnum, rvnum;
-/*   char log_buf[MAX_STRING_LENGTH]; */
+   /*   char log_buf[MAX_STRING_LENGTH]; */
 
    if( !IS_NPC( ch ) || ch->desc || IS_AFFECTED( ch, AFF_CHARM ) )
    {
@@ -2198,19 +2198,14 @@ void do_mpscatter( CHAR_DATA* ch, const char* argument)
    {
       rvnum = number_range( low_vnum, high_vnum );
       pRoomIndex = get_room_index( rvnum );
-/*
-      log_printf( "Scattering.  Checking room %d..", rvnum);
- */
+      /* log_printf( "Scattering.  Checking room %d..", rvnum); */
       if( pRoomIndex )
-/*
-      if ( !IS_SET(pRoomIndex->room_flags, ROOM_PRIVATE)
-      &&   !IS_SET(pRoomIndex->room_flags, ROOM_SOLITARY)
-      &&   !IS_SET(pRoomIndex->room_flags, ROOM_NO_ASTRAL)
-      &&   !IS_SET(pRoomIndex->room_flags, ROOM_PROTOTYPE) )
-      -- still causing problems if every room in range matches
-         these flags, removed for now, flag checks aren't necessary
-	 for this right now anyway
- */
+      /* if ( !IS_SET(pRoomIndex->room_flags, ROOM_PRIVATE)
+      *   &&   !IS_SET(pRoomIndex->room_flags, ROOM_SOLITARY)
+      *   &&   !IS_SET(pRoomIndex->room_flags, ROOM_NO_ASTRAL)
+      *   &&   !IS_SET(pRoomIndex->room_flags, ROOM_PROTOTYPE) )
+      *   -- still causing problems if every room in range matches these flags, removed for now, flag checks aren't necessary
+	   *   for this right now anyway */
          break;
    }
    if( victim->fighting )
@@ -2312,7 +2307,7 @@ void do_mp_damage( CHAR_DATA* ch, const char* argument)
       progbug( "Mpdamage: invalid argument1", ch );
       return;
    }
-/* Am I asking for trouble here or what?  But I need it. -- Blodkai */
+   /* Am I asking for trouble here or what?  But I need it. -- Blodkai */
    if( !str_cmp( arg1, "all" ) )
    {
       for( victim = ch->in_room->first_person; victim; victim = nextinroom )
@@ -2807,7 +2802,7 @@ void do_mpapply( CHAR_DATA* ch, const char* argument)
              victim->name, victim->desc->host,
              race_table[victim->race]->race_name,
              class_table[victim->Class]->who_name, IS_PKILL( victim ) ? "(Deadly)" : "(Peaceful)" );
-/*  log_string( log_buf );*/
+   /*  log_string( log_buf );*/
    to_channel( log_buf, CHANNEL_AUTH, "Auth", LEVEL_IMMORTAL );
    victim->pcdata->auth_state = 1;
    return;
@@ -2873,9 +2868,9 @@ void do_mpapplyb( CHAR_DATA* ch, const char* argument)
 
       case 3:
          ch_printf( victim, "The gods permit you to enter the %s.\r\n", sysdata.mud_name );
-/*  send_to_char( "The gods permit you to enter the Realms of Despair.\r\n", victim);  */
-/* Stat stuff that follows from here to name_stamp is to keep stat-cheats
-   from abusing the auth system -- Blodkai */
+         /*  send_to_char( "The gods permit you to enter the Realms of Despair.\r\n", victim);  */
+         /* Stat stuff that follows from here to name_stamp is to keep stat-cheats
+         *  from abusing the auth system -- Blodkai */
          victim->perm_str = 13;
          victim->perm_dex = 13;
          victim->perm_int = 13;

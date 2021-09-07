@@ -4395,6 +4395,7 @@ void fix_char( CHAR_DATA * ch )
    ch->hit = UMAX( 1, ch->hit );
    ch->mana = UMAX( 1, ch->mana );
    ch->move = UMAX( 1, ch->move );
+   ch->lifeforce = UMAX( 1, ch->lifeforce ); // Adding Lifeforce to fix_char - Braska 2021
    ch->armor = 100;
    ch->mod_str = 0;
    ch->mod_dex = 0;

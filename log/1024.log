@@ -1,0 +1,2864 @@
+Mon Sep  6 10:50:06 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 10:50:06 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 10:50:06 2021 :: Initializing libdl support...
+Mon Sep  6 10:50:06 2021 :: Loading commands...
+Mon Sep  6 10:50:06 2021 :: Loading spec_funs...
+Mon Sep  6 10:50:06 2021 :: Loading sysdata configuration...
+Mon Sep  6 10:50:06 2021 :: Loading socials
+Mon Sep  6 10:50:06 2021 :: Loading skill table
+Mon Sep  6 10:50:06 2021 :: Sorting skill table...
+Mon Sep  6 10:50:06 2021 :: Creating skill table sorted by type...
+Mon Sep  6 10:50:06 2021 :: Remapping slots to sns
+Mon Sep  6 10:50:06 2021 :: Loading classes
+Mon Sep  6 10:50:06 2021 :: Loading races
+Mon Sep  6 10:50:06 2021 :: Loading news data
+Mon Sep  6 10:50:06 2021 :: Loading liquids
+Mon Sep  6 10:50:06 2021 :: Loading mixtures
+Mon Sep  6 10:50:06 2021 :: Loading herb table
+Mon Sep  6 10:50:06 2021 :: Loading tongues
+Mon Sep  6 10:50:06 2021 :: Making wizlist
+Mon Sep  6 10:50:06 2021 :: Loading MSSP Data...
+Mon Sep  6 10:50:06 2021 :: Initializing random number generator
+Mon Sep  6 10:50:06 2021 :: Setting time and weather.
+Mon Sep  6 10:50:06 2021 :: Loading holiday chart...
+Mon Sep  6 10:50:06 2021 :: Loading DNS cache...
+Mon Sep  6 10:50:06 2021 :: Assigning gsn's
+Mon Sep  6 10:50:06 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 10:50:06 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 10:50:06 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 10:50:06 2021 :: Fixing exits
+Mon Sep  6 10:50:06 2021 :: Initializing economy
+Mon Sep  6 10:50:06 2021 :: Resetting areas
+Mon Sep  6 10:50:06 2021 :: Loading buildlist
+Mon Sep  6 10:50:06 2021 :: ../gods/Admin
+Mon Sep  6 10:50:06 2021 :: Loading boards
+Mon Sep  6 10:50:06 2021 :: ../boards/immortal.brd
+Mon Sep  6 10:50:06 2021 :: ../boards/highgod.brd
+Mon Sep  6 10:50:06 2021 :: Loading vault list
+Mon Sep  6 10:50:06 2021 :: $
+Mon Sep  6 10:50:06 2021 ::  Done vaults 
+Mon Sep  6 10:50:06 2021 :: Loading clans
+Mon Sep  6 10:50:06 2021 :: Loading clans...
+Mon Sep  6 10:50:06 2021 :: vampire.gui
+Mon Sep  6 10:50:06 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 10:50:06 2021 :: druid.gui
+Mon Sep  6 10:50:06 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 10:50:06 2021 :: warrior.gui
+Mon Sep  6 10:50:06 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 10:50:06 2021 :: augurer.gui
+Mon Sep  6 10:50:06 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 10:50:06 2021 :: thief.gui
+Mon Sep  6 10:50:06 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 10:50:06 2021 :: cleric.gui
+Mon Sep  6 10:50:06 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 10:50:06 2021 :: mage.gui
+Mon Sep  6 10:50:06 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 10:50:06 2021 :: ranger.gui
+Mon Sep  6 10:50:06 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 10:50:06 2021 :: $
+Mon Sep  6 10:50:06 2021 ::  Done clans 
+Mon Sep  6 10:50:06 2021 :: Loading councils
+Mon Sep  6 10:50:06 2021 :: Loading councils...
+Mon Sep  6 10:50:06 2021 :: $
+Mon Sep  6 10:50:06 2021 ::  Done councils 
+Mon Sep  6 10:50:06 2021 :: Loading deities
+Mon Sep  6 10:50:06 2021 :: Loading deities...
+Mon Sep  6 10:50:06 2021 :: $
+Mon Sep  6 10:50:06 2021 ::  Done deities 
+Mon Sep  6 10:50:06 2021 :: Loading watches
+Mon Sep  6 10:50:06 2021 :: Loading bans
+Mon Sep  6 10:50:06 2021 :: Done.
+Mon Sep  6 10:50:06 2021 :: Loading reserved names
+Mon Sep  6 10:50:06 2021 :: Loading corpses
+Mon Sep  6 10:50:06 2021 :: Loading Immortal Hosts
+Mon Sep  6 10:50:06 2021 :: Done.
+Mon Sep  6 10:50:06 2021 :: Loading Projects
+Mon Sep  6 10:50:06 2021 :: Loading Morphs
+Mon Sep  6 10:50:06 2021 :: Done.
+Mon Sep  6 10:50:06 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 10:50:06 2021 :: Loading login messages
+Mon Sep  6 10:50:06 2021 :: Initializing socket
+Mon Sep  6 10:50:06 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 10:50:16 2021 :: Preloading player data for: Admin (9K)
+Mon Sep  6 10:50:17 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 10:50:17 2021 :: Admin (142.118.223.121) has connected.
+Read_from_descriptor: Connection reset by peer
+Mon Sep  6 14:01:30 2021 :: Preloading player data for: Braska (3K)
+Mon Sep  6 14:01:31 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 14:01:31 2021 :: Braska (142.118.223.121) has connected.
+Mon Sep  6 14:45:50 2021 :: Braska has quit (Room 2).
+Mon Sep  6 15:19:40 2021 :: Log Admin: hotboot
+Mon Sep  6 15:19:40 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 15:19:40 2021 :: Preserving world state....
+Mon Sep  6 15:19:40 2021 :: Saving player files and connection states....
+Mon Sep  6 15:19:40 2021 :: Executing hotboot....
+Mon Sep  6 15:19:40 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 15:19:40 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 15:19:40 2021 :: Initializing libdl support...
+Mon Sep  6 15:19:40 2021 :: Loading commands...
+Mon Sep  6 15:19:40 2021 :: Loading spec_funs...
+Mon Sep  6 15:19:40 2021 :: Loading sysdata configuration...
+Mon Sep  6 15:19:40 2021 :: Loading socials
+Mon Sep  6 15:19:40 2021 :: Loading skill table
+Mon Sep  6 15:19:40 2021 :: Sorting skill table...
+Mon Sep  6 15:19:40 2021 :: Creating skill table sorted by type...
+Mon Sep  6 15:19:40 2021 :: Remapping slots to sns
+Mon Sep  6 15:19:40 2021 :: Loading classes
+Mon Sep  6 15:19:40 2021 :: Loading races
+Mon Sep  6 15:19:40 2021 :: Loading news data
+Mon Sep  6 15:19:40 2021 :: Loading liquids
+Mon Sep  6 15:19:40 2021 :: Loading mixtures
+Mon Sep  6 15:19:40 2021 :: Loading herb table
+Mon Sep  6 15:19:40 2021 :: Loading tongues
+Mon Sep  6 15:19:40 2021 :: Making wizlist
+Mon Sep  6 15:19:40 2021 :: Loading MSSP Data...
+Mon Sep  6 15:19:40 2021 :: Initializing random number generator
+Mon Sep  6 15:19:40 2021 :: Setting time and weather.
+Mon Sep  6 15:19:40 2021 :: Loading holiday chart...
+Mon Sep  6 15:19:40 2021 :: Loading DNS cache...
+Mon Sep  6 15:19:40 2021 :: Assigning gsn's
+Mon Sep  6 15:19:40 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 15:19:40 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:19:40 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 15:19:40 2021 :: Fixing exits
+Mon Sep  6 15:19:40 2021 :: Initializing economy
+Mon Sep  6 15:19:40 2021 :: Loading world state...
+Mon Sep  6 15:19:40 2021 :: World state: loading mobs
+Mon Sep  6 15:19:40 2021 :: World state: loading objs
+Mon Sep  6 15:19:40 2021 :: Resetting areas
+Mon Sep  6 15:19:40 2021 :: Loading buildlist
+Mon Sep  6 15:19:40 2021 :: ../gods/Admin
+Mon Sep  6 15:19:40 2021 :: Loading boards
+Mon Sep  6 15:19:40 2021 :: ../boards/immortal.brd
+Mon Sep  6 15:19:40 2021 :: ../boards/highgod.brd
+Mon Sep  6 15:19:40 2021 :: Loading vault list
+Mon Sep  6 15:19:40 2021 :: $
+Mon Sep  6 15:19:40 2021 ::  Done vaults 
+Mon Sep  6 15:19:40 2021 :: Loading clans
+Mon Sep  6 15:19:40 2021 :: Loading clans...
+Mon Sep  6 15:19:40 2021 :: vampire.gui
+Mon Sep  6 15:19:40 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 15:19:40 2021 :: druid.gui
+Mon Sep  6 15:19:40 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 15:19:40 2021 :: warrior.gui
+Mon Sep  6 15:19:40 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 15:19:40 2021 :: augurer.gui
+Mon Sep  6 15:19:40 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 15:19:40 2021 :: thief.gui
+Mon Sep  6 15:19:40 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 15:19:40 2021 :: cleric.gui
+Mon Sep  6 15:19:40 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 15:19:40 2021 :: mage.gui
+Mon Sep  6 15:19:40 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 15:19:40 2021 :: ranger.gui
+Mon Sep  6 15:19:40 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 15:19:40 2021 :: $
+Mon Sep  6 15:19:40 2021 ::  Done clans 
+Mon Sep  6 15:19:40 2021 :: Loading councils
+Mon Sep  6 15:19:40 2021 :: Loading councils...
+Mon Sep  6 15:19:40 2021 :: $
+Mon Sep  6 15:19:40 2021 ::  Done councils 
+Mon Sep  6 15:19:40 2021 :: Loading deities
+Mon Sep  6 15:19:40 2021 :: Loading deities...
+Mon Sep  6 15:19:40 2021 :: $
+Mon Sep  6 15:19:40 2021 ::  Done deities 
+Mon Sep  6 15:19:40 2021 :: Loading watches
+Mon Sep  6 15:19:40 2021 :: Loading bans
+Mon Sep  6 15:19:40 2021 :: Done.
+Mon Sep  6 15:19:40 2021 :: Loading reserved names
+Mon Sep  6 15:19:40 2021 :: Loading corpses
+Mon Sep  6 15:19:40 2021 :: Loading Immortal Hosts
+Mon Sep  6 15:19:40 2021 :: Done.
+Mon Sep  6 15:19:40 2021 :: Loading Projects
+Mon Sep  6 15:19:40 2021 :: Loading Morphs
+Mon Sep  6 15:19:40 2021 :: Done.
+Mon Sep  6 15:19:40 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 15:19:40 2021 :: Loading login messages
+Mon Sep  6 15:19:40 2021 :: Initializing socket
+Mon Sep  6 15:19:40 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 15:19:40 2021 :: Initiating hotboot recovery.
+Mon Sep  6 15:19:40 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 15:19:40 2021 :: Hotboot recovery complete.
+Mon Sep  6 15:34:31 2021 :: Log Admin: hotboot
+Mon Sep  6 15:34:31 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 15:34:31 2021 :: Preserving world state....
+Mon Sep  6 15:34:31 2021 :: Saving player files and connection states....
+Mon Sep  6 15:34:31 2021 :: Executing hotboot....
+Mon Sep  6 15:34:31 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 15:34:31 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 15:34:31 2021 :: Initializing libdl support...
+Mon Sep  6 15:34:31 2021 :: Loading commands...
+Mon Sep  6 15:34:31 2021 :: Loading spec_funs...
+Mon Sep  6 15:34:31 2021 :: Loading sysdata configuration...
+Mon Sep  6 15:34:31 2021 :: Loading socials
+Mon Sep  6 15:34:31 2021 :: Loading skill table
+Mon Sep  6 15:34:31 2021 :: Sorting skill table...
+Mon Sep  6 15:34:31 2021 :: Creating skill table sorted by type...
+Mon Sep  6 15:34:31 2021 :: Remapping slots to sns
+Mon Sep  6 15:34:31 2021 :: Loading classes
+Mon Sep  6 15:34:31 2021 :: Loading races
+Mon Sep  6 15:34:31 2021 :: Loading news data
+Mon Sep  6 15:34:31 2021 :: Loading liquids
+Mon Sep  6 15:34:31 2021 :: Loading mixtures
+Mon Sep  6 15:34:31 2021 :: Loading herb table
+Mon Sep  6 15:34:31 2021 :: Loading tongues
+Mon Sep  6 15:34:31 2021 :: Making wizlist
+Mon Sep  6 15:34:31 2021 :: Loading MSSP Data...
+Mon Sep  6 15:34:31 2021 :: Initializing random number generator
+Mon Sep  6 15:34:31 2021 :: Setting time and weather.
+Mon Sep  6 15:34:31 2021 :: Loading holiday chart...
+Mon Sep  6 15:34:31 2021 :: Loading DNS cache...
+Mon Sep  6 15:34:31 2021 :: Assigning gsn's
+Mon Sep  6 15:34:31 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 15:34:31 2021 :: Fixing exits
+Mon Sep  6 15:34:31 2021 :: Initializing economy
+Mon Sep  6 15:34:31 2021 :: Loading world state...
+Mon Sep  6 15:34:31 2021 :: World state: loading mobs
+Mon Sep  6 15:34:31 2021 :: World state: loading objs
+Mon Sep  6 15:34:31 2021 :: Resetting areas
+Mon Sep  6 15:34:31 2021 :: Loading buildlist
+Mon Sep  6 15:34:31 2021 :: ../gods/Admin
+Mon Sep  6 15:34:31 2021 :: Loading boards
+Mon Sep  6 15:34:31 2021 :: ../boards/immortal.brd
+Mon Sep  6 15:34:31 2021 :: ../boards/highgod.brd
+Mon Sep  6 15:34:31 2021 :: Loading vault list
+Mon Sep  6 15:34:31 2021 :: $
+Mon Sep  6 15:34:31 2021 ::  Done vaults 
+Mon Sep  6 15:34:31 2021 :: Loading clans
+Mon Sep  6 15:34:31 2021 :: Loading clans...
+Mon Sep  6 15:34:31 2021 :: vampire.gui
+Mon Sep  6 15:34:31 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 15:34:31 2021 :: druid.gui
+Mon Sep  6 15:34:31 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 15:34:31 2021 :: warrior.gui
+Mon Sep  6 15:34:31 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 15:34:31 2021 :: augurer.gui
+Mon Sep  6 15:34:31 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 15:34:31 2021 :: thief.gui
+Mon Sep  6 15:34:31 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 15:34:31 2021 :: cleric.gui
+Mon Sep  6 15:34:31 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 15:34:31 2021 :: mage.gui
+Mon Sep  6 15:34:31 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 15:34:31 2021 :: ranger.gui
+Mon Sep  6 15:34:31 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 15:34:31 2021 :: $
+Mon Sep  6 15:34:31 2021 ::  Done clans 
+Mon Sep  6 15:34:31 2021 :: Loading councils
+Mon Sep  6 15:34:31 2021 :: Loading councils...
+Mon Sep  6 15:34:31 2021 :: $
+Mon Sep  6 15:34:31 2021 ::  Done councils 
+Mon Sep  6 15:34:31 2021 :: Loading deities
+Mon Sep  6 15:34:31 2021 :: Loading deities...
+Mon Sep  6 15:34:31 2021 :: $
+Mon Sep  6 15:34:31 2021 ::  Done deities 
+Mon Sep  6 15:34:31 2021 :: Loading watches
+Mon Sep  6 15:34:31 2021 :: Loading bans
+Mon Sep  6 15:34:31 2021 :: Done.
+Mon Sep  6 15:34:31 2021 :: Loading reserved names
+Mon Sep  6 15:34:31 2021 :: Loading corpses
+Mon Sep  6 15:34:31 2021 :: Loading Immortal Hosts
+Mon Sep  6 15:34:31 2021 :: Done.
+Mon Sep  6 15:34:31 2021 :: Loading Projects
+Mon Sep  6 15:34:31 2021 :: Loading Morphs
+Mon Sep  6 15:34:31 2021 :: Done.
+Mon Sep  6 15:34:31 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 15:34:31 2021 :: Loading login messages
+Mon Sep  6 15:34:31 2021 :: Initializing socket
+Mon Sep  6 15:34:31 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 15:34:31 2021 :: Initiating hotboot recovery.
+Mon Sep  6 15:34:31 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: ../player/a/Admin LINE: 13
+Mon Sep  6 15:34:31 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:34:31 2021 :: [*****] FILE: ../player/a/Admin LINE: 14
+Mon Sep  6 15:34:31 2021 :: Hotboot recovery complete.
+Mon Sep  6 15:35:35 2021 :: Log Admin: hotboot
+Mon Sep  6 15:35:35 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 15:35:35 2021 :: Preserving world state....
+Mon Sep  6 15:35:35 2021 :: Saving player files and connection states....
+Mon Sep  6 15:35:35 2021 :: Executing hotboot....
+Mon Sep  6 15:35:35 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 15:35:35 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 15:35:35 2021 :: Initializing libdl support...
+Mon Sep  6 15:35:35 2021 :: Loading commands...
+Mon Sep  6 15:35:35 2021 :: Loading spec_funs...
+Mon Sep  6 15:35:35 2021 :: Loading sysdata configuration...
+Mon Sep  6 15:35:35 2021 :: Loading socials
+Mon Sep  6 15:35:35 2021 :: Loading skill table
+Mon Sep  6 15:35:35 2021 :: Sorting skill table...
+Mon Sep  6 15:35:35 2021 :: Creating skill table sorted by type...
+Mon Sep  6 15:35:35 2021 :: Remapping slots to sns
+Mon Sep  6 15:35:35 2021 :: Loading classes
+Mon Sep  6 15:35:35 2021 :: Loading races
+Mon Sep  6 15:35:35 2021 :: Loading news data
+Mon Sep  6 15:35:35 2021 :: Loading liquids
+Mon Sep  6 15:35:35 2021 :: Loading mixtures
+Mon Sep  6 15:35:35 2021 :: Loading herb table
+Mon Sep  6 15:35:35 2021 :: Loading tongues
+Mon Sep  6 15:35:35 2021 :: Making wizlist
+Mon Sep  6 15:35:35 2021 :: Loading MSSP Data...
+Mon Sep  6 15:35:35 2021 :: Initializing random number generator
+Mon Sep  6 15:35:35 2021 :: Setting time and weather.
+Mon Sep  6 15:35:35 2021 :: Loading holiday chart...
+Mon Sep  6 15:35:35 2021 :: Loading DNS cache...
+Mon Sep  6 15:35:35 2021 :: Assigning gsn's
+Mon Sep  6 15:35:35 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 15:35:35 2021 :: Fixing exits
+Mon Sep  6 15:35:35 2021 :: Initializing economy
+Mon Sep  6 15:35:35 2021 :: Loading world state...
+Mon Sep  6 15:35:35 2021 :: World state: loading mobs
+Mon Sep  6 15:35:35 2021 :: World state: loading objs
+Mon Sep  6 15:35:35 2021 :: Resetting areas
+Mon Sep  6 15:35:35 2021 :: Loading buildlist
+Mon Sep  6 15:35:35 2021 :: ../gods/Admin
+Mon Sep  6 15:35:35 2021 :: Loading boards
+Mon Sep  6 15:35:35 2021 :: ../boards/immortal.brd
+Mon Sep  6 15:35:35 2021 :: ../boards/highgod.brd
+Mon Sep  6 15:35:35 2021 :: Loading vault list
+Mon Sep  6 15:35:35 2021 :: $
+Mon Sep  6 15:35:35 2021 ::  Done vaults 
+Mon Sep  6 15:35:35 2021 :: Loading clans
+Mon Sep  6 15:35:35 2021 :: Loading clans...
+Mon Sep  6 15:35:35 2021 :: vampire.gui
+Mon Sep  6 15:35:35 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 15:35:35 2021 :: druid.gui
+Mon Sep  6 15:35:35 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 15:35:35 2021 :: warrior.gui
+Mon Sep  6 15:35:35 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 15:35:35 2021 :: augurer.gui
+Mon Sep  6 15:35:35 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 15:35:35 2021 :: thief.gui
+Mon Sep  6 15:35:35 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 15:35:35 2021 :: cleric.gui
+Mon Sep  6 15:35:35 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 15:35:35 2021 :: mage.gui
+Mon Sep  6 15:35:35 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 15:35:35 2021 :: ranger.gui
+Mon Sep  6 15:35:35 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 15:35:35 2021 :: $
+Mon Sep  6 15:35:35 2021 ::  Done clans 
+Mon Sep  6 15:35:35 2021 :: Loading councils
+Mon Sep  6 15:35:35 2021 :: Loading councils...
+Mon Sep  6 15:35:35 2021 :: $
+Mon Sep  6 15:35:35 2021 ::  Done councils 
+Mon Sep  6 15:35:35 2021 :: Loading deities
+Mon Sep  6 15:35:35 2021 :: Loading deities...
+Mon Sep  6 15:35:35 2021 :: $
+Mon Sep  6 15:35:35 2021 ::  Done deities 
+Mon Sep  6 15:35:35 2021 :: Loading watches
+Mon Sep  6 15:35:35 2021 :: Loading bans
+Mon Sep  6 15:35:35 2021 :: Done.
+Mon Sep  6 15:35:35 2021 :: Loading reserved names
+Mon Sep  6 15:35:35 2021 :: Loading corpses
+Mon Sep  6 15:35:35 2021 :: Loading Immortal Hosts
+Mon Sep  6 15:35:35 2021 :: Done.
+Mon Sep  6 15:35:35 2021 :: Loading Projects
+Mon Sep  6 15:35:35 2021 :: Loading Morphs
+Mon Sep  6 15:35:35 2021 :: Done.
+Mon Sep  6 15:35:35 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 15:35:35 2021 :: Loading login messages
+Mon Sep  6 15:35:35 2021 :: Initializing socket
+Mon Sep  6 15:35:35 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 15:35:35 2021 :: Initiating hotboot recovery.
+Mon Sep  6 15:35:35 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: ../player/a/Admin LINE: 13
+Mon Sep  6 15:35:35 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:35:35 2021 :: [*****] FILE: ../player/a/Admin LINE: 14
+Mon Sep  6 15:35:35 2021 :: Hotboot recovery complete.
+Mon Sep  6 15:36:11 2021 :: Log Admin: hotboot
+Mon Sep  6 15:36:11 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 15:36:11 2021 :: Preserving world state....
+Mon Sep  6 15:36:11 2021 :: Saving player files and connection states....
+Mon Sep  6 15:36:11 2021 :: Executing hotboot....
+Mon Sep  6 15:36:11 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 15:36:11 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 15:36:11 2021 :: Initializing libdl support...
+Mon Sep  6 15:36:11 2021 :: Loading commands...
+Mon Sep  6 15:36:11 2021 :: Loading spec_funs...
+Mon Sep  6 15:36:11 2021 :: Loading sysdata configuration...
+Mon Sep  6 15:36:11 2021 :: Loading socials
+Mon Sep  6 15:36:11 2021 :: Loading skill table
+Mon Sep  6 15:36:11 2021 :: Sorting skill table...
+Mon Sep  6 15:36:11 2021 :: Creating skill table sorted by type...
+Mon Sep  6 15:36:11 2021 :: Remapping slots to sns
+Mon Sep  6 15:36:11 2021 :: Loading classes
+Mon Sep  6 15:36:11 2021 :: Loading races
+Mon Sep  6 15:36:11 2021 :: Loading news data
+Mon Sep  6 15:36:11 2021 :: Loading liquids
+Mon Sep  6 15:36:11 2021 :: Loading mixtures
+Mon Sep  6 15:36:11 2021 :: Loading herb table
+Mon Sep  6 15:36:11 2021 :: Loading tongues
+Mon Sep  6 15:36:11 2021 :: Making wizlist
+Mon Sep  6 15:36:11 2021 :: Loading MSSP Data...
+Mon Sep  6 15:36:11 2021 :: Initializing random number generator
+Mon Sep  6 15:36:11 2021 :: Setting time and weather.
+Mon Sep  6 15:36:11 2021 :: Loading holiday chart...
+Mon Sep  6 15:36:11 2021 :: Loading DNS cache...
+Mon Sep  6 15:36:11 2021 :: Assigning gsn's
+Mon Sep  6 15:36:11 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 15:36:11 2021 :: Fixing exits
+Mon Sep  6 15:36:11 2021 :: Initializing economy
+Mon Sep  6 15:36:11 2021 :: Loading world state...
+Mon Sep  6 15:36:11 2021 :: World state: loading mobs
+Mon Sep  6 15:36:11 2021 :: World state: loading objs
+Mon Sep  6 15:36:11 2021 :: Resetting areas
+Mon Sep  6 15:36:11 2021 :: Loading buildlist
+Mon Sep  6 15:36:11 2021 :: ../gods/Admin
+Mon Sep  6 15:36:11 2021 :: Loading boards
+Mon Sep  6 15:36:11 2021 :: ../boards/immortal.brd
+Mon Sep  6 15:36:11 2021 :: ../boards/highgod.brd
+Mon Sep  6 15:36:11 2021 :: Loading vault list
+Mon Sep  6 15:36:11 2021 :: $
+Mon Sep  6 15:36:11 2021 ::  Done vaults 
+Mon Sep  6 15:36:11 2021 :: Loading clans
+Mon Sep  6 15:36:11 2021 :: Loading clans...
+Mon Sep  6 15:36:11 2021 :: vampire.gui
+Mon Sep  6 15:36:11 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 15:36:11 2021 :: druid.gui
+Mon Sep  6 15:36:11 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 15:36:11 2021 :: warrior.gui
+Mon Sep  6 15:36:11 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 15:36:11 2021 :: augurer.gui
+Mon Sep  6 15:36:11 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 15:36:11 2021 :: thief.gui
+Mon Sep  6 15:36:11 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 15:36:11 2021 :: cleric.gui
+Mon Sep  6 15:36:11 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 15:36:11 2021 :: mage.gui
+Mon Sep  6 15:36:11 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 15:36:11 2021 :: ranger.gui
+Mon Sep  6 15:36:11 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 15:36:11 2021 :: $
+Mon Sep  6 15:36:11 2021 ::  Done clans 
+Mon Sep  6 15:36:11 2021 :: Loading councils
+Mon Sep  6 15:36:11 2021 :: Loading councils...
+Mon Sep  6 15:36:11 2021 :: $
+Mon Sep  6 15:36:11 2021 ::  Done councils 
+Mon Sep  6 15:36:11 2021 :: Loading deities
+Mon Sep  6 15:36:11 2021 :: Loading deities...
+Mon Sep  6 15:36:11 2021 :: $
+Mon Sep  6 15:36:11 2021 ::  Done deities 
+Mon Sep  6 15:36:11 2021 :: Loading watches
+Mon Sep  6 15:36:11 2021 :: Loading bans
+Mon Sep  6 15:36:11 2021 :: Done.
+Mon Sep  6 15:36:11 2021 :: Loading reserved names
+Mon Sep  6 15:36:11 2021 :: Loading corpses
+Mon Sep  6 15:36:11 2021 :: Loading Immortal Hosts
+Mon Sep  6 15:36:11 2021 :: Done.
+Mon Sep  6 15:36:11 2021 :: Loading Projects
+Mon Sep  6 15:36:11 2021 :: Loading Morphs
+Mon Sep  6 15:36:11 2021 :: Done.
+Mon Sep  6 15:36:11 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 15:36:11 2021 :: Loading login messages
+Mon Sep  6 15:36:11 2021 :: Initializing socket
+Mon Sep  6 15:36:11 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 15:36:11 2021 :: Initiating hotboot recovery.
+Mon Sep  6 15:36:11 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: ../player/a/Admin LINE: 13
+Mon Sep  6 15:36:11 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:36:11 2021 :: [*****] FILE: ../player/a/Admin LINE: 14
+Mon Sep  6 15:36:11 2021 :: Hotboot recovery complete.
+Mon Sep  6 15:37:23 2021 :: Log Admin: hotboot
+Mon Sep  6 15:37:23 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 15:37:23 2021 :: Preserving world state....
+Mon Sep  6 15:37:23 2021 :: Saving player files and connection states....
+Mon Sep  6 15:37:23 2021 :: Executing hotboot....
+Mon Sep  6 15:37:23 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 15:37:23 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 15:37:23 2021 :: Initializing libdl support...
+Mon Sep  6 15:37:23 2021 :: Loading commands...
+Mon Sep  6 15:37:23 2021 :: Loading spec_funs...
+Mon Sep  6 15:37:23 2021 :: Loading sysdata configuration...
+Mon Sep  6 15:37:23 2021 :: Loading socials
+Mon Sep  6 15:37:23 2021 :: Loading skill table
+Mon Sep  6 15:37:23 2021 :: Sorting skill table...
+Mon Sep  6 15:37:23 2021 :: Creating skill table sorted by type...
+Mon Sep  6 15:37:23 2021 :: Remapping slots to sns
+Mon Sep  6 15:37:23 2021 :: Loading classes
+Mon Sep  6 15:37:23 2021 :: Loading races
+Mon Sep  6 15:37:23 2021 :: Loading news data
+Mon Sep  6 15:37:23 2021 :: Loading liquids
+Mon Sep  6 15:37:23 2021 :: Loading mixtures
+Mon Sep  6 15:37:23 2021 :: Loading herb table
+Mon Sep  6 15:37:23 2021 :: Loading tongues
+Mon Sep  6 15:37:23 2021 :: Making wizlist
+Mon Sep  6 15:37:23 2021 :: Loading MSSP Data...
+Mon Sep  6 15:37:23 2021 :: Initializing random number generator
+Mon Sep  6 15:37:23 2021 :: Setting time and weather.
+Mon Sep  6 15:37:23 2021 :: Loading holiday chart...
+Mon Sep  6 15:37:23 2021 :: Loading DNS cache...
+Mon Sep  6 15:37:23 2021 :: Assigning gsn's
+Mon Sep  6 15:37:23 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 15:37:23 2021 :: Fixing exits
+Mon Sep  6 15:37:23 2021 :: Initializing economy
+Mon Sep  6 15:37:23 2021 :: Loading world state...
+Mon Sep  6 15:37:23 2021 :: World state: loading mobs
+Mon Sep  6 15:37:23 2021 :: World state: loading objs
+Mon Sep  6 15:37:23 2021 :: Resetting areas
+Mon Sep  6 15:37:23 2021 :: Loading buildlist
+Mon Sep  6 15:37:23 2021 :: ../gods/Admin
+Mon Sep  6 15:37:23 2021 :: Loading boards
+Mon Sep  6 15:37:23 2021 :: ../boards/immortal.brd
+Mon Sep  6 15:37:23 2021 :: ../boards/highgod.brd
+Mon Sep  6 15:37:23 2021 :: Loading vault list
+Mon Sep  6 15:37:23 2021 :: $
+Mon Sep  6 15:37:23 2021 ::  Done vaults 
+Mon Sep  6 15:37:23 2021 :: Loading clans
+Mon Sep  6 15:37:23 2021 :: Loading clans...
+Mon Sep  6 15:37:23 2021 :: vampire.gui
+Mon Sep  6 15:37:23 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 15:37:23 2021 :: druid.gui
+Mon Sep  6 15:37:23 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 15:37:23 2021 :: warrior.gui
+Mon Sep  6 15:37:23 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 15:37:23 2021 :: augurer.gui
+Mon Sep  6 15:37:23 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 15:37:23 2021 :: thief.gui
+Mon Sep  6 15:37:23 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 15:37:23 2021 :: cleric.gui
+Mon Sep  6 15:37:23 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 15:37:23 2021 :: mage.gui
+Mon Sep  6 15:37:23 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 15:37:23 2021 :: ranger.gui
+Mon Sep  6 15:37:23 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 15:37:23 2021 :: $
+Mon Sep  6 15:37:23 2021 ::  Done clans 
+Mon Sep  6 15:37:23 2021 :: Loading councils
+Mon Sep  6 15:37:23 2021 :: Loading councils...
+Mon Sep  6 15:37:23 2021 :: $
+Mon Sep  6 15:37:23 2021 ::  Done councils 
+Mon Sep  6 15:37:23 2021 :: Loading deities
+Mon Sep  6 15:37:23 2021 :: Loading deities...
+Mon Sep  6 15:37:23 2021 :: $
+Mon Sep  6 15:37:23 2021 ::  Done deities 
+Mon Sep  6 15:37:23 2021 :: Loading watches
+Mon Sep  6 15:37:23 2021 :: Loading bans
+Mon Sep  6 15:37:23 2021 :: Done.
+Mon Sep  6 15:37:23 2021 :: Loading reserved names
+Mon Sep  6 15:37:23 2021 :: Loading corpses
+Mon Sep  6 15:37:23 2021 :: Loading Immortal Hosts
+Mon Sep  6 15:37:23 2021 :: Done.
+Mon Sep  6 15:37:23 2021 :: Loading Projects
+Mon Sep  6 15:37:23 2021 :: Loading Morphs
+Mon Sep  6 15:37:23 2021 :: Done.
+Mon Sep  6 15:37:23 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 15:37:23 2021 :: Loading login messages
+Mon Sep  6 15:37:23 2021 :: Initializing socket
+Mon Sep  6 15:37:23 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 15:37:23 2021 :: Initiating hotboot recovery.
+Mon Sep  6 15:37:23 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: ../player/a/Admin LINE: 13
+Mon Sep  6 15:37:23 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:37:23 2021 :: [*****] FILE: ../player/a/Admin LINE: 14
+Mon Sep  6 15:37:23 2021 :: Hotboot recovery complete.
+Mon Sep  6 15:50:55 2021 :: Preloading player data for: Braska (3K)
+Mon Sep  6 15:50:56 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 15:50:56 2021 :: Braska (142.118.223.121) has connected.
+Mon Sep  6 15:53:49 2021 :: Log Admin: hotboot
+Mon Sep  6 15:53:49 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 15:53:49 2021 :: Preserving world state....
+Mon Sep  6 15:53:49 2021 :: Saving player files and connection states....
+Mon Sep  6 15:53:49 2021 :: Executing hotboot....
+Mon Sep  6 15:53:49 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 15:53:49 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 15:53:49 2021 :: Initializing libdl support...
+Mon Sep  6 15:53:49 2021 :: Loading commands...
+Mon Sep  6 15:53:49 2021 :: Loading spec_funs...
+Mon Sep  6 15:53:49 2021 :: Loading sysdata configuration...
+Mon Sep  6 15:53:49 2021 :: Loading socials
+Mon Sep  6 15:53:49 2021 :: Loading skill table
+Mon Sep  6 15:53:49 2021 :: Sorting skill table...
+Mon Sep  6 15:53:49 2021 :: Creating skill table sorted by type...
+Mon Sep  6 15:53:49 2021 :: Remapping slots to sns
+Mon Sep  6 15:53:49 2021 :: Loading classes
+Mon Sep  6 15:53:49 2021 :: Loading races
+Mon Sep  6 15:53:49 2021 :: Loading news data
+Mon Sep  6 15:53:49 2021 :: Loading liquids
+Mon Sep  6 15:53:49 2021 :: Loading mixtures
+Mon Sep  6 15:53:49 2021 :: Loading herb table
+Mon Sep  6 15:53:49 2021 :: Loading tongues
+Mon Sep  6 15:53:49 2021 :: Making wizlist
+Mon Sep  6 15:53:49 2021 :: Loading MSSP Data...
+Mon Sep  6 15:53:49 2021 :: Initializing random number generator
+Mon Sep  6 15:53:49 2021 :: Setting time and weather.
+Mon Sep  6 15:53:49 2021 :: Loading holiday chart...
+Mon Sep  6 15:53:49 2021 :: Loading DNS cache...
+Mon Sep  6 15:53:49 2021 :: Assigning gsn's
+Mon Sep  6 15:53:49 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 15:53:49 2021 :: Fixing exits
+Mon Sep  6 15:53:49 2021 :: Initializing economy
+Mon Sep  6 15:53:49 2021 :: Loading world state...
+Mon Sep  6 15:53:49 2021 :: World state: loading mobs
+Mon Sep  6 15:53:49 2021 :: World state: loading objs
+Mon Sep  6 15:53:49 2021 :: Resetting areas
+Mon Sep  6 15:53:49 2021 :: Loading buildlist
+Mon Sep  6 15:53:49 2021 :: ../gods/Admin
+Mon Sep  6 15:53:49 2021 :: Loading boards
+Mon Sep  6 15:53:49 2021 :: ../boards/immortal.brd
+Mon Sep  6 15:53:49 2021 :: ../boards/highgod.brd
+Mon Sep  6 15:53:49 2021 :: Loading vault list
+Mon Sep  6 15:53:49 2021 :: $
+Mon Sep  6 15:53:49 2021 ::  Done vaults 
+Mon Sep  6 15:53:49 2021 :: Loading clans
+Mon Sep  6 15:53:49 2021 :: Loading clans...
+Mon Sep  6 15:53:49 2021 :: vampire.gui
+Mon Sep  6 15:53:49 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 15:53:49 2021 :: druid.gui
+Mon Sep  6 15:53:49 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 15:53:49 2021 :: warrior.gui
+Mon Sep  6 15:53:49 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 15:53:49 2021 :: augurer.gui
+Mon Sep  6 15:53:49 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 15:53:49 2021 :: thief.gui
+Mon Sep  6 15:53:49 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 15:53:49 2021 :: cleric.gui
+Mon Sep  6 15:53:49 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 15:53:49 2021 :: mage.gui
+Mon Sep  6 15:53:49 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 15:53:49 2021 :: ranger.gui
+Mon Sep  6 15:53:49 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 15:53:49 2021 :: $
+Mon Sep  6 15:53:49 2021 ::  Done clans 
+Mon Sep  6 15:53:49 2021 :: Loading councils
+Mon Sep  6 15:53:49 2021 :: Loading councils...
+Mon Sep  6 15:53:49 2021 :: $
+Mon Sep  6 15:53:49 2021 ::  Done councils 
+Mon Sep  6 15:53:49 2021 :: Loading deities
+Mon Sep  6 15:53:49 2021 :: Loading deities...
+Mon Sep  6 15:53:49 2021 :: $
+Mon Sep  6 15:53:49 2021 ::  Done deities 
+Mon Sep  6 15:53:49 2021 :: Loading watches
+Mon Sep  6 15:53:49 2021 :: Loading bans
+Mon Sep  6 15:53:49 2021 :: Done.
+Mon Sep  6 15:53:49 2021 :: Loading reserved names
+Mon Sep  6 15:53:49 2021 :: Loading corpses
+Mon Sep  6 15:53:49 2021 :: Loading Immortal Hosts
+Mon Sep  6 15:53:49 2021 :: Done.
+Mon Sep  6 15:53:49 2021 :: Loading Projects
+Mon Sep  6 15:53:49 2021 :: Loading Morphs
+Mon Sep  6 15:53:49 2021 :: Done.
+Mon Sep  6 15:53:49 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 15:53:49 2021 :: Loading login messages
+Mon Sep  6 15:53:49 2021 :: Initializing socket
+Mon Sep  6 15:53:49 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 15:53:49 2021 :: Initiating hotboot recovery.
+Mon Sep  6 15:53:49 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: ../player/a/Admin LINE: 13
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: ../player/a/Admin LINE: 14
+Mon Sep  6 15:53:49 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: ../player/b/Braska LINE: 13
+Mon Sep  6 15:53:49 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:53:49 2021 :: [*****] FILE: ../player/b/Braska LINE: 14
+Mon Sep  6 15:53:49 2021 :: Hotboot recovery complete.
+Mon Sep  6 15:54:08 2021 :: Log Admin: hotboot
+Mon Sep  6 15:54:08 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 15:54:08 2021 :: Preserving world state....
+Mon Sep  6 15:54:08 2021 :: Saving player files and connection states....
+Mon Sep  6 15:54:08 2021 :: Executing hotboot....
+Mon Sep  6 15:54:08 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 15:54:08 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 15:54:08 2021 :: Initializing libdl support...
+Mon Sep  6 15:54:08 2021 :: Loading commands...
+Mon Sep  6 15:54:08 2021 :: Loading spec_funs...
+Mon Sep  6 15:54:08 2021 :: Loading sysdata configuration...
+Mon Sep  6 15:54:08 2021 :: Loading socials
+Mon Sep  6 15:54:08 2021 :: Loading skill table
+Mon Sep  6 15:54:08 2021 :: Sorting skill table...
+Mon Sep  6 15:54:08 2021 :: Creating skill table sorted by type...
+Mon Sep  6 15:54:08 2021 :: Remapping slots to sns
+Mon Sep  6 15:54:08 2021 :: Loading classes
+Mon Sep  6 15:54:08 2021 :: Loading races
+Mon Sep  6 15:54:08 2021 :: Loading news data
+Mon Sep  6 15:54:08 2021 :: Loading liquids
+Mon Sep  6 15:54:08 2021 :: Loading mixtures
+Mon Sep  6 15:54:08 2021 :: Loading herb table
+Mon Sep  6 15:54:08 2021 :: Loading tongues
+Mon Sep  6 15:54:08 2021 :: Making wizlist
+Mon Sep  6 15:54:08 2021 :: Loading MSSP Data...
+Mon Sep  6 15:54:08 2021 :: Initializing random number generator
+Mon Sep  6 15:54:08 2021 :: Setting time and weather.
+Mon Sep  6 15:54:08 2021 :: Loading holiday chart...
+Mon Sep  6 15:54:08 2021 :: Loading DNS cache...
+Mon Sep  6 15:54:08 2021 :: Assigning gsn's
+Mon Sep  6 15:54:08 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 15:54:08 2021 :: Fixing exits
+Mon Sep  6 15:54:08 2021 :: Initializing economy
+Mon Sep  6 15:54:08 2021 :: Loading world state...
+Mon Sep  6 15:54:08 2021 :: World state: loading mobs
+Mon Sep  6 15:54:08 2021 :: World state: loading objs
+Mon Sep  6 15:54:08 2021 :: Resetting areas
+Mon Sep  6 15:54:08 2021 :: Loading buildlist
+Mon Sep  6 15:54:08 2021 :: ../gods/Admin
+Mon Sep  6 15:54:08 2021 :: Loading boards
+Mon Sep  6 15:54:08 2021 :: ../boards/immortal.brd
+Mon Sep  6 15:54:08 2021 :: ../boards/highgod.brd
+Mon Sep  6 15:54:08 2021 :: Loading vault list
+Mon Sep  6 15:54:08 2021 :: $
+Mon Sep  6 15:54:08 2021 ::  Done vaults 
+Mon Sep  6 15:54:08 2021 :: Loading clans
+Mon Sep  6 15:54:08 2021 :: Loading clans...
+Mon Sep  6 15:54:08 2021 :: vampire.gui
+Mon Sep  6 15:54:08 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 15:54:08 2021 :: druid.gui
+Mon Sep  6 15:54:08 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 15:54:08 2021 :: warrior.gui
+Mon Sep  6 15:54:08 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 15:54:08 2021 :: augurer.gui
+Mon Sep  6 15:54:08 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 15:54:08 2021 :: thief.gui
+Mon Sep  6 15:54:08 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 15:54:08 2021 :: cleric.gui
+Mon Sep  6 15:54:08 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 15:54:08 2021 :: mage.gui
+Mon Sep  6 15:54:08 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 15:54:08 2021 :: ranger.gui
+Mon Sep  6 15:54:08 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 15:54:08 2021 :: $
+Mon Sep  6 15:54:08 2021 ::  Done clans 
+Mon Sep  6 15:54:08 2021 :: Loading councils
+Mon Sep  6 15:54:08 2021 :: Loading councils...
+Mon Sep  6 15:54:08 2021 :: $
+Mon Sep  6 15:54:08 2021 ::  Done councils 
+Mon Sep  6 15:54:08 2021 :: Loading deities
+Mon Sep  6 15:54:08 2021 :: Loading deities...
+Mon Sep  6 15:54:08 2021 :: $
+Mon Sep  6 15:54:08 2021 ::  Done deities 
+Mon Sep  6 15:54:08 2021 :: Loading watches
+Mon Sep  6 15:54:08 2021 :: Loading bans
+Mon Sep  6 15:54:08 2021 :: Done.
+Mon Sep  6 15:54:08 2021 :: Loading reserved names
+Mon Sep  6 15:54:08 2021 :: Loading corpses
+Mon Sep  6 15:54:08 2021 :: Loading Immortal Hosts
+Mon Sep  6 15:54:08 2021 :: Done.
+Mon Sep  6 15:54:08 2021 :: Loading Projects
+Mon Sep  6 15:54:08 2021 :: Loading Morphs
+Mon Sep  6 15:54:08 2021 :: Done.
+Mon Sep  6 15:54:08 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 15:54:08 2021 :: Loading login messages
+Mon Sep  6 15:54:08 2021 :: Initializing socket
+Mon Sep  6 15:54:08 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 15:54:08 2021 :: Initiating hotboot recovery.
+Mon Sep  6 15:54:08 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: ../player/a/Admin LINE: 13
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: ../player/a/Admin LINE: 14
+Mon Sep  6 15:54:08 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: ../player/b/Braska LINE: 13
+Mon Sep  6 15:54:08 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 15:54:08 2021 :: [*****] FILE: ../player/b/Braska LINE: 14
+Mon Sep  6 15:54:08 2021 :: Hotboot recovery complete.
+Mon Sep  6 15:54:23 2021 :: Log Admin: restore all
+Mon Sep  6 15:56:52 2021 :: Log Admin: restore all
+Mon Sep  6 15:58:02 2021 :: Log Admin: restore all
+Mon Sep  6 15:58:53 2021 :: Log Admin: restore all
+Mon Sep  6 16:00:11 2021 :: Log Admin: restore all
+Mon Sep  6 16:05:46 2021 :: Log Admin: hotboot
+Mon Sep  6 16:05:46 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 16:05:46 2021 :: Preserving world state....
+Mon Sep  6 16:05:46 2021 :: Saving player files and connection states....
+Mon Sep  6 16:05:46 2021 :: Executing hotboot....
+Mon Sep  6 16:05:46 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 16:05:46 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 16:05:46 2021 :: Initializing libdl support...
+Mon Sep  6 16:05:46 2021 :: Loading commands...
+Mon Sep  6 16:05:46 2021 :: Loading spec_funs...
+Mon Sep  6 16:05:46 2021 :: Loading sysdata configuration...
+Mon Sep  6 16:05:46 2021 :: Loading socials
+Mon Sep  6 16:05:46 2021 :: Loading skill table
+Mon Sep  6 16:05:46 2021 :: Sorting skill table...
+Mon Sep  6 16:05:46 2021 :: Creating skill table sorted by type...
+Mon Sep  6 16:05:46 2021 :: Remapping slots to sns
+Mon Sep  6 16:05:46 2021 :: Loading classes
+Mon Sep  6 16:05:46 2021 :: Loading races
+Mon Sep  6 16:05:46 2021 :: Loading news data
+Mon Sep  6 16:05:46 2021 :: Loading liquids
+Mon Sep  6 16:05:46 2021 :: Loading mixtures
+Mon Sep  6 16:05:46 2021 :: Loading herb table
+Mon Sep  6 16:05:46 2021 :: Loading tongues
+Mon Sep  6 16:05:46 2021 :: Making wizlist
+Mon Sep  6 16:05:46 2021 :: Loading MSSP Data...
+Mon Sep  6 16:05:46 2021 :: Initializing random number generator
+Mon Sep  6 16:05:46 2021 :: Setting time and weather.
+Mon Sep  6 16:05:46 2021 :: Loading holiday chart...
+Mon Sep  6 16:05:46 2021 :: Loading DNS cache...
+Mon Sep  6 16:05:46 2021 :: Assigning gsn's
+Mon Sep  6 16:05:46 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 16:05:46 2021 :: Fixing exits
+Mon Sep  6 16:05:46 2021 :: Initializing economy
+Mon Sep  6 16:05:46 2021 :: Loading world state...
+Mon Sep  6 16:05:46 2021 :: World state: loading mobs
+Mon Sep  6 16:05:46 2021 :: World state: loading objs
+Mon Sep  6 16:05:46 2021 :: Resetting areas
+Mon Sep  6 16:05:46 2021 :: Loading buildlist
+Mon Sep  6 16:05:46 2021 :: ../gods/Admin
+Mon Sep  6 16:05:46 2021 :: Loading boards
+Mon Sep  6 16:05:46 2021 :: ../boards/immortal.brd
+Mon Sep  6 16:05:46 2021 :: ../boards/highgod.brd
+Mon Sep  6 16:05:46 2021 :: Loading vault list
+Mon Sep  6 16:05:46 2021 :: $
+Mon Sep  6 16:05:46 2021 ::  Done vaults 
+Mon Sep  6 16:05:46 2021 :: Loading clans
+Mon Sep  6 16:05:46 2021 :: Loading clans...
+Mon Sep  6 16:05:46 2021 :: vampire.gui
+Mon Sep  6 16:05:46 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 16:05:46 2021 :: druid.gui
+Mon Sep  6 16:05:46 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 16:05:46 2021 :: warrior.gui
+Mon Sep  6 16:05:46 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 16:05:46 2021 :: augurer.gui
+Mon Sep  6 16:05:46 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 16:05:46 2021 :: thief.gui
+Mon Sep  6 16:05:46 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 16:05:46 2021 :: cleric.gui
+Mon Sep  6 16:05:46 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 16:05:46 2021 :: mage.gui
+Mon Sep  6 16:05:46 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 16:05:46 2021 :: ranger.gui
+Mon Sep  6 16:05:46 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 16:05:46 2021 :: $
+Mon Sep  6 16:05:46 2021 ::  Done clans 
+Mon Sep  6 16:05:46 2021 :: Loading councils
+Mon Sep  6 16:05:46 2021 :: Loading councils...
+Mon Sep  6 16:05:46 2021 :: $
+Mon Sep  6 16:05:46 2021 ::  Done councils 
+Mon Sep  6 16:05:46 2021 :: Loading deities
+Mon Sep  6 16:05:46 2021 :: Loading deities...
+Mon Sep  6 16:05:46 2021 :: $
+Mon Sep  6 16:05:46 2021 ::  Done deities 
+Mon Sep  6 16:05:46 2021 :: Loading watches
+Mon Sep  6 16:05:46 2021 :: Loading bans
+Mon Sep  6 16:05:46 2021 :: Done.
+Mon Sep  6 16:05:46 2021 :: Loading reserved names
+Mon Sep  6 16:05:46 2021 :: Loading corpses
+Mon Sep  6 16:05:46 2021 :: Loading Immortal Hosts
+Mon Sep  6 16:05:46 2021 :: Done.
+Mon Sep  6 16:05:46 2021 :: Loading Projects
+Mon Sep  6 16:05:46 2021 :: Loading Morphs
+Mon Sep  6 16:05:46 2021 :: Done.
+Mon Sep  6 16:05:46 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 16:05:46 2021 :: Loading login messages
+Mon Sep  6 16:05:46 2021 :: Initializing socket
+Mon Sep  6 16:05:46 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 16:05:46 2021 :: Initiating hotboot recovery.
+Mon Sep  6 16:05:46 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: ../player/a/Admin LINE: 13
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: ../player/a/Admin LINE: 14
+Mon Sep  6 16:05:46 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: ../player/b/Braska LINE: 13
+Mon Sep  6 16:05:46 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 16:05:46 2021 :: [*****] FILE: ../player/b/Braska LINE: 14
+Mon Sep  6 16:05:46 2021 :: Hotboot recovery complete.
+Mon Sep  6 16:06:28 2021 :: Log Admin: hotboot
+Mon Sep  6 16:06:28 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 16:06:28 2021 :: Preserving world state....
+Mon Sep  6 16:06:28 2021 :: Saving player files and connection states....
+Mon Sep  6 16:06:28 2021 :: Executing hotboot....
+Mon Sep  6 16:06:28 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 16:06:28 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 16:06:28 2021 :: Initializing libdl support...
+Mon Sep  6 16:06:28 2021 :: Loading commands...
+Mon Sep  6 16:06:28 2021 :: Loading spec_funs...
+Mon Sep  6 16:06:28 2021 :: Loading sysdata configuration...
+Mon Sep  6 16:06:28 2021 :: Loading socials
+Mon Sep  6 16:06:28 2021 :: Loading skill table
+Mon Sep  6 16:06:28 2021 :: Sorting skill table...
+Mon Sep  6 16:06:28 2021 :: Creating skill table sorted by type...
+Mon Sep  6 16:06:28 2021 :: Remapping slots to sns
+Mon Sep  6 16:06:28 2021 :: Loading classes
+Mon Sep  6 16:06:28 2021 :: Loading races
+Mon Sep  6 16:06:28 2021 :: Loading news data
+Mon Sep  6 16:06:28 2021 :: Loading liquids
+Mon Sep  6 16:06:28 2021 :: Loading mixtures
+Mon Sep  6 16:06:28 2021 :: Loading herb table
+Mon Sep  6 16:06:28 2021 :: Loading tongues
+Mon Sep  6 16:06:28 2021 :: Making wizlist
+Mon Sep  6 16:06:28 2021 :: Loading MSSP Data...
+Mon Sep  6 16:06:28 2021 :: Initializing random number generator
+Mon Sep  6 16:06:28 2021 :: Setting time and weather.
+Mon Sep  6 16:06:28 2021 :: Loading holiday chart...
+Mon Sep  6 16:06:28 2021 :: Loading DNS cache...
+Mon Sep  6 16:06:28 2021 :: Assigning gsn's
+Mon Sep  6 16:06:28 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 16:06:28 2021 :: Fixing exits
+Mon Sep  6 16:06:28 2021 :: Initializing economy
+Mon Sep  6 16:06:28 2021 :: Loading world state...
+Mon Sep  6 16:06:28 2021 :: World state: loading mobs
+Mon Sep  6 16:06:28 2021 :: World state: loading objs
+Mon Sep  6 16:06:28 2021 :: Resetting areas
+Mon Sep  6 16:06:28 2021 :: Loading buildlist
+Mon Sep  6 16:06:28 2021 :: ../gods/Admin
+Mon Sep  6 16:06:28 2021 :: Loading boards
+Mon Sep  6 16:06:28 2021 :: ../boards/immortal.brd
+Mon Sep  6 16:06:28 2021 :: ../boards/highgod.brd
+Mon Sep  6 16:06:28 2021 :: Loading vault list
+Mon Sep  6 16:06:28 2021 :: $
+Mon Sep  6 16:06:28 2021 ::  Done vaults 
+Mon Sep  6 16:06:28 2021 :: Loading clans
+Mon Sep  6 16:06:28 2021 :: Loading clans...
+Mon Sep  6 16:06:28 2021 :: vampire.gui
+Mon Sep  6 16:06:28 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 16:06:28 2021 :: druid.gui
+Mon Sep  6 16:06:28 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 16:06:28 2021 :: warrior.gui
+Mon Sep  6 16:06:28 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 16:06:28 2021 :: augurer.gui
+Mon Sep  6 16:06:28 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 16:06:28 2021 :: thief.gui
+Mon Sep  6 16:06:28 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 16:06:28 2021 :: cleric.gui
+Mon Sep  6 16:06:28 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 16:06:28 2021 :: mage.gui
+Mon Sep  6 16:06:28 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 16:06:28 2021 :: ranger.gui
+Mon Sep  6 16:06:28 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 16:06:28 2021 :: $
+Mon Sep  6 16:06:28 2021 ::  Done clans 
+Mon Sep  6 16:06:28 2021 :: Loading councils
+Mon Sep  6 16:06:28 2021 :: Loading councils...
+Mon Sep  6 16:06:28 2021 :: $
+Mon Sep  6 16:06:28 2021 ::  Done councils 
+Mon Sep  6 16:06:28 2021 :: Loading deities
+Mon Sep  6 16:06:28 2021 :: Loading deities...
+Mon Sep  6 16:06:28 2021 :: $
+Mon Sep  6 16:06:28 2021 ::  Done deities 
+Mon Sep  6 16:06:28 2021 :: Loading watches
+Mon Sep  6 16:06:28 2021 :: Loading bans
+Mon Sep  6 16:06:28 2021 :: Done.
+Mon Sep  6 16:06:28 2021 :: Loading reserved names
+Mon Sep  6 16:06:28 2021 :: Loading corpses
+Mon Sep  6 16:06:28 2021 :: Loading Immortal Hosts
+Mon Sep  6 16:06:28 2021 :: Done.
+Mon Sep  6 16:06:28 2021 :: Loading Projects
+Mon Sep  6 16:06:28 2021 :: Loading Morphs
+Mon Sep  6 16:06:28 2021 :: Done.
+Mon Sep  6 16:06:28 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 16:06:28 2021 :: Loading login messages
+Mon Sep  6 16:06:28 2021 :: Initializing socket
+Mon Sep  6 16:06:28 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 16:06:28 2021 :: Initiating hotboot recovery.
+Mon Sep  6 16:06:28 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: ../player/a/Admin LINE: 13
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: ../player/a/Admin LINE: 14
+Mon Sep  6 16:06:28 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: ../player/b/Braska LINE: 13
+Mon Sep  6 16:06:28 2021 :: [*****] BUG: fread_char: no match: .000000
+Mon Sep  6 16:06:28 2021 :: [*****] FILE: ../player/b/Braska LINE: 14
+Mon Sep  6 16:06:28 2021 :: Hotboot recovery complete.
+Mon Sep  6 16:06:31 2021 :: Log Admin: hotboot
+Mon Sep  6 16:06:31 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 16:06:31 2021 :: Preserving world state....
+Mon Sep  6 16:06:31 2021 :: Saving player files and connection states....
+Mon Sep  6 16:06:31 2021 :: Executing hotboot....
+Mon Sep  6 16:06:31 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 16:06:31 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 16:06:31 2021 :: Initializing libdl support...
+Mon Sep  6 16:06:31 2021 :: Loading commands...
+Mon Sep  6 16:06:31 2021 :: Loading spec_funs...
+Mon Sep  6 16:06:31 2021 :: Loading sysdata configuration...
+Mon Sep  6 16:06:31 2021 :: Loading socials
+Mon Sep  6 16:06:31 2021 :: Loading skill table
+Mon Sep  6 16:06:31 2021 :: Sorting skill table...
+Mon Sep  6 16:06:31 2021 :: Creating skill table sorted by type...
+Mon Sep  6 16:06:31 2021 :: Remapping slots to sns
+Mon Sep  6 16:06:31 2021 :: Loading classes
+Mon Sep  6 16:06:31 2021 :: Loading races
+Mon Sep  6 16:06:31 2021 :: Loading news data
+Mon Sep  6 16:06:31 2021 :: Loading liquids
+Mon Sep  6 16:06:31 2021 :: Loading mixtures
+Mon Sep  6 16:06:31 2021 :: Loading herb table
+Mon Sep  6 16:06:31 2021 :: Loading tongues
+Mon Sep  6 16:06:31 2021 :: Making wizlist
+Mon Sep  6 16:06:31 2021 :: Loading MSSP Data...
+Mon Sep  6 16:06:31 2021 :: Initializing random number generator
+Mon Sep  6 16:06:31 2021 :: Setting time and weather.
+Mon Sep  6 16:06:31 2021 :: Loading holiday chart...
+Mon Sep  6 16:06:31 2021 :: Loading DNS cache...
+Mon Sep  6 16:06:31 2021 :: Assigning gsn's
+Mon Sep  6 16:06:31 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 16:06:31 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 16:06:31 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 16:06:31 2021 :: Fixing exits
+Mon Sep  6 16:06:31 2021 :: Initializing economy
+Mon Sep  6 16:06:31 2021 :: Loading world state...
+Mon Sep  6 16:06:31 2021 :: World state: loading mobs
+Mon Sep  6 16:06:31 2021 :: World state: loading objs
+Mon Sep  6 16:06:31 2021 :: Resetting areas
+Mon Sep  6 16:06:31 2021 :: Loading buildlist
+Mon Sep  6 16:06:31 2021 :: ../gods/Admin
+Mon Sep  6 16:06:31 2021 :: Loading boards
+Mon Sep  6 16:06:31 2021 :: ../boards/immortal.brd
+Mon Sep  6 16:06:31 2021 :: ../boards/highgod.brd
+Mon Sep  6 16:06:31 2021 :: Loading vault list
+Mon Sep  6 16:06:31 2021 :: $
+Mon Sep  6 16:06:31 2021 ::  Done vaults 
+Mon Sep  6 16:06:31 2021 :: Loading clans
+Mon Sep  6 16:06:31 2021 :: Loading clans...
+Mon Sep  6 16:06:31 2021 :: vampire.gui
+Mon Sep  6 16:06:31 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 16:06:31 2021 :: druid.gui
+Mon Sep  6 16:06:31 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 16:06:31 2021 :: warrior.gui
+Mon Sep  6 16:06:31 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 16:06:31 2021 :: augurer.gui
+Mon Sep  6 16:06:31 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 16:06:31 2021 :: thief.gui
+Mon Sep  6 16:06:31 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 16:06:31 2021 :: cleric.gui
+Mon Sep  6 16:06:31 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 16:06:31 2021 :: mage.gui
+Mon Sep  6 16:06:31 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 16:06:31 2021 :: ranger.gui
+Mon Sep  6 16:06:31 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 16:06:31 2021 :: $
+Mon Sep  6 16:06:31 2021 ::  Done clans 
+Mon Sep  6 16:06:31 2021 :: Loading councils
+Mon Sep  6 16:06:31 2021 :: Loading councils...
+Mon Sep  6 16:06:31 2021 :: $
+Mon Sep  6 16:06:31 2021 ::  Done councils 
+Mon Sep  6 16:06:31 2021 :: Loading deities
+Mon Sep  6 16:06:31 2021 :: Loading deities...
+Mon Sep  6 16:06:31 2021 :: $
+Mon Sep  6 16:06:31 2021 ::  Done deities 
+Mon Sep  6 16:06:31 2021 :: Loading watches
+Mon Sep  6 16:06:31 2021 :: Loading bans
+Mon Sep  6 16:06:31 2021 :: Done.
+Mon Sep  6 16:06:31 2021 :: Loading reserved names
+Mon Sep  6 16:06:31 2021 :: Loading corpses
+Mon Sep  6 16:06:31 2021 :: Loading Immortal Hosts
+Mon Sep  6 16:06:31 2021 :: Done.
+Mon Sep  6 16:06:31 2021 :: Loading Projects
+Mon Sep  6 16:06:31 2021 :: Loading Morphs
+Mon Sep  6 16:06:31 2021 :: Done.
+Mon Sep  6 16:06:31 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 16:06:31 2021 :: Loading login messages
+Mon Sep  6 16:06:31 2021 :: Initializing socket
+Mon Sep  6 16:06:31 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 16:06:31 2021 :: Initiating hotboot recovery.
+Mon Sep  6 16:06:31 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 16:06:31 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 16:06:31 2021 :: Hotboot recovery complete.
+Mon Sep  6 16:06:47 2021 :: Log Admin: restore all
+Mon Sep  6 16:08:56 2021 :: Log Admin: restore all
+Mon Sep  6 16:10:59 2021 :: Braska has quit (Room 10384).
+Mon Sep  6 18:03:16 2021 :: Log Admin: hotboot
+Mon Sep  6 18:03:16 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 18:03:16 2021 :: Preserving world state....
+Mon Sep  6 18:03:16 2021 :: Saving player files and connection states....
+Mon Sep  6 18:03:16 2021 :: Executing hotboot....
+Mon Sep  6 18:03:16 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 18:03:16 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 18:03:16 2021 :: Initializing libdl support...
+Mon Sep  6 18:03:16 2021 :: Loading commands...
+Mon Sep  6 18:03:16 2021 :: Loading spec_funs...
+Mon Sep  6 18:03:16 2021 :: Loading sysdata configuration...
+Mon Sep  6 18:03:16 2021 :: Loading socials
+Mon Sep  6 18:03:16 2021 :: Loading skill table
+Mon Sep  6 18:03:16 2021 :: Sorting skill table...
+Mon Sep  6 18:03:16 2021 :: Creating skill table sorted by type...
+Mon Sep  6 18:03:16 2021 :: Remapping slots to sns
+Mon Sep  6 18:03:16 2021 :: Loading classes
+Mon Sep  6 18:03:16 2021 :: Loading races
+Mon Sep  6 18:03:16 2021 :: Loading news data
+Mon Sep  6 18:03:16 2021 :: Loading liquids
+Mon Sep  6 18:03:16 2021 :: Loading mixtures
+Mon Sep  6 18:03:16 2021 :: Loading herb table
+Mon Sep  6 18:03:16 2021 :: Loading tongues
+Mon Sep  6 18:03:16 2021 :: Making wizlist
+Mon Sep  6 18:03:16 2021 :: Loading MSSP Data...
+Mon Sep  6 18:03:16 2021 :: Initializing random number generator
+Mon Sep  6 18:03:16 2021 :: Setting time and weather.
+Mon Sep  6 18:03:16 2021 :: Loading holiday chart...
+Mon Sep  6 18:03:16 2021 :: Loading DNS cache...
+Mon Sep  6 18:03:16 2021 :: Assigning gsn's
+Mon Sep  6 18:03:16 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 18:03:16 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:03:16 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 18:03:16 2021 :: Fixing exits
+Mon Sep  6 18:03:16 2021 :: Initializing economy
+Mon Sep  6 18:03:16 2021 :: Loading world state...
+Mon Sep  6 18:03:16 2021 :: World state: loading mobs
+Mon Sep  6 18:03:16 2021 :: World state: loading objs
+Mon Sep  6 18:03:16 2021 :: Resetting areas
+Mon Sep  6 18:03:16 2021 :: Loading buildlist
+Mon Sep  6 18:03:16 2021 :: ../gods/Admin
+Mon Sep  6 18:03:16 2021 :: Loading boards
+Mon Sep  6 18:03:16 2021 :: ../boards/immortal.brd
+Mon Sep  6 18:03:16 2021 :: ../boards/highgod.brd
+Mon Sep  6 18:03:16 2021 :: Loading vault list
+Mon Sep  6 18:03:16 2021 :: $
+Mon Sep  6 18:03:16 2021 ::  Done vaults 
+Mon Sep  6 18:03:16 2021 :: Loading clans
+Mon Sep  6 18:03:16 2021 :: Loading clans...
+Mon Sep  6 18:03:16 2021 :: vampire.gui
+Mon Sep  6 18:03:16 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 18:03:16 2021 :: druid.gui
+Mon Sep  6 18:03:16 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 18:03:16 2021 :: warrior.gui
+Mon Sep  6 18:03:16 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 18:03:16 2021 :: augurer.gui
+Mon Sep  6 18:03:16 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 18:03:16 2021 :: thief.gui
+Mon Sep  6 18:03:16 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 18:03:16 2021 :: cleric.gui
+Mon Sep  6 18:03:16 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 18:03:16 2021 :: mage.gui
+Mon Sep  6 18:03:16 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 18:03:16 2021 :: ranger.gui
+Mon Sep  6 18:03:16 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 18:03:16 2021 :: $
+Mon Sep  6 18:03:16 2021 ::  Done clans 
+Mon Sep  6 18:03:16 2021 :: Loading councils
+Mon Sep  6 18:03:16 2021 :: Loading councils...
+Mon Sep  6 18:03:16 2021 :: $
+Mon Sep  6 18:03:16 2021 ::  Done councils 
+Mon Sep  6 18:03:16 2021 :: Loading deities
+Mon Sep  6 18:03:16 2021 :: Loading deities...
+Mon Sep  6 18:03:16 2021 :: $
+Mon Sep  6 18:03:16 2021 ::  Done deities 
+Mon Sep  6 18:03:16 2021 :: Loading watches
+Mon Sep  6 18:03:16 2021 :: Loading bans
+Mon Sep  6 18:03:16 2021 :: Done.
+Mon Sep  6 18:03:16 2021 :: Loading reserved names
+Mon Sep  6 18:03:16 2021 :: Loading corpses
+Mon Sep  6 18:03:16 2021 :: Loading Immortal Hosts
+Mon Sep  6 18:03:16 2021 :: Done.
+Mon Sep  6 18:03:16 2021 :: Loading Projects
+Mon Sep  6 18:03:16 2021 :: Loading Morphs
+Mon Sep  6 18:03:16 2021 :: Done.
+Mon Sep  6 18:03:16 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 18:03:16 2021 :: Loading login messages
+Mon Sep  6 18:03:16 2021 :: Initializing socket
+Mon Sep  6 18:03:16 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 18:03:16 2021 :: Initiating hotboot recovery.
+Mon Sep  6 18:03:16 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 18:03:16 2021 :: Hotboot recovery complete.
+Mon Sep  6 18:03:24 2021 :: Preloading player data for: Braska (3K)
+Mon Sep  6 18:03:25 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 18:03:25 2021 :: Braska (142.118.223.121) has connected.
+Mon Sep  6 18:04:31 2021 :: Log Admin: restore all
+Mon Sep  6 18:05:25 2021 :: Log Admin: restore braska
+Mon Sep  6 18:06:28 2021 :: Log Admin: hotboot
+Mon Sep  6 18:06:28 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 18:06:28 2021 :: Preserving world state....
+Mon Sep  6 18:06:28 2021 :: Saving player files and connection states....
+Mon Sep  6 18:06:28 2021 :: Executing hotboot....
+Mon Sep  6 18:06:28 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 18:06:28 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 18:06:28 2021 :: Initializing libdl support...
+Mon Sep  6 18:06:28 2021 :: Loading commands...
+Mon Sep  6 18:06:28 2021 :: Loading spec_funs...
+Mon Sep  6 18:06:28 2021 :: Loading sysdata configuration...
+Mon Sep  6 18:06:28 2021 :: Loading socials
+Mon Sep  6 18:06:28 2021 :: Loading skill table
+Mon Sep  6 18:06:28 2021 :: Sorting skill table...
+Mon Sep  6 18:06:28 2021 :: Creating skill table sorted by type...
+Mon Sep  6 18:06:28 2021 :: Remapping slots to sns
+Mon Sep  6 18:06:28 2021 :: Loading classes
+Mon Sep  6 18:06:28 2021 :: Loading races
+Mon Sep  6 18:06:28 2021 :: Loading news data
+Mon Sep  6 18:06:28 2021 :: Loading liquids
+Mon Sep  6 18:06:28 2021 :: Loading mixtures
+Mon Sep  6 18:06:28 2021 :: Loading herb table
+Mon Sep  6 18:06:28 2021 :: Loading tongues
+Mon Sep  6 18:06:28 2021 :: Making wizlist
+Mon Sep  6 18:06:28 2021 :: Loading MSSP Data...
+Mon Sep  6 18:06:28 2021 :: Initializing random number generator
+Mon Sep  6 18:06:28 2021 :: Setting time and weather.
+Mon Sep  6 18:06:28 2021 :: Loading holiday chart...
+Mon Sep  6 18:06:28 2021 :: Loading DNS cache...
+Mon Sep  6 18:06:28 2021 :: Assigning gsn's
+Mon Sep  6 18:06:28 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 18:06:28 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:06:28 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 18:06:28 2021 :: Fixing exits
+Mon Sep  6 18:06:28 2021 :: Initializing economy
+Mon Sep  6 18:06:28 2021 :: Loading world state...
+Mon Sep  6 18:06:28 2021 :: World state: loading mobs
+Mon Sep  6 18:06:28 2021 :: World state: loading objs
+Mon Sep  6 18:06:28 2021 :: Resetting areas
+Mon Sep  6 18:06:28 2021 :: Loading buildlist
+Mon Sep  6 18:06:28 2021 :: ../gods/Admin
+Mon Sep  6 18:06:28 2021 :: Loading boards
+Mon Sep  6 18:06:28 2021 :: ../boards/immortal.brd
+Mon Sep  6 18:06:28 2021 :: ../boards/highgod.brd
+Mon Sep  6 18:06:28 2021 :: Loading vault list
+Mon Sep  6 18:06:28 2021 :: $
+Mon Sep  6 18:06:28 2021 ::  Done vaults 
+Mon Sep  6 18:06:28 2021 :: Loading clans
+Mon Sep  6 18:06:28 2021 :: Loading clans...
+Mon Sep  6 18:06:28 2021 :: vampire.gui
+Mon Sep  6 18:06:28 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 18:06:28 2021 :: druid.gui
+Mon Sep  6 18:06:28 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 18:06:28 2021 :: warrior.gui
+Mon Sep  6 18:06:28 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 18:06:28 2021 :: augurer.gui
+Mon Sep  6 18:06:28 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 18:06:28 2021 :: thief.gui
+Mon Sep  6 18:06:28 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 18:06:28 2021 :: cleric.gui
+Mon Sep  6 18:06:28 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 18:06:28 2021 :: mage.gui
+Mon Sep  6 18:06:28 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 18:06:28 2021 :: ranger.gui
+Mon Sep  6 18:06:28 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 18:06:28 2021 :: $
+Mon Sep  6 18:06:28 2021 ::  Done clans 
+Mon Sep  6 18:06:28 2021 :: Loading councils
+Mon Sep  6 18:06:28 2021 :: Loading councils...
+Mon Sep  6 18:06:28 2021 :: $
+Mon Sep  6 18:06:28 2021 ::  Done councils 
+Mon Sep  6 18:06:28 2021 :: Loading deities
+Mon Sep  6 18:06:28 2021 :: Loading deities...
+Mon Sep  6 18:06:28 2021 :: $
+Mon Sep  6 18:06:28 2021 ::  Done deities 
+Mon Sep  6 18:06:28 2021 :: Loading watches
+Mon Sep  6 18:06:28 2021 :: Loading bans
+Mon Sep  6 18:06:28 2021 :: Done.
+Mon Sep  6 18:06:28 2021 :: Loading reserved names
+Mon Sep  6 18:06:28 2021 :: Loading corpses
+Mon Sep  6 18:06:28 2021 :: Loading Immortal Hosts
+Mon Sep  6 18:06:28 2021 :: Done.
+Mon Sep  6 18:06:28 2021 :: Loading Projects
+Mon Sep  6 18:06:28 2021 :: Loading Morphs
+Mon Sep  6 18:06:28 2021 :: Done.
+Mon Sep  6 18:06:28 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 18:06:28 2021 :: Loading login messages
+Mon Sep  6 18:06:28 2021 :: Initializing socket
+Mon Sep  6 18:06:28 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 18:06:28 2021 :: Initiating hotboot recovery.
+Mon Sep  6 18:06:28 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 18:06:28 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 18:06:29 2021 :: Hotboot recovery complete.
+Mon Sep  6 18:06:46 2021 :: Log Admin: restore all
+Mon Sep  6 18:28:57 2021 :: Log Admin: hotboot
+Mon Sep  6 18:28:57 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 18:28:57 2021 :: Preserving world state....
+Mon Sep  6 18:28:57 2021 :: Saving player files and connection states....
+Mon Sep  6 18:28:57 2021 :: Executing hotboot....
+Mon Sep  6 18:28:57 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 18:28:57 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 18:28:57 2021 :: Initializing libdl support...
+Mon Sep  6 18:28:57 2021 :: Loading commands...
+Mon Sep  6 18:28:57 2021 :: Loading spec_funs...
+Mon Sep  6 18:28:57 2021 :: Loading sysdata configuration...
+Mon Sep  6 18:28:57 2021 :: Loading socials
+Mon Sep  6 18:28:57 2021 :: Loading skill table
+Mon Sep  6 18:28:57 2021 :: Sorting skill table...
+Mon Sep  6 18:28:57 2021 :: Creating skill table sorted by type...
+Mon Sep  6 18:28:57 2021 :: Remapping slots to sns
+Mon Sep  6 18:28:57 2021 :: Loading classes
+Mon Sep  6 18:28:57 2021 :: Loading races
+Mon Sep  6 18:28:57 2021 :: Loading news data
+Mon Sep  6 18:28:57 2021 :: Loading liquids
+Mon Sep  6 18:28:57 2021 :: Loading mixtures
+Mon Sep  6 18:28:57 2021 :: Loading herb table
+Mon Sep  6 18:28:57 2021 :: Loading tongues
+Mon Sep  6 18:28:57 2021 :: Making wizlist
+Mon Sep  6 18:28:57 2021 :: Loading MSSP Data...
+Mon Sep  6 18:28:57 2021 :: Initializing random number generator
+Mon Sep  6 18:28:57 2021 :: Setting time and weather.
+Mon Sep  6 18:28:57 2021 :: Loading holiday chart...
+Mon Sep  6 18:28:57 2021 :: Loading DNS cache...
+Mon Sep  6 18:28:57 2021 :: Assigning gsn's
+Mon Sep  6 18:28:57 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 18:28:57 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 18:28:57 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 18:28:57 2021 :: Fixing exits
+Mon Sep  6 18:28:57 2021 :: Initializing economy
+Mon Sep  6 18:28:57 2021 :: Loading world state...
+Mon Sep  6 18:28:57 2021 :: World state: loading mobs
+Mon Sep  6 18:28:57 2021 :: World state: loading objs
+Mon Sep  6 18:28:57 2021 :: Resetting areas
+Mon Sep  6 18:28:57 2021 :: Loading buildlist
+Mon Sep  6 18:28:57 2021 :: ../gods/Admin
+Mon Sep  6 18:28:57 2021 :: Loading boards
+Mon Sep  6 18:28:57 2021 :: ../boards/immortal.brd
+Mon Sep  6 18:28:57 2021 :: ../boards/highgod.brd
+Mon Sep  6 18:28:57 2021 :: Loading vault list
+Mon Sep  6 18:28:57 2021 :: $
+Mon Sep  6 18:28:57 2021 ::  Done vaults 
+Mon Sep  6 18:28:57 2021 :: Loading clans
+Mon Sep  6 18:28:57 2021 :: Loading clans...
+Mon Sep  6 18:28:57 2021 :: vampire.gui
+Mon Sep  6 18:28:57 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 18:28:57 2021 :: druid.gui
+Mon Sep  6 18:28:57 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 18:28:57 2021 :: warrior.gui
+Mon Sep  6 18:28:57 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 18:28:57 2021 :: augurer.gui
+Mon Sep  6 18:28:57 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 18:28:57 2021 :: thief.gui
+Mon Sep  6 18:28:57 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 18:28:57 2021 :: cleric.gui
+Mon Sep  6 18:28:57 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 18:28:57 2021 :: mage.gui
+Mon Sep  6 18:28:57 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 18:28:57 2021 :: ranger.gui
+Mon Sep  6 18:28:57 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 18:28:57 2021 :: $
+Mon Sep  6 18:28:57 2021 ::  Done clans 
+Mon Sep  6 18:28:57 2021 :: Loading councils
+Mon Sep  6 18:28:57 2021 :: Loading councils...
+Mon Sep  6 18:28:57 2021 :: $
+Mon Sep  6 18:28:57 2021 ::  Done councils 
+Mon Sep  6 18:28:57 2021 :: Loading deities
+Mon Sep  6 18:28:57 2021 :: Loading deities...
+Mon Sep  6 18:28:57 2021 :: $
+Mon Sep  6 18:28:57 2021 ::  Done deities 
+Mon Sep  6 18:28:57 2021 :: Loading watches
+Mon Sep  6 18:28:57 2021 :: Loading bans
+Mon Sep  6 18:28:57 2021 :: Done.
+Mon Sep  6 18:28:57 2021 :: Loading reserved names
+Mon Sep  6 18:28:57 2021 :: Loading corpses
+Mon Sep  6 18:28:57 2021 :: Loading Immortal Hosts
+Mon Sep  6 18:28:57 2021 :: Done.
+Mon Sep  6 18:28:57 2021 :: Loading Projects
+Mon Sep  6 18:28:57 2021 :: Loading Morphs
+Mon Sep  6 18:28:57 2021 :: Done.
+Mon Sep  6 18:28:57 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 18:28:57 2021 :: Loading login messages
+Mon Sep  6 18:28:57 2021 :: Initializing socket
+Mon Sep  6 18:28:57 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 18:28:57 2021 :: Initiating hotboot recovery.
+Mon Sep  6 18:28:57 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 18:28:57 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 18:28:57 2021 :: Hotboot recovery complete.
+Mon Sep  6 18:39:28 2021 :: Log Admin: restore all
+Mon Sep  6 18:53:29 2021 :: Log Admin: mset
+Mon Sep  6 19:14:54 2021 :: Log Admin: hotboot
+Mon Sep  6 19:14:54 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 19:14:54 2021 :: Preserving world state....
+Mon Sep  6 19:14:54 2021 :: Saving player files and connection states....
+Mon Sep  6 19:14:54 2021 :: Executing hotboot....
+Mon Sep  6 19:14:54 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 19:14:54 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 19:14:54 2021 :: Initializing libdl support...
+Mon Sep  6 19:14:54 2021 :: Loading commands...
+Mon Sep  6 19:14:54 2021 :: Loading spec_funs...
+Mon Sep  6 19:14:54 2021 :: Loading sysdata configuration...
+Mon Sep  6 19:14:54 2021 :: Loading socials
+Mon Sep  6 19:14:54 2021 :: Loading skill table
+Mon Sep  6 19:14:54 2021 :: Sorting skill table...
+Mon Sep  6 19:14:54 2021 :: Creating skill table sorted by type...
+Mon Sep  6 19:14:54 2021 :: Remapping slots to sns
+Mon Sep  6 19:14:54 2021 :: Loading classes
+Mon Sep  6 19:14:54 2021 :: Loading races
+Mon Sep  6 19:14:54 2021 :: Loading news data
+Mon Sep  6 19:14:54 2021 :: Loading liquids
+Mon Sep  6 19:14:54 2021 :: Loading mixtures
+Mon Sep  6 19:14:54 2021 :: Loading herb table
+Mon Sep  6 19:14:54 2021 :: Loading tongues
+Mon Sep  6 19:14:54 2021 :: Making wizlist
+Mon Sep  6 19:14:54 2021 :: Loading MSSP Data...
+Mon Sep  6 19:14:54 2021 :: Initializing random number generator
+Mon Sep  6 19:14:54 2021 :: Setting time and weather.
+Mon Sep  6 19:14:54 2021 :: Loading holiday chart...
+Mon Sep  6 19:14:54 2021 :: Loading DNS cache...
+Mon Sep  6 19:14:54 2021 :: Assigning gsn's
+Mon Sep  6 19:14:54 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 19:14:54 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:14:54 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 19:14:54 2021 :: Fixing exits
+Mon Sep  6 19:14:54 2021 :: Initializing economy
+Mon Sep  6 19:14:54 2021 :: Loading world state...
+Mon Sep  6 19:14:54 2021 :: World state: loading mobs
+Mon Sep  6 19:14:54 2021 :: World state: loading objs
+Mon Sep  6 19:14:54 2021 :: Resetting areas
+Mon Sep  6 19:14:54 2021 :: Loading buildlist
+Mon Sep  6 19:14:54 2021 :: ../gods/Admin
+Mon Sep  6 19:14:54 2021 :: Loading boards
+Mon Sep  6 19:14:54 2021 :: ../boards/immortal.brd
+Mon Sep  6 19:14:54 2021 :: ../boards/highgod.brd
+Mon Sep  6 19:14:54 2021 :: Loading vault list
+Mon Sep  6 19:14:54 2021 :: $
+Mon Sep  6 19:14:54 2021 ::  Done vaults 
+Mon Sep  6 19:14:54 2021 :: Loading clans
+Mon Sep  6 19:14:54 2021 :: Loading clans...
+Mon Sep  6 19:14:54 2021 :: vampire.gui
+Mon Sep  6 19:14:54 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 19:14:54 2021 :: druid.gui
+Mon Sep  6 19:14:54 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 19:14:54 2021 :: warrior.gui
+Mon Sep  6 19:14:54 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 19:14:54 2021 :: augurer.gui
+Mon Sep  6 19:14:54 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 19:14:54 2021 :: thief.gui
+Mon Sep  6 19:14:54 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 19:14:54 2021 :: cleric.gui
+Mon Sep  6 19:14:54 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 19:14:54 2021 :: mage.gui
+Mon Sep  6 19:14:54 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 19:14:54 2021 :: ranger.gui
+Mon Sep  6 19:14:54 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 19:14:54 2021 :: $
+Mon Sep  6 19:14:54 2021 ::  Done clans 
+Mon Sep  6 19:14:54 2021 :: Loading councils
+Mon Sep  6 19:14:54 2021 :: Loading councils...
+Mon Sep  6 19:14:54 2021 :: $
+Mon Sep  6 19:14:54 2021 ::  Done councils 
+Mon Sep  6 19:14:54 2021 :: Loading deities
+Mon Sep  6 19:14:54 2021 :: Loading deities...
+Mon Sep  6 19:14:54 2021 :: $
+Mon Sep  6 19:14:54 2021 ::  Done deities 
+Mon Sep  6 19:14:54 2021 :: Loading watches
+Mon Sep  6 19:14:54 2021 :: Loading bans
+Mon Sep  6 19:14:54 2021 :: Done.
+Mon Sep  6 19:14:54 2021 :: Loading reserved names
+Mon Sep  6 19:14:54 2021 :: Loading corpses
+Mon Sep  6 19:14:54 2021 :: Loading Immortal Hosts
+Mon Sep  6 19:14:54 2021 :: Done.
+Mon Sep  6 19:14:54 2021 :: Loading Projects
+Mon Sep  6 19:14:54 2021 :: Loading Morphs
+Mon Sep  6 19:14:54 2021 :: Done.
+Mon Sep  6 19:14:54 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 19:14:54 2021 :: Loading login messages
+Mon Sep  6 19:14:54 2021 :: Initializing socket
+Mon Sep  6 19:14:54 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 19:14:54 2021 :: Initiating hotboot recovery.
+Mon Sep  6 19:14:54 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 19:14:54 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 19:14:54 2021 :: Hotboot recovery complete.
+Mon Sep  6 19:15:25 2021 :: Log Admin: transfer braska
+Mon Sep  6 19:17:54 2021 :: Log Admin: restore braska
+Mon Sep  6 19:19:25 2021 :: Log Admin: hotboot
+Mon Sep  6 19:19:25 2021 :: Hotboot initiated by Admin.
+Mon Sep  6 19:19:25 2021 :: Preserving world state....
+Mon Sep  6 19:19:25 2021 :: Saving player files and connection states....
+Mon Sep  6 19:19:25 2021 :: Executing hotboot....
+Mon Sep  6 19:19:25 2021 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Mon Sep  6 19:19:25 2021 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Mon Sep  6 19:19:25 2021 :: Initializing libdl support...
+Mon Sep  6 19:19:25 2021 :: Loading commands...
+Mon Sep  6 19:19:25 2021 :: Loading spec_funs...
+Mon Sep  6 19:19:25 2021 :: Loading sysdata configuration...
+Mon Sep  6 19:19:25 2021 :: Loading socials
+Mon Sep  6 19:19:25 2021 :: Loading skill table
+Mon Sep  6 19:19:25 2021 :: Sorting skill table...
+Mon Sep  6 19:19:25 2021 :: Creating skill table sorted by type...
+Mon Sep  6 19:19:25 2021 :: Remapping slots to sns
+Mon Sep  6 19:19:25 2021 :: Loading classes
+Mon Sep  6 19:19:25 2021 :: Loading races
+Mon Sep  6 19:19:25 2021 :: Loading news data
+Mon Sep  6 19:19:25 2021 :: Loading liquids
+Mon Sep  6 19:19:25 2021 :: Loading mixtures
+Mon Sep  6 19:19:25 2021 :: Loading herb table
+Mon Sep  6 19:19:25 2021 :: Loading tongues
+Mon Sep  6 19:19:25 2021 :: Making wizlist
+Mon Sep  6 19:19:25 2021 :: Loading MSSP Data...
+Mon Sep  6 19:19:25 2021 :: Initializing random number generator
+Mon Sep  6 19:19:25 2021 :: Setting time and weather.
+Mon Sep  6 19:19:25 2021 :: Loading holiday chart...
+Mon Sep  6 19:19:25 2021 :: Loading DNS cache...
+Mon Sep  6 19:19:25 2021 :: Assigning gsn's
+Mon Sep  6 19:19:25 2021 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4014
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4040
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4066
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4117
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4195
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4196
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4241
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4286
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4299
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4300
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4313
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4314
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4345
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4346
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4388
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4389
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4401
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4571
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4572
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4573
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 4656
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 5117
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 5118
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 5137
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 5138
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 5157
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 5158
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 5177
+Mon Sep  6 19:19:25 2021 :: [*****] BUG: fread_fuss_object: no match: d
+Mon Sep  6 19:19:25 2021 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Mon Sep  6 19:19:25 2021 :: Fixing exits
+Mon Sep  6 19:19:25 2021 :: Initializing economy
+Mon Sep  6 19:19:25 2021 :: Loading world state...
+Mon Sep  6 19:19:25 2021 :: World state: loading mobs
+Mon Sep  6 19:19:25 2021 :: World state: loading objs
+Mon Sep  6 19:19:25 2021 :: Resetting areas
+Mon Sep  6 19:19:25 2021 :: Loading buildlist
+Mon Sep  6 19:19:25 2021 :: ../gods/Admin
+Mon Sep  6 19:19:25 2021 :: Loading boards
+Mon Sep  6 19:19:25 2021 :: ../boards/immortal.brd
+Mon Sep  6 19:19:25 2021 :: ../boards/highgod.brd
+Mon Sep  6 19:19:25 2021 :: Loading vault list
+Mon Sep  6 19:19:25 2021 :: $
+Mon Sep  6 19:19:25 2021 ::  Done vaults 
+Mon Sep  6 19:19:25 2021 :: Loading clans
+Mon Sep  6 19:19:25 2021 :: Loading clans...
+Mon Sep  6 19:19:25 2021 :: vampire.gui
+Mon Sep  6 19:19:25 2021 :: Cannot open vault - ../clans/vampire.gui.vault
+Mon Sep  6 19:19:25 2021 :: druid.gui
+Mon Sep  6 19:19:25 2021 :: Cannot open vault - ../clans/druid.gui.vault
+Mon Sep  6 19:19:25 2021 :: warrior.gui
+Mon Sep  6 19:19:25 2021 :: Cannot open vault - ../clans/warrior.gui.vault
+Mon Sep  6 19:19:25 2021 :: augurer.gui
+Mon Sep  6 19:19:25 2021 :: Cannot open vault - ../clans/augurer.gui.vault
+Mon Sep  6 19:19:25 2021 :: thief.gui
+Mon Sep  6 19:19:25 2021 :: Cannot open vault - ../clans/thief.gui.vault
+Mon Sep  6 19:19:25 2021 :: cleric.gui
+Mon Sep  6 19:19:25 2021 :: Cannot open vault - ../clans/cleric.gui.vault
+Mon Sep  6 19:19:25 2021 :: mage.gui
+Mon Sep  6 19:19:25 2021 :: Cannot open vault - ../clans/mage.gui.vault
+Mon Sep  6 19:19:25 2021 :: ranger.gui
+Mon Sep  6 19:19:25 2021 :: Cannot open vault - ../clans/ranger.gui.vault
+Mon Sep  6 19:19:25 2021 :: $
+Mon Sep  6 19:19:25 2021 ::  Done clans 
+Mon Sep  6 19:19:25 2021 :: Loading councils
+Mon Sep  6 19:19:25 2021 :: Loading councils...
+Mon Sep  6 19:19:25 2021 :: $
+Mon Sep  6 19:19:25 2021 ::  Done councils 
+Mon Sep  6 19:19:25 2021 :: Loading deities
+Mon Sep  6 19:19:25 2021 :: Loading deities...
+Mon Sep  6 19:19:25 2021 :: $
+Mon Sep  6 19:19:25 2021 ::  Done deities 
+Mon Sep  6 19:19:25 2021 :: Loading watches
+Mon Sep  6 19:19:25 2021 :: Loading bans
+Mon Sep  6 19:19:25 2021 :: Done.
+Mon Sep  6 19:19:25 2021 :: Loading reserved names
+Mon Sep  6 19:19:25 2021 :: Loading corpses
+Mon Sep  6 19:19:25 2021 :: Loading Immortal Hosts
+Mon Sep  6 19:19:25 2021 :: Done.
+Mon Sep  6 19:19:25 2021 :: Loading Projects
+Mon Sep  6 19:19:25 2021 :: Loading Morphs
+Mon Sep  6 19:19:25 2021 :: Done.
+Mon Sep  6 19:19:25 2021 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Mon Sep  6 19:19:25 2021 :: Loading login messages
+Mon Sep  6 19:19:25 2021 :: Initializing socket
+Mon Sep  6 19:19:25 2021 :: (Name Not Set) ready on port 7010.
+Mon Sep  6 19:19:25 2021 :: Initiating hotboot recovery.
+Mon Sep  6 19:19:25 2021 :: Loading player data for: Admin (9K)
+Mon Sep  6 19:19:25 2021 :: Loading player data for: Braska (3K)
+Mon Sep  6 19:19:25 2021 :: Hotboot recovery complete.
+Mon Sep  6 19:19:29 2021 :: Log Admin: restore braska
+Mon Sep  6 19:20:35 2021 :: Log Admin: restore all
+Mon Sep  6 19:22:11 2021 :: Braska has quit (Room 10366).
+Mon Sep  6 19:22:17 2021 :: Log Admin: savea
+Mon Sep  6 19:22:20 2021 :: Admin has quit (Room 10363).

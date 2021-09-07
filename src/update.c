@@ -242,7 +242,7 @@ void advance_level( CHAR_DATA * ch )
       add_mana = ( int )( add_mana + add_mana * .3 );
       add_move = ( int )( add_move + add_move * .3 );
       add_hp += 1;   /* bitch at blod if you don't like this :) */
-      send_to_char( "Gravoc's Pandect steels your sinews.\r\n", ch );
+      send_to_char( "Braska's Pandect steels your sinews.\r\n", ch );
    }
 
    ch->max_hit += add_hp;
@@ -297,22 +297,22 @@ void gain_exp( CHAR_DATA * ch, int gain )
    {
       if( ch->level <= 6 )
       {
-         send_to_char( "The Favor of Gravoc fosters your learning.\r\n", ch );
+         send_to_char( "The Favor of Braska fosters your learning.\r\n", ch );
          modgain *= 2;
       }
       if( ch->level <= 10 && ch->level >= 7 )
       {
-         send_to_char( "The Hand of Gravoc hastens your learning.\r\n", ch );
+         send_to_char( "The Hand of Braska hastens your learning.\r\n", ch );
          modgain *= 1.75;
       }
       if( ch->level <= 13 && ch->level >= 11 )
       {
-         send_to_char( "The Cunning of Gravoc succors your learning.\r\n", ch );
+         send_to_char( "The Cunning of Braska succors your learning.\r\n", ch );
          modgain *= 1.5;
       }
       if( ch->level <= 16 && ch->level >= 14 )
       {
-         send_to_char( "The Patronage of Gravoc reinforces your learning.\r\n", ch );
+         send_to_char( "The Patronage of Braska reinforces your learning.\r\n", ch );
          modgain *= 1.25;
       }
    }
@@ -330,7 +330,7 @@ void gain_exp( CHAR_DATA * ch, int gain )
       if( ch->exp + modgain < exp_level( ch, ch->level ) )
       {
          modgain = exp_level( ch, ch->level ) - ch->exp;
-         send_to_char( "Gravoc's Pandect protects your insight.\r\n", ch );
+         send_to_char( "Braska's Pandect protects your insight.\r\n", ch );
       }
    }
 
@@ -346,6 +346,8 @@ void gain_exp( CHAR_DATA * ch, int gain )
    modgain = UMIN( (int)modgain, exp_level( ch, ch->level + 2 ) - exp_level( ch, ch->level + 1 ) );
 
    ch->exp = UMAX( 0, ch->exp + ( int )modgain );
+   ch->lifeforce = UMAX( 0, ch->lifeforce + modgain ); // LF per combat round
+   ch_printf( ch, "You have just gained %.0f lifeforce!\r\n", modgain ); // LF per combat round
 
    if( NOT_AUTHED( ch ) && ch->exp >= exp_level( ch, ch->level + 1 ) )
    {
@@ -1001,33 +1003,35 @@ void char_calendar_update( void )
          /*
           * Newbies won't starve now - Samson 10-2-98 
           */
-         if( ch->in_room && ch->level > 3 )
-            gain_condition( ch, COND_FULL, -1 + race_table[ch->race]->hunger_mod );
-
+         /*
+         *if( ch->in_room && ch->level > 3 ) // Removed Hunger/Thirst - Braska 2021
+         *   gain_condition( ch, COND_FULL, -1 + race_table[ch->race]->hunger_mod );
+         */
          /*
           * Newbies won't dehydrate now - Samson 10-2-98 
           */
-         if( ch->in_room && ch->level > 3 )
-         {
-            int sector;
-
-            sector = ch->in_room->sector_type;
-
-            switch ( sector )
-            {
-               default:
-                  gain_condition( ch, COND_THIRST, -1 + race_table[ch->race]->thirst_mod );
-                  break;
-               case SECT_DESERT:
-                  gain_condition( ch, COND_THIRST, -3 + race_table[ch->race]->thirst_mod );
-                  break;
-               case SECT_UNDERWATER:
-               case SECT_OCEANFLOOR:
-                  if( number_bits( 1 ) == 0 )
-                     gain_condition( ch, COND_THIRST, -1 + race_table[ch->race]->thirst_mod );
-                  break;
-            }
-         }
+         /*if( ch->in_room && ch->level > 3 ) // Removed Hunger/Thirst - Braska 2021
+         *{
+         *   int sector;
+         * 
+         *   sector = ch->in_room->sector_type;
+         * 
+         *   switch ( sector )
+         *   {
+         *      default:
+         *         gain_condition( ch, COND_THIRST, -1 + race_table[ch->race]->thirst_mod );
+         *         break;
+         *      case SECT_DESERT:
+         *         gain_condition( ch, COND_THIRST, -3 + race_table[ch->race]->thirst_mod );
+         *         break;
+         *      case SECT_UNDERWATER:
+         *      case SECT_OCEANFLOOR:
+         *         if( number_bits( 1 ) == 0 )
+         *            gain_condition( ch, COND_THIRST, -1 + race_table[ch->race]->thirst_mod );
+         *         break;
+         *   }
+         *}
+         */
       }
    }
    trworld_dispose( &lc );
@@ -1236,7 +1240,7 @@ void char_update( void )
           */
          check_alignment( ch );
          gain_condition( ch, COND_DRUNK, -1 );
-         gain_condition( ch, COND_FULL, -1 + race_table[ch->race]->hunger_mod );
+         //gain_condition( ch, COND_FULL, -1 + race_table[ch->race]->hunger_mod ); // Removed Hunger/Thirst - Braska 2021
 
          if( ch->Class == CLASS_VAMPIRE && ch->level >= 10 )
          {
@@ -1244,17 +1248,18 @@ void char_update( void )
                gain_condition( ch, COND_BLOODTHIRST, -1 );
          }
 
-         if( CAN_PKILL( ch ) && ch->pcdata->condition[COND_THIRST] - 9 > 10 )
-            gain_condition( ch, COND_THIRST, -9 );
-
-         if( !IS_NPC( ch ) && ch->pcdata->nuisance )
-         {
-            int value;
-
-            value = ( ( 0 - ch->pcdata->nuisance->flags ) * ch->pcdata->nuisance->power );
-            gain_condition( ch, COND_THIRST, value );
-            gain_condition( ch, COND_FULL, --value );
-         }
+         /*if( CAN_PKILL( ch ) && ch->pcdata->condition[COND_THIRST] - 9 > 10 ) // Removed Hunger/Thirst - Braska 2021
+         *   gain_condition( ch, COND_THIRST, -9 );
+         * 
+         *if( !IS_NPC( ch ) && ch->pcdata->nuisance )
+         *{
+         *   int value;
+         * 
+         *   value = ( ( 0 - ch->pcdata->nuisance->flags ) * ch->pcdata->nuisance->power );
+         *   gain_condition( ch, COND_THIRST, value );
+         *   gain_condition( ch, COND_FULL, --value );
+         *}
+         */
       }
 
       if( !IS_NPC( ch ) && !IS_IMMORTAL( ch ) && ch->pcdata->release_date > 0 && ch->pcdata->release_date <= current_time )

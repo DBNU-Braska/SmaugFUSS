@@ -817,6 +817,29 @@ ch_ret multi_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
    int dual_bonus;
    ch_ret retcode;
 
+   if( !IS_NPC( ch ) )
+   {
+      if( ch->pcdata->fight_start == 0 )
+      {
+         ch->pcdata->fight_start = ch->lifeforce;
+      }
+      //ch->damage_done_round = 0;
+	   //ch->damage_taken_round = 0;
+	   //ch->attacks_this_round = 0;
+	   ch->pcdata->gain_round = 0;
+   }
+   if( !IS_NPC( victim ) )
+   {
+      if( victim->pcdata->fight_start == 0 )
+      {
+         victim->pcdata->fight_start = victim->lifeforce;
+      }
+      //victim->damage_done_round = 0;
+	   //victim->damage_taken_round = 0;
+	   //victim->attacks_this_round = 0;
+	   victim->pcdata->gain_round = 0;
+   }
+	
    /*
     * add timer to pkillers 
     */
@@ -2500,6 +2523,14 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
                do_sacrifice( ch, "corpse" );
          }
       }
+      int cfight = 0;
+      cfight = ch->lifeforce - ch->pcdata->fight_start;
+      if( cfight == ch->lifeforce )
+      {
+         cfight = 0;
+      }
+      ch_printf( ch, "Gained this fight - %d\n\r", cfight );
+      ch->pcdata->fight_start = 0;
 
       if( IS_SET( sysdata.save_flags, SV_KILL ) )
          save_char_obj( ch );
@@ -2822,6 +2853,7 @@ void check_killer( CHAR_DATA * ch, CHAR_DATA * victim )
          ch->hit = ch->max_hit;
          ch->mana = ch->max_mana;
          ch->move = ch->max_move;
+         ch->lifeforce = ch->max_lifeforce;
          if( ch->pcdata )
             ch->pcdata->condition[COND_BLOODTHIRST] = ( 10 + ch->level );
          update_pos( victim );
@@ -3589,8 +3621,8 @@ void group_gain( CHAR_DATA * ch, CHAR_DATA * victim )
       if( !gch->fighting )
          xp /= 2;
       gch->alignment = align_compute( gch, victim );
-      ch_printf( gch, "You receive %d experience points.\r\n", xp );
-      gain_exp( gch, xp );
+      ch_printf( gch, "You receive %d experience points.\r\n", xp ); // XP from kill. Still needs to go through gain_exp.
+      gain_exp( gch, xp ); // XP from kill
 
       for( obj = gch->first_carrying; obj; obj = obj_next )
       {

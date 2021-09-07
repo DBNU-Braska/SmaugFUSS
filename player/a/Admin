@@ -7,9 +7,11 @@ Race         1
 Age          0 23 9 605
 Languages    -1 1
 Level        65
-Played       354057
-Room         21001
+Played       524421
+Room         10363
 HpManaMove   49 24 145 145 110 110
+Lifeforce    100
+Lifeforce_max   100
 Gold         15420
 Exp          2000
 Height          24
@@ -30,6 +32,7 @@ Armor        100
 Susceptible  16
 Password     8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918~
 Title         the Attendant~
+Restore_time 1630974035
 WizInvis     65
 Flags        32768
 PKills       0

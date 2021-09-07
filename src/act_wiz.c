@@ -4397,6 +4397,7 @@ void do_restore( CHAR_DATA* ch, const char* argument)
                vch->hit = vch->max_hit;
             vch->mana = vch->max_mana;
             vch->move = vch->max_move;
+            vch->max_lifeforce = vch->lifeforce; // Adding Lifeforce to restore all- Braska 2021
             vch->pcdata->condition[COND_BLOODTHIRST] = ( 10 + vch->level );
             update_pos( vch );
             act( AT_IMMORT, "$n has restored you.", ch, NULL, vch, TO_VICT );

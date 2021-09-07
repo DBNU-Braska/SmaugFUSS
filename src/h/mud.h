@@ -2295,6 +2295,8 @@ struct char_data
    short max_mana;
    short move;
    short max_move;
+   double lifeforce; // Adding Lifeforce - Braska 2021
+   double max_lifeforce; // Adding Lifeforce - Braska 2021
    short practice;
    short numattacks;
    int gold;
@@ -2443,6 +2445,8 @@ struct pc_data
    IGNORE_DATA *last_ignored;
    const char **tell_history; /* for immortal only command lasttell */
    short lt_index;   /* last_tell index */
+   int fight_start;
+   int gain_round;
 #ifdef IMC
    IMC_CHARDATA *imcchardata;
 #endif
@@ -4570,7 +4574,7 @@ MID *get_mob_index args( ( int vnum ) );
 OID *get_obj_index args( ( int vnum ) );
 RID *get_room_index args( ( int vnum ) );
 char fread_letter args( ( FILE * fp ) );
-int fread_number args( ( FILE * fp ) );
+double fread_number args( ( FILE * fp ) );
 EXT_BV fread_bitvector args( ( FILE * fp ) );
 void fwrite_bitvector args( ( EXT_BV * bits, FILE * fp ) );
 char *print_bitvector args( ( EXT_BV * bits ) );

@@ -2990,6 +2990,8 @@ void clear_char( CHAR_DATA * ch )
    ch->max_mana = 100;
    ch->move = 100;
    ch->max_move = 100;
+   ch->lifeforce = 100; // Adding Lifeforce to clear char - Braska 2021
+   ch->max_lifeforce = 100; // Adding Lifeforce to clear char - Braska 2021
    ch->height = 72;
    ch->weight = 180;
    ch->xflags = 0;
@@ -3267,9 +3269,9 @@ char fread_letter( FILE * fp )
 /*
  * Read a number from a file.
  */
-int fread_number( FILE * fp )
+double fread_number( FILE * fp ) // updated to take double vs int - Braska 2021
 {
-   int number;
+   double number;
    bool sign;
    char c;
 
