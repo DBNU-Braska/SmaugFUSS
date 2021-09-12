@@ -2029,15 +2029,15 @@ void do_mstat( CHAR_DATA* ch, const char* argument)
                        IS_NPC( victim ) ? victim->pIndexData->count : 1,
                        IS_NPC( victim ) ? victim->pIndexData->killed : victim->pcdata->mdeaths + victim->pcdata->pdeaths );
    pager_printf_color( ch,
-                       "&cStr: &C%2d&c )( Int: &C%2d&c )( Wis: &C%2d&c )( Dex: &C%2d&c )( Con: &C%2d&c )( Cha: &C%2d&c )( Lck: &C%2d&c\r\n",
+                       "&cStr: &C%2d&c  Int: &C%2d&c  Wis: &C%2d&c  Dex: &C%2d&c  Con: &C%2d&c  Cha: &C%2d&c  Lck: &C%2d&c\r\n",
                        get_curr_str( victim ), get_curr_int( victim ), get_curr_wis( victim ), get_curr_dex( victim ),
                        get_curr_con( victim ), get_curr_cha( victim ), get_curr_lck( victim ) );
-   pager_printf_color( ch, "&cLevel   : &P%-2d              ", victim->level );
+   pager_printf_color( ch, "&cLevel   : &P%-2d ", victim->level );
    if( IS_NPC( victim ) )
       pager_printf_color( ch, "&c(&w%-2.2d&c)         ", victim->pIndexData->level );
    else                  
-      pager_printf_color( ch, "             ");
-   pager_printf_color( ch, "&cclass  : &w%-2.2d/%-10s   &cRace      : &w%-2.2d/%-10s\r\n",
+      pager_printf_color( ch, "            ");
+   pager_printf_color( ch, "&cClass  : &w%-2.2d/%-10s   &cRace      : &w%-2.2d/%-10s\r\n",
                        victim->Class,
                        IS_NPC( victim ) ? victim->Class < MAX_NPC_CLASS && victim->Class >= 0 ?
                        npc_class[victim->Class] : "unknown" : victim->Class < MAX_PC_CLASS &&
@@ -2049,6 +2049,7 @@ void do_mstat( CHAR_DATA* ch, const char* argument)
                        npc_race[victim->race] : "unknown" : victim->race < MAX_PC_RACE &&
                        race_table[victim->race]->race_name &&
                        race_table[victim->race]->race_name[0] != '\0' ? race_table[victim->race]->race_name : "unknown" );
+   pager_printf_color( ch, "&cLifeforce : &w%.0f/%.0f\r\n", victim->max_lifeforce, victim->lifeforce ); // adding LF - Braska 2021
    snprintf( hpbuf, MAX_STRING_LENGTH, "%d/%d", victim->hit, victim->max_hit );
    snprintf( mnbuf, MAX_STRING_LENGTH, "%d/%d", victim->mana, victim->max_mana );
    snprintf( mvbuf, MAX_STRING_LENGTH, "%d/%d", victim->move, victim->max_move );
@@ -3777,12 +3778,14 @@ void do_advance( CHAR_DATA* ch, const char* argument)
       victim->max_hit = 20;
       victim->max_mana = 100;
       victim->max_move = 100;
+      victim->lifeforce = exp_level( victim, victim->level + 1 ); // reduce LF to level 1 - Braska 2021
       for( sn = 0; sn < num_skills; ++sn )
          victim->pcdata->learned[sn] = 0;
       victim->practice = 0;
       victim->hit = victim->max_hit;
       victim->mana = victim->max_mana;
       victim->move = victim->max_move;
+      victim->max_lifeforce = victim->lifeforce; // level 1 LF - Braska 2021
       advance_level( victim );
       /*
        * Rank fix added by Narn. 
@@ -3877,6 +3880,8 @@ void do_advance( CHAR_DATA* ch, const char* argument)
       advance_level( victim );
    }
    victim->exp = exp_level( victim, victim->level );
+   victim->lifeforce = exp_level( victim, victim->level +1 ); // Set the new LF of victim - Braska 2021
+   victim->max_lifeforce = victim->lifeforce; // Set the new LF of victim - Braska 2021
    victim->trust = 0;
 }
 
@@ -5436,9 +5441,9 @@ void do_cmdtable( CHAR_DATA* ch, const char* argument)
          for( cmd = command_hash[hash]; cmd; cmd = cmd->next )
          {
             if( ( ++cnt ) % 4 )
-               pager_printf( ch, "%-6.6s %4d\t", cmd->name, cmd->userec.num_uses );
+               pager_printf( ch, "%-6.6s %4d\t\t", cmd->name, cmd->userec.num_uses );
             else
-               pager_printf( ch, "%-6.6s %4d\r\n", cmd->name, cmd->userec.num_uses );
+               pager_printf( ch, "%-6.6s %4d\t\t\r\n", cmd->name, cmd->userec.num_uses );
          }
       send_to_char( "\r\n", ch );
    }
@@ -5453,9 +5458,9 @@ void do_cmdtable( CHAR_DATA* ch, const char* argument)
             if( !cmd->lag_count )
                continue;
             else if( ( ++cnt ) % 4 )
-               pager_printf( ch, "%-6.6s %4d\t", cmd->name, cmd->lag_count );
+               pager_printf( ch, "%-6.6s %4d\t\t", cmd->name, cmd->lag_count );
             else
-               pager_printf( ch, "%-6.6s %4d\r\n", cmd->name, cmd->lag_count );
+               pager_printf( ch, "%-6.6s %4d\t\t\r\n", cmd->name, cmd->lag_count );
          }
       send_to_char( "\r\n", ch );
    }
@@ -6785,9 +6790,9 @@ void update_calendar( void )
 void update_timers( void )
 {
    sysdata.pulsetick = sysdata.secpertick * sysdata.pulsepersec;
-   sysdata.pulseviolence = 3 * sysdata.pulsepersec;
-   sysdata.pulsemobile = 4 * sysdata.pulsepersec;
-   sysdata.pulsecalendar = 4 * sysdata.pulsetick;
+   sysdata.pulseviolence = ( 0.80 ) * sysdata.pulsepersec; //3 * 
+   sysdata.pulsemobile = sysdata.pulsepersec; //4 * 
+   sysdata.pulsecalendar = 2.5 * sysdata.pulsetick; //4 * 
 }
 
 void do_cset( CHAR_DATA* ch, const char* argument)

@@ -2445,7 +2445,8 @@ struct pc_data
    IGNORE_DATA *last_ignored;
    const char **tell_history; /* for immortal only command lasttell */
    short lt_index;   /* last_tell index */
-   int fight_start;
+   int lf_fight_start; /* to calculate lf gained during fights */
+   int exp_fight_start; /* to calculate lf gained during fights */
    int gain_round;
 #ifdef IMC
    IMC_CHARDATA *imcchardata;
@@ -4786,6 +4787,8 @@ CHAR_DATA *carried_by( OBJ_DATA * obj );
 AREA_DATA *get_area_obj( OBJ_INDEX_DATA * obj );
 int get_exp( CHAR_DATA * ch );
 int get_exp_worth( CHAR_DATA * ch );
+short get_exp_base( CHAR_DATA * ch );
+short level_exp( CHAR_DATA * ch, int cexp );
 int exp_level( CHAR_DATA * ch, short level );
 short get_trust( CHAR_DATA * ch );
 short calculate_age( CHAR_DATA * ch );
@@ -5169,3 +5172,4 @@ OBJ_DATA *trvobj_wnext( TRV_WORLD * );
 /* Global lists adjusting after a node removal */
 void trworld_char_check( CHAR_DATA * );
 void trworld_obj_check( OBJ_DATA * );
+vvvvvv

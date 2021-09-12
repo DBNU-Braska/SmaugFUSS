@@ -3192,7 +3192,15 @@ void do_who( CHAR_DATA* ch, const char* argument)
    /*
     * Two extras now for grouped and groupwho (wanting group). -- Alty
     */
-
+   if( !ch )
+   {
+      fprintf( whoout, "%s",
+         "\r\n------------------------------------[ MORTALS ]------------------------------\r\n\r\n" );
+   }
+   else
+   {
+      send_to_pager( "\r\n------------------------------------[ MORTALS ]-------------------------------\r\n\r\n", ch );
+   }
    for( cur_who = first_mortal; cur_who; cur_who = next_who )
    {
       if( !ch )
