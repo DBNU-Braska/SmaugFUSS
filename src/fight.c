@@ -817,6 +817,31 @@ ch_ret multi_hit( CHAR_DATA * ch, CHAR_DATA * victim, int dt )
    int dual_bonus;
    ch_ret retcode;
 
+   
+   if( !IS_NPC( ch ) )
+   {
+      if( ch->pcdata->exp_fight_start == 0 )
+      {
+         ch->pcdata->exp_fight_start = ch->exp;
+      }
+      //ch->damage_done_round = 0;
+	   //ch->damage_taken_round = 0;
+	   //ch->attacks_this_round = 0;
+	   //ch->pcdata->gain_round = 0;
+   }
+   if( !IS_NPC( victim ) )
+   {
+      if( victim->pcdata->exp_fight_start == 0 )
+      {
+         victim->pcdata->exp_fight_start = victim->exp;
+      }
+      //victim->damage_done_round = 0;
+	   //victim->damage_taken_round = 0;
+	   //victim->attacks_this_round = 0;
+	   //victim->pcdata->gain_round = 0;
+   }
+   
+	
    /*
     * add timer to pkillers 
     */
@@ -2260,7 +2285,7 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
          xp_gain = ( int )( xp_compute( ch, victim ) * 0.85 * dam ) / victim->max_hit;
       if( dt == gsn_backstab || dt == gsn_circle )
          xp_gain = ( int )( xp_gain * 0.05 );
-      gain_exp( ch, xp_gain );
+      gain_exp( ch, xp_gain ); // XP from % damage done
    }
 
    if( !IS_NPC( victim ) && victim->level >= LEVEL_IMMORTAL && victim->hit < 1 )
@@ -2388,7 +2413,6 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
    if( victim->position == POS_DEAD )
    {
       OBJ_DATA *new_corpse;
-
       group_gain( ch, victim );
 
       if( !npcvict )
@@ -2501,6 +2525,23 @@ ch_ret damage( CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt )
          }
       }
 
+      /*
+      * Total XP Gained during fight 
+      */
+      if( !IS_NPC( ch ) )
+      {
+         int gained = 0;
+         gained = ch->exp - ch->pcdata->exp_fight_start;
+         if( gained == ch->exp )
+         {
+            gained = 0;
+         }
+         ch_printf( ch, "Experience gained this fight - %d\n\r", gained );
+         ch_printf( ch, "LifeForce gained this fight - %d\n\r", ch->pcdata->lf_fight_start );
+         ch->lifeforce += ch->pcdata->lf_fight_start;
+         ch->pcdata->exp_fight_start = 0;
+         ch->pcdata->lf_fight_start = 0;
+      }
       if( IS_SET( sysdata.save_flags, SV_KILL ) )
          save_char_obj( ch );
       return rVICT_DIED;
@@ -2822,6 +2863,7 @@ void check_killer( CHAR_DATA * ch, CHAR_DATA * victim )
          ch->hit = ch->max_hit;
          ch->mana = ch->max_mana;
          ch->move = ch->max_move;
+         ch->lifeforce = ch->max_lifeforce;
          if( ch->pcdata )
             ch->pcdata->condition[COND_BLOODTHIRST] = ( 10 + ch->level );
          update_pos( victim );
@@ -3589,8 +3631,8 @@ void group_gain( CHAR_DATA * ch, CHAR_DATA * victim )
       if( !gch->fighting )
          xp /= 2;
       gch->alignment = align_compute( gch, victim );
-      ch_printf( gch, "You receive %d experience points.\r\n", xp );
-      gain_exp( gch, xp );
+      //ch_printf( gch, "You receive %d experience points.\r\n", xp ); // XP from kill. Still needs to go through gain_exp.
+      gain_exp( gch, xp ); // XP from kill
 
       for( obj = gch->first_carrying; obj; obj = obj_next )
       {
@@ -3814,9 +3856,9 @@ void new_dam_message( CHAR_DATA * ch, CHAR_DATA * victim, int dam, unsigned int 
       skill = skill_table[dt];
    if( dt == TYPE_HIT )
    {
-      snprintf( buf1, 256, "$n %s $N%c", vp, punct );
-      snprintf( buf2, 256, "You %s $N%c", vs, punct );
-      snprintf( buf3, 256, "$n %s you%c", vp, punct );
+      snprintf( buf1, 256, "$n %s $N%c (%d)", vp, punct, dam ? dam : dampc ); // added damage per round - Braska 2021
+      snprintf( buf2, 256, "You %s $N%c (%d)", vs, punct, dam ? dam : dampc ); // added damage per round - Braska 2021
+      snprintf( buf3, 256, "$n %s you%c (%d)", vp, punct, dam ? dam : dampc ); // added damage per round - Braska 2021
    }
    else if( dt > TYPE_HIT && is_wielding_poisoned( ch ) )
    {
@@ -3829,9 +3871,9 @@ void new_dam_message( CHAR_DATA * ch, CHAR_DATA * victim, int dam, unsigned int 
          attack = attack_table[0];
       }
 
-      snprintf( buf1, 256, "$n's poisoned %s %s $N%c", attack, vp, punct );
-      snprintf( buf2, 256, "Your poisoned %s %s $N%c", attack, vp, punct );
-      snprintf( buf3, 256, "$n's poisoned %s %s you%c", attack, vp, punct );
+      snprintf( buf1, 256, "$n's poisoned %s %s $N%c (%d)", attack, vp, punct, dam ? dam : dampc ); // added damage per round - Braska 2021
+      snprintf( buf2, 256, "Your poisoned %s %s $N%c (%d)", attack, vp, punct, dam ? dam : dampc ); // added damage per round - Braska 2021
+      snprintf( buf3, 256, "$n's poisoned %s %s you%c (%d)", attack, vp, punct, dam ? dam : dampc ); // added damage per round - Braska 2021
    }
    else
    {
@@ -3891,9 +3933,9 @@ void new_dam_message( CHAR_DATA * ch, CHAR_DATA * victim, int dam, unsigned int 
          attack = attack_table[0];
       }
 
-      snprintf( buf1, 256, "$n's %s %s $N%c", attack, vp, punct );
-      snprintf( buf2, 256, "Your %s %s $N%c", attack, vp, punct );
-      snprintf( buf3, 256, "$n's %s %s you%c", attack, vp, punct );
+      snprintf( buf1, 256, "$n's %s %s $N%c (%d)", attack, vp, punct, dam ? dam : dampc ); // added damage per round - Braska 2021
+      snprintf( buf2, 256, "Your %s %s $N%c (%d)", attack, vp, punct, dam ? dam : dampc ); // added damage per round - Braska 2021
+      snprintf( buf3, 256, "$n's %s %s you%c (%d)", attack, vp, punct, dam ? dam : dampc ); // added damage per round - Braska 2021
    }
 
    act( AT_ACTION, buf1, ch, NULL, victim, TO_NOTVICT );

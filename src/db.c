@@ -388,8 +388,8 @@ void boot_db( bool fCopyOver )
    sysdata.pk_channels = 1;
    sysdata.pk_silence = 0;
    sysdata.wizlock = FALSE;
-   sysdata.secpertick = 70;
-   sysdata.pulsepersec = 4;
+   sysdata.secpertick = 30; //70
+   sysdata.pulsepersec = 16; //4
    sysdata.hoursperday = 24;
    sysdata.daysperweek = 7;
    sysdata.dayspermonth = 31;
@@ -2720,6 +2720,8 @@ CHAR_DATA *create_mobile( MOB_INDEX_DATA * pMobIndex )
     */
    mob->gold = pMobIndex->gold;
    mob->exp = pMobIndex->exp;
+   mob->lifeforce = exp_level( mob, mob->level +1 ); // adding mob LF - Braska 2021
+   mob->max_lifeforce = mob->lifeforce;
    mob->position = pMobIndex->position;
    mob->defposition = pMobIndex->defposition;
    mob->barenumdie = pMobIndex->damnodice;
@@ -2990,6 +2992,8 @@ void clear_char( CHAR_DATA * ch )
    ch->max_mana = 100;
    ch->move = 100;
    ch->max_move = 100;
+   ch->lifeforce = exp_level( ch, ch->level + 1 ); // Adding Lifeforce to clear char - Braska 2021
+   ch->max_lifeforce = ch->lifeforce; // Adding Lifeforce to clear char - Braska 2021
    ch->height = 72;
    ch->weight = 180;
    ch->xflags = 0;
@@ -3267,9 +3271,9 @@ char fread_letter( FILE * fp )
 /*
  * Read a number from a file.
  */
-int fread_number( FILE * fp )
+double fread_number( FILE * fp ) // updated to take double vs int - Braska 2021
 {
-   int number;
+   double number;
    bool sign;
    char c;
 

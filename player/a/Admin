@@ -7,15 +7,27 @@ Race         1
 Age          0 23 9 605
 Languages    -1 1
 Level        65
-Played       354057
-Room         21001
+<<<<<<< HEAD
+<<<<<<< HEAD
+Played       717559
+Room         10365
+=======
+Played       524421
+Room         10363
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
+=======
+Played       524421
+Room         10363
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
 HpManaMove   49 24 145 145 110 110
+Lifeforce    100
+Lifeforce_max   100
 Gold         15420
 Exp          2000
 Height          24
 Weight          42
 Act          1644188232&2
-AffectedBy   524288
+AffectedBy   16
 Position     112
 Style     2
 Practice     4
@@ -29,7 +41,16 @@ Damroll      0
 Armor        100
 Susceptible  16
 Password     8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918~
+<<<<<<< HEAD
+Title         the bestest!~
+Restore_time 1631468778
+=======
 Title         the Attendant~
+Restore_time 1630974035
+<<<<<<< HEAD
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
+=======
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
 WizInvis     65
 Flags        32768
 PKills       0

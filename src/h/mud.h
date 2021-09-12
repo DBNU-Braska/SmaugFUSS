@@ -2295,6 +2295,8 @@ struct char_data
    short max_mana;
    short move;
    short max_move;
+   double lifeforce; // Adding Lifeforce - Braska 2021
+   double max_lifeforce; // Adding Lifeforce - Braska 2021
    short practice;
    short numattacks;
    int gold;
@@ -2443,6 +2445,9 @@ struct pc_data
    IGNORE_DATA *last_ignored;
    const char **tell_history; /* for immortal only command lasttell */
    short lt_index;   /* last_tell index */
+   int lf_fight_start; /* to calculate lf gained during fights */
+   int exp_fight_start; /* to calculate lf gained during fights */
+   int gain_round;
 #ifdef IMC
    IMC_CHARDATA *imcchardata;
 #endif
@@ -4570,7 +4575,7 @@ MID *get_mob_index args( ( int vnum ) );
 OID *get_obj_index args( ( int vnum ) );
 RID *get_room_index args( ( int vnum ) );
 char fread_letter args( ( FILE * fp ) );
-int fread_number args( ( FILE * fp ) );
+double fread_number args( ( FILE * fp ) );
 EXT_BV fread_bitvector args( ( FILE * fp ) );
 void fwrite_bitvector args( ( EXT_BV * bits, FILE * fp ) );
 char *print_bitvector args( ( EXT_BV * bits ) );
@@ -4782,6 +4787,8 @@ CHAR_DATA *carried_by( OBJ_DATA * obj );
 AREA_DATA *get_area_obj( OBJ_INDEX_DATA * obj );
 int get_exp( CHAR_DATA * ch );
 int get_exp_worth( CHAR_DATA * ch );
+short get_exp_base( CHAR_DATA * ch );
+short level_exp( CHAR_DATA * ch, int cexp );
 int exp_level( CHAR_DATA * ch, short level );
 short get_trust( CHAR_DATA * ch );
 short calculate_age( CHAR_DATA * ch );

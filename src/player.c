@@ -339,7 +339,8 @@ void do_score( CHAR_DATA* ch, const char* argument )
 
    pager_printf( ch, "LCK  : %2.2d(%2.2d) \r\n", get_curr_lck( ch ), ch->perm_lck );
 
-   pager_printf( ch, "Glory: %4.4d(%4.4d) \r\n", ch->pcdata->quest_curr, ch->pcdata->quest_accum );
+   pager_printf( ch, "Glory: %4.4d(%4.4d)  Lifeforce: %-.0f of %-.0f\r\n", ch->pcdata->quest_curr, 
+                  ch->pcdata->quest_accum, ch->max_lifeforce, ch->lifeforce );
 
    pager_printf( ch, "PRACT: %3.3d         Hitpoints: %-5d of %5d   Pager: (%c) %3d    AutoExit(%c)\r\n",
                  ch->practice, ch->hit, ch->max_hit,

@@ -2685,7 +2685,7 @@ rules, 'help imm'.  Visit note boards at 1200, 1213, and 1214 regularly.
  | (email bombman@freja.diku.dk)     (email noop@freja.diku.dk)            |
  |                                                                         |
  | Katja Nyboe                                                             |
- | Kildeg}rdsvej 2                                                         |
+ | Kildeg}}rdsvej 2                                                         |
  | 2900 Hellerup                                                           |
  | 31 62 82 84                                                             | 
  | DENMARK                                                                 |
@@ -4958,25 +4958,26 @@ resides in a chamber which prevents the usage of magic...
 
 -1 GREETING~
 .
-         /     _      _            _      _    _____
-        /      |\    /|     /\     |      |   /     \     ***************
-       /       | \  / |    /  \    |      |  |            *   \\._.//   *
-      /        |  \/  |   /    \   |      |  |            *   (0...0)   *
-     /_______  |      |  |______|  |      |  |            *    ).:.(    *
-            /  |      |  |      |  |      |  |            *    {o o}    *
-           /   |      |  |      |  |      |  |     __     *   / ' ' \   *
-          /    |      |  |      |  |      |  |       |    *-'^^.VxvxV.^^'-*
-         /     |      |  |      |   \____/    \_____/     ***************
-        / 
-
-SmaugFUSS 1.9 changes by Samson. Other bugfixes and changes provided by
-various members of the SMAUG community. Their contributions are greatly
-appreciated.
-SMAUG 1.4 written by Thoric (Derek Snider) with Altrag, Blodkai, Haus, Narn,
-Scryn, Swordbearer, Tricops, Gorog, Rennard, Grishnakh, Fireblade and Nivek.
+`W   _____
+ / ____|
+ | (___    __ _   __ _   __ _  ___ 
+  \___ \  / _`` | / _`` | / _`` |/ __|
+  ____) || (_| || (_| || (_| |\__ \
+ |_____/  \__,_| \__, | \__,_||___/
+        `o  _    _`W  __/ | `o _                                _
+        `o | |  | |`W|___/`o  (_)                              | |
+         | |  | | _ __   _ __   __ ___  _ __  ___   __ _ | |
+         | |  | || '_ \ | |\ \ / // _ \| '__|/ __| / _`` || |
+         | |__| || | | || | \ V /|  __/| |   \__ \| (_| || |
+          \____/ |_| |_||_|  \_/  \___||_|   |___/ \__,_||_|
+`n
+SUMUD by Braska
+SmaugFUSS 1.9 by Samson. SMAUG 1.4 by Thoric (Derek Snider) with Altrag, 
+Blodkai, Haus, Narn, Scryn, Swordbearer, Tricops, Gorog, Rennard, 
+Grishnakh, Fireblade and Nivek.
 Original MERC 2.1 code by Hatchet, Furey, and Kahn.
-Original DikuMUD code by:
-Hans Staerfeldt, Katja Nyboe, Tom Madsen, Michael Seifert && Sebastian Hammer
+Original DikuMUD code by: Hans Staerfeldt, Katja Nyboe, Tom Madsen, 
+Michael Seifert && Sebastian Hammer
 
 Enter your character's name, or type new: ~
 

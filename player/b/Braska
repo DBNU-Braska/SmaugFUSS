@@ -6,18 +6,45 @@ Class        3
 Race         0
 Age          0 0 14 605
 Languages    1 1
-Level        2
-Played       3743
-Room         10370
-HpManaMove   35 35 100 100 210 110
-Gold         2998
-Exp          2300
-Height          72
+<<<<<<< HEAD
+<<<<<<< HEAD
+Level        4
+Played       31287
+Room         10365
+HpManaMove   45 77 100 100 126 40
+Lifeforce    74803
+Lifeforce_max   74553
+Gold         21703
+Exp          32338
+=======
+=======
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
+Level        3
+Played       13234
+Room         10366
+HpManaMove   32 52 100 100 208 120
+Lifeforce    9732
+Lifeforce_max   8431
+Gold         7675
+Exp          20957
+<<<<<<< HEAD
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
+=======
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
+Height          61
 Weight          164
 Act          1644168824&2
 Position     112
 Style     2
-Practice     0
+<<<<<<< HEAD
+<<<<<<< HEAD
+Practice     12
+=======
+Practice     3
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
+=======
+Practice     3
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
 SavingThrows 0 0 0 0 0
 Alignment    0
 Favor        0
@@ -28,24 +55,52 @@ Damroll      0
 Armor        100
 Mentalstate  0
 Password     82ed22d2125d6bcc44d7dda539b8664cdc9ea3dc10ccff16bfa146a29f5fcf64~
-Title         the Recruit~
-Flags        163840
+<<<<<<< HEAD
+<<<<<<< HEAD
+Title         the Fighter~
+Flags        32768
 PKills       0
 PDeaths      0
-MKills       12
+MKills       53
+=======
+=======
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
+Title         the Sentry~
+Flags        32768
+PKills       0
+PDeaths      0
+MKills       25
+<<<<<<< HEAD
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
+=======
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
 MDeaths      0
 IllegalPK    0
 Timezone     -1
 AttrPerm     16 13 13 14 14 13 13
-AttrMod      3 0 0 0 0 0 0
-Condition    0 45 100 10
+AttrMod      0 0 0 0 0 0 0
+<<<<<<< HEAD
+<<<<<<< HEAD
+Condition    0 44 100 14
+Site         142.118.223.121
+Killed       10301 2
+Killed       10302 8
+Killed       10300 18
+=======
+=======
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
+Condition    0 44 100 13
 Site         142.118.223.121
 Tongue       100 'common'
 Skill        17 'standard style'
-Skill        32 'strike'
-AffectData   'kindred strength' 230   3   1 0
-Killed       10303 1
-Killed       10314 2
+Skill        95 'strike'
+Killed       10302 3
+Killed       10300 1
+Killed       10303 2
+<<<<<<< HEAD
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
+=======
+>>>>>>> 7a691637d8ef945fb8166551964b7bd03f48d363
 MaxColors    116
 Colors       0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 7 7 14 14 14 15 15 11 11 9 46 40 12 7 7 10 6 11 9 10 1 15 11 15 11 10 13 12 10 11 12 10 3 12 9 15 11 15 14 2 5 15 9 7 2 9 12 10 2 10 15 7 7 15 12 12 12 10 14 14 14 10 10 10 13 2 10 14 10 10 2 6 1 9 2 10 7 10 15 0 0 0 0 
 End

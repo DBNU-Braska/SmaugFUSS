@@ -2794,7 +2794,7 @@ void do_who( CHAR_DATA* ch, const char* argument)
    for( iRace = 0; iRace < MAX_RACE; iRace++ )
       rgfRace[iRace] = FALSE;
 
-#ifdef REQWHOARG
+   #ifdef REQWHOARG
    /*
     * The who command must have at least one argument because we often
     * have up to 500 players on. Too much spam if a player accidentally
@@ -2806,7 +2806,7 @@ void do_who( CHAR_DATA* ch, const char* argument)
                            ch );
       return;
    }
-#endif
+   #endif
 
    /*
     * Parse arguments.
@@ -2916,7 +2916,7 @@ void do_who( CHAR_DATA* ch, const char* argument)
       }
    }
 
-/* start from last to first to get it in the proper order */
+   /* start from last to first to get it in the proper order */
    if( fGroup )
    {
       create_whogr( ch );
@@ -3192,7 +3192,15 @@ void do_who( CHAR_DATA* ch, const char* argument)
    /*
     * Two extras now for grouped and groupwho (wanting group). -- Alty
     */
-
+   if( !ch )
+   {
+      fprintf( whoout, "%s",
+         "\r\n------------------------------------[ MORTALS ]------------------------------\r\n\r\n" );
+   }
+   else
+   {
+      send_to_pager( "\r\n------------------------------------[ MORTALS ]-------------------------------\r\n\r\n", ch );
+   }
    for( cur_who = first_mortal; cur_who; cur_who = next_who )
    {
       if( !ch )
@@ -3226,14 +3234,14 @@ void do_who( CHAR_DATA* ch, const char* argument)
 
    if( first_grouped )
    {
-/*      if ( !ch )
+   /*      if ( !ch )
         fprintf( whoout, "%s", "\r\n-----------------------------[ GROUPED CHARACTERS ]---------------------------\r\n\r\n" );
       else*/
       send_to_pager( "\r\n-----------------------------[ GROUPED CHARACTERS ]---------------------------\r\n\r\n", ch );
    }
    for( cur_who = first_grouped; cur_who; cur_who = next_who )
    {
-/*      if ( !ch )
+   /*      if ( !ch )
         fprintf( whoout, cur_who->text );
       else*/
       send_to_pager( cur_who->text, ch );
@@ -3710,11 +3718,11 @@ void do_practice( CHAR_DATA* ch, const char* argument)
          }
       }
 
-/*
- * Guild checks - right now, cant practice guild skills - done on 
- * induct/outcast
- */
-/*	
+   /*
+   * Guild checks - right now, cant practice guild skills - done on 
+   * induct/outcast
+   */
+   /*	
 	if ( !IS_NPC(ch) && !IS_GUILDED(ch)
 	&&    skill_table[sn]->guild != CLASS_NONE)
 	{
@@ -3730,7 +3738,7 @@ void do_practice( CHAR_DATA* ch, const char* argument)
 		mob, NULL, ch, TO_VICT );
 	    return;
 	}
-*/
+   */
       if( !IS_NPC( ch ) && skill_table[sn]->guild != CLASS_NONE )
       {
          act( AT_TELL, "$n tells you 'That is only for members of guilds...'", mob, NULL, ch, TO_VICT );

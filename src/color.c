@@ -1320,7 +1320,7 @@ char *colorize( const char *txt, DESCRIPTOR_DATA * d )
 
          if( colstr > prevstr )
          {
-            if( ( MAX_STRING_LENGTH - ( reslen = strlen( result ) ) ) <= ( colstr - prevstr ) )
+            if( ( ( MAX_STRING_LENGTH * 2 ) - ( reslen = strlen( result ) ) ) <= ( colstr - prevstr ) )
             {
                bug( "%s: OVERFLOW in internal MAX_STRING_LENGTH buffer!", __func__ );
                break;
