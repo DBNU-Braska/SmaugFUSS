@@ -1083,14 +1083,14 @@ void new_descriptor( int new_desc )
    LINK( dnew, first_descriptor, last_descriptor, next, prev );
 
    /*
+    * Kavir's Protocol Snippet
+    */
+   ProtocolNegotiate( dnew );
+
+   /*
     * MCCP Compression 
     */
    write_to_buffer( dnew, (const char *)will_compress2_str, 0 );
-
-   /*
-    * Kavir's Protocol Snippet
-    */
-   ProtocolNegotiate(dnew);
 
    /*
     * Send the greeting.
@@ -2573,8 +2573,8 @@ void nanny_read_motd( DESCRIPTOR_DATA * d, const char *argument )
       ch->hit = UMAX( 1, ch->max_hit );
       ch->mana = UMAX( 1, ch->max_mana );
       ch->move = ch->max_move;
-      ch->lifeforce = 100; // Adding Lifeforce to Creation - Braska 2021
-      ch->max_lifeforce = 100; // Adding Lifeforce to Creation - Braska 2021
+      ch->lifeforce = exp_level( ch, ch->level + 1 ); // Adding Lifeforce to Creation - Braska 2021
+      ch->max_lifeforce = ch->lifeforce; // Adding Lifeforce to Creation - Braska 2021
       ch->gold = 0;
       /*
        * Set player birthday to current mud day, -17 years - Samson 10-25-99
@@ -3537,31 +3537,33 @@ void do_delete( CHAR_DATA *ch, const char *argument )
 
 char *default_fprompt( CHAR_DATA * ch )
 {
-   static char buf[60];
+   static char buf[100];
 
-   mudstrlcpy( buf, "&w<&Y%hhp ", 60 );
+    mudstrlcpy( buf, "&w[&WLifeforce&w: &P%L&p/%l ", 100 );
+   mudstrlcat( buf, "&Y%hhp ", 100 );
    if( IS_VAMPIRE( ch ) )
-      mudstrlcat( buf, "&R%bbp", 60 );
+      mudstrlcat( buf, "&R%bbp", 100 );
    else
-      mudstrlcat( buf, "&C%mm", 60 );
-   mudstrlcat( buf, " &G%vmv&w> ", 60 );
+      mudstrlcat( buf, "&C%mm", 100 );
+   mudstrlcat( buf, " &G%vmv&w] ", 100 );
    if( IS_NPC( ch ) || IS_IMMORTAL( ch ) )
-      mudstrlcat( buf, "%i%R", 60 );
+      mudstrlcat( buf, "%i%R", 100 );
    return buf;
 }
 
 char *default_prompt( CHAR_DATA * ch )
 {
-   static char buf[60];
+   static char buf[100];
 
-   mudstrlcpy( buf, "&w<&Y%hhp ", 60 );
+   mudstrlcpy( buf, "&w[&WLifeforce&w: &P%L&p/%l ", 100 );
+   mudstrlcat( buf, "&Y%hhp ", 100 );
    if( IS_VAMPIRE( ch ) )
-      mudstrlcat( buf, "&R%bbp", 60 );
+      mudstrlcat( buf, "&R%bbp", 100 );
    else
-      mudstrlcat( buf, "&C%mm", 60 );
-   mudstrlcat( buf, " &G%vmv&w> ", 60 );
+      mudstrlcat( buf, "&C%mm", 100 );
+   mudstrlcat( buf, " &G%vmv&w] ", 100 );
    if( IS_NPC( ch ) || IS_IMMORTAL( ch ) )
-      mudstrlcat( buf, "%i%R", 60 );
+      mudstrlcat( buf, "%i%R", 100 );
    return buf;
 }
 

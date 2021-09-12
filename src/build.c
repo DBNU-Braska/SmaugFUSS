@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include "h/mud.h"
 #include "h/sha256.h"
+#include <math.h>
 
 extern int top_affect;
 extern int top_reset;
@@ -1223,7 +1224,7 @@ void do_mset( CHAR_DATA* ch, const char* argument)
       send_to_char( "\r\n", ch );
       send_to_char( "Field being one of:\r\n", ch );
       send_to_char( "  str int wis dex con cha lck sex class\r\n", ch );
-      send_to_char( "  gold hp mana move practice align race\r\n", ch );
+      send_to_char( "  gold lf hp mana move practice align race\r\n", ch );
       send_to_char( "  hitroll damroll armor affected level\r\n", ch );
       send_to_char( "  thirst drunk full blood flags\r\n", ch );
       send_to_char( "  pos defpos part (see BODYPARTS)\r\n", ch );
@@ -1578,21 +1579,70 @@ void do_mset( CHAR_DATA* ch, const char* argument)
    if( !str_cmp( arg2, "level" ) )
    {
       if( !can_mmodify( ch, victim ) )
+      {
+         return;
+      }      
+      if( !IS_NPC( victim ) )
+      {
+         if( value < 0 || value > LEVEL_AVATAR )
+         {
+            ch_printf( ch, "Level range is 1 to %d.\r\n", LEVEL_AVATAR );
+            return;
+         }
+         //send_to_char( "Not on PC's.\r\n", ch ); // added ability to level PCs - Braska
+         char levelbuf[30];
+         snprintf( levelbuf, 30, "%s %d", victim->name, value );
+         do_advance( ch, levelbuf );
+         //return;
+      }
+      else 
+      {
+         if( value < 0 || value > LEVEL_AVATAR + 5 )
+         {
+            ch_printf( ch, "Level range is 1 to %d.\r\n", LEVEL_AVATAR + 5 );
+            return;
+         }
+      }
+      victim->level = value;
+      victim->lifeforce = exp_level( victim, value +1 ); // adding LF to mset - Braska 2021
+      victim->max_lifeforce = victim->lifeforce; // adding LF to mset - Braska 2021
+      if( IS_NPC( victim ) && xIS_SET( victim->act, ACT_PROTOTYPE ) )
+      {
+         victim->pIndexData->level = value;
+      }
+      return;
+   }
+   /* Lifeforce added - Braska 2021 */
+   if( !str_cmp( arg2, "lf" ) )
+   {
+      if( !can_mmodify( ch, victim ) )
          return;
       if( !IS_NPC( victim ) )
       {
-         send_to_char( "Not on PC's.\r\n", ch );
-         return;
+         if( value < get_exp_base( victim ) || value > exp_level( ch, LEVEL_AVATAR +1 ) )
+         {
+            ch_printf( ch, "Level range is %d to %d.\r\n", get_exp_base( victim ), exp_level( ch, LEVEL_AVATAR +1 ) );
+            return;
+         }
+         //send_to_char( "Not on PC's.\r\n", ch );
+         //return;
       }
-
-      if( value < 0 || value > LEVEL_AVATAR + 5 )
+      else
       {
-         ch_printf( ch, "Level range is 0 to %d.\r\n", LEVEL_AVATAR + 5 );
-         return;
-      }
-      victim->level = value;
+         if( value < get_exp_base( victim ) || value > exp_level( ch, LEVEL_AVATAR + 5 ) )
+         {
+            ch_printf( ch, "Level range is %d to %d.\r\n", get_exp_base( victim ), exp_level( ch, LEVEL_AVATAR + 5 ) );
+            return;
+         }
+      }      
+      victim->lifeforce = value;  // adding LF to mset - Braska 2021
+      victim->max_lifeforce = victim->lifeforce; // adding LF to mset - Braska 2021
+      /* Calculate the level associated with that Lifeforce, and round down.*/
+      victim->level = cbrt( value / 1000 );
       if( IS_NPC( victim ) && xIS_SET( victim->act, ACT_PROTOTYPE ) )
-         victim->pIndexData->level = value;
+      {
+         victim->pIndexData->level = cbrt( value / 1000 );
+      }
       return;
    }
 
