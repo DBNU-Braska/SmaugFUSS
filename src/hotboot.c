@@ -95,6 +95,8 @@ void save_mobile( FILE * fp, CHAR_DATA * mob )
       fprintf( fp, "Description %s~\n", mob->description );
    fprintf( fp, "HpManaMove   %d %d %d %d %d %d\n",
             mob->hit, mob->max_hit, mob->mana, mob->max_mana, mob->move, mob->max_move );
+   fprintf( fp, "Lifeforce %.0f\n", mob->lifeforce );
+   fprintf( fp, "Lifeforcemax %.0f\n", mob->max_lifeforce );
    fprintf( fp, "Position %d\n", mob->position );
    fprintf( fp, "Flags %s\n", print_bitvector( &mob->act ) );
    if( !xIS_EMPTY( mob->affected_by ) )
@@ -373,6 +375,8 @@ CHAR_DATA *load_mobile( FILE * fp )
                break;
             }
             KEY( "Level", mob->level, fread_number( fp ) );
+            KEY( "Lifeforce", mob->lifeforce, fread_number( fp ) );
+            KEY( "Lifeforcemax", mob->max_lifeforce, fread_number( fp ) );
             break;
 
          case 'N':
@@ -657,8 +661,8 @@ void do_hotboot( CHAR_DATA* ch, const char* argument)
       }
       else
       {
-         fprintf( fp, "%d %d %d %d %d %s %s\n", d->descriptor,
-                  d->can_compress, och->in_room->vnum, d->port, d->idle, och->name, d->host );
+         fprintf( fp, "%d %d %d %d %d %s %s %s\n", d->descriptor,
+                  d->can_compress, och->in_room->vnum, d->port, d->idle, och->name, d->host, CopyoverGet( d ) );
          /*
           * One of two places this gets changed 
           */
@@ -728,6 +732,7 @@ void hotboot_recover( void )
    DESCRIPTOR_DATA *d = NULL;
    FILE *fp;
    char name[100];
+   char kavirs[MAX_STRING_LENGTH];
    char host[MAX_STRING_LENGTH];
    int desc, dcompress, room, dport, idle, maxp = 0;
    bool fOld;
@@ -746,7 +751,7 @@ void hotboot_recover( void )
    {
       d = NULL;
 
-      fscanf( fp, "%d %d %d %d %d %s %s\n", &desc, &dcompress, &room, &dport, &idle, name, host );
+      fscanf( fp, "%d %d %d %d %d %s %s %s\n", &desc, &dcompress, &room, &dport, &idle, name, host, kavirs );
 
       if( desc == -1 || feof( fp ) )
          break;
@@ -819,6 +824,8 @@ void hotboot_recover( void )
          act( AT_MAGIC, "A puff of ethereal smoke dissipates around you!", d->character, NULL, NULL, TO_CHAR );
          act( AT_MAGIC, "$n appears in a puff of ethereal smoke!", d->character, NULL, NULL, TO_ROOM );
          d->connected = CON_PLAYING;
+         CopyoverSet( d, kavirs );
+
          if( ++num_descriptors > sysdata.maxplayers )
             sysdata.maxplayers = num_descriptors;
 #ifdef AUTO_AUTH
