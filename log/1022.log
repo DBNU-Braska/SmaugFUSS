@@ -1,0 +1,166 @@
+Tue Jan 24 17:59:14 2023 :: Booting Database
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Tue Jan 24 17:59:14 2023 :: [*****] BOOT: ---------------------[ Boot Log ]--------------------
+Tue Jan 24 17:59:14 2023 :: Initializing libdl support...
+Tue Jan 24 17:59:14 2023 :: Loading commands...
+Tue Jan 24 17:59:14 2023 :: Loading spec_funs...
+Tue Jan 24 17:59:14 2023 :: Loading sysdata configuration...
+Tue Jan 24 17:59:14 2023 :: Loading socials
+Tue Jan 24 17:59:14 2023 :: Loading skill table
+Tue Jan 24 17:59:14 2023 :: Sorting skill table...
+Tue Jan 24 17:59:14 2023 :: Creating skill table sorted by type...
+Tue Jan 24 17:59:14 2023 :: Remapping slots to sns
+Tue Jan 24 17:59:14 2023 :: Loading classes
+Tue Jan 24 17:59:14 2023 :: Loading races
+Tue Jan 24 17:59:14 2023 :: Loading news data
+Tue Jan 24 17:59:14 2023 :: Loading liquids
+Tue Jan 24 17:59:14 2023 :: Loading mixtures
+Tue Jan 24 17:59:14 2023 :: Loading herb table
+Tue Jan 24 17:59:14 2023 :: Loading tongues
+Tue Jan 24 17:59:14 2023 :: Making wizlist
+Tue Jan 24 17:59:14 2023 :: Loading MSSP Data...
+Tue Jan 24 17:59:14 2023 :: Initializing random number generator
+Tue Jan 24 17:59:14 2023 :: Setting time and weather.
+Tue Jan 24 17:59:14 2023 :: Loading holiday chart...
+Tue Jan 24 17:59:14 2023 :: Loading DNS cache...
+Tue Jan 24 17:59:14 2023 :: Assigning gsn's
+Tue Jan 24 17:59:14 2023 :: Reading in area files...
+(help.are)
+limbo.are     : Rooms:     2 - 99    Objs:     2 - 99    Mobs:     1 - 99
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4014
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4040
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4066
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4117
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4195
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4196
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4241
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4286
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4299
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4300
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4313
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4314
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4345
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4346
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4388
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4389
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4401
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4571
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4572
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4573
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 4656
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 5117
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 5118
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 5137
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 5138
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 5157
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 5158
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 5177
+Tue Jan 24 17:59:14 2023 :: [*****] BUG: fread_fuss_object: no match: d
+Tue Jan 24 17:59:14 2023 :: [*****] FILE: newacad.are LINE: 5178
+newacad.are   : Rooms: 10300 - 10499 Objs: 10300 - 10499 Mobs: 10300 - 10499
+newgate.are   : Rooms:   100 - 199   Objs:   100 - 199   Mobs:   100 - 199
+newdark.are   : Rooms: 21000 - 21499 Objs: 21000 - 21435 Mobs: 21000 - 21499
+gods.are      : Rooms:  1200 - 1201  Objs:  1200 - 1200  Mobs:  1200 - 1200
+plains.are    : Rooms:   300 - 345   Objs:   300 - 313   Mobs:   300 - 350
+haon.are      : Rooms:  6000 - 6156  Objs:  6000 - 6155  Mobs:  6000 - 6117
+midennir.are  : Rooms:  3500 - 3590  Objs:  3500 - 3550  Mobs:  3500 - 3550
+sewer.are     : Rooms:  7001 - 7445  Objs:  7190 - 7310  Mobs:  7000 - 7206
+redferne.are  : Rooms:  7900 - 7918  Objs:  7909 - 7911  Mobs:  7900 - 7900
+grove.are     : Rooms:  8901 - 8999  Objs:  8900 - 8919  Mobs:  8900 - 8911
+dwarven.are   : Rooms:  6500 - 6554  Objs:  6502 - 6519  Mobs:  6500 - 6517
+daycare.are   : Rooms:  6601 - 6651  Objs:  6600 - 6647  Mobs:  6600 - 6610
+grave.are     : Rooms:  3600 - 3651  Objs:  3600 - 3613  Mobs:  3600 - 3605
+chapel.are    : Rooms:  3405 - 3475  Objs:  3400 - 3430  Mobs:  3400 - 3416
+astral.are    : Rooms:   800 - 899   Objs:   800 - 899   Mobs:   800 - 899
+Build.are     : Rooms:  9500 - 9589  Objs:     0 - 0     Mobs:     0 - 0
+pixie.are     : Rooms:  2070 - 2099  Objs:  2070 - 2077  Mobs:  2070 - 2073
+export.are    : Rooms:  9810 - 9899  Objs:  9810 - 9899  Mobs:  9800 - 9899
+srefuge.are   : Rooms:  1500 - 1599  Objs:  1500 - 1599  Mobs:  1500 - 1599
+manor.are     : Rooms:  2400 - 2499  Objs:  2400 - 2499  Mobs:  2405 - 2484
+unholy.are    : Rooms:  2101 - 2172  Objs:  2101 - 2150  Mobs:  2101 - 2120
+gallery.are   : Rooms: 24800 - 24899 Objs: 24800 - 24899 Mobs: 24800 - 24899
+housing.are   : Rooms: 50000 - 54999 Objs: 50000 - 54999 Mobs: 50000 - 54999
+Tue Jan 24 17:59:14 2023 :: Fixing exits
+Tue Jan 24 17:59:14 2023 :: Initializing economy
+Tue Jan 24 17:59:14 2023 :: Resetting areas
+Tue Jan 24 17:59:14 2023 :: Loading buildlist
+Tue Jan 24 17:59:14 2023 :: ../gods/Admin
+Tue Jan 24 17:59:14 2023 :: Loading boards
+Tue Jan 24 17:59:14 2023 :: ../boards/immortal.brd
+Tue Jan 24 17:59:14 2023 :: ../boards/highgod.brd
+Tue Jan 24 17:59:14 2023 :: Loading vault list
+Tue Jan 24 17:59:14 2023 :: $
+Tue Jan 24 17:59:14 2023 ::  Done vaults 
+Tue Jan 24 17:59:14 2023 :: Loading clans
+Tue Jan 24 17:59:14 2023 :: Loading clans...
+Tue Jan 24 17:59:14 2023 :: vampire.gui
+Tue Jan 24 17:59:14 2023 :: Cannot open vault - ../clans/vampire.gui.vault
+Tue Jan 24 17:59:14 2023 :: druid.gui
+Tue Jan 24 17:59:14 2023 :: Cannot open vault - ../clans/druid.gui.vault
+Tue Jan 24 17:59:14 2023 :: warrior.gui
+Tue Jan 24 17:59:14 2023 :: Cannot open vault - ../clans/warrior.gui.vault
+Tue Jan 24 17:59:14 2023 :: augurer.gui
+Tue Jan 24 17:59:14 2023 :: Cannot open vault - ../clans/augurer.gui.vault
+Tue Jan 24 17:59:14 2023 :: thief.gui
+Tue Jan 24 17:59:14 2023 :: Cannot open vault - ../clans/thief.gui.vault
+Tue Jan 24 17:59:14 2023 :: cleric.gui
+Tue Jan 24 17:59:14 2023 :: Cannot open vault - ../clans/cleric.gui.vault
+Tue Jan 24 17:59:14 2023 :: mage.gui
+Tue Jan 24 17:59:14 2023 :: Cannot open vault - ../clans/mage.gui.vault
+Tue Jan 24 17:59:14 2023 :: ranger.gui
+Tue Jan 24 17:59:14 2023 :: Cannot open vault - ../clans/ranger.gui.vault
+Tue Jan 24 17:59:14 2023 :: $
+Tue Jan 24 17:59:14 2023 ::  Done clans 
+Tue Jan 24 17:59:14 2023 :: Loading councils
+Tue Jan 24 17:59:14 2023 :: Loading councils...
+Tue Jan 24 17:59:14 2023 :: $
+Tue Jan 24 17:59:14 2023 ::  Done councils 
+Tue Jan 24 17:59:14 2023 :: Loading deities
+Tue Jan 24 17:59:14 2023 :: Loading deities...
+Tue Jan 24 17:59:14 2023 :: $
+Tue Jan 24 17:59:14 2023 ::  Done deities 
+Tue Jan 24 17:59:14 2023 :: Loading watches
+Tue Jan 24 17:59:14 2023 :: Loading bans
+Tue Jan 24 17:59:14 2023 :: Done.
+Tue Jan 24 17:59:14 2023 :: Loading reserved names
+Tue Jan 24 17:59:14 2023 :: Loading corpses
+Tue Jan 24 17:59:14 2023 :: Loading Immortal Hosts
+Tue Jan 24 17:59:14 2023 :: Done.
+Tue Jan 24 17:59:14 2023 :: Loading Projects
+Tue Jan 24 17:59:14 2023 :: Loading Morphs
+Tue Jan 24 17:59:14 2023 :: Done.
+Tue Jan 24 17:59:14 2023 :: Loading Housing System, Home Accessories Data, and Home Auctioning System
+Tue Jan 24 17:59:14 2023 :: Loading login messages
+Tue Jan 24 17:59:14 2023 :: Initializing socket
+Tue Jan 24 17:59:14 2023 :: (Name Not Set) ready on port 7011.
+Tue Jan 24 17:59:25 2023 :: Preloading player data for: Admin (9K)
+Tue Jan 24 17:59:27 2023 :: Loading player data for: Admin (9K)
+Tue Jan 24 17:59:27 2023 :: Admin (174.89.242.191) has connected.

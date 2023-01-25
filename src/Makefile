@@ -15,7 +15,7 @@ EXPORT_SYMBOLS = -export-dynamic
 #SOLARIS_FLAG = -Dsun -DSYSV
 #SOLARIS_LINK = -lnsl -lsocket
 
-#IMC2 - Comment out to disable IMC2 support
+#IMC2 - Comment out to disable IMC2 support 
 #IMC = 1
 
 W_FLAGS = -std=c++1z -Wall -Wshadow -Wformat-security -Wpointer-arith -Wcast-align -Wredundant-decls
